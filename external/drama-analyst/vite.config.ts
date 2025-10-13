@@ -10,6 +10,7 @@ export default defineConfig(({ mode }) => {
     
     return {
       base: '/drama-analyst/',
+      plugins: [
         react(),
         // Sentry plugin for source maps and release tracking
         ...(isProduction && env.VITE_SENTRY_AUTH_TOKEN ? [
