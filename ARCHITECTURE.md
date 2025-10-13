@@ -1,282 +1,241 @@
-# Architecture Documentation - "the copy"
+# هندسة النظام - The Copy
 
-## Overview
+## نظرة عامة على الهندسة المعمارية
 
-"the copy" is a unified production-ready web application that integrates three powerful AI-powered platforms into a single, cohesive user experience. The application uses a micro-frontend architecture with embedded SPAs (Single Page Applications) served through a unified interface.
+**The Copy** مبني على هندسة معمارية متعددة الطبقات تستخدم React و TypeScript، مع تركيز خاص على معالجة النصوص العربية وتحليل السيناريوهات باستخدام الذكاء الاصطناعي.
 
-## System Architecture
+## طبقات النظام
 
+### 1. طبقة العرض (Presentation Layer)
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                    "the copy" Application                   │
-├─────────────────────────────────────────────────────────────┤
-│  Main Application (React + TypeScript + Vite)              │
-│  ├── HomePage (Navigation Hub)                             │
-│  ├── ProjectsPage → Drama Analyst (iframe)                 │
-│  ├── TemplatesPage → Stations (iframe)                     │
-│  └── ExportPage → Multi-Agent Story (iframe)               │
-├─────────────────────────────────────────────────────────────┤
-│  External Applications (Embedded SPAs)                     │
-│  ├── Drama Analyst (/drama-analyst/)                       │
-│  ├── Stations (/stations/)                                 │
-│  └── Multi-Agent Story (/multi-agent-story/)              │
-├─────────────────────────────────────────────────────────────┤
-│  Infrastructure Layer                                      │
-│  ├── Nginx (Static File Server + Routing)                 │
-│  ├── Docker (Containerization)                            │
-│  └── CI/CD Pipeline (GitHub Actions)                      │
-└─────────────────────────────────────────────────────────────┘
+src/components/
+├── App.tsx                    # المكون الجذر
+├── HomePage.tsx              # الصفحة الرئيسية
+├── ProjectsPage.tsx          # إدارة المشاريع
+├── TemplatesPage.tsx         # القوالب
+├── ExportPage.tsx            # التصدير
+├── SettingsPage.tsx          # الإعدادات
+└── editor/
+    └── ScreenplayEditor.tsx  # محرر السيناريو الرئيسي
 ```
 
-## Component Architecture
+**المسؤوليات:**
+- عرض واجهة المستخدم
+- إدارة التنقل بين الصفحات
+- التفاعل مع المستخدم
+- عرض نتائج التحليل
 
-### Main Application Components
-
-#### 1. App.tsx
-- **Purpose**: Root component managing application state and routing
-- **Responsibilities**: Page navigation, state management
-- **Dependencies**: React Router, custom page components
-
-#### 2. HomePage.tsx
-- **Purpose**: Main navigation hub
-- **Features**: 
-  - Application branding ("the copy")
-  - Navigation buttons to external applications
-  - Responsive design with Arabic RTL support
-
-#### 3. ExternalAppFrame.tsx
-- **Purpose**: Robust iframe wrapper for external applications
-- **Features**:
-  - Error boundaries with retry logic
-  - Loading states and progress indicators
-  - Automatic retry on failure (max 3 attempts)
-  - Graceful fallback handling
-  - Security sandboxing
-
-#### 4. Page Components
-- **ProjectsPage.tsx**: Integrates Drama Analyst
-- **TemplatesPage.tsx**: Integrates Stations
-- **ExportPage.tsx**: Integrates Multi-Agent Story
-
-### External Applications
-
-#### Drama Analyst (`/drama-analyst/`)
-- **Technology**: React 19, TypeScript, Vite, PWA
-- **Purpose**: Arabic drama analysis and creative mimicry
-- **Features**: AI-powered text analysis, document processing, creative content generation
-- **Port**: 5001 (development)
-- **Build Output**: `public/drama-analyst/`
-
-#### Stations (`/stations/`)
-- **Technology**: React 18, TypeScript, Vite, Express backend
-- **Purpose**: REST API and management system
-- **Features**: Full-stack application, database integration, user authentication
-- **Port**: 5002 (development)
-- **Build Output**: `public/stations/`
-
-#### Multi-Agent Story (`/multi-agent-story/`)
-- **Technology**: React 18, TypeScript, Vite, Fastify backend
-- **Purpose**: Multi-agent storytelling development platform
-- **Features**: AI agent system, story development tools, real-time collaboration
-- **Port**: 5003 (development)
-- **Build Output**: `public/multi-agent-story/`
-
-## Build System
-
-### Build Pipeline
-
-```mermaid
-graph TD
-    A[Source Code] --> B[Type Check]
-    B --> C[Lint Check]
-    C --> D[Build External Projects]
-    D --> E[Copy to Public Directory]
-    E --> F[Build Main Application]
-    F --> G[Docker Build]
-    G --> H[Production Image]
+### 2. طبقة الخدمات (Services Layer)
+```
+src/services/
+├── AnalysisService.ts        # خدمة التحليل الأساسية
+├── instructions-loader.ts    # تحميل تعليمات الوكلاء
+└── agent-instructions.ts    # إدارة تعليمات الوكلاء
 ```
 
-### Build Scripts
+**المسؤوليات:**
+- معالجة البيانات
+- تنسيق العمليات المعقدة
+- إدارة حالة التطبيق
+- التواصل مع طبقة الوكلاء
 
-- `npm run build:external`: Builds all external projects
-- `npm run build:prod`: Complete production build
-- `npm run verify:all`: Quality gates (type-check + lint + test)
+### 3. طبقة الوكلاء الذكيين (AI Agents Layer)
+```
+src/agents/
+├── core/                     # الوكلاء الأساسية
+│   ├── index.ts             # واجهة الوكلاء
+│   ├── geminiService.ts     # خدمة Gemini
+│   └── integratedAgent.ts   # الوكيل المتكامل
+├── analysis/                 # وكلاء التحليل
+├── generation/              # وكلاء التوليد
+├── transformation/          # وكلاء التحويل
+└── evaluation/              # وكلاء التقييم
+```
 
-### External Project Build Process
+**المسؤوليات:**
+- تنفيذ مهام الذكاء الاصطناعي
+- معالجة النصوص العربية
+- تحليل السيناريوهات
+- توليد المحتوى
 
-1. **Dependency Installation**: `npm ci` in each project directory
-2. **Clean Build**: Remove existing dist folders
-3. **Build**: `npm run build` for each project
-4. **Copy**: Move built files to `public/<project-name>/`
-5. **Validation**: Verify build success and file presence
+### 4. طبقة معالجة النصوص (Text Processing Layer)
+```
+src/modules/text/
+└── domTextReplacement.ts    # استبدال النصوص في DOM
 
-## Deployment Architecture
+src/utils/
+└── sanitizer.ts             # تنظيف النصوص
+```
 
-### Docker Configuration
+**المسؤوليات:**
+- معالجة النصوص العربية
+- تطبيق التنسيق
+- تنظيف البيانات
+- تحويل التنسيقات
 
-#### Multi-Stage Build
-1. **External Builder**: Builds all external projects
-2. **Main Builder**: Builds main application with external projects
-3. **Production Runtime**: Nginx server with built application
+### 5. طبقة البيانات (Data Layer)
+```
+src/types/
+└── types.ts                 # تعريفات الأنواع
 
-#### Security Features
-- Non-root user execution
-- Security headers (CSP, HSTS, etc.)
-- Rate limiting
-- Input validation
-- Sandboxed iframes
+src/config/
+├── agents.ts               # إعدادات الوكلاء
+├── environment.ts          # متغيرات البيئة
+└── prompts.ts              # النصوص التوجيهية
+```
 
-### Nginx Configuration
+**المسؤوليات:**
+- تعريف هياكل البيانات
+- إدارة التكوين
+- التحقق من صحة البيانات
 
-#### Routing Rules
-- `/` → Main application
-- `/drama-analyst/` → Drama Analyst SPA
-- `/stations/` → Stations SPA
-- `/multi-agent-story/` → Multi-Agent Story SPA
-- `/healthz` → Health check endpoint
+## تدفق البيانات
 
-#### Performance Optimizations
-- Gzip compression
-- Static asset caching (1 year)
-- HTML no-cache policy
-- Brotli compression (optional)
+### 1. تدفق كتابة السيناريو
+```
+المستخدم → ScreenplayEditor → معالجة النص → حفظ البيانات
+```
 
-## Data Flow
+### 2. تدفق التحليل
+```
+السيناريو → AnalysisService → الوكلاء الذكيين → النتائج → العرض
+```
 
-### User Interaction Flow
+### 3. تدفق التنفيذ
+```
+الطلب → AgentFacade → الوكلاء المحددة → المعالجة → الاستجابة
+```
 
-1. **User visits main application**
-2. **HomePage renders with navigation options**
-3. **User clicks on external application button**
-4. **Page component loads with ExternalAppFrame**
-5. **ExternalAppFrame creates iframe with external app**
-6. **External app loads and communicates via postMessage**
-7. **Error handling and retry logic manage failures**
+## القرارات التصميمية الرئيسية
 
-### Build Data Flow
+### 1. استخدام TypeScript الصارم
+**القرار:** تطبيق TypeScript مع إعدادات صارمة
+**السبب:** ضمان جودة الكود وتقليل الأخطاء
+**التأثير:** تحسين قابلية الصيانة والموثوقية
 
-1. **Source code changes trigger CI/CD**
-2. **Quality gates run (type-check, lint, test)**
-3. **External projects build in parallel**
-4. **Built projects copied to public directory**
-5. **Main application builds with external projects**
-6. **Docker image created with all assets**
-7. **Image deployed to production**
+### 2. فصل الوكلاء الذكيين
+**القرار:** تنظيم الوكلاء في فئات منفصلة
+**السبب:** سهولة الصيانة والتطوير
+**التأثير:** كود أكثر تنظيماً وقابلية للتوسع
 
-## Security Considerations
+### 3. استخدام Vite كأداة بناء
+**القرار:** اختيار Vite بدلاً من Webpack
+**السبب:** سرعة التطوير والأداء
+**التأثير:** تجربة تطوير أفضل
 
-### Content Security Policy (CSP)
-- Restricts script sources to self and trusted domains
-- Prevents XSS attacks
-- Controls iframe embedding
+### 4. دعم النصوص العربية
+**القرار:** تصميم مخصص للنصوص العربية
+**السبب:** متطلبات المشروع الأساسية
+**التأثير:** تجربة مستخدم محسنة للمحتوى العربي
 
-### Iframe Sandboxing
-- `allow-same-origin`: Allows same-origin requests
-- `allow-scripts`: Enables JavaScript execution
-- `allow-forms`: Allows form submissions
-- `allow-popups`: Enables popup windows
-- `allow-modals`: Allows modal dialogs
+### 5. معالجة الأخطاء الشاملة
+**القرار:** تطبيق معالجة أخطاء على جميع المستويات
+**السبب:** ضمان استقرار التطبيق
+**التأثير:** تجربة مستخدم موثوقة
 
-### Network Security
-- HTTPS enforcement
-- Secure headers
-- Rate limiting
-- Input sanitization
+## أنماط التصميم المستخدمة
 
-## Performance Characteristics
+### 1. Facade Pattern
+```typescript
+// src/agents/core/index.ts
+export class SimpleAgentExecutor implements AgentExecutor {
+  // يوفر واجهة موحدة للوكلاء
+}
+```
 
-### Bundle Sizes
-- Main Application: ~228KB (gzipped: ~68KB)
-- External Projects: < 1MB each (gzipped)
-- Total Application: < 5MB
+### 2. Strategy Pattern
+```typescript
+// أنواع مختلفة من الوكلاء
+export enum AgentCategory {
+  ANALYSIS = 'analysis',
+  GENERATION = 'generation',
+  // ...
+}
+```
 
-### Load Times
-- First Contentful Paint: < 2s
-- Time to Interactive: < 3s
-- External App Load: < 5s
+### 3. Factory Pattern
+```typescript
+// إنشاء تكوينات الوكلاء
+function createAgentConfig(id: string, name: string, category: AgentCategory, description: string): AIAgentConfig
+```
 
-### Caching Strategy
-- Static Assets: 1 year cache
-- HTML Files: No cache
-- API Responses: 5 minutes cache
+## الأمان
 
-## Monitoring and Observability
+### 1. تنظيف البيانات
+- استخدام `DOMPurify` لتنظيف HTML
+- التحقق من صحة المدخلات
+- حماية من XSS
 
-### Health Checks
-- Application health: `/healthz`
-- Docker health check: Every 30s
-- External app monitoring: Iframe load events
+### 2. إدارة المفاتيح
+- تخزين مفاتيح API في متغيرات البيئة
+- عدم كشف المفاتيح في الكود
 
-### Error Tracking
-- Console error capture
-- Network error monitoring
-- Build failure notifications
-- Performance metrics
+### 3. التحقق من الصلاحيات
+- التحقق من صحة البيانات قبل المعالجة
+- حدود على حجم البيانات
 
-### Logging
-- Build logs: `reports/build-logs/`
-- Application logs: Docker logs
-- Error logs: Console + network errors
+## الأداء
 
-## Development Workflow
+### 1. تحسين البناء
+- تقسيم الكود إلى chunks
+- تحسين حجم الحزمة
+- استخدام lazy loading
 
-### Local Development
-1. `npm run dev` - Start main application
-2. External projects run on separate ports
-3. Hot reload for main application
-4. Manual refresh for external projects
+### 2. تحسين الذاكرة
+- تنظيف المراجع غير المستخدمة
+- استخدام useMemo و useCallback
 
-### Production Deployment
-1. Code pushed to main branch
-2. CI/CD pipeline triggers
-3. Quality gates must pass
-4. Docker image built and pushed
-5. Production deployment automated
+### 3. تحسين الشبكة
+- ضغط البيانات
+- استخدام CDN للثوابت
 
-## Maintenance and Updates
+## القابلية للتوسع
 
-### External Project Updates
-1. Update external project source
-2. Rebuild external projects
-3. Test integration
-4. Deploy updated application
+### 1. إضافة وكلاء جدد
+- اتباع نفس النمط المحدد
+- إضافة التكوين المناسب
+- اختبار الوظائف الجديدة
 
-### Security Updates
-1. Update dependencies
-2. Run security audit
-3. Test for vulnerabilities
-4. Deploy security patches
+### 2. دعم منصات جديدة
+- فصل منطق العرض
+- استخدام واجهات موحدة
+- اختبار التوافق
 
-### Performance Optimization
-1. Monitor performance metrics
-2. Identify bottlenecks
-3. Optimize bundle sizes
-4. Implement caching strategies
+### 3. تحسين الأداء
+- مراقبة الأداء
+- تحسين الخوارزميات
+- استخدام تقنيات التخزين المؤقت
 
-## Troubleshooting
+## المراقبة والصيانة
 
-### Common Issues
-1. **External app not loading**: Check iframe src, network connectivity
-2. **Build failures**: Verify dependencies, check build logs
-3. **Performance issues**: Monitor bundle sizes, check caching
-4. **Security issues**: Review CSP, check iframe sandboxing
+### 1. تسجيل الأخطاء
+- استخدام console.error للأخطاء
+- تسجيل معلومات التشخيص
+- مراقبة الأداء
 
-### Debug Tools
-- Browser DevTools for iframe debugging
-- Docker logs for container issues
-- Build logs for compilation problems
-- Network tab for connectivity issues
+### 2. الاختبارات
+- اختبارات الوحدة
+- اختبارات التكامل
+- اختبارات الأداء
 
-## Future Enhancements
+### 3. التوثيق
+- توثيق الكود
+- توثيق API
+- دليل المطور
 
-### Planned Features
-1. **Micro-frontend communication**: PostMessage API
-2. **Shared state management**: Global state store
-3. **Progressive loading**: Lazy load external apps
-4. **Offline support**: Service worker integration
+## التطوير المستقبلي
 
-### Scalability Considerations
-1. **CDN integration**: Static asset distribution
-2. **Load balancing**: Multiple container instances
-3. **Database integration**: Shared data layer
-4. **API gateway**: Centralized API management
+### 1. ميزات مخططة
+- دعم المزيد من اللغات
+- تحسين خوارزميات التحليل
+- واجهة مستخدم محسنة
+
+### 2. تحسينات تقنية
+- استخدام Web Workers
+- تحسين معالجة البيانات الكبيرة
+- دعم الوضع غير المتصل
+
+### 3. التكامل
+- APIs خارجية
+- خدمات سحابية
+- أدوات التطوير

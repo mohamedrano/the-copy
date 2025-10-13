@@ -1,0 +1,120 @@
+name: Docs & API
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+  workflow_dispatch:
+
+jobs:
+  docs:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+      
+      - name: Enable corepack
+        run: corepack enable
+      
+      - name: Determine package manager
+        id: pm
+        run: |
+          if [ -f pnpm-lock.yaml ]; then
+            corepack prepare pnpm@latest --activate
+            echo "PM=pnpm" >> $GITHUB_ENV
+            echo "PM=pnpm" >> $GITHUB_OUTPUT
+          else
+            echo "PM=npm" >> $GITHUB_ENV
+            echo "PM=npm" >> $GITHUB_OUTPUT
+          fi
+      
+      - name: Install dependencies
+        run: ${{ env.PM }} install
+      
+      - name: Type check
+        run: ${{ env.PM }} run type-check
+      
+      - name: Lint code
+        run: ${{ env.PM }} run lint
+      
+      - name: Run tests
+        run: ${{ env.PM }} run test:run
+      
+      - name: Build documentation
+        run: ${{ env.PM }} run doc:build
+      
+      - name: Check documentation coverage
+        run: ${{ env.PM }} run doc:coverage
+      
+      - name: Check type coverage
+        run: ${{ env.PM }} run type:coverage
+      
+      - name: Extract API
+        run: ${{ env.PM }} run api:extract
+        continue-on-error: true
+      
+      - name: Check links
+        run: ${{ env.PM }} run linkcheck
+        continue-on-error: true
+      
+      - name: Upload documentation artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: documentation
+          path: |
+            docs/
+            .reports/
+          retention-days: 30
+      
+      - name: Comment PR with coverage
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = '.reports/doc-coverage.json';
+            
+            if (fs.existsSync(path)) {
+              const coverage = JSON.parse(fs.readFileSync(path, 'utf8'));
+              const { overall } = coverage;
+              
+              const comment = `## 📊 Documentation Coverage Report
+              
+              **Overall Coverage:** ${overall.coverage}% (${overall.documentedExports}/${overall.totalExports})
+              **Threshold:** ${overall.threshold}%
+              **Status:** ${overall.passed ? '✅ PASSED' : '❌ FAILED'}
+              
+              ### Coverage Distribution
+              - Excellent (≥95%): ${coverage.summary.excellent} files
+              - Good (90-94%): ${coverage.summary.good} files
+              - Needs Improvement (70-89%): ${coverage.summary.needsImprovement} files
+              - Poor (<70%): ${coverage.summary.poor} files
+              
+              ${!overall.passed ? '⚠️ **Documentation coverage is below the required threshold!**' : '✅ **Documentation coverage meets requirements!**'}
+              `;
+              
+              github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: comment
+              });
+            }
+      
+      - name: Deploy documentation
+        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./docs
+          destination_dir: api

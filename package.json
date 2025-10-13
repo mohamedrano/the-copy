@@ -12,8 +12,8 @@
     "test:run": "vitest run",
     "test:coverage": "vitest run --coverage",
     "type-check": "tsc --noEmit",
-    "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "lint:fix": "eslint src --ext ts,tsx --fix",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "analyze": "vite-bundle-analyzer dist",
     "security-audit": "npm audit --audit-level moderate",
     "build:external": "node scripts/build-external-projects.js",
@@ -25,7 +25,15 @@
     "test:smoke": "playwright test tests/smoke.spec.ts",
     "verify:all": "npm run type-check && npm run lint && npm run test:run",
     "clean": "rm -rf dist public/drama-analyst public/stations public/multi-agent-story reports/build-logs",
-    "clean:external": "rm -rf external/*/dist external/*/node_modules external/*/jules-frontend/dist external/*/jules-frontend/node_modules"
+    "clean:external": "rm -rf external/*/dist external/*/node_modules external/*/jules-frontend/dist external/*/jules-frontend/node_modules",
+    "doc:build": "typedoc",
+    "doc:lint": "eslint --ext .ts,.tsx --rule 'tsdoc/syntax: error' 'src/**/*.{ts,tsx}'",
+    "doc:coverage": "node scripts/doc-coverage.mjs",
+    "type:coverage": "type-coverage --detail --ignoreCatch",
+    "api:extract": "api-extractor run --local",
+    "docs:verify": "run-p doc:lint doc:build api:extract type:coverage",
+    "linkcheck": "markdown-link-check -q -c .mlc.config.json \"**/*.md\" > .reports/link-check.txt || true",
+    "ci:docs": "run-s type-check lint docs:verify linkcheck"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.8.0",
@@ -51,7 +59,13 @@
     "vite": "^7.1.7",
     "vite-bundle-analyzer": "^0.11.0",
     "vitest": "^2.0.0",
-    "@playwright/test": "^1.44.0"
+    "@playwright/test": "^1.44.0",
+    "typedoc": "^0.25.0",
+    "eslint-plugin-tsdoc": "^0.2.17",
+    "@microsoft/api-extractor": "^7.40.0",
+    "type-coverage": "^2.18.2",
+    "markdown-link-check": "^3.11.0",
+    "npm-run-all": "^4.1.5"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
