@@ -246,6 +246,12 @@ interface ScreenplayEditorProps {
 }
 
 // Main component
+/**
+ * Provides the main screenplay editing workspace used throughout the demo.
+ *
+ * @param onBack - Callback executed when the user exits the editor.
+ * @returns JSX representing the core screenplay editor surface.
+ */
 export default function ScreenplayEditor({ onBack }: ScreenplayEditorProps) {
   // State variables
   const [htmlContent, setHtmlContent] = useState('');

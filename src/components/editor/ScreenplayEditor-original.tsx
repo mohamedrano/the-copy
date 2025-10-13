@@ -265,6 +265,11 @@ function compileHtml(
 }
 
 // Main component
+/**
+ * Legacy baseline screenplay editor retained for regression comparisons.
+ *
+ * @returns JSX representing the original editor implementation.
+ */
 export default function ScreenplayEditor() {
   // State variables
   const [text, setText] = useState('');

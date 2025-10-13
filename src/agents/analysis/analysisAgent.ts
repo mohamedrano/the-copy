@@ -45,11 +45,27 @@ const ANALYSIS_AGENT_CONFIG: AIAgentConfig = {
 
 export { ANALYSIS_AGENT_CONFIG };
 
+/**
+ * Agent implementation responsible for baseline screenplay analytics.
+ */
 export class AnalysisAgent extends IntegratedAgent {
+  /**
+   * Creates an analysis agent preconfigured with the shared Gemini settings.
+   *
+   * @param apiKey - Google Gemini API key forwarded to the parent class.
+   */
   constructor(apiKey: string) {
     super(ANALYSIS_AGENT_CONFIG, apiKey);
   }
 
+  /**
+   * Runs the primary analysis workflow by delegating to the Gemini service.
+   *
+   * @param files - Preprocessed screenplay files ready for prompt injection.
+   * @param specialRequirements - Tailored guidance provided by the user.
+   * @param additionalInfo - Supplemental context to improve AI output.
+   * @returns A structured Gemini response object.
+   */
   public async execute(
     files: ProcessedFile[],
     specialRequirements: string,

@@ -6,6 +6,12 @@ interface TemplatesPageProps {
   onBack: () => void;
 }
 
+/**
+ * Presents a gallery of screenplay templates with placeholder messaging.
+ *
+ * @param onBack - Callback executed when the user returns to the dashboard.
+ * @returns JSX describing the templates view shell.
+ */
 export default function TemplatesPage({ onBack }: TemplatesPageProps) {
   const url = import.meta.env.VITE_STATIONS_URL || '/stations';
 

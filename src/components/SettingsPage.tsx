@@ -5,6 +5,12 @@ interface SettingsPageProps {
   onBack: () => void;
 }
 
+/**
+ * Settings interface stub listing configurable options for the editor.
+ *
+ * @param onBack - Function invoked when the user closes the settings page.
+ * @returns JSX describing the settings form layout.
+ */
 export default function SettingsPage({ onBack }: SettingsPageProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-orange-50 to-red-100 flex items-center justify-center p-6">

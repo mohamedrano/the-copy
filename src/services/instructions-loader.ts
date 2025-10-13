@@ -1,5 +1,6 @@
 /**
- * Instructions loader service for dynamic loading of agent instructions
+ * Lazily retrieves agent instruction payloads from the public assets folder
+ * with robust caching and fallback handling for offline scenarios.
  */
 
 interface InstructionSet {
@@ -15,7 +16,10 @@ class InstructionsLoader {
   private loadingPromises = new Map<string, Promise<InstructionSet>>();
 
   /**
-   * Load instructions for a specific agent
+   * Loads and caches the instruction set for the supplied agent identifier.
+   *
+   * @param agentId - The identifier of the agent whose instructions are needed.
+   * @returns A promise that resolves with a validated {@link InstructionSet}.
    */
   async loadInstructions(agentId: string): Promise<InstructionSet> {
     // Check cache first
@@ -44,7 +48,10 @@ class InstructionsLoader {
   }
 
   /**
-   * Fetch instructions from public directory
+   * Retrieves an instruction file from the server and performs schema validation.
+   *
+   * @param agentId - Identifier of the agent whose instructions should be fetched.
+   * @returns A promise resolving with validated instruction data.
    */
   private async fetchInstructions(agentId: string): Promise<InstructionSet> {
     try {
@@ -63,7 +70,11 @@ class InstructionsLoader {
   }
 
   /**
-   * Validate instruction format
+   * Verifies that a fetched payload satisfies the expected instruction contract.
+   *
+   * @param instructions - Raw JSON loaded from disk.
+   * @returns A strongly-typed {@link InstructionSet} when validation succeeds.
+   * @throws {Error} When the payload is missing required fields.
    */
   private validateInstructions(instructions: any): InstructionSet {
     if (!instructions.systemPrompt || !Array.isArray(instructions.instructions)) {
@@ -73,7 +84,10 @@ class InstructionsLoader {
   }
 
   /**
-   * Get fallback instructions when loading fails
+   * Generates a localized default instruction set whenever fetching fails.
+   *
+   * @param agentId - Identifier used to personalize the fallback prompt.
+   * @returns A minimal yet functional {@link InstructionSet} instance.
    */
   private getFallbackInstructions(agentId: string): InstructionSet {
     return {
@@ -91,7 +105,10 @@ class InstructionsLoader {
   }
 
   /**
-   * Preload instructions for multiple agents
+   * Preloads and caches instruction files for a batch of agent identifiers.
+   *
+   * @param agentIds - Collection of agent IDs to resolve in parallel.
+   * @returns A promise that resolves when all preload operations settle.
    */
   async preloadInstructions(agentIds: string[]): Promise<void> {
     const promises = agentIds.map(id => this.loadInstructions(id));
@@ -99,7 +116,7 @@ class InstructionsLoader {
   }
 
   /**
-   * Clear cache
+   * Clears both the resolved cache and any inflight load promises.
    */
   clearCache(): void {
     this.cache.clear();
@@ -107,7 +124,9 @@ class InstructionsLoader {
   }
 
   /**
-   * Get cache status
+   * Summarizes the loader's cache state for debugging and monitoring.
+   *
+   * @returns An object containing cached and currently loading agent IDs.
    */
   getCacheStatus(): { cached: string[]; loading: string[] } {
     return {

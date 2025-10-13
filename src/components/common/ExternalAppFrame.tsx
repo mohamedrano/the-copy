@@ -60,6 +60,13 @@ class ErrorBoundary extends React.Component<
   }
 }
 
+/**
+ * Embeds an external application inside an iframe with retry, loading, and
+ * graceful error states tailored for the Naqid experience.
+ *
+ * @param props - Frame configuration describing the target URL and handlers.
+ * @returns JSX rendering the iframe and associated status UI.
+ */
 const ExternalAppFrame: React.FC<ExternalAppFrameProps> = ({
   title,
   url,

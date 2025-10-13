@@ -1,6 +1,6 @@
 /**
- * Agent Instructions Service
- * يوفر واجهة موحدة لتحميل واستخدام تعليمات الوكلاء من ملفات JSON
+ * Coordinates lazy loading and caching of agent instruction JSON payloads
+ * so that feature modules can fetch structured prompts on demand.
  */
 
 import { instructionsLoader, type InstructionSet } from './instructions-loader';
@@ -10,6 +10,12 @@ export class AgentInstructionsService {
   
   private constructor() {}
   
+  /**
+   * Provides a lazily-instantiated singleton instance that may be reused
+   * anywhere in the front-end runtime.
+   *
+   * @returns The shared {@link AgentInstructionsService} instance.
+   */
   static getInstance(): AgentInstructionsService {
     if (!AgentInstructionsService.instance) {
       AgentInstructionsService.instance = new AgentInstructionsService();
@@ -18,35 +24,49 @@ export class AgentInstructionsService {
   }
 
   /**
-   * تحميل تعليمات وكيل محدد
+   * Loads the structured instruction set for a specific agent.
+   *
+   * @param agentId - Identifier of the agent whose instructions should load.
+   * @returns A promise that resolves with the agent's {@link InstructionSet}.
    */
   async getInstructions(agentId: string): Promise<InstructionSet> {
     return await instructionsLoader.loadInstructions(agentId);
   }
 
   /**
-   * تحميل مسبق لتعليمات وكلاء متعددة
+   * Preloads and caches the instruction payloads for multiple agents at once.
+   *
+   * @param agentIds - Collection of agent identifiers to prefetch.
+   * @returns A promise that settles when all instruction files are cached.
    */
   async preloadAgents(agentIds: string[]): Promise<void> {
     await instructionsLoader.preloadInstructions(agentIds);
   }
 
   /**
-   * الحصول على حالة التخزين المؤقت
+   * Reports the current cache state including cached agent identifiers and
+   * pending load operations.
+   *
+   * @returns Metadata describing which agent instructions are cached.
    */
   getCacheStatus() {
     return instructionsLoader.getCacheStatus();
   }
 
   /**
-   * مسح التخزين المؤقت
+   * Clears any previously cached instruction payloads to force subsequent
+   * lookups to fetch fresh data.
    */
   clearCache(): void {
     instructionsLoader.clearCache();
   }
 
   /**
-   * تحميل تعليمات وكيل مع معالجة الأخطاء المحسنة
+   * Loads an agent's instructions while gracefully handling failures.
+   *
+   * @param agentId - Identifier of the agent whose instructions are requested.
+   * @returns The {@link InstructionSet} if loading succeeds or {@code null}
+   * when an error occurs.
    */
   async safeGetInstructions(agentId: string): Promise<InstructionSet | null> {
     try {
@@ -58,7 +78,10 @@ export class AgentInstructionsService {
   }
 
   /**
-   * التحقق من توفر تعليمات وكيل
+   * Determines whether instruction content exists for a given agent.
+   *
+   * @param agentId - Identifier of the agent to check.
+   * @returns {@code true} when the instruction file loads successfully.
    */
   async isAgentAvailable(agentId: string): Promise<boolean> {
     try {
@@ -70,7 +93,9 @@ export class AgentInstructionsService {
   }
 
   /**
-   * الحصول على قائمة الوكلاء المتاحين
+   * Lists the set of agents whose instructions are already cached in memory.
+   *
+   * @returns Sorted agent identifiers pulled from the cache metadata.
    */
   getAvailableAgents(): string[] {
     const { cached } = this.getCacheStatus();

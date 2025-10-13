@@ -265,6 +265,11 @@ function compileHtml(
 }
 
 // Main component
+/**
+ * Backup variant of the screenplay editor used for experimentation.
+ *
+ * @returns JSX describing the backup editor layout.
+ */
 export default function ScreenplayEditor() {
   // State variables
   const [text, setText] = useState('');

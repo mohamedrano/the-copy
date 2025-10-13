@@ -6,6 +6,12 @@ interface ProjectsPageProps {
   onBack: () => void;
 }
 
+/**
+ * Displays placeholder content for project management and a back action.
+ *
+ * @param onBack - Handler invoked when the user wants to return home.
+ * @returns JSX showing the projects overview layout.
+ */
 export default function ProjectsPage({ onBack }: ProjectsPageProps) {
   const url = import.meta.env.VITE_DRAMA_ANALYST_URL || '/drama-analyst';
 

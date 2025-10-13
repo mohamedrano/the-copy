@@ -72,7 +72,10 @@ export interface GeminiServiceResult<T = unknown> {
 }
 
 /**
- * Type guard to check if response contains candidate data
+ * Determines whether a Gemini API response includes at least one candidate.
+ *
+ * @param response - Raw response object returned by the Gemini SDK.
+ * @returns True when the response contains an array of candidate entries.
  */
 export function hasCandidates(response: any): response is { candidates: GenerateContentCandidate[] } {
   return response &&
@@ -81,7 +84,10 @@ export function hasCandidates(response: any): response is { candidates: Generate
 }
 
 /**
- * Type guard to check if candidate has valid content
+ * Verifies that a candidate payload exposes at least one content part.
+ *
+ * @param candidate - Candidate entry emitted from the Gemini API.
+ * @returns True when the candidate includes non-empty content parts.
  */
 export function hasValidContent(candidate: GenerateContentCandidate): boolean {
   return candidate &&
@@ -92,28 +98,40 @@ export function hasValidContent(candidate: GenerateContentCandidate): boolean {
 }
 
 /**
- * Type guard for network errors
+ * Determines whether a thrown error originated from network conditions.
+ *
+ * @param error - The error value thrown by the Gemini client.
+ * @returns True when the payload conforms to {@link GeminiNetworkError}.
  */
 export function isNetworkError(error: any): error is GeminiNetworkError {
   return error && error.type === 'NETWORK_ERROR';
 }
 
 /**
- * Type guard for schema validation errors
+ * Checks if the provided error describes a schema mismatch scenario.
+ *
+ * @param error - The error object raised by the integration layer.
+ * @returns True when the error matches the {@link GeminiSchemaError} shape.
  */
 export function isSchemaError(error: any): error is GeminiSchemaError {
   return error && error.type === 'SCHEMA_MISMATCH';
 }
 
 /**
- * Type guard for API errors
+ * Detects whether an error came directly from the Gemini REST API surface.
+ *
+ * @param error - Error response returned by the HTTP client.
+ * @returns True when a numeric status and message are present.
  */
 export function isApiError(error: any): error is GeminiApiError {
   return error && typeof error.status === 'number' && typeof error.message === 'string';
 }
 
 /**
- * Extract text content from candidates with proper type safety
+ * Collects textual content from the first Gemini candidate in the list.
+ *
+ * @param candidates - Ordered candidate list returned by the API.
+ * @returns Concatenated text extracted from all text parts of the first candidate.
  */
 export function extractTextFromCandidates(candidates: GenerateContentCandidate[]): string {
   if (!candidates || candidates.length === 0) {
@@ -133,7 +151,12 @@ export function extractTextFromCandidates(candidates: GenerateContentCandidate[]
 }
 
 /**
- * Safe regex match with proper null handling
+ * Executes {@link String.match} safely by returning {@code null} when no match
+ * is found.
+ *
+ * @param text - Source text to run the regular expression against.
+ * @param regex - Compiled regular expression instance.
+ * @returns The matched substring or {@code null} if no match occurs.
  */
 export function safeRegexMatch(text: string, regex: RegExp): string | null {
   const match = text.match(regex);
@@ -141,7 +164,13 @@ export function safeRegexMatch(text: string, regex: RegExp): string | null {
 }
 
 /**
- * Safe regex match with group extraction
+ * Retrieves a specific capture group from the first regex match or returns null
+ * when the match or group is absent.
+ *
+ * @param text - Source string evaluated by the regex.
+ * @param regex - Compiled regular expression to execute.
+ * @param groupIndex - Index of the desired capture group, defaulting to {@code 1}.
+ * @returns The capture group contents when present, otherwise {@code null}.
  */
 export function safeRegexMatchGroup(text: string, regex: RegExp, groupIndex: number = 1): string | null {
   const match = text.match(regex);

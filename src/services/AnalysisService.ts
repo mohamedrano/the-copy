@@ -28,6 +28,12 @@ export interface AIWritingAssistantLike {
 export default class AnalysisService {
   private readonly aiAssistant: AIWritingAssistantLike;
 
+  /**
+   * Creates a new analysis service instance bound to a specific AI assistant
+   * implementation for generating qualitative insights.
+   *
+   * @param aiAssistant - Abstraction over the underlying AI text generation API.
+   */
   constructor(aiAssistant: AIWritingAssistantLike) {
     this.aiAssistant = aiAssistant;
   }

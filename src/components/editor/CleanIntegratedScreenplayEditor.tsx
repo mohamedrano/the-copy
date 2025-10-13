@@ -401,14 +401,18 @@ class CollaborationSystem {
  * @class AIWritingAssistant
  * @description Provides AI-powered writing assistance.
  */
+/**
+ * Lightweight mock implementation of the AI writing assistant used by editor
+ * prototypes to simulate latency and responses.
+ */
 export class AIWritingAssistant {
   /**
-   * @method generateText
-   * @description Generates text based on a prompt and context.
-   * @param {string} prompt - The prompt to generate text from.
-   * @param {string} context - The context for the generation.
-   * @param {any} options - The generation options.
-   * @returns {Promise<any>} - The generated text and suggestions.
+   * Generates sample text derived from the provided prompt and context.
+   *
+   * @param prompt - Descriptive instruction to guide the generation.
+   * @param context - Supplemental text that provides situational awareness.
+   * @param options - Optional overrides that mimic production settings.
+   * @returns A promise resolving with a mocked response structure containing text.
    */
   async generateText(prompt: string, context: string, options: any = {}): Promise<{ text?: string }> {
     // In a real implementation, this would call an AI service
@@ -423,12 +427,12 @@ export class AIWritingAssistant {
   }
 
   /**
-   * @method rewriteText
-   * @description Rewrites text in a specific style.
-   * @param {string} text - The text to rewrite.
-   * @param {string} style - The style to apply.
-   * @param {any} options - The rewrite options.
-   * @returns {Promise<any>} - The rewritten text and changes.
+   * Produces a stylized rewrite of the supplied text to showcase editing flows.
+   *
+   * @param text - Original screenplay excerpt to transform.
+   * @param style - Human-readable label describing the requested tone.
+   * @param options - Optional rewrite flags accepted for parity with the real API.
+   * @returns A promise that resolves with the mocked rewrite payload.
    */
   async rewriteText(text: string, style: string, options: any = {}) {
     // In a real implementation, this would call an AI service
@@ -628,8 +632,8 @@ class VisualPlanningSystem {
 // ==================== ARABIC SCREENPLAY CLASSIFIER ====================
 
 /**
- * @class ScreenplayClassifier
- * @description A classifier for Arabic screenplays.
+ * Static utility collection that classifies screenplay lines for Arabic
+ * documents by applying heuristics tailored to regional formatting norms.
  */
 export class ScreenplayClassifier {
   /**
