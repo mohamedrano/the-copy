@@ -2,7 +2,7 @@ import { execSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 
-// قائمة المشاريع الخارجية
+// قائمة المشاريع الخارجية مع المسارات
 const projects = [
   { name: 'Drama Analyst', source: 'external/drama-analyst', target: 'public/drama-analyst' },
   { name: 'Stations', source: 'external/stations', target: 'public/stations' },
