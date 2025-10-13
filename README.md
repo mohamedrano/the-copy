@@ -126,7 +126,67 @@ src/
 ├── types/             # Shared TypeScript enums and interfaces
 ├── App.tsx            # Root component mounting the editor
 └── main.tsx           # Vite entry point
+
+external/              # Integrated external applications
+├── drama-analyst/     # Arabic drama analysis platform
+├── stations/          # Stations management system
+└── multi-agent-story/ # Multi-agent storytelling platform
 ```
+
+## External Projects Integration
+
+This application integrates three external projects as embedded SPAs:
+
+### Drama Analyst (`/drama-analyst/`)
+- **Purpose**: Arabic drama analysis and creative mimicry
+- **Features**: AI-powered text analysis, document processing, creative content generation
+- **Technology**: React 19, TypeScript, Vite, PWA
+
+### Stations (`/stations/`)
+- **Purpose**: REST API and management system
+- **Features**: Full-stack application with database integration, user authentication
+- **Technology**: React 18, TypeScript, Vite, Express backend
+
+### Multi-Agent Story (`/multi-agent-story/`)
+- **Purpose**: Multi-agent storytelling development platform
+- **Features**: AI agent system, story development tools, real-time collaboration
+- **Technology**: React 18, TypeScript, Vite, Fastify backend
+
+For detailed information about each external project, see [external/README.md](external/README.md).
+
+## Build & Deployment
+
+### Local Development
+```bash
+# Start main application
+npm run dev
+
+# Build all projects (main + external)
+npm run build:prod
+
+# Build only external projects
+npm run build:external
+```
+
+### Production Build
+The production build process automatically:
+1. Builds all external projects
+2. Copies them to the main application's public directory
+3. Creates a unified production bundle
+4. Generates Docker container ready for deployment
+
+### Docker Usage
+```bash
+# Build Docker image
+npm run docker:build
+
+# Run container locally
+npm run docker:run
+```
+
+### Environment Variables
+- `VITE_GEMINI_API_KEY`: Required for AI functionality
+- `VITE_API_BASE_URL`: Backend API URL (default: http://localhost:3001)
 
 ## Contributing
 

@@ -11,7 +11,7 @@ export default function HomePage({ onNavigate }: HomePageProps) {
       <div className="max-w-6xl w-full">
         <div className="text-center mb-12">
           <Film className="w-16 h-16 text-blue-600 mx-auto mb-4" />
-          <h1 className="text-4xl font-bold text-gray-900 mb-2">محرر السيناريو العربي</h1>
+          <h1 className="text-4xl font-bold text-gray-900 mb-2">the copy</h1>
           <p className="text-xl text-gray-600">منصة متكاملة لكتابة وتحليل السيناريوهات العربية</p>
         </div>
 
