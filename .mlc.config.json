@@ -1,0 +1,40 @@
+{
+  "ignorePatterns": [
+    {
+      "pattern": "^https://github.com/your-org/the-copy"
+    },
+    {
+      "pattern": "^https://discord.gg/the-copy"
+    },
+    {
+      "pattern": "^https://the-copy.com"
+    },
+    {
+      "pattern": "^mailto:"
+    },
+    {
+      "pattern": "^#"
+    }
+  ],
+  "replacementPatterns": [
+    {
+      "pattern": "^/",
+      "replacement": "https://github.com/your-org/the-copy/blob/main/"
+    }
+  ],
+  "httpHeaders": [
+    {
+      "urls": ["https://github.com"],
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (compatible; markdown-link-check)"
+      }
+    }
+  ],
+  "retryOn429": true,
+  "retryCount": 3,
+  "retryDelay": 1000,
+  "timeout": 10000,
+  "aliveStatusCodes": [200, 206],
+  "ignoreDisconnected": true,
+  "markdownExtensions": [".md", ".markdown", ".mdown", ".mkdn", ".mkd", ".mdwn", ".mdtxt", ".mdtext", ".text"]
+}

@@ -1,0 +1,72 @@
+{
+  "entryPoints": [
+    "src/App.tsx",
+    "src/services/AnalysisService.ts",
+    "src/agents/core/index.ts",
+    "src/types/types.ts"
+  ],
+  "out": "docs/api",
+  "name": "The Copy API Documentation",
+  "includeVersion": true,
+  "excludePrivate": true,
+  "excludeProtected": true,
+  "excludeExternals": true,
+  "readme": "README.md",
+  "theme": "default",
+  "categorizeByGroup": true,
+  "defaultCategory": "Other",
+  "categoryOrder": [
+    "Core",
+    "Services", 
+    "Agents",
+    "Types",
+    "Components",
+    "Utilities",
+    "Other"
+  ],
+  "kindSortOrder": [
+    "Project",
+    "Module",
+    "Namespace",
+    "Enum",
+    "Class",
+    "Interface",
+    "Constructor",
+    "Property",
+    "Variable",
+    "Function",
+    "Accessor",
+    "Method"
+  ],
+  "navigation": {
+    "includeCategories": true,
+    "includeGroups": true
+  },
+  "searchInComments": true,
+  "excludeTags": [
+    "@internal",
+    "@private"
+  ],
+  "externalPattern": "node_modules/**",
+  "excludeExternals": true,
+  "excludeNotDocumented": false,
+  "excludeNotExported": true,
+  "excludeInternal": true,
+  "visibilityFilters": {
+    "protected": false,
+    "private": false,
+    "inherited": true,
+    "external": false
+  },
+  "sort": [
+    "source-order"
+  ],
+  "sourcefile-url-prefix": "https://github.com/your-org/the-copy/blob/main/",
+  "gitRevision": "main",
+  "gitRemote": "origin",
+  "validation": {
+    "notExported": false,
+    "invalidLink": true,
+    "notDocumented": false
+  }
+}
