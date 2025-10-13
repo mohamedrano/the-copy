@@ -1,5 +1,10 @@
 # Summary of All Changes Made to Arabic Screenplay Editor
 
+## Latest Update
+- **2025-10-13**: إضافة ملف `analysis/integration_plan.md` الذي يوثق خطة تنفيذ الأمر التنفيذي لدمج التطبيقات الفرعية ضمن الإصدار الموحد "the copy" ويحدد حالات الإنجاز المتبقية لكل مرحلة.
+
+> **ملاحظة:** تبقى الأقسام التالية مرجعاً تاريخياً للتعديلات السابقة الخاصة بالمحرر العربي، وسيتم تحديثها تدريجياً لملاءمة الهوية الجديدة للتطبيق.
+
 ## Overview
 This document provides a comprehensive summary of all enhancements made to the Arabic Screenplay Editor to properly handle complex Arabic screenplay structures.
 
