@@ -26,7 +26,12 @@ export default function ProjectsPage({ onBack }: ProjectsPageProps) {
           </button>
         </div>
 
-        <ExternalAppFrame url={url} title="Drama-Analyst" />
+        <ExternalAppFrame 
+          url={url} 
+          title="Drama-Analyst"
+          onError={(error) => {/* console.error('Drama-Analyst Error:', error) */}}
+          onLoad={() => {/* console.log('Drama-Analyst loaded successfully') */}}
+        />
       </div>
     </div>
   );

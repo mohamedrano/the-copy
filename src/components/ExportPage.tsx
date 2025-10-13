@@ -24,7 +24,12 @@ export default function ExportPage({ onBack }: ExportPageProps) {
           </button>
         </div>
 
-        <ExternalAppFrame title="قصة متعددة الوكلاء" url="/multi-agent-story/" />
+        <ExternalAppFrame 
+          title="قصة متعددة الوكلاء" 
+          url="/multi-agent-story/"
+          onError={(error) => {/* console.error('Multi-Agent Story Error:', error) */}}
+          onLoad={() => {/* console.log('Multi-Agent Story loaded successfully') */}}
+        />
       </div>
     </div>
   );

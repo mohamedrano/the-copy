@@ -254,6 +254,11 @@ export default defineConfig(({ mode }) => {
           propertyReadSideEffects: false,
           unknownGlobalSideEffects: false
         }
+      },
+      server: {
+        port: 5001,
+        host: true,
+        strictPort: true
       }
     };
 });

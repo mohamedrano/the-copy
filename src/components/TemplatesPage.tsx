@@ -26,7 +26,12 @@ export default function TemplatesPage({ onBack }: TemplatesPageProps) {
           </button>
         </div>
 
-        <ExternalAppFrame url={url} title="Stations" />
+        <ExternalAppFrame 
+          url={url} 
+          title="Stations"
+          onError={(error) => {/* console.error('Stations Error:', error) */}}
+          onLoad={() => {/* console.log('Stations loaded successfully') */}}
+        />
       </div>
     </div>
   );

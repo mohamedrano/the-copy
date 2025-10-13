@@ -95,6 +95,9 @@ export default defineConfig({
     sourcemap: process.env.NODE_ENV === 'development'
   },
   server: {
+    port: 5002,
+    host: true,
+    strictPort: true,
     fs: {
       strict: true,
       deny: ["**/.*"],

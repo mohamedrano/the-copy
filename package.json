@@ -18,9 +18,14 @@
     "security-audit": "npm audit --audit-level moderate",
     "build:external": "node scripts/build-external-projects.js",
     "build:prod": "npm run build:external && npm run build",
+    "prebuild:prod": "npm run type-check && npm run lint",
     "docker:build": "docker build -t the-copy:latest .",
     "docker:run": "docker run -p 8080:80 the-copy:latest",
-    "test:smoke": "playwright test tests/smoke.spec.ts"
+    "docker:test": "docker run --rm -p 8080:80 the-copy:latest",
+    "test:smoke": "playwright test tests/smoke.spec.ts",
+    "verify:all": "npm run type-check && npm run lint && npm run test:run",
+    "clean": "rm -rf dist public/drama-analyst public/stations public/multi-agent-story reports/build-logs",
+    "clean:external": "rm -rf external/*/dist external/*/node_modules external/*/jules-frontend/dist external/*/jules-frontend/node_modules"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.8.0",

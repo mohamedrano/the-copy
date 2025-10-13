@@ -245,11 +245,11 @@ export default function EnhancedScreenplayEditor() {
       const result = await aiAssistant.current.generateText(aiPrompt, editorRef.current?.innerText || '');
       
       // Insert generated text
-      if (editorRef.current && result.text) {
+      if (editorRef.current && (result as any).text) {
         const selection = window.getSelection();
         if (selection && selection.rangeCount > 0) {
           const range = selection.getRangeAt(0);
-          const textNode = document.createTextNode(result.text);
+          const textNode = document.createTextNode((result as any).text);
           range.insertNode(textNode);
           updateContent();
         }
