@@ -2,6 +2,7 @@ import { execSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
 
+// قائمة المشاريع الخارجية
 const projects = [
   { name: 'Drama Analyst', source: 'external/drama-analyst', target: 'public/drama-analyst' },
   { name: 'Stations', source: 'external/stations', target: 'public/stations' },
@@ -14,13 +15,16 @@ let hasErrors = false;
 for (const p of projects) {
   console.log(`📦 Building ${p.name}...`);
   try {
+    // تثبيت الحزم
     execSync('npm ci', { cwd: p.source, stdio: 'inherit' });
 
+    // تنظيف legacy dist structure قبل البناء
     const legacyNestedDist = path.join(p.source, 'dist', 'public');
     if (fs.existsSync(legacyNestedDist)) {
       fs.rmSync(legacyNestedDist, { recursive: true, force: true });
     }
 
+    // بناء المشروع
     execSync('npm run build', { cwd: p.source, stdio: 'inherit' });
 
     const distPath = path.join(p.source, 'dist');
@@ -30,7 +34,11 @@ for (const p of projects) {
       throw new Error(`Missing dist folder at ${distPath}`);
     }
 
-    if (fs.existsSync(targetPath)) fs.rmSync(targetPath, { recursive: true, force: true });
+    // تنظيف مسار النسخ النهائي قبل النسخ
+    if (fs.existsSync(targetPath)) {
+      fs.rmSync(targetPath, { recursive: true, force: true });
+    }
+
     fs.mkdirSync(targetPath, { recursive: true });
     fs.cpSync(distPath, targetPath, { recursive: true });
 
@@ -45,4 +53,5 @@ if (hasErrors) {
   console.error('❌ One or more external projects failed to build.');
   process.exit(1);
 }
+
 console.log('✅ All external projects built successfully!');
