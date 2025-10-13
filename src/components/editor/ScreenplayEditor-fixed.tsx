@@ -265,6 +265,11 @@ function compileHtml(
 }
 
 // Main component
+/**
+ * Intermediate revision of the screenplay editor showcasing bug fixes.
+ *
+ * @returns JSX for the fixed editor iteration.
+ */
 export default function ScreenplayEditor() {
   // State variables
   const [text, setText] = useState('');

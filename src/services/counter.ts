@@ -1,7 +1,9 @@
 /**
- * @function setupCounter
- * @description Sets up a counter on a button element.
- * @param {HTMLButtonElement} element - The button element to set up the counter on.
+ * Wires a click-driven counter to the provided button element for demo
+ * interactions.
+ *
+ * @param element - The button element whose label should display the count.
+ * @returns void - This helper mutates the supplied DOM node in place.
  */
 export function setupCounter(element: HTMLButtonElement) {
   let counter = 0

@@ -92,14 +92,20 @@ export const AGENT_CONFIGS = Object.freeze<AIAgentConfig[]>([
 ]);
 
 /**
- * Get agents by category
+ * Returns every configured agent that belongs to the specified category.
+ *
+ * @param category - Logical grouping of agents, e.g. analysis or generation.
+ * @returns An array of {@link AIAgentConfig} entries matching the category.
  */
 export function getAgentsByCategory(category: AgentCategory): AIAgentConfig[] {
   return AGENT_CONFIGS.filter(agent => agent.category === category);
 }
 
 /**
- * Get agent by ID
+ * Looks up a single agent configuration using its unique identifier.
+ *
+ * @param id - Identifier assigned to the desired agent.
+ * @returns The matching {@link AIAgentConfig} or {@code undefined} if absent.
  */
 export function getAgentById(id: string): AIAgentConfig | undefined {
   return AGENT_CONFIGS.find(agent => agent.id === id);
@@ -113,9 +119,20 @@ export interface AgentExecutor {
 }
 
 /**
- * Enhanced agent executor with dynamic instructions loading
+ * Minimal executor implementation that assembles prompts using dynamically
+ * loaded instruction sets prior to dispatching work to the selected agent.
  */
 export class SimpleAgentExecutor implements AgentExecutor {
+  /**
+   * Generates an enriched prompt for the requested agent and returns a mocked
+   * execution result. If instruction loading fails the response includes a
+   * degraded fallback message.
+   *
+   * @param agentId - Identifier of the agent that should process the input.
+   * @param input - Raw user input passed to the agent.
+   * @param context - Optional contextual metadata consumed by advanced agents.
+   * @returns A promise resolving with synthetic execution metadata and output.
+   */
   async execute(agentId: string, input: string, context?: any): Promise<any> {
     const agent = getAgentById(agentId);
     if (!agent) {

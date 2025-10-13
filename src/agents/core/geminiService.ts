@@ -264,16 +264,20 @@ const constructPromptParts = (params: ProcessTextsParams): Part[] => {
 const MAX_RETRIES = 1;
 
 /**
- * @function processTextsWithGemini
- * @description Processes texts and files with the Gemini API, handling prompt construction, API calls, response parsing, and error handling.
- * @param {ProcessTextsParams} params - The parameters for the Gemini API call.
- * @param {number} [retries=0] - The current number of retries for the API call.
- * @returns {Promise<GeminiServiceResponse>} A promise that resolves with the response from the Gemini service.
+ * Facade around the Google Gemini SDK that constructs prompts, performs
+ * requests, and normalizes responses for screenplay-centric workflows.
  */
 export class GeminiService {
   private ai: GoogleGenerativeAI;
   private config: AgentConfig;
 
+  /**
+   * Instantiates the Gemini client using the configured API key and agent
+   * defaults.
+   *
+   * @param apiKey - Google Gemini API key supplied by the environment.
+   * @param config - Agent configuration describing model and generation tuning.
+   */
   constructor(apiKey: string, config: AgentConfig) {
     if (!apiKey) {
       throw new Error("لم يتم تعيين مفتاح Gemini API في ملف التكوين.");
@@ -282,6 +286,14 @@ export class GeminiService {
     this.config = config;
   }
 
+  /**
+   * Processes user-provided files and context through the Gemini API while
+   * handling retries, schema normalization, and JSON parsing fallbacks.
+   *
+   * @param params - Complete task definition including processed files and options.
+   * @param retries - Current retry attempt count for transient failures.
+   * @returns A promise resolving with structured Gemini output or an error message.
+   */
   public async processTextsWithGemini(params: ProcessTextsParams, retries: number = 0): Promise<GeminiServiceResponse> {
     try {
       const model = this.ai.getGenerativeModel({ model: this.config.model });

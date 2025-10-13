@@ -1,6 +1,6 @@
 /**
- * اختبار نظام تحميل التعليمات
- * يتحقق من أن جميع ملفات JSON موجودة ويمكن تحميلها بنجاح
+ * Provides utilities for smoke testing the dynamic instruction loading
+ * subsystem to ensure the JSON prompt assets remain accessible.
  */
 
 import { agentInstructions } from './agent-instructions';
@@ -35,9 +35,12 @@ const EXPECTED_AGENTS = [
 ];
 
 export class InstructionsSystemTester {
-  
+
   /**
-   * اختبار شامل لنظام التعليمات
+   * Executes a comprehensive verification over the expected agents list and
+   * reports aggregate success metrics.
+   *
+   * @returns A structured {@link TestResults} summary describing load outcomes.
    */
   async runFullTest(): Promise<TestResults> {
     console.log('🧪 بدء اختبار نظام تعليمات الوكلاء...');
@@ -82,7 +85,11 @@ export class InstructionsSystemTester {
   }
 
   /**
-   * التحقق من صحة تعليمات الوكيل
+   * Validates that a loaded instruction payload satisfies the minimum schema.
+   *
+   * @param instructions - The instruction object returned by the loader.
+   * @param agentId - Identifier of the agent being validated for logging context.
+   * @returns {@code true} when the instruction set includes mandatory fields.
    */
   private validateInstructions(instructions: any, agentId: string): boolean {
     if (!instructions) return false;
@@ -102,7 +109,10 @@ export class InstructionsSystemTester {
   }
 
   /**
-   * اختبار سريع لوكيل واحد
+   * Performs a lightweight availability check for a single agent.
+   *
+   * @param agentId - Identifier of the agent to test.
+   * @returns {@code true} when the agent's instructions are valid and loadable.
    */
   async testSingleAgent(agentId: string): Promise<boolean> {
     try {
@@ -114,7 +124,9 @@ export class InstructionsSystemTester {
   }
 
   /**
-   * طباعة تقرير مفصل
+   * Emits a human-readable report to the console summarizing a full test run.
+   *
+   * @param results - Aggregate metrics previously produced by {@link runFullTest}.
    */
   printReport(results: TestResults): void {
     console.log('\n📊 تقرير اختبار نظام التعليمات:');
@@ -152,6 +164,12 @@ export interface TestResults {
 export const instructionsTester = new InstructionsSystemTester();
 
 // دالة مساعدة للاختبار السريع
+/**
+ * Convenience helper that runs the full test suite and prints the results in
+ * a single invocation.
+ *
+ * @returns A promise that resolves once the report has been logged.
+ */
 export async function quickTest(): Promise<void> {
   const tester = new InstructionsSystemTester();
   const results = await tester.runFullTest();

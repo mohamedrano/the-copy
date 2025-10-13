@@ -5,6 +5,12 @@ interface HomePageProps {
   onNavigate: (page: string) => void;
 }
 
+/**
+ * Landing page that presents shortcuts into the various authoring modules.
+ *
+ * @param onNavigate - Callback invoked when the user selects a destination.
+ * @returns JSX markup describing the navigation hub.
+ */
 export default function HomePage({ onNavigate }: HomePageProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center p-6">

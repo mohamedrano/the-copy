@@ -6,6 +6,14 @@
  * any future Node or worker hosts. Keeping these helpers pure and DOM-only
  * increases their reusability across editor surfaces (web, desktop, or
  * collaborative clients).
+ *
+ * @param root - Root DOM element whose descendant text nodes should be updated.
+ * @param patternSource - Raw string pattern to compile into a regular expression.
+ * @param patternFlags - Flags supplied when constructing the regular expression.
+ * @param replacement - Replacement text applied to each regex match.
+ * @param replaceAll - When {@code true}, replaces all matches instead of only
+ * the first occurrence.
+ * @returns The number of replacements applied throughout the DOM subtree.
  */
 export function applyRegexReplacementToTextNodes(
   root: HTMLElement,

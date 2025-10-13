@@ -138,6 +138,12 @@ class ExportManager {
 }
 
 // Enhanced Screenplay Editor Component
+/**
+ * Demonstrates an enhanced editor experience complete with analytics panels
+ * and AI assistance previews.
+ *
+ * @returns JSX for the prototype enhanced screenplay editor.
+ */
 export default function EnhancedScreenplayEditor() {
   // State variables
   const [htmlContent, setHtmlContent] = useState('');

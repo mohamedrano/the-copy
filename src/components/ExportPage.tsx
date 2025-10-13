@@ -6,6 +6,12 @@ interface ExportPageProps {
   onBack: () => void;
 }
 
+/**
+ * Placeholder export workflow view enumerating supported output targets.
+ *
+ * @param onBack - Callback triggered when the user navigates back.
+ * @returns JSX that illustrates export options for the screenplay.
+ */
 export default function ExportPage({ onBack }: ExportPageProps) {
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 to-emerald-100 p-6">

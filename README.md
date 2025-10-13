@@ -73,8 +73,13 @@ Built with Vite + React + TypeScript, deployed as a single Docker container with
 | `npm run dev` | Launches the hot-reloading development server. |
 | `npm run build` | Type-checks the project and generates an optimized production build. |
 | `npm run preview` | Serves the production bundle locally for smoke testing. |
+| `npm run test:run` | Executes the Vitest unit suite in headless mode. |
+| `npm run test:ui` | Opens the interactive Vitest UI for exploratory runs. |
+| `npm run lint` | Runs ESLint with zero-warning enforcement over the `src/` tree. |
+| `npm run type-check` | Performs a full TypeScript compile without emitting files. |
+| `npm run verify:all` | Convenience command that chains type-checking, linting, and unit tests. |
 
-> **Testing & Linting**: The repository currently does not ship automated tests or lint scripts. When adding them, prefer `vitest` for unit tests and `eslint` + `prettier` for consistent authoring.
+> **Playwright Smoke Tests**: End-to-end smoke tests live under `tests/` and can be launched with `npm run test:smoke` once the Playwright browsers are installed.
 
 ## Environment Configuration
 

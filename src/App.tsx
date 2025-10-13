@@ -7,6 +7,11 @@ import TemplatesPage from './components/TemplatesPage';
 import ExportPage from './components/ExportPage';
 import SettingsPage from './components/SettingsPage';
 
+/**
+ * Root application component that routes between the main navigation views.
+ *
+ * @returns Top-level JSX for the Naqid front-end shell.
+ */
 export default function App(): JSX.Element {
   const [currentPage, setCurrentPage] = useState('home');
 
