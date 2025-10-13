@@ -15,10 +15,20 @@ for (const p of projects) {
   console.log(`📦 Building ${p.name}...`);
   try {
     execSync('npm ci', { cwd: p.source, stdio: 'inherit' });
+
+    const legacyNestedDist = path.join(p.source, 'dist', 'public');
+    if (fs.existsSync(legacyNestedDist)) {
+      fs.rmSync(legacyNestedDist, { recursive: true, force: true });
+    }
+
     execSync('npm run build', { cwd: p.source, stdio: 'inherit' });
 
     const distPath = path.join(p.source, 'dist');
     const targetPath = path.resolve(p.target);
+
+    if (!fs.existsSync(distPath)) {
+      throw new Error(`Missing dist folder at ${distPath}`);
+    }
 
     if (fs.existsSync(targetPath)) fs.rmSync(targetPath, { recursive: true, force: true });
     fs.mkdirSync(targetPath, { recursive: true });
