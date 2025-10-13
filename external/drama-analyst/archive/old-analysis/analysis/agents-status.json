@@ -1,0 +1,218 @@
+[
+  {
+    "name": "adaptiveRewriting",
+    "hasAgent": true,
+    "hasInstructions": true,
+    "registeredInIndex": true,
+    "registeredInTaskInstructions": true,
+    "registeredInFactory": false
+  },
+  {
+    "name": "analysis",
+    "hasAgent": true,
+    "hasInstructions": true,
+    "registeredInIndex": true,
+    "registeredInTaskInstructions": true,
+    "registeredInFactory": false
+  },
+  {
+    "name": "audienceResonance",
+    "hasAgent": true,
+    "hasInstructions": true,
+    "registeredInIndex": true,
+    "registeredInTaskInstructions": true,
+    "registeredInFactory": false
+  },
+  {
+    "name": "characterDeepAnalyzer",
+    "hasAgent": true,
+    "hasInstructions": true,
+    "registeredInIndex": true,
+    "registeredInTaskInstructions": true,
+    "registeredInFactory": false
+  },
+  {
+    "name": "characterNetwork",
+    "hasAgent": true,
+    "hasInstructions": true,
+    "registeredInIndex": true,
+    "registeredInTaskInstructions": true,
+    "registeredInFactory": false
+  },
+  {
+    "name": "characterVoice",
+    "hasAgent": true,
+    "hasInstructions": true,
+    "registeredInIndex": true,
+    "registeredInTaskInstructions": true,
+    "registeredInFactory": false
+  },
+  {
+    "name": "completion",
+    "hasAgent": true,
+    "hasInstructions": true,
+    "registeredInIndex": true,
+    "registeredInTaskInstructions": true,
+    "registeredInFactory": false
+  },
+  {
+    "name": "conflictDynamics",
+    "hasAgent": true,
+    "hasInstructions": true,
+    "registeredInIndex": true,
+    "registeredInTaskInstructions": true,
+    "registeredInFactory": false
+  },
+  {
+    "name": "creative",
+    "hasAgent": true,
+    "hasInstructions": true,
+    "registeredInIndex": true,
+    "registeredInTaskInstructions": true,
+    "registeredInFactory": true
+  },
+  {
+    "name": "culturalHistoricalAnalyzer",
+    "hasAgent": true,
+    "hasInstructions": true,
+    "registeredInIndex": true,
+    "registeredInTaskInstructions": true,
+    "registeredInFactory": false
+  },
+  {
+    "name": "dialogueAdvancedAnalyzer",
+    "hasAgent": true,
+    "hasInstructions": true,
+    "registeredInIndex": true,
+    "registeredInTaskInstructions": true,
+    "registeredInFactory": false
+  },
+  {
+    "name": "dialogueForensics",
+    "hasAgent": true,
+    "hasInstructions": true,
+    "registeredInIndex": true,
+    "registeredInTaskInstructions": true,
+    "registeredInFactory": false
+  },
+  {
+    "name": "integrated",
+    "hasAgent": true,
+    "hasInstructions": true,
+    "registeredInIndex": true,
+    "registeredInTaskInstructions": true,
+    "registeredInFactory": false
+  },
+  {
+    "name": "literaryQualityAnalyzer",
+    "hasAgent": true,
+    "hasInstructions": true,
+    "registeredInIndex": true,
+    "registeredInTaskInstructions": true,
+    "registeredInFactory": false
+  },
+  {
+    "name": "platformAdapter",
+    "hasAgent": true,
+    "hasInstructions": true,
+    "registeredInIndex": true,
+    "registeredInTaskInstructions": true,
+    "registeredInFactory": false
+  },
+  {
+    "name": "plotPredictor",
+    "hasAgent": true,
+    "hasInstructions": true,
+    "registeredInIndex": true,
+    "registeredInTaskInstructions": true,
+    "registeredInFactory": false
+  },
+  {
+    "name": "producibilityAnalyzer",
+    "hasAgent": true,
+    "hasInstructions": true,
+    "registeredInIndex": true,
+    "registeredInTaskInstructions": true,
+    "registeredInFactory": false
+  },
+  {
+    "name": "recommendationsGenerator",
+    "hasAgent": true,
+    "hasInstructions": true,
+    "registeredInIndex": true,
+    "registeredInTaskInstructions": true,
+    "registeredInFactory": false
+  },
+  {
+    "name": "rhythmMapping",
+    "hasAgent": true,
+    "hasInstructions": true,
+    "registeredInIndex": true,
+    "registeredInTaskInstructions": true,
+    "registeredInFactory": false
+  },
+  {
+    "name": "sceneGenerator",
+    "hasAgent": true,
+    "hasInstructions": true,
+    "registeredInIndex": true,
+    "registeredInTaskInstructions": true,
+    "registeredInFactory": false
+  },
+  {
+    "name": "styleFingerprint",
+    "hasAgent": true,
+    "hasInstructions": true,
+    "registeredInIndex": true,
+    "registeredInTaskInstructions": true,
+    "registeredInFactory": false
+  },
+  {
+    "name": "targetAudienceAnalyzer",
+    "hasAgent": true,
+    "hasInstructions": true,
+    "registeredInIndex": true,
+    "registeredInTaskInstructions": true,
+    "registeredInFactory": false
+  },
+  {
+    "name": "tensionOptimizer",
+    "hasAgent": true,
+    "hasInstructions": true,
+    "registeredInIndex": true,
+    "registeredInTaskInstructions": true,
+    "registeredInFactory": false
+  },
+  {
+    "name": "thematicMining",
+    "hasAgent": true,
+    "hasInstructions": true,
+    "registeredInIndex": true,
+    "registeredInTaskInstructions": true,
+    "registeredInFactory": false
+  },
+  {
+    "name": "themesMessagesAnalyzer",
+    "hasAgent": true,
+    "hasInstructions": true,
+    "registeredInIndex": true,
+    "registeredInTaskInstructions": true,
+    "registeredInFactory": false
+  },
+  {
+    "name": "visualCinematicAnalyzer",
+    "hasAgent": true,
+    "hasInstructions": true,
+    "registeredInIndex": true,
+    "registeredInTaskInstructions": true,
+    "registeredInFactory": false
+  },
+  {
+    "name": "worldBuilder",
+    "hasAgent": true,
+    "hasInstructions": true,
+    "registeredInIndex": true,
+    "registeredInTaskInstructions": true,
+    "registeredInFactory": false
+  }
+]

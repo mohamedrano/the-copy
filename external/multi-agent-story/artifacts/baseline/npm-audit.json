@@ -1,0 +1,76 @@
+{
+  "auditReportVersion": 2,
+  "vulnerabilities": {
+    "@fastify/jwt": {
+      "name": "@fastify/jwt",
+      "severity": "moderate",
+      "isDirect": true,
+      "via": [
+        "fast-jwt"
+      ],
+      "effects": [],
+      "range": "<=9.0.1",
+      "nodes": [
+        "node_modules/@fastify/jwt"
+      ],
+      "fixAvailable": {
+        "name": "@fastify/jwt",
+        "version": "10.0.0",
+        "isSemVerMajor": true
+      }
+    },
+    "fast-jwt": {
+      "name": "fast-jwt",
+      "severity": "moderate",
+      "isDirect": false,
+      "via": [
+        {
+          "source": 1103362,
+          "name": "fast-jwt",
+          "dependency": "fast-jwt",
+          "title": "Fast-JWT Improperly Validates iss Claims",
+          "url": "https://github.com/advisories/GHSA-gm45-q3v2-6cf8",
+          "severity": "moderate",
+          "cwe": [
+            "CWE-290"
+          ],
+          "cvss": {
+            "score": 6.5,
+            "vectorString": "CVSS:3.1/AV:N/AC:H/PR:N/UI:N/S:U/C:L/I:H/A:N"
+          },
+          "range": "<5.0.6"
+        }
+      ],
+      "effects": [
+        "@fastify/jwt"
+      ],
+      "range": "<5.0.6",
+      "nodes": [
+        "node_modules/fast-jwt"
+      ],
+      "fixAvailable": {
+        "name": "@fastify/jwt",
+        "version": "10.0.0",
+        "isSemVerMajor": true
+      }
+    }
+  },
+  "metadata": {
+    "vulnerabilities": {
+      "info": 0,
+      "low": 0,
+      "moderate": 2,
+      "high": 0,
+      "critical": 0,
+      "total": 2
+    },
+    "dependencies": {
+      "prod": 224,
+      "dev": 423,
+      "optional": 29,
+      "peer": 0,
+      "peerOptional": 0,
+      "total": 648
+    }
+  }
+}

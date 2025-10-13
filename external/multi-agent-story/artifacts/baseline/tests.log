@@ -1,0 +1,74 @@
+
+> jules-backend@1.0.0 test
+> jest
+
+FAIL tests/e2e/api.test.ts
+  ΓùÅ Test suite failed to run
+
+    Cannot find module 'tslib' from 'src/app.ts'
+
+    Require stack:
+      src/app.ts
+      tests/e2e/api.test.ts
+
+      2 | import { PrismaClient } from '@prisma/client'
+      3 | import { config, validateConfig } from './config'
+    > 4 | import { logger } from './utils/logger'
+        |                 ^
+      5 | import jwt from '@fastify/jwt'
+      6 |
+      7 | // Initialize Prisma
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (src/app.ts:4:17)
+      at Object.<anonymous> (tests/e2e/api.test.ts:2:1)
+
+FAIL tests/integration/session.flow.test.ts
+  ΓùÅ Test suite failed to run
+
+    Cannot find module 'tslib' from 'src/utils/logger.ts'
+
+    Require stack:
+      src/utils/logger.ts
+      src/services/session.service.ts
+      tests/integration/session.flow.test.ts
+
+      2 |
+      3 | const logFormat = winston.format.combine(
+    > 4 |   winston.format.timestamp({
+        |                 ^
+      5 |     format: 'YYYY-MM-DD HH:mm:ss',
+      6 |   }),
+      7 |   winston.format.errors({ stack: true }),
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (src/utils/logger.ts:4:17)
+      at Object.<anonymous> (src/services/session.service.ts:3:1)
+      at Object.<anonymous> (tests/integration/session.flow.test.ts:3:1)
+
+FAIL tests/unit/agent.service.test.ts
+  ΓùÅ Test suite failed to run
+
+    Cannot find module 'tslib' from 'src/services/agent.service.ts'
+
+    Require stack:
+      src/services/agent.service.ts
+      tests/unit/agent.service.test.ts
+
+      2 | import { GeminiPool } from '../integrations/gemini/pool'
+      3 | import { PromptBuilder } from '../integrations/gemini/prompts'
+    > 4 | import { logger } from '../utils/logger'
+        |                 ^
+      5 | import { AgentConfig, AgentExecutionResult } from '../types/agent.types'
+      6 | import { CreativeBrief } from '../types/session.types'
+      7 | import * as fs from 'fs'
+
+      at Resolver._throwModNotFoundError (node_modules/jest-resolve/build/resolver.js:427:11)
+      at Object.<anonymous> (src/services/agent.service.ts:4:17)
+      at Object.<anonymous> (tests/unit/agent.service.test.ts:3:1)
+
+Test Suites: 3 failed, 3 total
+Tests:       0 total
+Snapshots:   0 total
+Time:        5.558 s
+Ran all test suites.

@@ -1,0 +1,4 @@
+ui/App.tsx(98,35): error TS2339: Property 'error' does not exist on type 'Result<ProcessedFile[]>'.
+  Property 'error' does not exist on type '{ ok: true; value: ProcessedFile[]; }'.
+ui/App.tsx(111,45): error TS2339: Property 'error' does not exist on type 'Result<ProcessedFile[]>'.
+  Property 'error' does not exist on type '{ ok: true; value: ProcessedFile[]; }'.

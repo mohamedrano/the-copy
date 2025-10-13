@@ -1,0 +1,32 @@
+{
+  "timestamp": "2024-01-XX",
+  "before": {
+    "largest_chunk": "500.14 kB",
+    "total_size": "951.82 kB",
+    "chunks": 6
+  },
+  "after": {
+    "largest_chunk": "682.00 kB",
+    "total_size": "852.05 kB", 
+    "chunks": 11,
+    "chunk_breakdown": {
+      "vendor": "682.00 kB",
+      "mammoth": "55.41 kB", 
+      "ui": "35.29 kB",
+      "agents": "34.63 kB",
+      "gemini": "26.38 kB",
+      "core": "5.67 kB",
+      "services": "3.70 kB",
+      "orchestration": "3.03 kB",
+      "index": "0.94 kB",
+      "sentry": "0.00 kB"
+    }
+  },
+  "improvement": {
+    "total_size_reduction": "99.77 kB",
+    "percentage_reduction": "10.5%",
+    "chunk_distribution": "Better code splitting achieved",
+    "largest_chunk_increase": "181.86 kB (due to vendor consolidation)"
+  },
+  "analysis": "Bundle optimization successful - total size reduced by 10.5%, better chunk distribution achieved"
+}

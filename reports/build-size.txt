@@ -1,0 +1,39 @@
+Arabic Screenplay Editor - Bundle Size Analysis
+==============================================
+
+Date: 2024-01-15
+Version: 0.0.0
+
+BEFORE OPTIMIZATION:
+- Estimated bundle size: ~2.5MB (uncompressed)
+- Main dependencies:
+  - React 19.1.1: ~150KB
+  - Lucide React: ~200KB
+  - Google Generative AI: ~300KB
+  - Tailwind CSS: ~50KB (after purge)
+
+AFTER OPTIMIZATION:
+- Target bundle size: <2MB (compressed)
+- Code splitting implemented:
+  - vendor.js: React + core libraries
+  - agents.js: AI agents (lazy loaded)
+  - ui.js: UI components
+
+OPTIMIZATION STRATEGIES:
+1. Dynamic imports for agents popup
+2. Tailwind CSS purging
+3. Tree shaking enabled
+4. Gzip compression
+5. Bundle analysis with rollup-plugin-visualizer
+
+PERFORMANCE TARGETS:
+- First Contentful Paint: <1.5s
+- Time to Interactive: <3s
+- Bundle size (gzipped): <2MB
+- Lighthouse score: >90
+
+RECOMMENDATIONS:
+- Move large instruction files to public/
+- Implement service worker for caching
+- Use CDN for font loading
+- Consider WebAssembly for heavy computations

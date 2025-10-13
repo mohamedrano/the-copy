@@ -1,0 +1,24 @@
+# P1-003: تدقيق تبعيات npm
+
+## Changes
+
+### Fixed security vulnerabilities
+- Updated `@fastify/jwt` from vulnerable version to latest (10.0.0)
+- Resolved moderate severity vulnerability in `fast-jwt` dependency
+
+### Commands executed
+```bash
+npm install @fastify/jwt@latest
+```
+
+### Verification
+```bash
+npm audit --production
+# Output: found 0 vulnerabilities
+```
+
+### Key improvements:
+1. ✅ Fixed moderate severity security vulnerability
+2. ✅ Updated JWT library to latest version
+3. ✅ No breaking changes to application functionality
+4. ✅ Zero vulnerabilities after fix

@@ -1,0 +1,54 @@
+{
+  "name": "jules-platform",
+  "version": "1.0.0",
+  "description": "Jules - Multi-Agent Storytelling Development Platform",
+  "type": "module",
+  "scripts": {
+    "postinstall": "npm run setup",
+    "setup": "npm run install:backend && npm run install:frontend && npm run prisma:generate",
+    "install:backend": "cd jules-backend && npm install",
+    "install:frontend": "cd jules-frontend && npm install",
+    "prisma:generate": "cd jules-backend && npx prisma generate",
+    "prisma:migrate": "cd jules-backend && npx prisma migrate deploy",
+    "build": "npm run build:backend && npm run build:frontend",
+    "build:backend": "cd jules-backend && npm run build",
+    "build:frontend": "cd jules-frontend && npm run build",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "cd jules-backend && npm run dev",
+    "dev:frontend": "cd jules-frontend && npm run dev",
+    "start": "node scripts/start.js",
+    "start:prod": "npm run build && npm run prisma:migrate && npm run start:services",
+    "start:services": "concurrently \"npm run start:backend\" \"npm run start:frontend\"",
+    "start:backend": "cd jules-backend && npm start",
+    "start:frontend": "cd jules-frontend && npm run preview",
+    "test": "npm run test:backend",
+    "test:backend": "cd jules-backend && npm test",
+    "lint": "npm run lint:backend && npm run lint:frontend",
+    "lint:backend": "cd jules-backend && npm run lint",
+    "lint:frontend": "cd jules-frontend && npm run lint",
+    "clean": "rimraf jules-backend/dist jules-frontend/dist jules-backend/node_modules jules-frontend/node_modules node_modules"
+  },
+  "keywords": [
+    "jules",
+    "narrative",
+    "development",
+    "ai",
+    "agents",
+    "storytelling",
+    "gemini",
+    "fastify",
+    "react",
+    "typescript"
+  ],
+  "author": "Jules AI Agent",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0",
+    "npm": ">=10.0.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "rimraf": "^5.0.5",
+    "chalk": "^5.3.0"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(test:*)",
+      "Bash(chmod:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nإضافة ملفات البيئة الإنتاجية وتحسينات Docker\n\n- إضافة docker-compose.prod.yml للبيئة الإنتاجية\n- إنشاء Dockerfile محسّن للواجهة الأمامية مع Nginx\n- إضافة entrypoint.sh لتشغيل migrations تلقائياً\n- تحديث ملفات البيئة (.env.example و .env.production.example)\n- إضافة دليل النشر DEPLOYMENT.md (عربي/إنجليزي)\n- إضافة CLAUDE.md لتوجيه Claude Code\n- إضافة .dockerignore لتحسين حجم الصور\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(git push:*)",
+      "Bash(npm install)",
+      "Bash(npx prisma generate:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nرسالة توضيحية للتغييرات\n\nتبسيط المشروع للعمل بأمر واحد npm start:\n\n✨ ميزات جديدة:\n- إضافة package.json موحد في الجذر لإدارة المشروع بالكامل\n- سكريبت start.js ذكي يتحقق من البناء والتبعيات تلقائياً\n- سكريبت setup-db.js لإعداد قاعدة البيانات تلقائياً\n- دعم أمر npm start لتشغيل كامل المشروع\n\n📚 توثيق محدث:\n- QUICK-START.md - دليل البدء السريع\n- README-SIMPLE.md - شرح مبسط للتشغيل\n- تحديث CLAUDE.md بالأوامر الجديدة\n- إضافة .gitignore شامل\n\n🔧 تحسينات:\n- دمج عمليات التثبيت والبناء في عملية واحدة\n- فحص تلقائي للتبعيات والبناء عند التشغيل\n- رسائل ملونة وواضحة في Terminal\n- دعم npm run dev للتطوير مع Hot Reload\n\n🎯 الآن يمكن تشغيل المشروع بـ:\nnpm install && npm start\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(rm:*)",
+      "Bash(git commit:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

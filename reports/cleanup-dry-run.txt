@@ -1,0 +1,133 @@
+Arabic Screenplay Editor - Cleanup Analysis
+==========================================
+
+Date: 2024-01-15
+Analysis Type: Dry Run
+
+ITEMS TO BE REMOVED:
+===================
+
+1. Directory: analysis/
+   - Size: ~50MB
+   - Reason: Temporary analysis files from development
+   - Risk: Low (can be regenerated)
+   - Action: DELETE
+
+2. Directory: patches/
+   - Size: ~5MB
+   - Reason: Old patch files no longer needed
+   - Risk: Low (archived in git history)
+   - Action: DELETE
+
+3. Directory: .claude/
+   - Size: ~1MB
+   - Reason: External tool configuration
+   - Risk: Low (tool-specific, not project code)
+   - Action: DELETE
+
+4. Directory: .kilocode/
+   - Size: ~2MB
+   - Reason: External tool configuration
+   - Risk: Low (tool-specific, not project code)
+   - Action: DELETE
+
+5. Directory: .qodo/
+   - Size: ~500KB
+   - Reason: External tool configuration
+   - Risk: Low (tool-specific, not project code)
+   - Action: DELETE
+
+6. File: الحصار الأول .. بين الركن و المقام_.docx
+   - Size: ~2MB
+   - Reason: Word document not needed in source control
+   - Risk: Medium (content might be valuable)
+   - Action: MOVE TO ARCHIVE
+
+7. File: الرسالة الأولى .. ست بنات.docx
+   - Size: ~1.5MB
+   - Reason: Word document not needed in source control
+   - Risk: Medium (content might be valuable)
+   - Action: MOVE TO ARCHIVE
+
+8. File: .kilocodemodes
+   - Size: <1KB
+   - Reason: External tool configuration
+   - Risk: Low
+   - Action: DELETE
+
+9. File: .qoderignore
+   - Size: <1KB
+   - Reason: External tool configuration
+   - Risk: Low
+   - Action: DELETE
+
+10. File: requirements.txt
+    - Size: <1KB
+    - Reason: Python requirements not needed for Node.js project
+    - Risk: Low
+    - Action: DELETE
+
+ITEMS TO BE ARCHIVED:
+====================
+
+1. src/components/legacy/ -> archive/components-legacy/
+   - Size: ~10MB
+   - Reason: Legacy components should be preserved but not active
+   - Risk: Low (preserved in archive)
+   - Action: MOVE
+
+SPACE SAVINGS:
+=============
+
+Total space to be freed: ~72MB
+Archive space used: ~13.5MB
+Net space savings: ~58.5MB
+
+RISK ASSESSMENT:
+===============
+
+LOW RISK (Safe to delete):
+- External tool configurations
+- Temporary analysis files
+- Old patches (in git history)
+
+MEDIUM RISK (Archive recommended):
+- Word documents (might contain valuable content)
+- Legacy components (might be referenced)
+
+HIGH RISK (Keep):
+- None identified
+
+EXECUTION PLAN:
+==============
+
+Phase 1: Create archive directory
+Phase 2: Move medium-risk items to archive
+Phase 3: Delete low-risk items
+Phase 4: Verify project still builds
+Phase 5: Update documentation
+
+ROLLBACK PLAN:
+=============
+
+If issues occur:
+1. Restore from archive/ directory
+2. Use git to restore deleted files
+3. Check git history for patches/
+
+VERIFICATION STEPS:
+==================
+
+After cleanup:
+1. npm ci (install dependencies)
+2. npm run type-check (verify TypeScript)
+3. npm test (run tests)
+4. npm run build (verify build works)
+5. npm run dev (test development server)
+
+ESTIMATED TIME:
+==============
+
+Cleanup execution: 2-3 minutes
+Verification: 5-10 minutes
+Total: 7-13 minutes

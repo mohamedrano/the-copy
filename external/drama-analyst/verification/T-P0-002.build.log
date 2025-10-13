@@ -1,0 +1,13 @@
+npm run build
+✓ Build successful after .env creation
+
+T-P0-002: Environment setup successful
+- Created .env with VITE_GEMINI_API_KEY
+- Created .env.example template
+- Build passes without API key errors
+- Still have 29 dynamic import warnings (to be fixed in P1)
+
+Bundle sizes remain the same:
+- Largest chunk: 500.14 kB (index-Cec0GZtf.js)
+- Total bundle size: ~951 kB
+

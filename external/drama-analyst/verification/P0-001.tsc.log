@@ -1,0 +1,14 @@
+services/cacheService.ts(36,43): error TS2339: Property 'name' does not exist on type 'string'.
+services/cacheService.ts(36,53): error TS2339: Property 'size' does not exist on type 'string'.
+services/fileReaderService.ts(122,34): error TS2339: Property 'convertToPlainText' does not exist on type '{ default: Mammoth; convertToHtml: (input: Input, options?: Options) => Promise<Result>; extractRawText: (input: Input) => Promise<Result>; embedStyleMap: (input: Input, styleMap: string) => Promise<...>; images: Images; }'.
+ui/App.tsx(100,40): error TS2339: Property 'error' does not exist on type 'Result<ProcessedFile[]>'.
+  Property 'error' does not exist on type '{ ok: true; value: ProcessedFile[]; }'.
+ui/App.tsx(113,50): error TS2339: Property 'error' does not exist on type 'Result<ProcessedFile[]>'.
+  Property 'error' does not exist on type '{ ok: true; value: ProcessedFile[]; }'.
+ui/App.tsx(231,40): error TS2339: Property 'error' does not exist on type 'Result<AIResponse>'.
+  Property 'error' does not exist on type '{ ok: true; value: AIResponse; }'.
+ui/App.tsx(232,25): error TS2339: Property 'error' does not exist on type 'Result<AIResponse>'.
+  Property 'error' does not exist on type '{ ok: true; value: AIResponse; }'.
+ui/App.tsx(232,88): error TS2339: Property 'error' does not exist on type 'Result<AIResponse>'.
+  Property 'error' does not exist on type '{ ok: true; value: AIResponse; }'.
+ui/components/ErrorBoundary.tsx(53,17): error TS2339: Property 'props' does not exist on type 'ErrorBoundary'.

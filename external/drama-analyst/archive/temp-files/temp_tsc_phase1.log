@@ -1,0 +1,35 @@
+services/fileReaderService.ts(44,20): error TS2353: Object literal may only specify known properties, and 'name' does not exist in type 'ProcessedFile'.
+services/fileReaderService.ts(47,20): error TS2353: Object literal may only specify known properties, and 'name' does not exist in type 'ProcessedFile'.
+services/fileReaderService.ts(58,15): error TS2353: Object literal may only specify known properties, and 'name' does not exist in type 'ProcessedFile'.
+services/fileReaderService.ts(65,20): error TS2353: Object literal may only specify known properties, and 'name' does not exist in type 'ProcessedFile'.
+services/fileReaderService.ts(68,20): error TS2353: Object literal may only specify known properties, and 'name' does not exist in type 'ProcessedFile'.
+services/fileReaderService.ts(74,11): error TS2353: Object literal may only specify known properties, and 'name' does not exist in type 'ProcessedFile'.
+services/fileReaderService.ts(85,20): error TS2353: Object literal may only specify known properties, and 'name' does not exist in type 'ProcessedFile'.
+services/fileReaderService.ts(91,20): error TS2353: Object literal may only specify known properties, and 'name' does not exist in type 'ProcessedFile'.
+services/fileReaderService.ts(99,18): error TS2353: Object literal may only specify known properties, and 'name' does not exist in type 'ProcessedFile'.
+services/fileReaderService.ts(102,18): error TS2353: Object literal may only specify known properties, and 'name' does not exist in type 'ProcessedFile'.
+services/geminiService.ts(148,67): error TS2339: Property 'name' does not exist on type 'ProcessedFile'.
+services/geminiService.ts(151,16): error TS2339: Property 'isBase64' does not exist on type 'ProcessedFile'.
+services/geminiService.ts(151,33): error TS2339: Property 'content' does not exist on type 'ProcessedFile'.
+services/geminiService.ts(151,50): error TS2339: Property 'content' does not exist on type 'ProcessedFile'.
+services/geminiService.ts(151,89): error TS2339: Property 'content' does not exist on type 'ProcessedFile'.
+services/geminiService.ts(152,72): error TS2339: Property 'content' does not exist on type 'ProcessedFile'.
+services/geminiService.ts(156,23): error TS2339: Property 'content' does not exist on type 'ProcessedFile'.
+services/geminiService.ts(156,61): error TS2339: Property 'content' does not exist on type 'ProcessedFile'.
+services/geminiService.ts(157,33): error TS2339: Property 'content' does not exist on type 'ProcessedFile'.
+services/geminiService.ts(159,44): error TS2339: Property 'name' does not exist on type 'ProcessedFile'.
+services/geminiService.ts(162,16): error TS2339: Property 'content' does not exist on type 'ProcessedFile'.
+services/geminiService.ts(162,54): error TS2339: Property 'content' does not exist on type 'ProcessedFile'.
+services/geminiService.ts(163,33): error TS2339: Property 'content' does not exist on type 'ProcessedFile'.
+services/geminiService.ts(165,33): error TS2339: Property 'content' does not exist on type 'ProcessedFile'.
+services/geminiService.ts(168,16): error TS2339: Property 'content' does not exist on type 'ProcessedFile'.
+services/geminiService.ts(168,54): error TS2339: Property 'content' does not exist on type 'ProcessedFile'.
+services/geminiService.ts(169,33): error TS2339: Property 'content' does not exist on type 'ProcessedFile'.
+services/geminiService.ts(171,55): error TS2339: Property 'name' does not exist on type 'ProcessedFile'.
+services/geminiService.ts(171,71): error TS2339: Property 'content' does not exist on type 'ProcessedFile'.
+services/geminiService.ts(174,31): error TS2339: Property 'content' does not exist on type 'ProcessedFile'.
+services/geminiService.ts(176,31): error TS2339: Property 'content' does not exist on type 'ProcessedFile'.
+services/geminiService.ts(178,62): error TS2339: Property 'name' does not exist on type 'ProcessedFile'.
+ui/App.tsx(62,36): error TS2339: Property 'name' does not exist on type 'ProcessedFile'.
+ui/App.tsx(63,56): error TS2339: Property 'size' does not exist on type 'ProcessedFile'.
+ui/App.tsx(78,58): error TS2339: Property 'content' does not exist on type 'ProcessedFile'.

@@ -1,0 +1,90 @@
+{
+  "principles": [
+    "احترام تدرج الطبقات: core → agents → orchestration → services → ui.",
+    "تجميع الأنواع المشتركة داخل core/types.ts مع منع any في واجهات الإنتاج.",
+    "رفع الخدمات إلى طبقة وسيطة بدلاً من استدعاء مباشر من الواجهة.",
+    "تنظيف نقاط الدخول المكررة وإزالة الوحدات غير المستخدمة."
+  ],
+  "target_tree": [
+    "core/",
+    "agents/<agentName>/{agent.ts,instructions.ts,types.ts}",
+    "agents/shared/advancedModuleOutputStructure.ts",
+    "orchestration/{orchestration.ts,agentFactory.ts(wired)}",
+    "services/{geminiService.ts,fileReaderService.ts}",
+    "ui/{main.tsx,App.tsx,components/...}",
+    "docs/{analysis-YYYYMMDD/...}",
+    "scripts/{analysis tooling}"
+  ],
+  "moves": [
+    {
+      "from": "H:\\Drama-analyst-and-creative-mimic\\core\\types.ts",
+      "to": "H:\\Drama-analyst-and-creative-mimic\\core\\types.ts",
+      "action": "update",
+      "description": "تعريف ProcessedFile وكل الأنواع المشار إليها من الخدمات والوكلاء وإزالة placeholders من نوع any.",
+      "post_steps": ["npx tsc --noEmit"]
+    },
+    {
+      "from": "H:\\Drama-analyst-and-creative-mimic\\services\\geminiService.ts",
+      "to": "H:\\Drama-analyst-and-creative-mimic\\services\\geminiService.ts",
+      "action": "refactor",
+      "description": "نقل بناء prompts وقراءة التعليمات إلى طبقة orchestration وترك الخدمة للاتصال بـ Gemini فقط.",
+      "post_steps": ["npx tsc --noEmit", "npm run build"]
+    },
+    {
+      "from": "H:\\Drama-analyst-and-creative-mimic\\ui\\App.tsx",
+      "to": "H:\\Drama-analyst-and-creative-mimic\\ui\\App.tsx",
+      "action": "refactor",
+      "description": "استبدال استدعاءات الخدمات المباشرة واجهة orchestration موحدة (Facade).",
+      "post_steps": ["npm run build"]
+    },
+    {
+      "from": "H:\\Drama-analyst-and-creative-mimic\\orchestration\\agentFactory.ts",
+      "to": "H:\\Drama-analyst-and-creative-mimic\\orchestration\\agentFactory.ts",
+      "action": "rehydrate",
+      "description": "إما توصيل المصنع كمصدر وحيد للتسجيل أو حذف الملف وتوثيق القرار نهائيًا.",
+      "post_steps": ["npx tsc --noEmit"]
+    },
+    {
+      "from": "H:\\Drama-analyst-and-creative-mimic\\ui\\index.tsx",
+      "to": null,
+      "action": "remove",
+      "description": "إزالة نقطة الدخول غير المستخدمة بعد توثيق اعتماد main.tsx فقط.",
+      "post_steps": ["npm run build"]
+    }
+  ],
+  "config_changes": [
+    {
+      "file": "H:\\Drama-analyst-and-creative-mimic\\tsconfig.json",
+      "changes": {
+        "compilerOptions": {
+          "strict": true,
+          "types": ["node", "vite/client"]
+        }
+      }
+    },
+    {
+      "file": "H:\\Drama-analyst-and-creative-mimic\\vite.config.ts",
+      "align_paths_with_tsconfig": true
+    }
+  ],
+  "code_mods": [
+    {
+      "pattern": "from '@services/",
+      "replaceWith": "from '@orchestration/"
+    },
+    {
+      "pattern": "ProcessTextsParams",
+      "replaceWith": "GeminiRequestPayload"
+    }
+  ],
+  "validation_sequence": [
+    "npx tsc --noEmit",
+    "npm run build"
+  ],
+  "acceptance_criteria": [
+    "تمرير tsc و vite build بلا أخطاء أو تحذيرات حرجة.",
+    "صفر استيرادات مباشرة بين ui والخدمات.",
+    "كل الوكلاء مسجلون عبر نقطة موحدة ومكشوفون عبر واجهة orchestration.",
+    "لا ملفات ميتة أو مكررة، وحجم chunk الرئيسي أقل من 500 kB إن أمكن."
+  ]
+}

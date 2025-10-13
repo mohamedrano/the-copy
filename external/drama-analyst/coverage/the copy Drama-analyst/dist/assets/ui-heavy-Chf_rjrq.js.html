@@ -1,0 +1,88 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for the copy Drama-analyst/dist/assets/ui-heavy-Chf_rjrq.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">the copy Drama-analyst/dist/assets</a> ui-heavy-Chf_rjrq.js</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import{j as e,r as s,u as t}from"./vendor-react-C5xrpApC.js";import{C as a,L as l,S as r,D as i,P as o,a as c,U as n,M as d,b as E,A as N,F as m,G as x,B as A,c as p}from"./app-main-EjxGC_Pa.js";import{E as R}from"./orchestration-DZ2o25hX.js";import{l as h}from"./services-utils-Cedeozs-.js";import{c as T,d as I,T as b,e as g,M as _,S as j,f as u}from"./core-Da5P05oc.js";const C=({textToCopy:t,className:l})=&gt;{const[r,i]=s.useState(!1),o=s.useCallback(async()=&gt;{if(t)try{await navigator.clipboard.writeText(t),i(!0),setTimeout(()=&gt;i(!1),2e3)}catch(e){h.error("Failed to copy text",e,"ResultsDisplay"),alert("فشل نسخ النص!")}},[t]);return e.jsx("button",{onClick:o,title:r?"تم النسخ!":"نسخ المحتوى",className:`p-1.5 text-slate-400 hover:text-primary-light transition-colors duration-150 rounded-md hover:bg-slate-700 ${l}`,"aria-live":"polite",children:r?e.jsx("svg",{xmlns:"http://www.w3.org/2000/svg",fill:"none",viewBox:"0 0 24 24",strokeWidth:1.5,stroke:"currentColor",className:"w-5 h-5 text-green-400",children:e.jsx("path",{strokeLinecap:"round",strokeLinejoin:"round",d:"M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z"})}):e.jsx(a,{className:"w-5 h-5"})})},L=({title:s,content:t,isError:a,children:l})=&gt;{const r="string"==typeof t?t.replace(/&lt;script\b[^&lt;]*(?:(?!&lt;\/script&gt;)&lt;[^&lt;]*)*&lt;\/script&gt;/gi,""):void 0;return e.jsxs("div",{className:"p-6 rounded-xl shadow-xl border "+(a?"bg-red-900 border-red-700":"bg-slate-800 border-panel-border backdrop-blur-xs bg-panel"),children:[e.jsxs("div",{className:"flex justify-between items-center mb-4",children:[e.jsx("h3",{className:"text-2xl font-semibold "+(a?"text-red-200":"text-primary-light"),children:s}),r&amp;&amp;e.jsx(C,{textToCopy:r})]}),r&amp;&amp;e.jsx("pre",{className:"whitespace-pre-wrap break-words text-sm leading-relaxed font-serif text-slate-200 max-h-[70vh] overflow-y-auto p-4 bg-slate-900/50 rounded-md",children:r}),l]})},f=Object.freeze(Object.defineProperty({__proto__:null,ResultsDisplay:({resultData:s,rawText:t,error:a,selectedTaskType:l})=&gt;{if(a)return e.jsx(L,{title:"خطأ في المعالجة",content:a,isError:!0});if(!s&amp;&amp;!t)return null;let r,i="نتائج المعالجة";if("string"==typeof s?r=s:t&amp;&amp;(r=t,i="النص الخام المستلم"),!r)return e.jsx(L,{title:"لا توجد نتائج",content:"لم يتم إرجاع أي محتوى قابل للعرض.",isError:!0});if(l){i=R[l]||`نتائج مهمة: ${l}`}return e.jsx("div",{className:"w-full space-y-8 mt-8",children:e.jsx(L,{title:i,content:r})})}},Symbol.toStringTag,{value:"Module"})),y=[{id:b.ANALYSIS,label:"تحليل نقدي",icon:e.jsx(l,{className:"w-5 h-5"}),category:I[b.ANALYSIS],description:R[b.ANALYSIS]},{id:b.CREATIVE,label:"إبداع محاكاتي",icon:e.jsx(r,{className:"w-5 h-5"}),category:I[b.CREATIVE],description:R[b.CREATIVE]},{id:b.INTEGRATED,label:"سير عمل متكامل",icon:e.jsx(i,{className:"w-5 h-5"}),category:I[b.INTEGRATED],description:R[b.INTEGRATED]},{id:b.COMPLETION,label:"وضع الاستكمال",icon:e.jsx(o,{className:"w-5 h-5"}),category:I[b.COMPLETION],description:R[b.COMPLETION]},{id:b.RHYTHM_MAPPING,label:"رسم خرائط الإيقاع",icon:e.jsx(c,{className:"w-5 h-5"}),category:I[b.RHYTHM_MAPPING],description:R[b.RHYTHM_MAPPING]},{id:b.CHARACTER_NETWORK,label:"تحليل شبكات الشخصيات",icon:e.jsx(n,{className:"w-5 h-5"}),category:I[b.CHARACTER_NETWORK],description:R[b.CHARACTER_NETWORK]},{id:b.DIALOGUE_FORENSICS,label:"تحليل الحوار الجنائي",icon:e.jsx(d,{className:"w-5 h-5"}),category:I[b.DIALOGUE_FORENSICS],description:R[b.DIALOGUE_FORENSICS]},{id:b.THEMATIC_MINING,label:"التنقيب عن الموضوعات",icon:e.jsx(d,{className:"w-5 h-5"}),category:I[b.THEMATIC_MINING],description:R[b.THEMATIC_MINING]},{id:b.STYLE_FINGERPRINT,label:"بصمة الأسلوب",icon:e.jsx(E,{className:"w-5 h-5"}),category:I[b.STYLE_FINGERPRINT],description:R[b.STYLE_FINGERPRINT]},{id:b.CONFLICT_DYNAMICS,label:"ديناميكيات الصراع",icon:e.jsx(c,{className:"w-5 h-5"}),category:I[b.CONFLICT_DYNAMICS],description:R[b.CONFLICT_DYNAMICS]},{id:b.ADAPTIVE_REWRITING,label:"إعادة الكتابة التكيفية",icon:e.jsx(N,{className:"w-5 h-5"}),category:I[b.ADAPTIVE_REWRITING],description:R[b.ADAPTIVE_REWRITING]},{id:b.SCENE_GENERATOR,label:"مولد المشاهد",icon:e.jsx(m,{className:"w-5 h-5"}),category:I[b.SCENE_GENERATOR],description:R[b.SCENE_GENERATOR]},{id:b.CHARACTER_VOICE,label:"محاكي صوت الشخصيات",icon:e.jsx(n,{className:"w-5 h-5"}),category:I[b.CHARACTER_VOICE],description:R[b.CHARACTER_VOICE]},{id:b.WORLD_BUILDER,label:"باني العوالم",icon:e.jsx(x,{className:"w-5 h-5"}),category:I[b.WORLD_BUILDER],description:R[b.WORLD_BUILDER]},{id:b.PLOT_PREDICTOR,label:"متنبئ مسار الحبكة",icon:e.jsx(A,{className:"w-5 h-5"}),category:I[b.PLOT_PREDICTOR],description:R[b.PLOT_PREDICTOR]},{id:b.TENSION_OPTIMIZER,label:"محسن التوتر الدرامي",icon:e.jsx(A,{className:"w-5 h-5"}),category:I[b.TENSION_OPTIMIZER],description:R[b.TENSION_OPTIMIZER]},{id:b.AUDIENCE_RESONANCE,label:"محلل صدى الجمهور",icon:e.jsx(n,{className:"w-5 h-5"}),category:I[b.AUDIENCE_RESONANCE],description:R[b.AUDIENCE_RESONANCE]},{id:b.PLATFORM_ADAPTER,label:"محول المنصات",icon:e.jsx(N,{className:"w-5 h-5"}),category:I[b.PLATFORM_ADAPTER],description:R[b.PLATFORM_ADAPTER]},{id:b.CHARACTER_DEEP_ANALYZER,label:"مُحلل الشخصيات العميق (و3)",icon:e.jsx(n,{className:"w-5 h-5"}),category:I[b.CHARACTER_DEEP_ANALYZER],description:R[b.CHARACTER_DEEP_ANALYZER]},{id:b.DIALOGUE_ADVANCED_ANALYZER,label:"محلل الحوار المتطور (و4)",icon:e.jsx(d,{className:"w-5 h-5"}),category:I[b.DIALOGUE_ADVANCED_ANALYZER],description:R[b.DIALOGUE_ADVANCED_ANALYZER]},{id:b.VISUAL_CINEMATIC_ANALYZER,label:"محلل السياق البصري (و5)",icon:e.jsx(m,{className:"w-5 h-5"}),category:I[b.VISUAL_CINEMATIC_ANALYZER],description:R[b.VISUAL_CINEMATIC_ANALYZER]},{id:b.THEMES_MESSAGES_ANALYZER,label:"محلل الموضوعات والرسائل (و6)",icon:e.jsx(l,{className:"w-5 h-5"}),category:I[b.THEMES_MESSAGES_ANALYZER],description:R[b.THEMES_MESSAGES_ANALYZER]},{id:b.CULTURAL_HISTORICAL_ANALYZER,label:"محلل السياق الثقافي (و7)",icon:e.jsx(x,{className:"w-5 h-5"}),category:I[b.CULTURAL_HISTORICAL_ANALYZER],description:R[b.CULTURAL_HISTORICAL_ANALYZER]},{id:b.PRODUCIBILITY_ANALYZER,label:"محلل القابلية للإنتاج (و8)",icon:e.jsx(c,{className:"w-5 h-5"}),category:I[b.PRODUCIBILITY_ANALYZER],description:R[b.PRODUCIBILITY_ANALYZER]},{id:b.TARGET_AUDIENCE_ANALYZER,label:"محلل الجمهور المستهدف (و9)",icon:e.jsx(n,{className:"w-5 h-5"}),category:I[b.TARGET_AUDIENCE_ANALYZER],description:R[b.TARGET_AUDIENCE_ANALYZER]},{id:b.LITERARY_QUALITY_ANALYZER,label:"محلل الجودة الأدبية (و10)",icon:e.jsx(o,{className:"w-5 h-5"}),category:I[b.LITERARY_QUALITY_ANALYZER],description:R[b.LITERARY_QUALITY_ANALYZER]},{id:b.RECOMMENDATIONS_GENERATOR,label:"مولد التوصيات (و11)",icon:e.jsx(r,{className:"w-5 h-5"}),category:I[b.RECOMMENDATIONS_GENERATOR],description:R[b.RECOMMENDATIONS_GENERATOR]}].reduce((e,s)=&gt;{const t=s.category||T.CORE;return e[t]||(e[t]=[]),e[t].push(s),e},{}),O=[T.CORE,T.ANALYSIS,T.CREATIVE,T.PREDICTIVE,T.ADVANCED_MODULES],w=({className:s})=&gt;e.jsx("svg",{xmlns:"http://www.w3.org/2000/svg",fill:"none",viewBox:"0 0 24 24",strokeWidth:1.5,stroke:"currentColor",className:s||"w-6 h-6",children:e.jsx("path",{strokeLinecap:"round",strokeLinejoin:"round",d:"M15.75 19.5L8.25 12l7.5-7.5"})}),S=Object.freeze(Object.defineProperty({__proto__:null,TaskSelector:({selectedTask:s,onTaskSelect:t})=&gt;{const a=s?I[s]:null;return e.jsxs("div",{className:"w-full p-6 bg-slate-800 rounded-xl shadow-xl border border-panel-border backdrop-blur-xs bg-panel","data-testid":"task-selector",children:[e.jsxs("h3",{className:"text-2xl font-semibold mb-6 text-primary-light flex items-center",children:[e.jsx(l,{className:"w-7 h-7 me-2"})," اختر الخدمة المطلوبة"]}),e.jsx("div",{className:"space-y-6 max-h-[60vh] overflow-y-auto pr-1 pb-2",children:O.map(l=&gt;{const r=y[l];if(!r||0===r.length)return null;const i=a===l;return e.jsxs("div",{className:"p-3 rounded-lg transition-all duration-300 "+(i?"bg-slate-700/50 ring-2 ring-primary":""),children:[e.jsxs("h4",{className:"flex items-center text-lg font-semibold mb-3 border-b-2 pb-1 transition-colors duration-300 "+(i?"text-secondary-light border-secondary":"text-primary-light border-primary-dark"),children:[i&amp;&amp;e.jsx(w,{className:"w-5 h-5 me-2"}),l]}),e.jsx("div",{className:"space-y-2",children:r.map(a=&gt;e.jsxs("button",{onClick:()=&gt;t(a.id),className:"w-full flex items-center p-3 rounded-lg border-2 transition-all duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-800\n                      "+(s===a.id?"bg-primary border-primary-light shadow-lg scale-101 ring-primary-light":"bg-slate-700 border-slate-600 hover:bg-slate-600 hover:border-slate-500 ring-transparent"),"aria-pressed":s===a.id,title:a.description,children:[e.jsx("span",{className:"me-3 "+(s===a.id?"text-slate-900":"text-primary-light"),children:a.icon}),e.jsxs("div",{className:"text-right flex-grow",children:[e.jsx("span",{className:"block font-semibold text-sm "+(s===a.id?"text-slate-900":"text-slate-100"),children:a.label}),e.jsx("p",{className:`block text-xs mt-0.5 ${s===a.id?"text-slate-800":"text-slate-400"} truncate-2-lines`,children:a.description})]})]},a.id))})]},l)})})]})}},Symbol.toStringTag,{value:"Module"})),D=Object.freeze(Object.defineProperty({__proto__:null,FileUpload:({onFilesUploaded:a,uploadedFiles:l})=&gt;{const[r,o]=s.useState(null),c=s.useCallback((e,s)=&gt;{o(null);let t="";if(s&amp;&amp;s.length&gt;0&amp;&amp;s.forEach(e=&gt;{e.errors.forEach(s=&gt;{"file-too-large"===s.code?t+=`الملف "${e.file.name}" كبير جدًا (الحد الأقصى ${g} ميجابايت). `:"file-invalid-type"===s.code?t+=`نوع الملف "${e.file.name}" غير مدعوم. `:t+=`خطأ في الملف "${e.file.name}": ${s.message}. `})}),e.length&gt;0)a(e);else if(s.length&gt;0&amp;&amp;0===e.length)return void o(t?t.trim():"لم يتم قبول أي ملفات. يرجى التحقق من نوع الملف وحجمه.");t&amp;&amp;o(t.trim())},[a,g]),{getRootProps:n,getInputProps:d,isDragActive:E}=t({onDrop:c,accept:j,minSize:1,maxSize:u}),N=s.useCallback(e=&gt;{const s=l.filter(s=&gt;s.name!==e);a(s),s.length&lt;_||o(null)},[a,l,o,_]),m=Object.values(j).flat().join(", ");return e.jsxs("div",{className:"w-full p-6 bg-slate-800 rounded-xl shadow-xl border border-panel-border backdrop-blur-xs bg-panel","data-testid":"file-upload",children:[e.jsxs("h3",{className:"text-2xl font-semibold mb-4 text-primary-light flex items-center",children:[e.jsx(p,{className:"w-7 h-7 me-2"})," تحميل النصوص والمستندات والصور"]}),e.jsxs("div",{...n(),className:"p-8 border-2 border-dashed rounded-lg cursor-pointer transition-colors duration-200 ease-in-out\n          "+(E?"border-primary bg-slate-700":"border-slate-600 hover:border-primary-dark"),children:[e.jsx("input",{...d()}),e.jsxs("div",{className:"flex flex-col items-center justify-center text-center",children:[e.jsx(p,{className:"w-12 h-12 text-slate-400 mb-3"}),E?e.jsx("p",{className:"text-lg text-primary-light",children:"أفلت الملفات هنا ..."}):e.jsx("p",{className:"text-lg text-slate-300",children:"اسحب وأفلت الملفات هنا، أو انقر لتحديد الملفات"}),e.jsxs("p",{className:"text-sm text-slate-400 mt-1",children:["(الأنواع المدعومة: ",m,". ",_," ملف كحد أدنى، ",g," ميجابايت كحد أقصى لكل ملف)"]})]})]}),r&amp;&amp;e.jsx("p",{className:"mt-3 text-sm text-red-400",children:r}),l.length&gt;0&amp;&amp;e.jsxs("div",{className:"mt-6",children:[e.jsxs("h4",{className:"text-lg font-medium text-slate-200 mb-2",children:["الملفات المرفوعة (",l.length,"):"]}),e.jsx("ul",{className:"space-y-2 max-h-60 overflow-y-auto ps-2",children:l.map(s=&gt;e.jsxs("li",{className:"flex items-center justify-between p-3 bg-slate-700 rounded-md shadow",children:[e.jsxs("div",{className:"flex items-center overflow-hidden",children:[e.jsx(i,{className:"w-5 h-5 text-primary-light me-3 flex-shrink-0"}),e.jsx("span",{className:"text-sm text-slate-100 truncate",title:s.name,children:s.name}),e.jsxs("span",{className:"ms-2 text-xs text-slate-400 flex-shrink-0",children:["(",(s.size/1024).toFixed(2)," كيلوبايت)"]})]}),e.jsx("button",{onClick:()=&gt;N(s.name),className:"ms-4 text-red-400 hover:text-red-300 text-xs font-semibold p-1 rounded hover:bg-slate-600","aria-label":`إزالة ${s.name}`,children:"إزالة"})]},s.name+"-"+s.size))})]}),l.length&gt;0&amp;&amp;l.length&lt;_&amp;&amp;e.jsxs("p",{className:"mt-3 text-sm text-yellow-400",children:["يرجى تحميل ",_," ملف(ات) على الأقل للمتابعة."]})]})}},Symbol.toStringTag,{value:"Module"}));export{D as F,f as R,S as T};</span></span></span>
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2025-10-10T09:51:34.129Z
+            </div>
+        <script src="../../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../../sorter.js"></script>
+        <script src="../../../block-navigation.js"></script>
+    </body>
+</html>
+    

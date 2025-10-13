@@ -1,0 +1,21 @@
+vite v6.3.6 building for production...
+✓ 753 modules transformed.
+
+WARNINGS (29 dynamic import warnings):
+- H:/Drama-analyst-and-creative-mimic/agents/analysis/agent.ts is dynamically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts but also statically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts, dynamic import will not move module into another chunk.
+- H:/Drama-analyst-and-creative-mimic/agents/creative/agent.ts is dynamically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts but also statically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts, dynamic import will not move module into another chunk.
+[... 27 more similar warnings ...]
+
+Bundle sizes:
+dist/index.html                   3.09 kB │ gzip:   1.31 kB
+dist/assets/vendor-wzZzN_Jv.js   12.45 kB │ gzip:   4.41 kB
+dist/assets/gemini-BpRkNtKl.js   28.06 kB │ gzip:   6.37 kB
+dist/assets/agents-D5ch5KUH.js   90.59 kB │ gzip:  26.02 kB
+dist/assets/index-CIIAU2rJ.js   317.49 kB │ gzip:  97.62 kB
+dist/assets/index-Cec0GZtf.js   500.14 kB │ gzip: 130.31 kB
+
+Largest chunk: 500.14 kB (index-Cec0GZtf.js)
+Total bundle size: ~951 kB
+
+✓ built in 40.85s
+

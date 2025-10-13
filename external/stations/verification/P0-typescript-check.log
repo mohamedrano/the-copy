@@ -1,0 +1,110 @@
+
+> rest-express@1.0.0 check
+> tsc
+
+server/analysis_modules/network-diagnostics.ts(424,47): error TS18048: 'lastUpdate' is possibly 'undefined'.
+server/analysis_modules/network-diagnostics.ts(454,42): error TS2345: Argument of type 'Relationship | undefined' is not assignable to parameter of type 'Relationship'.
+  Type 'undefined' is not assignable to type 'Relationship'.
+server/analysis_modules/network-diagnostics.ts(455,28): error TS18048: 'rel1' is possibly 'undefined'.
+server/analysis_modules/network-diagnostics.ts(455,37): error TS18048: 'rel2' is possibly 'undefined'.
+server/routes.ts(55,55): error TS2379: Argument of type '{ fullText: string; projectName: string; proseFilePath: string | undefined; }' is not assignable to parameter of type 'Station1Input' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Types of property 'proseFilePath' are incompatible.
+    Type 'string | undefined' is not assignable to type 'string'.
+      Type 'undefined' is not assignable to type 'string'.
+server/routes.ts(125,63): error TS2379: Argument of type '{ fullText: string; projectName: string; proseFilePath: string | undefined; }' is not assignable to parameter of type 'PipelineInput' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Types of property 'proseFilePath' are incompatible.
+    Type 'string | undefined' is not assignable to type 'string'.
+      Type 'undefined' is not assignable to type 'string'.
+server/run-all-stations.ts(126,76): error TS2379: Argument of type '{ fullText: string; projectName: string; proseFilePath: string | undefined; }' is not assignable to parameter of type 'Station1Input' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Types of property 'proseFilePath' are incompatible.
+    Type 'string | undefined' is not assignable to type 'string'.
+      Type 'undefined' is not assignable to type 'string'.
+server/services/ai/result-selector.ts(30,5): error TS2322: Type 'GeminiResponse<T> | undefined' is not assignable to type 'GeminiResponse<T> | null'.
+  Type 'undefined' is not assignable to type 'GeminiResponse<T> | null'.
+server/stations/station1/station1-text-analysis.ts(76,13): error TS2314: Generic type 'StationConfig<TInput, TOutput>' requires 2 type argument(s).
+server/stations/station1/station1-text-analysis.ts(146,26): error TS2345: Argument of type 'CharacterAnalysisResult | undefined' is not assignable to parameter of type 'CharacterAnalysisResult'.
+  Type 'undefined' is not assignable to type 'CharacterAnalysisResult'.
+server/stations/station2/station2-conceptual-analysis.ts(72,13): error TS2314: Generic type 'StationConfig<TInput, TOutput>' requires 2 type argument(s).
+server/stations/station2/station2-conceptual-analysis.ts(100,34): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+server/stations/station2/station2-conceptual-analysis.ts(101,32): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+server/stations/station2/station2-conceptual-analysis.ts(102,32): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+server/stations/station2/station2-conceptual-analysis.ts(103,39): error TS2345: Argument of type 'string | undefined' is not assignable to parameter of type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+server/stations/station2/station2-conceptual-analysis.ts(107,7): error TS2322: Type 'string | undefined' is not assignable to type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+server/stations/station2/station2-conceptual-analysis.ts(110,7): error TS2322: Type 'string | undefined' is not assignable to type 'string'.
+  Type 'undefined' is not assignable to type 'string'.
+server/stations/station3/station3-network-builder.ts(374,13): error TS2314: Generic type 'StationConfig<TInput, TOutput>' requires 2 type argument(s).
+server/stations/station4/station4-efficiency-metrics.ts(29,13): error TS2314: Generic type 'StationConfig<TInput, TOutput>' requires 2 type argument(s).
+server/stations/station5/station5-dynamic-symbolic-stylistic.ts(345,9): error TS2532: Object is possibly 'undefined'.
+server/stations/station5/station5-dynamic-symbolic-stylistic.ts(345,36): error TS2532: Object is possibly 'undefined'.
+server/stations/station5/station5-dynamic-symbolic-stylistic.ts(350,22): error TS2532: Object is possibly 'undefined'.
+server/stations/station5/station5-dynamic-symbolic-stylistic.ts(351,24): error TS2532: Object is possibly 'undefined'.
+server/stations/station5/station5-dynamic-symbolic-stylistic.ts(358,10): error TS2532: Object is possibly 'undefined'.
+server/stations/station5/station5-dynamic-symbolic-stylistic.ts(359,10): error TS2363: The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
+server/stations/station5/station5-dynamic-symbolic-stylistic.ts(516,9): error TS18048: 'curr' is possibly 'undefined'.
+server/stations/station5/station5-dynamic-symbolic-stylistic.ts(516,33): error TS18048: 'prev' is possibly 'undefined'.
+server/stations/station5/station5-dynamic-symbolic-stylistic.ts(519,9): error TS18048: 'curr' is possibly 'undefined'.
+server/stations/station5/station5-dynamic-symbolic-stylistic.ts(519,37): error TS18048: 'prev' is possibly 'undefined'.
+server/stations/station5/station5-dynamic-symbolic-stylistic.ts(703,17): error TS2532: Object is possibly 'undefined'.
+server/stations/station5/station5-dynamic-symbolic-stylistic.ts(703,31): error TS2532: Object is possibly 'undefined'.
+server/stations/station5/station5-dynamic-symbolic-stylistic.ts(785,24): error TS2379: Argument of type '{ seasonNumber: number; seasonTitle: string; episodes: Episode[]; majorConflicts: string[]; seasonArc: string; cliffhanger: string | undefined; }' is not assignable to parameter of type 'SeasonDetails' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Types of property 'cliffhanger' are incompatible.
+    Type 'string | undefined' is not assignable to type 'string'.
+      Type 'undefined' is not assignable to type 'string'.
+server/stations/station5/station5-dynamic-symbolic-stylistic.ts(924,13): error TS2314: Generic type 'StationConfig<TInput, TOutput>' requires 2 type argument(s).
+server/stations/station5/station5-dynamic-symbolic-stylistic.ts(1173,57): error TS2339: Property 'length' does not exist on type 'Map<string, Character>'.
+server/stations/station5/station5-dynamic-symbolic-stylistic.ts(1174,55): error TS2339: Property 'length' does not exist on type 'Map<string, Conflict>'.
+server/stations/station6/station6-diagnostics-treatment.ts(50,23): error TS2314: Generic type 'StationConfig<TInput, TOutput>' requires 2 type argument(s).
+server/stations/station7/station7-finalization.ts(229,13): error TS2564: Property 'visualizationEngine' has no initializer and is not definitely assigned in the constructor.
+server/stations/station7/station7-finalization.ts(230,13): error TS2564: Property 'adaptationEngine' has no initializer and is not definitely assigned in the constructor.
+server/stations/station7/station7-finalization.ts(231,13): error TS2564: Property 'reportGenerator' has no initializer and is not definitely assigned in the constructor.
+server/stations/station7/station7-finalization.ts(232,13): error TS2564: Property 'exportGenerator' has no initializer and is not definitely assigned in the constructor.
+server/stations/station7/station7-finalization.ts(236,17): error TS2314: Generic type 'StationConfig<TInput, TOutput>' requires 2 type argument(s).
+server/stations/station7/station7-finalization.ts(353,63): error TS2339: Property 'length' does not exist on type 'Map<string, Character>'.
+server/stations/station7/station7-finalization.ts(354,61): error TS2339: Property 'length' does not exist on type 'Map<string, Conflict>'.
+server/storage.ts(1,15): error TS2305: Module '"@shared/schema"' has no exported member 'User'.
+server/storage.ts(1,26): error TS2305: Module '"@shared/schema"' has no exported member 'InsertUser'.
+src/components/station-progress-utils.ts(23,9): error TS18048: 'station' is possibly 'undefined'.
+src/components/station-progress-utils.ts(24,7): error TS2322: Type 'StationDefinition | undefined' is not assignable to type 'StationDefinition | null'.
+  Type 'undefined' is not assignable to type 'StationDefinition | null'.
+src/components/station-progress-utils.ts(47,7): error TS2322: Type 'StationDefinition | undefined' is not assignable to type 'StationDefinition | null'.
+  Type 'undefined' is not assignable to type 'StationDefinition | null'.
+src/components/station-progress-utils.ts(56,7): error TS2322: Type 'StationDefinition | undefined' is not assignable to type 'StationDefinition | null'.
+  Type 'undefined' is not assignable to type 'StationDefinition | null'.
+src/components/station-progress-utils.ts(78,5): error TS2322: Type 'StationDefinition | undefined' is not assignable to type 'StationDefinition | null'.
+  Type 'undefined' is not assignable to type 'StationDefinition | null'.
+src/components/ui/context-menu.tsx(94,4): error TS2375: Type '{ children: (ReactNode | Element)[]; key?: Key | null | undefined; id?: string | undefined; property?: string | undefined; prefix?: string | undefined; content?: string | undefined; ... 264 more ...; checked: CheckedState | undefined; }' is not assignable to type 'ContextMenuCheckboxItemProps' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Types of property 'checked' are incompatible.
+    Type 'CheckedState | undefined' is not assignable to type 'CheckedState'.
+      Type 'undefined' is not assignable to type 'CheckedState'.
+src/components/ui/dropdown-menu.tsx(97,4): error TS2375: Type '{ children: (ReactNode | Element)[]; key?: Key | null | undefined; id?: string | undefined; property?: string | undefined; prefix?: string | undefined; content?: string | undefined; ... 264 more ...; checked: CheckedState | undefined; }' is not assignable to type 'DropdownMenuCheckboxItemProps' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Types of property 'checked' are incompatible.
+    Type 'CheckedState | undefined' is not assignable to type 'CheckedState'.
+      Type 'undefined' is not assignable to type 'CheckedState'.
+src/components/ui/input-otp.tsx(36,11): error TS2339: Property 'char' does not exist on type 'SlotProps | undefined'.
+src/components/ui/input-otp.tsx(36,17): error TS2339: Property 'hasFakeCaret' does not exist on type 'SlotProps | undefined'.
+src/components/ui/input-otp.tsx(36,31): error TS2339: Property 'isActive' does not exist on type 'SlotProps | undefined'.
+src/components/ui/menubar.tsx(152,4): error TS2375: Type '{ children: (ReactNode | Element)[]; key?: Key | null | undefined; id?: string | undefined; property?: string | undefined; prefix?: string | undefined; content?: string | undefined; ... 264 more ...; checked: CheckedState | undefined; }' is not assignable to type 'MenubarCheckboxItemProps' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+  Types of property 'checked' are incompatible.
+    Type 'CheckedState | undefined' is not assignable to type 'CheckedState'.
+      Type 'undefined' is not assignable to type 'CheckedState'.
+src/hooks/use-toast.ts(187,45): error TS2345: Argument of type '{ type: "DISMISS_TOAST"; toastId: string | undefined; }' is not assignable to parameter of type 'Action'.
+  Type '{ type: "DISMISS_TOAST"; toastId: string | undefined; }' is not assignable to type '{ type: "DISMISS_TOAST"; toastId?: string; }' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+    Types of property 'toastId' are incompatible.
+      Type 'string | undefined' is not assignable to type 'string'.
+        Type 'undefined' is not assignable to type 'string'.
+src/lib/queryClient.ts(15,32): error TS2769: No overload matches this call.
+  Overload 1 of 2, '(input: string | URL | Request, init?: RequestInit | undefined): Promise<Response>', gave the following error.
+    Argument of type '{ method: string; headers: { "Content-Type": string; } | {}; body: string | undefined; credentials: "include"; }' is not assignable to parameter of type 'RequestInit' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+      Types of property 'body' are incompatible.
+        Type 'string | undefined' is not assignable to type 'BodyInit | null'.
+          Type 'undefined' is not assignable to type 'BodyInit | null'.
+  Overload 2 of 2, '(input: URL | RequestInfo, init?: RequestInit | undefined): Promise<Response>', gave the following error.
+    Argument of type '{ method: string; headers: { "Content-Type": string; } | {}; body: string | undefined; credentials: "include"; }' is not assignable to parameter of type 'RequestInit' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.
+      Types of property 'body' are incompatible.
+        Type 'string | undefined' is not assignable to type 'BodyInit | null'.
+          Type 'undefined' is not assignable to type 'BodyInit | null'.

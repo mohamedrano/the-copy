@@ -1,0 +1,33 @@
+H:\arabic-screenplay-editor\src\components\editor\CleanIntegratedScreenplayEditor.tsx
+
+تبرير تقني لتحديد المحرر الأساسي:
+
+1. مسار نقطة الدخول:
+   index.html → /src/main.tsx → App.tsx → NaqidDashboard
+
+2. التحليل الحالي للواجهة:
+   - التطبيق حالياً يعرض NaqidDashboard (لوحة تحليل السيناريو)
+   - NaqidDashboard يستورد ScreenplayClassifier و AIWritingAssistant من CleanIntegratedScreenplayEditor
+   - النشاط الحالي: تحليل النصوص وليس التحرير
+
+3. المحرر الفعلي: CleanIntegratedScreenplayEditor.tsx
+   - يحتوي على منطقة تحرير أساسية: contentEditable div (السطر 1780)
+   - خصائص المحرر:
+     * direction: 'rtl' للنصوص العربية
+     * fontFamily: يدعم الخطوط العربية
+     * معالجات أحداث: onKeyDown, onPaste (السطر 1788-1789)
+   - يحتوي على فئات مدمجة شاملة:
+     * StateManager: إدارة الحالة
+     * AutoSaveManager: الحفظ التلقائي
+     * ScreenplayClassifier: تصنيف النص العربي
+     * AIWritingAssistant: المساعد الذكي
+
+4. التأكيد التقني:
+   - CleanIntegratedScreenplayEditor هو المحرر الكامل والوظيفي
+   - NaqidDashboard هو واجهة تحليل تستخدم أدوات من المحرر
+   - للانتقال للمحرر: تعديل App.tsx لاستيراد CleanIntegratedScreenplayEditor بدلاً من NaqidDashboard
+
+5. برهان الواجهة:
+   - السطر 1780: contentEditable attribute
+   - السطر 1783-1787: خصائص RTL وخطوط عربية
+   - يحتوي على أشرطة أدوات وقوائم تحرير شاملة

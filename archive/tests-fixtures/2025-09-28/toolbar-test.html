@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toolbar Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-white text-black">
+    <div class="min-h-screen">
+        <!-- Header -->
+        <header class="sticky top-0 z-10 bg-white shadow-md p-2 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <div class="text-blue-500">📄</div>
+                <h1 class="text-xl font-bold">محرر السيناريو العربي</h1>
+            </div>
+            
+            <div class="flex items-center space-x-4">
+                <!-- View Controls -->
+                <div class="flex items-center space-x-2">
+                    <div class="flex space-x-1">
+                        <button class="p-1 rounded hover:bg-gray-100 flex items-center justify-center">
+                            <div class="w-5 h-5 bg-gray-800 rounded-full"></div>
+                        </button>
+                        <button class="p-1 rounded hover:bg-gray-100 flex items-center justify-center">
+                            <div class="w-5 h-5 bg-gray-800"></div>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Main Content -->
+        <div class="flex flex-col">
+            <!-- Top Toolbar -->
+            <div class="h-12 bg-gray-100 flex items-center py-2 px-2 space-x-2">
+                <div class="flex space-x-1">
+                    <button class="p-2 rounded hover:bg-gray-200 flex items-center justify-center" title="ترويسة مشهد">
+                        <div class="w-5 h-5 bg-blue-500"></div>
+                    </button>
+                    <button class="p-2 rounded hover:bg-gray-200 flex items-center justify-center" title="شخصية">
+                        <div class="w-5 h-5 bg-purple-500"></div>
+                    </button>
+                    <button class="p-2 rounded hover:bg-gray-200 flex items-center justify-center" title="حوار">
+                        <div class="w-5 h-5 bg-indigo-500"></div>
+                    </button>
+                    <button class="p-2 rounded hover:bg-gray-200 flex items-center justify-center" title="فعل">
+                        <div class="w-5 h-5 bg-gray-700"></div>
+                    </button>
+                    <button class="p-2 rounded hover:bg-gray-200 flex items-center justify-center" title="انتقال">
+                        <div class="w-5 h-5 bg-red-500"></div>
+                    </button>
+                </div>
+                
+                <div class="border-r border-gray-300 h-8 mx-1"></div>
+                
+                <div class="flex space-x-1">
+                    <button class="p-2 rounded hover:bg-gray-200 flex items-center justify-center" title="عريض">
+                        <div class="font-bold">B</div>
+                    </button>
+                    <button class="p-2 rounded hover:bg-gray-200 flex items-center justify-center" title="مائل">
+                        <div class="italic">I</div>
+                    </button>
+                    <button class="p-2 rounded hover:bg-gray-200 flex items-center justify-center" title="مسطر">
+                        <div class="underline">U</div>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Editor Area -->
+            <div class="flex-1 flex mt-2">
+                <div class="flex-1 overflow-auto relative">
+                    <div class="min-h-screen p-8 outline-none" style="direction: rtl;">
+                        <div class="text-right">
+                            اضغط هنا لبدء كتابة السيناريو...
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

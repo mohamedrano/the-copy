@@ -1,0 +1,14 @@
+
+> drama-analytica-&-creative-emissary@0.0.0 test
+> vitest run
+
+
+ RUN  v3.2.4 H:/Drama-analyst-and-creative-mimic
+
+ Γ£ô services/geminiService.test.ts (3 tests) 4ms
+
+ Test Files  1 passed (1)
+      Tests  3 passed (3)
+   Start at  12:12:40
+   Duration  2.43s (transform 53ms, setup 330ms, collect 20ms, tests 4ms, environment 1.59s, prepare 147ms)
+

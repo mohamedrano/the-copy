@@ -1,0 +1,52 @@
+# إطار العمل الهندسي المتكامل - المتطلبات
+# Python 3.8+
+
+# Core libraries
+requests>=2.28.0
+gitpython>=3.1.29
+pandas>=1.5.0
+numpy>=1.21.0
+
+# Analysis tools
+matplotlib>=3.5.0
+seaborn>=0.11.0
+networkx>=2.8
+plotly>=5.10.0
+
+# Code analysis
+pylint>=2.15.0
+bandit>=1.7.4
+safety>=2.2.0
+radon>=5.1.0
+
+# Documentation and parsing
+markdown>=3.4.0
+pyyaml>=6.0
+toml>=0.10.2
+python-frontmatter>=1.0.0
+
+# Data processing
+openpyxl>=3.0.10
+xlsxwriter>=3.0.0
+python-docx>=0.8.11
+
+# Web and API tools
+beautifulsoup4>=4.11.0
+urllib3>=1.26.0
+
+# File processing
+pathlib2>=2.3.7
+watchdog>=2.1.9
+
+# Development tools
+black>=22.0.0
+isort>=5.10.0
+flake8>=5.0.0
+
+# Testing (for analysis validation)
+pytest>=7.1.0
+pytest-cov>=3.0.0
+
+# Optional: Advanced analysis
+scikit-learn>=1.1.0
+scipy>=1.9.0

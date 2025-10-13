@@ -1,0 +1,140 @@
+{
+  "tasks": [
+    {
+      "id": "P0-001",
+      "priority": "P0",
+      "title": "إصلاح jules-backend/src/main.ts",
+      "evidence": {
+        "path": "jules-backend/src/main.ts",
+        "line": "1-3",
+        "tool": null,
+        "description": "الملف يحتوي على 3 أسطر فقط بدون كود تشغيل حقيقي"
+      },
+      "actions": [
+        "تطبيق Diff #1 من التقرير",
+        "تشغيل npm run build",
+        "التحقق من وجود dist/main.js"
+      ],
+      "expected_checks": [
+        "npm run build: exit code 0",
+        "test -f jules-backend/dist/main.js"
+      ],
+      "acceptance": "Backend يبدأ بنجاح عند تشغيل npm start"
+    },
+    {
+      "id": "P0-002",
+      "priority": "P0",
+      "title": "إصلاح jules-backend/src/server.ts",
+      "evidence": {
+        "path": "jules-backend/src/server.ts",
+        "line": "كامل الملف",
+        "tool": null,
+        "description": "الملف غير مكتمل أو يحتاج إلى دمج مع main.ts"
+      },
+      "actions": [
+        "تطبيق Diff #2 من التقرير (حذف الملف أو دمجه في main.ts)"
+      ],
+      "expected_checks": [
+        "npm run build: exit code 0"
+      ],
+      "acceptance": "لا أخطاء استيراد"
+    },
+    {
+      "id": "P0-003",
+      "priority": "P0",
+      "title": "إنشاء Prisma migrations",
+      "evidence": {
+        "path": "jules-backend/prisma/migrations/",
+        "line": null,
+        "tool": null,
+        "description": "الدليل غير موجود"
+      },
+      "actions": [
+        "تشغيل Command #1: cd jules-backend && npx prisma migrate dev --name init && npx prisma generate"
+      ],
+      "expected_checks": [
+        "test -d prisma/migrations/",
+        "test -f node_modules/.prisma/client/index.js"
+      ],
+      "acceptance": "Prisma migrations created and client generated"
+    },
+    {
+      "id": "P0-004",
+      "priority": "P0",
+      "title": "إنشاء jules-frontend/src/App.tsx",
+      "evidence": {
+        "path": "jules-frontend/src/",
+        "line": null,
+        "tool": null,
+        "description": "الدليل فارغة"
+      },
+      "actions": [
+        "تطبيق Diff #3 (إنشاء App.tsx أساسي)",
+        "التحقق من الاتصال بـ Backend"
+      ],
+      "expected_checks": [
+        "npm run dev: should start without errors"
+      ],
+      "acceptance": "npm run dev يعمل والصفحة تعرض \"Jules Platform\""
+    },
+    {
+      "id": "P0-005",
+      "priority": "P0",
+      "title": "إصلاح scripts/start.js",
+      "evidence": {
+        "path": "scripts/start.js",
+        "line": "67-75",
+        "tool": null,
+        "description": "السكريبت لا يبني تلقائياً قبل التشغيل"
+      },
+      "actions": [
+        "تطبيق Diff #4 (إضافة بناء تلقائي قبل التشغيل)"
+      ],
+      "expected_checks": [
+        "npm start: should build backend automatically if dist/ not exists"
+      ],
+      "acceptance": "npm start يبني Backend تلقائياً إذا كان dist/ غير موجود"
+    },
+    {
+      "id": "P0-006",
+      "priority": "P0",
+      "title": "تشفير API Keys فعلي",
+      "evidence": {
+        "path": "jules-backend/src/services/api-key.service.ts",
+        "line": "8-11",
+        "tool": null,
+        "description": "يستخدم Buffer.from().toString('base64') بدلاً من تشفير حقيقي"
+      },
+      "actions": [
+        "تطبيق Diff: تشفير API Keys فعلي (القسم 2.2)",
+        "استبدال Buffer.from().toString('base64') بـ crypto.createCipheriv('aes-256-gcm', ...)"
+      ],
+      "expected_checks": [
+        "فحص يدوي: الكود يستخدم crypto.createCipheriv",
+        "اختبار وحدة: تشفير وفك تشفير يعمل بشكل صحيح"
+      ],
+      "acceptance": "API keys are encrypted with AES-256-GCM"
+    },
+    {
+      "id": "P0-007",
+      "priority": "P0",
+      "title": "إضافة اختبارات للخدمات الحرجة",
+      "evidence": {
+        "path": "jules-backend/src/**/*.test.ts",
+        "line": null,
+        "tool": null,
+        "description": "0 files found"
+      },
+      "actions": [
+        "إنشاء jules-backend/src/services/__tests__/agent.service.test.ts",
+        "إنشاء jules-backend/src/services/__tests__/session.service.test.ts",
+        "تشغيل npm test -- --coverage"
+      ],
+      "expected_checks": [
+        "npm test -- --coverage: exit code 0",
+        "Coverage ≥ 50% (statements)"
+      ],
+      "acceptance": "Coverage ≥ 50% (statements)"
+    }
+  ]
+}

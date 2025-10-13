@@ -1,0 +1,218 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String   @id @default(cuid())
+  email          String   @unique
+  hashedPassword String
+  name           String
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Relations
+  sessions Session[]
+  apiKeys  ApiKey[]
+
+  @@map("users")
+}
+
+model ApiKey {
+  id          String   @id @default(cuid())
+  userId      String
+  keyName     String
+  encryptedKey String
+  isActive    Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  lastUsedAt  DateTime?
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("api_keys")
+}
+
+model Session {
+  id            String      @id @default(cuid())
+  userId        String
+  status        String      @default("initializing")
+  currentPhase  String      @default("brief")
+  progress      Int         @default(0)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+
+  // Relations
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  creativeBrief  CreativeBrief?
+  agents         Agent[]
+  ideas          Idea[]
+  reviews        Review[]
+  tournaments    Tournament[]
+  finalDecisions FinalDecision[]
+
+  @@map("sessions")
+}
+
+model CreativeBrief {
+  id             String   @id @default(cuid())
+  sessionId      String   @unique
+  coreIdea       String
+  genre          String
+  targetAudience String
+  themes         String[]
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  // Relations
+  session Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@map("creative_briefs")
+}
+
+model Agent {
+  id         String   @id @default(cuid())
+  sessionId  String
+  agentType  String
+  agentName  String
+  isActive   Boolean  @default(true)
+  status     String   @default("active")
+  configuration Json
+  lastUsedAt DateTime?
+  usageCount Int      @default(0)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  // Relations
+  session Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  reviews Review[]
+
+  @@map("agents")
+}
+
+model Idea {
+  id               String   @id @default(cuid())
+  sessionId        String
+  ideaNumber       Int
+  title            String
+  logline          String
+  synopsis         String
+  content          String?
+  threeActStructure Json
+  characters       Json
+  keyScenes        Json
+  themes           String[]
+  genre            String
+  tone             String
+  targetAudience   String
+  metadata         Json?
+  overallScore     Float    @default(0)
+  status           String   @default("draft")
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  // Relations
+  session Session  @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  reviews Review[]
+
+  @@map("ideas")
+}
+
+model Review {
+  id           String   @id @default(cuid())
+  sessionId    String
+  agentId      String
+  ideaId       String
+  qualityScore Int
+  noveltyScore Int
+  impactScore  Int
+  reasoning    String
+  suggestions  String[]
+  content      String?
+  overallScore Float    @default(0)
+  status       String   @default("completed")
+  updatedAt    DateTime @updatedAt
+  createdAt    DateTime @default(now())
+
+  // Relations
+  session Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  agent   Agent   @relation(fields: [agentId], references: [id], onDelete: Cascade)
+  idea    Idea    @relation(fields: [ideaId], references: [id], onDelete: Cascade)
+
+  @@map("reviews")
+}
+
+model Tournament {
+  id          String   @id @default(cuid())
+  sessionId   String
+  status      String   @default("not_started")
+  advancingIdeas String[]
+  completedAt DateTime?
+  totalTurns  Int      @default(8)
+  currentTurn Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  session Session        @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  turns   TournamentTurn[]
+
+  @@map("tournaments")
+}
+
+model TournamentTurn {
+  id            String   @id @default(cuid())
+  tournamentId  String
+  turnNumber    Int
+  participants  String[]
+  arguments     Json
+  summary       String
+  status        String?
+  momentumShift Json?
+  createdAt     DateTime @default(now())
+
+  // Relations
+  tournament Tournament @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
+
+  @@map("tournament_turns")
+}
+
+model FinalDecision {
+  id                String   @id @default(cuid())
+  sessionId         String
+  winningIdeaId     String
+  decisionRationale String
+  keyStrengths      String[]
+  recommendations   String[]
+  voteBreakdown     Json
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  // Relations
+  session Session @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+
+  @@map("final_decisions")
+}
+
+// Enumerations
+enum AgentType {
+  story_architect
+  realism_critic
+  strategic_analyst
+  character_development
+  character_expansion
+  world_building
+  dialogue_voice
+  theme_agent
+  genre_tone
+  pacing_agent
+  conflict_tension
+}

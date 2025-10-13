@@ -1,0 +1,7 @@
+--- a/services/fileReaderService.ts
++++ b/services/fileReaderService.ts
+@@ -119,3 +119,3 @@
+-    const result = await mammoth.convertToPlainText({ arrayBuffer });
++    const result = await mammoth.default.convertToPlainText({ arrayBuffer });
+
+

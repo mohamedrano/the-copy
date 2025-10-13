@@ -1,0 +1,32 @@
+services:
+  postgres-dev:
+    image: postgres:16-alpine
+    container_name: jules-postgres-dev
+    environment:
+      POSTGRES_USER: jules_user
+      POSTGRES_PASSWORD: jules_password
+      POSTGRES_DB: jules_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata_dev:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U jules_user"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis-dev:
+    image: redis:7-alpine
+    container_name: jules-redis-dev
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pgdata_dev:
+    driver: local

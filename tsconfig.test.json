@@ -1,0 +1,18 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "outDir": "dist-test",
+    "emitDeclarationOnly": false,
+    "module": "ESNext",
+    "target": "ES2020",
+    "jsx": "react-jsx",
+    "allowImportingTsExtensions": false,
+    "moduleResolution": "node"
+  },
+  "include": [
+    "tests/**/*.ts",
+    "src/components/editor/textReplacement.ts",
+    "src/modules/text/domTextReplacement.ts"
+  ]
+}

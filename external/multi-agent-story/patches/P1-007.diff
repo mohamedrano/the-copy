@@ -1,0 +1,86 @@
+# P1-007: Metrics (Prometheus)
+
+## Changes
+
+### Updated jules-backend/src/main.ts
+Added Prometheus metrics collection and endpoint:
+
+```typescript
+import client from "prom-client";
+
+// Initialize default metrics
+client.collectDefaultMetrics({ prefix: "jules_" });
+
+// Create custom metrics
+const httpRequestDuration = new client.Histogram({
+  name: "http_request_duration_seconds",
+  help: "Duration of HTTP requests in seconds",
+  labelNames: ["method", "route", "status_code"],
+});
+
+const httpRequestTotal = new client.Counter({
+  name: "http_requests_total",
+  help: "Total number of HTTP requests",
+  labelNames: ["method", "route", "status_code"],
+});
+
+// Register metrics endpoint
+app.get("/metrics", async (req, res) => {
+  res.header("Content-Type", client.register.contentType);
+  return client.register.metrics();
+});
+
+// Register metrics middleware
+app.addHook("onRequest", async (request, reply) => {
+  (request as any).startTime = Date.now();
+});
+
+app.addHook("onResponse", async (request, reply) => {
+  const duration = ((Date.now() - (request as any).startTime) / 1000);
+  const route = request.routeOptions.url || "unknown";
+  
+  httpRequestDuration.observe({
+    method: request.method,
+    route: route,
+    status_code: reply.statusCode,
+  }, duration);
+  
+  httpRequestTotal.inc({
+    method: request.method,
+    route: route,
+    status_code: reply.statusCode,
+  });
+});
+```
+
+### Key improvements:
+1. ✅ Added Prometheus metrics endpoint at `/metrics`
+2. ✅ Collect default Node.js metrics with `jules_` prefix
+3. ✅ Track HTTP request duration with histogram
+4. ✅ Count HTTP requests with counter
+5. ✅ Label metrics with method, route, and status code
+6. ✅ Expose metrics in Prometheus format
+
+### Metrics available:
+- **Default metrics**: Node.js process metrics, memory usage, garbage collection
+- **Custom metrics**:
+  - `http_request_duration_seconds` - Histogram of request durations
+  - `http_requests_total` - Counter of total requests
+
+### Usage:
+```bash
+curl http://localhost:8000/metrics
+```
+
+### Example output:
+```
+# HELP jules_http_request_duration_seconds Duration of HTTP requests in seconds
+# TYPE jules_http_request_duration_seconds histogram
+jules_http_request_duration_seconds_bucket{le="0.005",method="GET",route="/health",status_code="200"} 1
+jules_http_request_duration_seconds_sum{method="GET",route="/health",status_code="200"} 0.001
+jules_http_request_duration_seconds_count{method="GET",route="/health",status_code="200"} 1
+
+# HELP jules_http_requests_total Total number of HTTP requests
+# TYPE jules_http_requests_total counter
+jules_http_requests_total{method="GET",route="/health",status_code="200"} 1
+```

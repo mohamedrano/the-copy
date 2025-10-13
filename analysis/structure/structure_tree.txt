@@ -1,0 +1,92 @@
+الهيكل الحالي مقابل الهيكل المقترح
+
+=== الهيكل الحالي ===
+arabic-screenplay-editor/
+├── src/
+│   ├── components/
+│   │   ├── editor/
+│   │   │   ├── CleanIntegratedScreenplayEditor.tsx    [ضخم: يحتوي فئات مدمجة]
+│   │   │   └── AdvancedAgentsPopup.tsx
+│   │   ├── naqid/                                    [اسم غامض]
+│   │   │   └── NaqidDashboard.tsx                    [اسم غير واضح]
+│   │   └── legacy/                                   [مستبعد من التكوين]
+│   ├── services/
+│   │   ├── AnalysisService.ts
+│   │   ├── test-classifier.ts
+│   │   └── counter.ts
+│   ├── modules/text/
+│   │   └── domTextReplacement.ts
+│   ├── types/
+│   │   └── types.ts
+│   ├── tests/                                        [ملفات مبعثرة]
+│   │   ├── *.txt
+│   │   └── *.cjs
+│   ├── agents/                                       [مستبعد من التكوين]
+│   └── config/                                       [مستبعد من التكوين]
+├── tests/                                            [منفصل عن src/tests/]
+│   └── *.test.ts
+├── *.docx                                            [في الجذر]
+└── archive/
+
+=== الهيكل المقترح ===
+arabic-screenplay-editor/
+├── src/
+│   ├── components/
+│   │   ├── editor/
+│   │   │   ├── CleanIntegratedScreenplayEditor.tsx    [مبسط: بدون فئات مدمجة]
+│   │   │   └── AdvancedAgentsPopup.tsx
+│   │   ├── analysis/                                 [← إعادة تسمية من naqid]
+│   │   │   └── AnalysisDashboard.tsx                 [← إعادة تسمية من NaqidDashboard]
+│   │   └── shared/                                   [جديد: مكونات مشتركة]
+│   │       ├── Button.tsx
+│   │       ├── Modal.tsx
+│   │       └── Loading.tsx
+│   ├── services/                                     [بدون تغيير]
+│   │   ├── AnalysisService.ts
+│   │   ├── test-classifier.ts
+│   │   └── counter.ts
+│   ├── modules/
+│   │   ├── text/                                     [موسع]
+│   │   │   ├── domTextReplacement.ts
+│   │   │   ├── textProcessor.ts
+│   │   │   └── arabicTextUtils.ts
+│   │   └── screenplay/                               [جديد: منطق السيناريو]
+│   │       ├── ScreenplayClassifier.ts               [← مستخرج من المحرر]
+│   │       ├── ScreenplayFormatter.ts
+│   │       └── ScreenplayValidator.ts
+│   ├── hooks/                                        [جديد: React hooks]
+│   │   ├── useAutoSave.ts                           [← مستخرج من المحرر]
+│   │   ├── useScreenplayFormat.ts
+│   │   └── useTextSelection.ts
+│   ├── utils/                                        [جديد: أدوات عامة]
+│   │   ├── constants.ts
+│   │   ├── helpers.ts
+│   │   └── arabicUtils.ts
+│   └── types/                                        [موسع]
+│       ├── types.ts
+│       ├── screenplay.types.ts
+│       └── api.types.ts
+├── tests/                                            [موحد]
+│   ├── unit/
+│   │   ├── analysis-service.test.ts
+│   │   └── replace-helper.test.ts
+│   ├── integration/
+│   │   └── screenplay-editor.test.ts
+│   └── fixtures/                                     [← نُقل من src/tests/]
+│       ├── final-test.txt
+│       ├── comprehensive-test.txt
+│       └── basmala-test.cjs
+├── docs/                                             [جديد: وثائق منظمة]
+│   └── assets/                                       [← نُقل من الجذر]
+│       ├── الحصار الأول .. بين الركن و المقام_.docx
+│       └── الرسالة الأولى .. ست بنات.docx
+└── archive/                                          [بدون تغيير]
+
+=== الفوائد الأساسية ===
+✓ فصل المسؤوليات: كل طبقة لها غرض واضح
+✓ إعادة الاستخدام: hooks ومكونات مشتركة
+✓ وضوح التسمية: analysis بدلاً من naqid
+✓ تنظيم الاختبارات: جميع الاختبارات في مكان واحد
+✓ تقليل تعقيد المحرر: استخراج الفئات الضخمة
+✓ تنظيم الوثائق: مجلد docs منفصل
+✓ سهولة الصيانة: ملفات أصغر وأكثر تركيزاً

@@ -1,0 +1,76 @@
+# ===========================================
+# Dockerfile للإنتاج - نظام Stations
+# ===========================================
+
+# المرحلة 1: بناء التطبيق
+FROM node:20-alpine AS builder
+
+# تعيين متغيرات البيئة
+ENV NODE_ENV=production
+ENV NPM_CONFIG_LOGLEVEL=warn
+
+# تثبيت الأدوات المطلوبة
+RUN apk add --no-cache \
+    python3 \
+    make \
+    g++ \
+    && rm -rf /var/cache/apk/*
+
+# إنشاء مجلد العمل
+WORKDIR /app
+
+# نسخ ملفات package
+COPY package*.json ./
+
+# تثبيت الاعتماديات
+RUN npm ci --only=production --silent && \
+    npm cache clean --force
+
+# نسخ الكود المصدري
+COPY . .
+
+# بناء التطبيق
+RUN npm run build
+
+# ===========================================
+# المرحلة 2: تشغيل التطبيق
+FROM node:20-alpine AS production
+
+# تثبيت dumb-init لإدارة العمليات
+RUN apk add --no-cache dumb-init
+
+# إنشاء مستخدم غير root
+RUN addgroup -g 1001 -S nodejs && \
+    adduser -S nodejs -u 1001
+
+# تعيين متغيرات البيئة
+ENV NODE_ENV=production
+ENV PORT=5000
+ENV NODE_OPTIONS="--max-old-space-size=1024"
+
+# إنشاء مجلد العمل
+WORKDIR /app
+
+# نسخ الملفات المبنية
+COPY --from=builder --chown=nodejs:nodejs /app/dist ./dist
+COPY --from=builder --chown=nodejs:nodejs /app/node_modules ./node_modules
+COPY --from=builder --chown=nodejs:nodejs /app/package*.json ./
+
+# إنشاء مجلدات للسجلات
+RUN mkdir -p /app/logs /app/analysis_output && \
+    chown -R nodejs:nodejs /app/logs /app/analysis_output
+
+# تبديل إلى المستخدم غير root
+USER nodejs
+
+# فتح المنفذ
+EXPOSE 5000
+
+# فحص الصحة
+HEALTHCHECK --interval=30s --timeout=10s --start-period=40s --retries=3 \
+  CMD node -e "require('http').get('http://localhost:5000/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1); });"
+
+# تشغيل التطبيق
+ENTRYPOINT ["dumb-init", "--"]
+CMD ["node", "dist/index.js"]
+

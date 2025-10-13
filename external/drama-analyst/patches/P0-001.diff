@@ -1,0 +1,15 @@
+--- a/services/geminiService.ts
++++ b/services/geminiService.ts
+@@ -1,4 +1,4 @@
+-import { GoogleGenAI, GenerativeModel } from '@google/genai';
++import { GoogleGenerativeAI, GenerativeModel } from '@google/generative-ai';
+ 
+@@ -19,1 +19,1 @@
+-  private genAI: GoogleGenAI | null = null;
++  private genAI: GoogleGenerativeAI | null = null;
+ 
+@@ -44,1 +44,1 @@
+-      this.genAI = new GoogleGenAI(this.config.apiKey);
++      this.genAI = new GoogleGenerativeAI(this.config.apiKey);
+
+

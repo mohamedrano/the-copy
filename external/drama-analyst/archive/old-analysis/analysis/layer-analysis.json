@@ -1,0 +1,40 @@
+{
+  "summary": {
+    "violationCount": 3,
+    "unreferencedCount": 1
+  },
+  "violations": [
+    {
+      "from": "services/geminiService.ts",
+      "to": "agents/taskInstructions.ts",
+      "fromLayer": "services",
+      "toLayer": "agents",
+      "severity": "medium",
+      "explanation": "Service layer depends on agent layer, creating tight coupling",
+      "specifier": "@agents/taskInstructions"
+    },
+    {
+      "from": "ui/App.tsx",
+      "to": "services/fileReaderService.ts",
+      "fromLayer": "ui",
+      "toLayer": "services",
+      "severity": "high",
+      "explanation": "UI importing service directly instead of going through orchestration",
+      "specifier": "@services/fileReaderService"
+    },
+    {
+      "from": "ui/App.tsx",
+      "to": "services/geminiService.ts",
+      "fromLayer": "ui",
+      "toLayer": "services",
+      "severity": "high",
+      "explanation": "UI importing service directly instead of going through orchestration",
+      "specifier": "@services/geminiService"
+    }
+  ],
+  "unreferenced": [
+    {
+      "path": "orchestration/agentFactory.ts"
+    }
+  ]
+}

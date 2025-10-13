@@ -1,0 +1,324 @@
+{
+  "repo": "https://github.com/sinsweatpants/arabic-screenplay-editor.git",
+  "analyzed_at": "2025-09-28T00:28:32+00:00",
+  "discovery": {
+    "entry_points": ["src/main.tsx", "src/App.tsx"],
+    "scanned_roots": ["src/agents", "src/components", "src/services", "src/tests", "config", "assets", "scripts"],
+    "utils_inventory": [
+      {
+        "symbol": "StateManager",
+        "file": "src/components/editor/CleanIntegratedScreenplayEditor.tsx",
+        "lines": "28-77",
+        "io_contract": { "inputs": ["key: string", "callback: (value: any) => void"], "outputs": ["unsubscribe(): () => void", "getState(): any"] },
+        "deps": ["Map"],
+        "category": "concern",
+        "notes": "محرك حالة عام داخل المكون يوفر pub/sub؛ يحتاج إلى فصل في وحدة حالة مشتركة."
+      },
+      {
+        "symbol": "AutoSaveManager",
+        "file": "src/components/editor/CleanIntegratedScreenplayEditor.tsx",
+        "lines": "89-174",
+        "io_contract": { "inputs": ["intervalMs?: number", "saveCallback(content: string)"], "outputs": ["startAutoSave(): void", "stopAutoSave(): void", "forceSave(): Promise<void>"] },
+        "deps": ["window.setInterval"],
+        "category": "concern",
+        "notes": "منطق الحفظ الآلي مرتبط بالواجهة؛ يمكن عزله كوحدة persistence."
+      },
+      {
+        "symbol": "AdvancedSearchEngine.searchInContent",
+        "file": "src/components/editor/CleanIntegratedScreenplayEditor.tsx",
+        "lines": "178-236",
+        "io_contract": { "inputs": ["content: string", "query: string", "options: {caseSensitive?, wholeWords?, useRegex?}"] , "outputs": ["Promise<{success: boolean, results: any[]}>"] },
+        "deps": ["RegExp"],
+        "category": "domain",
+        "notes": "خوارزمية البحث تستخدم النص الخام وتتكرر عبر الأسطر؛ الأنسب لوحدة text-ops."
+      },
+      {
+        "symbol": "AdvancedSearchEngine.replaceInContent",
+        "file": "src/components/editor/CleanIntegratedScreenplayEditor.tsx",
+        "lines": "248-296",
+        "io_contract": { "inputs": ["content: string", "searchQuery: string", "replaceText: string", "options"], "outputs": ["Promise<{success: boolean, patternSource: string, patternFlags: string}>"] },
+        "deps": ["RegExp"],
+        "category": "domain",
+        "notes": "يُعيد بيانات regex لإعادة الاستخدام في عمليات DOM؛ يجب أن يتكامل مع وحدة الاستبدال الجديدة."
+      },
+      {
+        "symbol": "CollaborationSystem",
+        "file": "src/components/editor/CleanIntegratedScreenplayEditor.tsx",
+        "lines": "299-380",
+        "io_contract": { "inputs": ["collaborator", "comment", "callback"], "outputs": ["void", "getCollaborators(): Collaborator[]", "getComments(): Comment[]"] },
+        "deps": [],
+        "category": "concern",
+        "notes": "منظومة تعاون داخلية بدون فصل طبقي؛ المرشح لوحدة collab-service."
+      },
+      {
+        "symbol": "ProjectManager",
+        "file": "src/components/editor/CleanIntegratedScreenplayEditor.tsx",
+        "lines": "456-558",
+        "io_contract": { "inputs": ["name: string", "updates: any", "templateId: string"], "outputs": ["project", "template", "null"] },
+        "deps": ["Math.random"],
+        "category": "entity",
+        "notes": "يدير مشاريع وقوالب داخل المكون؛ يحتاج إلى فصل حسب الكيان Project/Template."
+      },
+      {
+        "symbol": "VisualPlanningSystem",
+        "file": "src/components/editor/CleanIntegratedScreenplayEditor.tsx",
+        "lines": "566-620",
+        "io_contract": { "inputs": ["sceneId: string", "description: string", "imageUrl?: string", "act: number", "beat: string"], "outputs": ["storyboard", "beatSheet"] },
+        "deps": ["Math.random"],
+        "category": "entity",
+        "notes": "وظائف storyboards/beat sheets متداخلة؛ يلزم تحويلها لوحدة planning واضحة."
+      },
+      {
+        "symbol": "ScreenplayClassifier",
+        "file": "src/components/editor/CleanIntegratedScreenplayEditor.tsx",
+        "lines": "633-918",
+        "io_contract": { "inputs": ["line: string", "context?: ScreenplayContext"], "outputs": ["boolean", "normalized text"] },
+        "deps": ["RegExp"],
+        "category": "domain",
+        "notes": "منطق تصنيف المشاهد العربية متكرر أيضاً في services/test-classifier.ts؛ يجب تجميعه في وحدة domain."
+      },
+      {
+        "symbol": "calculateStats",
+        "file": "src/components/editor/CleanIntegratedScreenplayEditor.tsx",
+        "lines": "1033-1054",
+        "io_contract": { "inputs": [], "outputs": ["void (setDocumentStats)"] },
+        "deps": ["editorRef", "setDocumentStats"],
+        "category": "concern",
+        "notes": "حساب الإحصائيات يعتمد على DOM؛ يمكن تحويله لخدمة metrics قابلة لإعادة الاستخدام."
+      },
+      {
+        "symbol": "getNextFormatOnTab",
+        "file": "src/components/editor/CleanIntegratedScreenplayEditor.tsx",
+        "lines": "1056-1099",
+        "io_contract": { "inputs": ["currentFormat: string", "shiftKey: boolean"], "outputs": ["string"] },
+        "deps": ["isCurrentElementEmpty"],
+        "category": "domain",
+        "notes": "منطق التحويل بين أنماط السيناريو متشابك مع UI؛ مناسب لوحدة formatting rules."
+      },
+      {
+        "symbol": "applyRegexReplacementToTextNodes",
+        "file": "src/modules/text/domTextReplacement.ts",
+        "lines": "1-74",
+        "io_contract": { "inputs": ["root: HTMLElement", "patternSource: string", "patternFlags: string", "replacement: string", "replaceAll: boolean"], "outputs": ["number"] },
+        "deps": ["RegExp", "DOM Node"],
+        "category": "domain",
+        "notes": "نُقلت للتو إلى وحدة نصوص جديدة؛ ما زال يُستخدم من المحرر."
+      },
+      {
+        "symbol": "processFilesForGemini",
+        "file": "src/agents/core/fileReaderService.ts",
+        "lines": "78-148",
+        "io_contract": { "inputs": ["files: File[]"], "outputs": ["Promise<ProcessedFile[]>"] },
+        "deps": ["mammoth", "FileReader"],
+        "category": "domain",
+        "notes": "خدمة معالجة ملفات عامة يمكن تجميعها ضمن وحدة ingestion."
+      },
+      {
+        "symbol": "attemptToFixJson",
+        "file": "src/agents/core/geminiService.ts",
+        "lines": "78-99",
+        "io_contract": { "inputs": ["jsonString: string"], "outputs": ["string"] },
+        "deps": ["JSON"],
+        "category": "concern",
+        "notes": "أداة تنقية JSON مستخدمة قبل تحليل الاستجابة؛ يجب توحيدها مع منطق parsing."
+      },
+      {
+        "symbol": "constructPromptParts",
+        "file": "src/agents/core/geminiService.ts",
+        "lines": "106-252",
+        "io_contract": { "inputs": ["params: ProcessTextsParams"], "outputs": ["Part[]"] },
+        "deps": ["TASK_DESCRIPTIONS_FOR_PROMPT", "TASK_CATEGORY_MAP"],
+        "category": "domain",
+        "notes": "يبني أوامر Gemini اعتمادًا على معلومات المجال؛ يحتاج لتقسيم بين تكوين المهمة ونقل الملفات."
+      },
+      {
+        "symbol": "processTextsWithGemini",
+        "file": "src/agents/core/geminiService.ts",
+        "lines": "260-344",
+        "io_contract": { "inputs": ["params: ProcessTextsParams", "retries?: number"], "outputs": ["Promise<GeminiServiceResponse>"] },
+        "deps": ["constructPromptParts", "attemptToFixJson", "GoogleGenerativeAI"],
+        "category": "domain",
+        "notes": "منطق الاستدعاء والشبكة متداخل مع معالجة JSON؛ يحتاج لفصل concerns (client, parsing, retry)."
+      }
+    ]
+  },
+  "functional_clusters": [
+    {
+      "cluster_name": "TextEditingOps",
+      "rationale": "تجميع البحث والاستبدال والتنسيق لضمان تماسك أدوات النص.",
+      "members": [
+        "AdvancedSearchEngine.searchInContent",
+        "AdvancedSearchEngine.replaceInContent",
+        "applyRegexReplacementToTextNodes",
+        "handleCharacterRename",
+        "getNextFormatOnTab",
+        "getNextFormatOnEnter"
+      ],
+      "current_files": ["src/components/editor/CleanIntegratedScreenplayEditor.tsx", "src/modules/text/domTextReplacement.ts"],
+      "risk": "medium"
+    },
+    {
+      "cluster_name": "ScreenplayClassification",
+      "rationale": "كل وظائف تصنيف الأسطر العربية تحتاج إلى حزمة Domain موحدة ومشتركة بين الواجهة والخدمات.",
+      "members": [
+        "ScreenplayClassifier.stripTashkeel",
+        "ScreenplayClassifier.normalizeLine",
+        "ScreenplayClassifier.isCharacterLine",
+        "ScreenplayClassifier.isLikelyAction"
+      ],
+      "current_files": ["src/components/editor/CleanIntegratedScreenplayEditor.tsx", "src/services/test-classifier.ts"],
+      "risk": "high"
+    },
+    {
+      "cluster_name": "StateAndPersistence",
+      "rationale": "مديرو الحالة والحفظ الآلي وإحصائيات الوثيقة تشترك في نفس الاهتمامات.",
+      "members": ["StateManager", "AutoSaveManager", "calculateStats"],
+      "current_files": ["src/components/editor/CleanIntegratedScreenplayEditor.tsx"],
+      "risk": "medium"
+    },
+    {
+      "cluster_name": "CollaborationAndProjects",
+      "rationale": "منطق المشاريع والتعاون والتخطيط البصري يجب أن يُجمع كوحدات كيان منفصلة عن واجهة المحرر.",
+      "members": ["CollaborationSystem", "ProjectManager", "VisualPlanningSystem"],
+      "current_files": ["src/components/editor/CleanIntegratedScreenplayEditor.tsx"],
+      "risk": "medium"
+    },
+    {
+      "cluster_name": "GeminiIntegration",
+      "rationale": "المعالجة المسبقة للملفات، بناء المطالبات، ومعالجة النتائج مرتبطة بنفس تكامل الخدمة.",
+      "members": ["processFilesForGemini", "constructPromptParts", "attemptToFixJson", "processTextsWithGemini"],
+      "current_files": ["src/agents/core/fileReaderService.ts", "src/agents/core/geminiService.ts"],
+      "risk": "low"
+    }
+  ],
+  "proposed_modules": [
+    {
+      "name": "@app/editor/text-kit",
+      "purpose": "توفير أدوات البحث، الاستبدال، وأنماط التنسيق الخاصة بالمحرر.",
+      "public_api": [
+        {"fn": "searchContent(options: SearchOptions): Promise<SearchResult>"},
+        {"fn": "replaceContent(options: ReplaceOptions): Promise<ReplaceResult>"},
+        {"fn": "applyRegexReplacementToTextNodes(root: HTMLElement, pattern: RegExpDescriptor, replacement: string): number"}
+      ],
+      "internal_rules": ["no React dependencies", "pure text utilities", "DOM mutations محصورة في طبقة adapters"],
+      "deps_allowed": ["@app/editor/dom-adapters", "@app/shared-types"]
+    },
+    {
+      "name": "@app/domain/screenplay-classifier",
+      "purpose": "تغليف خوارزميات تصنيف السيناريو العربي مع واجهة واحدة للمحرر والاختبارات.",
+      "public_api": [
+        {"fn": "classifyLine(input: string, context?: ScreenplayContext): ClassificationResult"},
+        {"fn": "normalizeLine(input: string): string"}
+      ],
+      "internal_rules": ["pure functions", "no DOM", "shared regex constants"],
+      "deps_allowed": ["@app/shared-types"]
+    },
+    {
+      "name": "@app/editor/state",
+      "purpose": "إدارة حالة التحرير، الحفظ الآلي، ولوحات الإحصاء بطريقة مركزة.",
+      "public_api": [
+        {"fn": "createEditorStateStore(): EditorStateStore"},
+        {"fn": "createAutoSaveController(config: AutoSaveConfig): AutoSaveController"},
+        {"fn": "calculateDocumentStats(html: string): DocumentStats"}
+      ],
+      "internal_rules": ["Observable pattern only via exported interfaces", "no direct DOM refs"],
+      "deps_allowed": ["@app/shared-types"]
+    },
+    {
+      "name": "@app/collab/management",
+      "purpose": "حزم إدارة المشاريع، التعليقات، واللوحات البصرية.",
+      "public_api": [
+        {"fn": "createCollaborationHub(): CollaborationHub"},
+        {"fn": "createProjectRepository(storage?: StorageAdapter): ProjectRepository"}
+      ],
+      "internal_rules": ["pure data structures", "storage injected via adapters"],
+      "deps_allowed": ["@app/shared-types", "@app/editor/state"]
+    },
+    {
+      "name": "@app/integration/gemini",
+      "purpose": "تجميع التكامل مع Gemini بما في ذلك معالجة الملفات، بناء المطالبات، ومقاربة الاستجابات.",
+      "public_api": [
+        {"fn": "prepareFiles(files: File[]): Promise<ProcessedFile[]>"},
+        {"fn": "executeTask(request: GeminiTaskRequest): Promise<GeminiTaskResponse>"}
+      ],
+      "internal_rules": ["network logic isolated", "JSON repair centralized"],
+      "deps_allowed": ["@google/generative-ai", "@app/shared-types"]
+    }
+  ],
+  "call_site_updates": [
+    {
+      "from": "src/components/editor/textReplacement.ts::applyRegexReplacementToTextNodes",
+      "to": "@app/editor/text-kit::applyRegexReplacementToTextNodes",
+      "references": ["src/components/editor/CleanIntegratedScreenplayEditor.tsx"]
+    },
+    {
+      "from": "ScreenplayClassifier.*",
+      "to": "@app/domain/screenplay-classifier::classifyLine",
+      "references": ["src/components/editor/CleanIntegratedScreenplayEditor.tsx", "src/services/test-classifier.ts"]
+    },
+    {
+      "from": "CollaborationSystem",
+      "to": "@app/collab/management::createCollaborationHub",
+      "references": ["src/components/editor/CleanIntegratedScreenplayEditor.tsx"]
+    },
+    {
+      "from": "processFilesForGemini",
+      "to": "@app/integration/gemini::prepareFiles",
+      "references": ["src/agents/core/index.ts", "src/agents/core/integratedAgent.ts"]
+    }
+  ],
+  "deprecation_ledger": [
+    {
+      "old_symbol": "src/components/editor/textReplacement.ts::applyRegexReplacementToTextNodes",
+      "replacement": "@app/editor/text-kit::applyRegexReplacementToTextNodes",
+      "removal_window": "2 sprints",
+      "owner": "core-editor-team"
+    },
+    {
+      "old_symbol": "ScreenplayClassifier",
+      "replacement": "@app/domain/screenplay-classifier::classifyLine",
+      "removal_window": "3 sprints",
+      "owner": "narrative-intelligence"
+    },
+    {
+      "old_symbol": "CollaborationSystem",
+      "replacement": "@app/collab/management::CollaborationHub",
+      "removal_window": "2 sprints",
+      "owner": "collab-platform"
+    }
+  ],
+  "testing_plan": {
+    "unit": [
+      "text-kit should normalize regex replacements without mutating structure",
+      "screenplay-classifier should classify basmala, scene headers, and transitions",
+      "gemini integration should repair malformed JSON gracefully"
+    ],
+    "integration": [
+      "Editor component uses new state module without regression",
+      "Gemini orchestration handles DOCX and PDF inputs end-to-end"
+    ],
+    "invariants": [
+      "formatter is pure",
+      "no DOM mutation in classification pipeline",
+      "autosave timers cleaned on unmount"
+    ]
+  },
+  "risk_register": [
+    {"risk": "كسر غير مقصود في التصنيف", "impact": "high", "mitigation": "golden tests + snapshot"},
+    {"risk": "اختلاف مسارات الاستيراد", "impact": "medium", "mitigation": "codemod + lint rule"},
+    {"risk": "تسرب اشتراكات حالة", "impact": "medium", "mitigation": "اعتماد store بواجهات dispose واضحة"}
+  ],
+  "success_metrics": {
+    "maintainability_index_delta": "+10%",
+    "duplication_reduction": "-30% utils scattered",
+    "import_coupling_reduction": "-20% cross-imports"
+  },
+  "migration_steps": [
+    "Step 1: إنشاء حزمة @app/editor/text-kit وواجهة عامة",
+    "Step 2: نقل وظائف النصوص + اختبارات",
+    "Step 3: codemod لتحديث الاستدعاءات",
+    "Step 4: إبطال القديم Deprecated + توثيق",
+    "Step 5: قياس مؤشرات النجاح"
+  ],
+  "confidence": 0.65
+}

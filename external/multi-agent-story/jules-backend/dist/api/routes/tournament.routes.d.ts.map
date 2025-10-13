@@ -1,0 +1,1 @@
+{"version":3,"file":"tournament.routes.d.ts","sourceRoot":"","sources":["../../../src/api/routes/tournament.routes.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,eAAe,EAAgC,MAAM,SAAS,CAAA;AACvE,OAAO,EAAE,iBAAiB,EAAE,MAAM,mCAAmC,CAAA;AAGrE,wBAAsB,gBAAgB,CACpC,OAAO,EAAE,eAAe,EACxB,OAAO,EAAE;IAAE,iBAAiB,EAAE,iBAAiB,CAAA;CAAE,iBAwElD"}

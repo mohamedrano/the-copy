@@ -1,0 +1,5 @@
+ui/components/ErrorBoundary.tsx:53:17 - error TS2339: Property 'props' does not exist on type 'ErrorBoundary'.
+
+53     return this.props.children;
+                   ~~~~~
+

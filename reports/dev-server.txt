@@ -1,0 +1,42 @@
+Development Server Configuration Report
+======================================
+
+Server Details:
+- Host: localhost
+- Port: 5177
+- Protocol: HTTP
+- HMR Port: 5177
+
+Vite Configuration:
+- Build tool: Vite 7.1.7
+- React plugin: @vitejs/plugin-react 5.0.3
+- TypeScript: 5.8.3
+- Path aliases: @ -> ./src
+
+Performance:
+- Cold start: ~2-3 seconds
+- HMR updates: <100ms
+- Bundle analysis: Available via npm run analyze
+
+Security:
+- HTTPS: Not configured (development only)
+- CORS: Default Vite settings
+- CSP: Configured in utils/sanitizer.ts
+
+RTL/Arabic Support:
+- Direction: RTL globally
+- Fonts: Amiri, Cairo, Tajawal loaded from Google Fonts
+- Text input: Properly configured for Arabic
+- Layout: Flexbox with RTL support
+
+Development Features:
+- Interface toggle: Available in development mode
+- Hot reload: Enabled
+- Source maps: Enabled
+- Error overlay: Enabled
+
+Recommended Commands:
+- Start dev server: npm run dev
+- Type checking: npm run type-check
+- Run tests: npm test
+- Build production: npm run build

@@ -1,0 +1,2277 @@
+{
+  "projectRoot": "H:/Drama-analyst-and-creative-mimic",
+  "summary": {
+    "fileCount": 79
+  },
+  "nodes": [
+    {
+      "path": "agents/adaptiveRewriting/agent.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/adaptiveRewriting/instructions.ts",
+      "layer": "agents",
+      "imports": []
+    },
+    {
+      "path": "agents/analysis/agent.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/analysis/instructions.ts",
+      "layer": "agents",
+      "imports": []
+    },
+    {
+      "path": "agents/audienceResonance/agent.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/audienceResonance/instructions.ts",
+      "layer": "agents",
+      "imports": []
+    },
+    {
+      "path": "agents/characterDeepAnalyzer/agent.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/characterDeepAnalyzer/instructions.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "../shared/advancedModuleOutputStructure",
+          "resolved": "agents/shared/advancedModuleOutputStructure.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/characterNetwork/agent.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/characterNetwork/instructions.ts",
+      "layer": "agents",
+      "imports": []
+    },
+    {
+      "path": "agents/characterVoice/agent.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/characterVoice/instructions.ts",
+      "layer": "agents",
+      "imports": []
+    },
+    {
+      "path": "agents/completion/agent.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/completion/instructions.ts",
+      "layer": "agents",
+      "imports": []
+    },
+    {
+      "path": "agents/conflictDynamics/agent.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/conflictDynamics/instructions.ts",
+      "layer": "agents",
+      "imports": []
+    },
+    {
+      "path": "agents/creative/agent.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/creative/instructions.ts",
+      "layer": "agents",
+      "imports": []
+    },
+    {
+      "path": "agents/culturalHistoricalAnalyzer/agent.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/culturalHistoricalAnalyzer/instructions.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "../shared/advancedModuleOutputStructure",
+          "resolved": "agents/shared/advancedModuleOutputStructure.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/dialogueAdvancedAnalyzer/agent.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/dialogueAdvancedAnalyzer/instructions.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "../shared/advancedModuleOutputStructure",
+          "resolved": "agents/shared/advancedModuleOutputStructure.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/dialogueForensics/agent.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/dialogueForensics/instructions.ts",
+      "layer": "agents",
+      "imports": []
+    },
+    {
+      "path": "agents/index.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        },
+        {
+          "specifier": "./analysis/agent",
+          "resolved": "agents/analysis/agent.ts",
+          "external": false
+        },
+        {
+          "specifier": "./creative/agent",
+          "resolved": "agents/creative/agent.ts",
+          "external": false
+        },
+        {
+          "specifier": "./integrated/agent",
+          "resolved": "agents/integrated/agent.ts",
+          "external": false
+        },
+        {
+          "specifier": "./completion/agent",
+          "resolved": "agents/completion/agent.ts",
+          "external": false
+        },
+        {
+          "specifier": "./rhythmMapping/agent",
+          "resolved": "agents/rhythmMapping/agent.ts",
+          "external": false
+        },
+        {
+          "specifier": "./characterNetwork/agent",
+          "resolved": "agents/characterNetwork/agent.ts",
+          "external": false
+        },
+        {
+          "specifier": "./dialogueForensics/agent",
+          "resolved": "agents/dialogueForensics/agent.ts",
+          "external": false
+        },
+        {
+          "specifier": "./thematicMining/agent",
+          "resolved": "agents/thematicMining/agent.ts",
+          "external": false
+        },
+        {
+          "specifier": "./styleFingerprint/agent",
+          "resolved": "agents/styleFingerprint/agent.ts",
+          "external": false
+        },
+        {
+          "specifier": "./conflictDynamics/agent",
+          "resolved": "agents/conflictDynamics/agent.ts",
+          "external": false
+        },
+        {
+          "specifier": "./adaptiveRewriting/agent",
+          "resolved": "agents/adaptiveRewriting/agent.ts",
+          "external": false
+        },
+        {
+          "specifier": "./sceneGenerator/agent",
+          "resolved": "agents/sceneGenerator/agent.ts",
+          "external": false
+        },
+        {
+          "specifier": "./characterVoice/agent",
+          "resolved": "agents/characterVoice/agent.ts",
+          "external": false
+        },
+        {
+          "specifier": "./worldBuilder/agent",
+          "resolved": "agents/worldBuilder/agent.ts",
+          "external": false
+        },
+        {
+          "specifier": "./plotPredictor/agent",
+          "resolved": "agents/plotPredictor/agent.ts",
+          "external": false
+        },
+        {
+          "specifier": "./tensionOptimizer/agent",
+          "resolved": "agents/tensionOptimizer/agent.ts",
+          "external": false
+        },
+        {
+          "specifier": "./audienceResonance/agent",
+          "resolved": "agents/audienceResonance/agent.ts",
+          "external": false
+        },
+        {
+          "specifier": "./platformAdapter/agent",
+          "resolved": "agents/platformAdapter/agent.ts",
+          "external": false
+        },
+        {
+          "specifier": "./characterDeepAnalyzer/agent",
+          "resolved": "agents/characterDeepAnalyzer/agent.ts",
+          "external": false
+        },
+        {
+          "specifier": "./dialogueAdvancedAnalyzer/agent",
+          "resolved": "agents/dialogueAdvancedAnalyzer/agent.ts",
+          "external": false
+        },
+        {
+          "specifier": "./visualCinematicAnalyzer/agent",
+          "resolved": "agents/visualCinematicAnalyzer/agent.ts",
+          "external": false
+        },
+        {
+          "specifier": "./themesMessagesAnalyzer/agent",
+          "resolved": "agents/themesMessagesAnalyzer/agent.ts",
+          "external": false
+        },
+        {
+          "specifier": "./culturalHistoricalAnalyzer/agent",
+          "resolved": "agents/culturalHistoricalAnalyzer/agent.ts",
+          "external": false
+        },
+        {
+          "specifier": "./producibilityAnalyzer/agent",
+          "resolved": "agents/producibilityAnalyzer/agent.ts",
+          "external": false
+        },
+        {
+          "specifier": "./targetAudienceAnalyzer/agent",
+          "resolved": "agents/targetAudienceAnalyzer/agent.ts",
+          "external": false
+        },
+        {
+          "specifier": "./literaryQualityAnalyzer/agent",
+          "resolved": "agents/literaryQualityAnalyzer/agent.ts",
+          "external": false
+        },
+        {
+          "specifier": "./recommendationsGenerator/agent",
+          "resolved": "agents/recommendationsGenerator/agent.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/integrated/agent.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/integrated/instructions.ts",
+      "layer": "agents",
+      "imports": []
+    },
+    {
+      "path": "agents/literaryQualityAnalyzer/agent.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/literaryQualityAnalyzer/instructions.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "../shared/advancedModuleOutputStructure",
+          "resolved": "agents/shared/advancedModuleOutputStructure.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/platformAdapter/agent.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/platformAdapter/instructions.ts",
+      "layer": "agents",
+      "imports": []
+    },
+    {
+      "path": "agents/plotPredictor/agent.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/plotPredictor/instructions.ts",
+      "layer": "agents",
+      "imports": []
+    },
+    {
+      "path": "agents/producibilityAnalyzer/agent.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/producibilityAnalyzer/instructions.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "../shared/advancedModuleOutputStructure",
+          "resolved": "agents/shared/advancedModuleOutputStructure.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/recommendationsGenerator/agent.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/recommendationsGenerator/instructions.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "../shared/advancedModuleOutputStructure",
+          "resolved": "agents/shared/advancedModuleOutputStructure.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/rhythmMapping/agent.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/rhythmMapping/instructions.ts",
+      "layer": "agents",
+      "imports": []
+    },
+    {
+      "path": "agents/sceneGenerator/agent.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/sceneGenerator/instructions.ts",
+      "layer": "agents",
+      "imports": []
+    },
+    {
+      "path": "agents/shared/advancedModuleOutputStructure.ts",
+      "layer": "agents",
+      "imports": []
+    },
+    {
+      "path": "agents/styleFingerprint/agent.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/styleFingerprint/instructions.ts",
+      "layer": "agents",
+      "imports": []
+    },
+    {
+      "path": "agents/targetAudienceAnalyzer/agent.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/targetAudienceAnalyzer/instructions.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "../shared/advancedModuleOutputStructure",
+          "resolved": "agents/shared/advancedModuleOutputStructure.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/taskInstructions.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "./analysis/instructions",
+          "resolved": "agents/analysis/instructions.ts",
+          "external": false
+        },
+        {
+          "specifier": "./creative/instructions",
+          "resolved": "agents/creative/instructions.ts",
+          "external": false
+        },
+        {
+          "specifier": "./integrated/instructions",
+          "resolved": "agents/integrated/instructions.ts",
+          "external": false
+        },
+        {
+          "specifier": "./completion/instructions",
+          "resolved": "agents/completion/instructions.ts",
+          "external": false
+        },
+        {
+          "specifier": "./rhythmMapping/instructions",
+          "resolved": "agents/rhythmMapping/instructions.ts",
+          "external": false
+        },
+        {
+          "specifier": "./characterNetwork/instructions",
+          "resolved": "agents/characterNetwork/instructions.ts",
+          "external": false
+        },
+        {
+          "specifier": "./dialogueForensics/instructions",
+          "resolved": "agents/dialogueForensics/instructions.ts",
+          "external": false
+        },
+        {
+          "specifier": "./thematicMining/instructions",
+          "resolved": "agents/thematicMining/instructions.ts",
+          "external": false
+        },
+        {
+          "specifier": "./styleFingerprint/instructions",
+          "resolved": "agents/styleFingerprint/instructions.ts",
+          "external": false
+        },
+        {
+          "specifier": "./conflictDynamics/instructions",
+          "resolved": "agents/conflictDynamics/instructions.ts",
+          "external": false
+        },
+        {
+          "specifier": "./adaptiveRewriting/instructions",
+          "resolved": "agents/adaptiveRewriting/instructions.ts",
+          "external": false
+        },
+        {
+          "specifier": "./sceneGenerator/instructions",
+          "resolved": "agents/sceneGenerator/instructions.ts",
+          "external": false
+        },
+        {
+          "specifier": "./characterVoice/instructions",
+          "resolved": "agents/characterVoice/instructions.ts",
+          "external": false
+        },
+        {
+          "specifier": "./worldBuilder/instructions",
+          "resolved": "agents/worldBuilder/instructions.ts",
+          "external": false
+        },
+        {
+          "specifier": "./plotPredictor/instructions",
+          "resolved": "agents/plotPredictor/instructions.ts",
+          "external": false
+        },
+        {
+          "specifier": "./tensionOptimizer/instructions",
+          "resolved": "agents/tensionOptimizer/instructions.ts",
+          "external": false
+        },
+        {
+          "specifier": "./audienceResonance/instructions",
+          "resolved": "agents/audienceResonance/instructions.ts",
+          "external": false
+        },
+        {
+          "specifier": "./platformAdapter/instructions",
+          "resolved": "agents/platformAdapter/instructions.ts",
+          "external": false
+        },
+        {
+          "specifier": "./characterDeepAnalyzer/instructions",
+          "resolved": "agents/characterDeepAnalyzer/instructions.ts",
+          "external": false
+        },
+        {
+          "specifier": "./dialogueAdvancedAnalyzer/instructions",
+          "resolved": "agents/dialogueAdvancedAnalyzer/instructions.ts",
+          "external": false
+        },
+        {
+          "specifier": "./visualCinematicAnalyzer/instructions",
+          "resolved": "agents/visualCinematicAnalyzer/instructions.ts",
+          "external": false
+        },
+        {
+          "specifier": "./themesMessagesAnalyzer/instructions",
+          "resolved": "agents/themesMessagesAnalyzer/instructions.ts",
+          "external": false
+        },
+        {
+          "specifier": "./culturalHistoricalAnalyzer/instructions",
+          "resolved": "agents/culturalHistoricalAnalyzer/instructions.ts",
+          "external": false
+        },
+        {
+          "specifier": "./producibilityAnalyzer/instructions",
+          "resolved": "agents/producibilityAnalyzer/instructions.ts",
+          "external": false
+        },
+        {
+          "specifier": "./targetAudienceAnalyzer/instructions",
+          "resolved": "agents/targetAudienceAnalyzer/instructions.ts",
+          "external": false
+        },
+        {
+          "specifier": "./literaryQualityAnalyzer/instructions",
+          "resolved": "agents/literaryQualityAnalyzer/instructions.ts",
+          "external": false
+        },
+        {
+          "specifier": "./recommendationsGenerator/instructions",
+          "resolved": "agents/recommendationsGenerator/instructions.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/tensionOptimizer/agent.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/tensionOptimizer/instructions.ts",
+      "layer": "agents",
+      "imports": []
+    },
+    {
+      "path": "agents/thematicMining/agent.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/thematicMining/instructions.ts",
+      "layer": "agents",
+      "imports": []
+    },
+    {
+      "path": "agents/themesMessagesAnalyzer/agent.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/themesMessagesAnalyzer/instructions.ts",
+      "layer": "agents",
+      "imports": []
+    },
+    {
+      "path": "agents/visualCinematicAnalyzer/agent.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/visualCinematicAnalyzer/instructions.ts",
+      "layer": "agents",
+      "imports": []
+    },
+    {
+      "path": "agents/worldBuilder/agent.ts",
+      "layer": "agents",
+      "imports": [
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "agents/worldBuilder/instructions.ts",
+      "layer": "agents",
+      "imports": []
+    },
+    {
+      "path": "core/constants.ts",
+      "layer": "core",
+      "imports": [
+        {
+          "specifier": "./enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "./types",
+          "resolved": "core/types.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "core/enums.ts",
+      "layer": "core",
+      "imports": []
+    },
+    {
+      "path": "core/types.ts",
+      "layer": "core",
+      "imports": [
+        {
+          "specifier": "./enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "orchestration/agentFactory.ts",
+      "layer": "orchestration",
+      "imports": [
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "orchestration/orchestration.ts",
+      "layer": "orchestration",
+      "imports": [
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@agents/index",
+          "resolved": "agents/index.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "services/fileReaderService.ts",
+      "layer": "services",
+      "imports": [
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        },
+        {
+          "specifier": "mammoth",
+          "resolved": null,
+          "external": true
+        }
+      ]
+    },
+    {
+      "path": "services/geminiService.ts",
+      "layer": "services",
+      "imports": [
+        {
+          "specifier": "@google/genai",
+          "resolved": null,
+          "external": true
+        },
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/constants",
+          "resolved": "core/constants.ts",
+          "external": false
+        },
+        {
+          "specifier": "@agents/taskInstructions",
+          "resolved": "agents/taskInstructions.ts",
+          "external": false
+        },
+        {
+          "specifier": "@orchestration/orchestration",
+          "resolved": "orchestration/orchestration.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "types.d.ts",
+      "layer": "other",
+      "imports": []
+    },
+    {
+      "path": "ui/App.tsx",
+      "layer": "ui",
+      "imports": [
+        {
+          "specifier": "react",
+          "resolved": null,
+          "external": true
+        },
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        },
+        {
+          "specifier": "@ui/components/CompletionEnhancements",
+          "resolved": "ui/components/CompletionEnhancements.tsx",
+          "external": false
+        },
+        {
+          "specifier": "@ui/components/ActionButton",
+          "resolved": "ui/components/ActionButton.tsx",
+          "external": false
+        },
+        {
+          "specifier": "@ui/components/FileUpload",
+          "resolved": "ui/components/FileUpload.tsx",
+          "external": false
+        },
+        {
+          "specifier": "@ui/components/Footer",
+          "resolved": "ui/components/Footer.tsx",
+          "external": false
+        },
+        {
+          "specifier": "@ui/components/Header",
+          "resolved": "ui/components/Header.tsx",
+          "external": false
+        },
+        {
+          "specifier": "@ui/components/Loader",
+          "resolved": "ui/components/Loader.tsx",
+          "external": false
+        },
+        {
+          "specifier": "@ui/components/RequirementsForm",
+          "resolved": "ui/components/RequirementsForm.tsx",
+          "external": false
+        },
+        {
+          "specifier": "@ui/components/ResultsDisplay",
+          "resolved": "ui/components/ResultsDisplay.tsx",
+          "external": false
+        },
+        {
+          "specifier": "@ui/components/TaskSelector",
+          "resolved": "ui/components/TaskSelector.tsx",
+          "external": false
+        },
+        {
+          "specifier": "@services/fileReaderService",
+          "resolved": "services/fileReaderService.ts",
+          "external": false
+        },
+        {
+          "specifier": "@services/geminiService",
+          "resolved": "services/geminiService.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/constants",
+          "resolved": "core/constants.ts",
+          "external": false
+        },
+        {
+          "specifier": "@ui/icons",
+          "resolved": "ui/icons.tsx",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "ui/components/ActionButton.tsx",
+      "layer": "ui",
+      "imports": [
+        {
+          "specifier": "react",
+          "resolved": null,
+          "external": true
+        }
+      ]
+    },
+    {
+      "path": "ui/components/CompletionEnhancements.tsx",
+      "layer": "ui",
+      "imports": [
+        {
+          "specifier": "react",
+          "resolved": null,
+          "external": true
+        },
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        },
+        {
+          "specifier": "@ui/icons",
+          "resolved": "ui/icons.tsx",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "ui/components/FileUpload.tsx",
+      "layer": "ui",
+      "imports": [
+        {
+          "specifier": "react",
+          "resolved": null,
+          "external": true
+        },
+        {
+          "specifier": "react-dropzone",
+          "resolved": null,
+          "external": true
+        },
+        {
+          "specifier": "@ui/icons",
+          "resolved": "ui/icons.tsx",
+          "external": false
+        },
+        {
+          "specifier": "@core/constants",
+          "resolved": "core/constants.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "ui/components/Footer.tsx",
+      "layer": "ui",
+      "imports": [
+        {
+          "specifier": "react",
+          "resolved": null,
+          "external": true
+        }
+      ]
+    },
+    {
+      "path": "ui/components/Header.tsx",
+      "layer": "ui",
+      "imports": [
+        {
+          "specifier": "react",
+          "resolved": null,
+          "external": true
+        },
+        {
+          "specifier": "@core/constants",
+          "resolved": "core/constants.ts",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "ui/components/Loader.tsx",
+      "layer": "ui",
+      "imports": [
+        {
+          "specifier": "react",
+          "resolved": null,
+          "external": true
+        }
+      ]
+    },
+    {
+      "path": "ui/components/RequirementsForm.tsx",
+      "layer": "ui",
+      "imports": [
+        {
+          "specifier": "react",
+          "resolved": null,
+          "external": true
+        }
+      ]
+    },
+    {
+      "path": "ui/components/ResultsDisplay.tsx",
+      "layer": "ui",
+      "imports": [
+        {
+          "specifier": "react",
+          "resolved": null,
+          "external": true
+        },
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/types",
+          "resolved": "core/types.ts",
+          "external": false
+        },
+        {
+          "specifier": "@ui/icons",
+          "resolved": "ui/icons.tsx",
+          "external": false
+        },
+        {
+          "specifier": "@orchestration/orchestration",
+          "resolved": "orchestration/orchestration.ts",
+          "external": false
+        },
+        {
+          "specifier": "@ui/components/ActionButton",
+          "resolved": "ui/components/ActionButton.tsx",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "ui/components/TaskSelector.tsx",
+      "layer": "ui",
+      "imports": [
+        {
+          "specifier": "react",
+          "resolved": null,
+          "external": true
+        },
+        {
+          "specifier": "@core/enums",
+          "resolved": "core/enums.ts",
+          "external": false
+        },
+        {
+          "specifier": "@core/constants",
+          "resolved": "core/constants.ts",
+          "external": false
+        },
+        {
+          "specifier": "@orchestration/orchestration",
+          "resolved": "orchestration/orchestration.ts",
+          "external": false
+        },
+        {
+          "specifier": "@ui/icons",
+          "resolved": "ui/icons.tsx",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "ui/icons.tsx",
+      "layer": "ui",
+      "imports": [
+        {
+          "specifier": "react",
+          "resolved": null,
+          "external": true
+        }
+      ]
+    },
+    {
+      "path": "ui/index.tsx",
+      "layer": "ui",
+      "imports": [
+        {
+          "specifier": "react",
+          "resolved": null,
+          "external": true
+        },
+        {
+          "specifier": "react-dom/client",
+          "resolved": null,
+          "external": true
+        },
+        {
+          "specifier": "@ui/App",
+          "resolved": "ui/App.tsx",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "ui/main.tsx",
+      "layer": "ui",
+      "imports": [
+        {
+          "specifier": "react",
+          "resolved": null,
+          "external": true
+        },
+        {
+          "specifier": "react-dom/client",
+          "resolved": null,
+          "external": true
+        },
+        {
+          "specifier": "@ui/App",
+          "resolved": "ui/App.tsx",
+          "external": false
+        }
+      ]
+    },
+    {
+      "path": "vite.config.ts",
+      "layer": "other",
+      "imports": [
+        {
+          "specifier": "path",
+          "resolved": null,
+          "external": true
+        },
+        {
+          "specifier": "vite",
+          "resolved": null,
+          "external": true
+        },
+        {
+          "specifier": "@vitejs/plugin-react",
+          "resolved": null,
+          "external": true
+        }
+      ]
+    }
+  ],
+  "edges": [
+    {
+      "from": "agents/adaptiveRewriting/agent.ts",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "agents/adaptiveRewriting/agent.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "agents/analysis/agent.ts",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "agents/analysis/agent.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "agents/audienceResonance/agent.ts",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "agents/audienceResonance/agent.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "agents/characterDeepAnalyzer/agent.ts",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "agents/characterDeepAnalyzer/agent.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "agents/characterDeepAnalyzer/instructions.ts",
+      "to": "agents/shared/advancedModuleOutputStructure.ts",
+      "specifier": "../shared/advancedModuleOutputStructure"
+    },
+    {
+      "from": "agents/characterNetwork/agent.ts",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "agents/characterNetwork/agent.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "agents/characterVoice/agent.ts",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "agents/characterVoice/agent.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "agents/completion/agent.ts",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "agents/completion/agent.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "agents/conflictDynamics/agent.ts",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "agents/conflictDynamics/agent.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "agents/creative/agent.ts",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "agents/creative/agent.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "agents/culturalHistoricalAnalyzer/agent.ts",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "agents/culturalHistoricalAnalyzer/agent.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "agents/culturalHistoricalAnalyzer/instructions.ts",
+      "to": "agents/shared/advancedModuleOutputStructure.ts",
+      "specifier": "../shared/advancedModuleOutputStructure"
+    },
+    {
+      "from": "agents/dialogueAdvancedAnalyzer/agent.ts",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "agents/dialogueAdvancedAnalyzer/agent.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "agents/dialogueAdvancedAnalyzer/instructions.ts",
+      "to": "agents/shared/advancedModuleOutputStructure.ts",
+      "specifier": "../shared/advancedModuleOutputStructure"
+    },
+    {
+      "from": "agents/dialogueForensics/agent.ts",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "agents/dialogueForensics/agent.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "agents/index.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "agents/index.ts",
+      "to": "agents/analysis/agent.ts",
+      "specifier": "./analysis/agent"
+    },
+    {
+      "from": "agents/index.ts",
+      "to": "agents/creative/agent.ts",
+      "specifier": "./creative/agent"
+    },
+    {
+      "from": "agents/index.ts",
+      "to": "agents/integrated/agent.ts",
+      "specifier": "./integrated/agent"
+    },
+    {
+      "from": "agents/index.ts",
+      "to": "agents/completion/agent.ts",
+      "specifier": "./completion/agent"
+    },
+    {
+      "from": "agents/index.ts",
+      "to": "agents/rhythmMapping/agent.ts",
+      "specifier": "./rhythmMapping/agent"
+    },
+    {
+      "from": "agents/index.ts",
+      "to": "agents/characterNetwork/agent.ts",
+      "specifier": "./characterNetwork/agent"
+    },
+    {
+      "from": "agents/index.ts",
+      "to": "agents/dialogueForensics/agent.ts",
+      "specifier": "./dialogueForensics/agent"
+    },
+    {
+      "from": "agents/index.ts",
+      "to": "agents/thematicMining/agent.ts",
+      "specifier": "./thematicMining/agent"
+    },
+    {
+      "from": "agents/index.ts",
+      "to": "agents/styleFingerprint/agent.ts",
+      "specifier": "./styleFingerprint/agent"
+    },
+    {
+      "from": "agents/index.ts",
+      "to": "agents/conflictDynamics/agent.ts",
+      "specifier": "./conflictDynamics/agent"
+    },
+    {
+      "from": "agents/index.ts",
+      "to": "agents/adaptiveRewriting/agent.ts",
+      "specifier": "./adaptiveRewriting/agent"
+    },
+    {
+      "from": "agents/index.ts",
+      "to": "agents/sceneGenerator/agent.ts",
+      "specifier": "./sceneGenerator/agent"
+    },
+    {
+      "from": "agents/index.ts",
+      "to": "agents/characterVoice/agent.ts",
+      "specifier": "./characterVoice/agent"
+    },
+    {
+      "from": "agents/index.ts",
+      "to": "agents/worldBuilder/agent.ts",
+      "specifier": "./worldBuilder/agent"
+    },
+    {
+      "from": "agents/index.ts",
+      "to": "agents/plotPredictor/agent.ts",
+      "specifier": "./plotPredictor/agent"
+    },
+    {
+      "from": "agents/index.ts",
+      "to": "agents/tensionOptimizer/agent.ts",
+      "specifier": "./tensionOptimizer/agent"
+    },
+    {
+      "from": "agents/index.ts",
+      "to": "agents/audienceResonance/agent.ts",
+      "specifier": "./audienceResonance/agent"
+    },
+    {
+      "from": "agents/index.ts",
+      "to": "agents/platformAdapter/agent.ts",
+      "specifier": "./platformAdapter/agent"
+    },
+    {
+      "from": "agents/index.ts",
+      "to": "agents/characterDeepAnalyzer/agent.ts",
+      "specifier": "./characterDeepAnalyzer/agent"
+    },
+    {
+      "from": "agents/index.ts",
+      "to": "agents/dialogueAdvancedAnalyzer/agent.ts",
+      "specifier": "./dialogueAdvancedAnalyzer/agent"
+    },
+    {
+      "from": "agents/index.ts",
+      "to": "agents/visualCinematicAnalyzer/agent.ts",
+      "specifier": "./visualCinematicAnalyzer/agent"
+    },
+    {
+      "from": "agents/index.ts",
+      "to": "agents/themesMessagesAnalyzer/agent.ts",
+      "specifier": "./themesMessagesAnalyzer/agent"
+    },
+    {
+      "from": "agents/index.ts",
+      "to": "agents/culturalHistoricalAnalyzer/agent.ts",
+      "specifier": "./culturalHistoricalAnalyzer/agent"
+    },
+    {
+      "from": "agents/index.ts",
+      "to": "agents/producibilityAnalyzer/agent.ts",
+      "specifier": "./producibilityAnalyzer/agent"
+    },
+    {
+      "from": "agents/index.ts",
+      "to": "agents/targetAudienceAnalyzer/agent.ts",
+      "specifier": "./targetAudienceAnalyzer/agent"
+    },
+    {
+      "from": "agents/index.ts",
+      "to": "agents/literaryQualityAnalyzer/agent.ts",
+      "specifier": "./literaryQualityAnalyzer/agent"
+    },
+    {
+      "from": "agents/index.ts",
+      "to": "agents/recommendationsGenerator/agent.ts",
+      "specifier": "./recommendationsGenerator/agent"
+    },
+    {
+      "from": "agents/integrated/agent.ts",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "agents/integrated/agent.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "agents/literaryQualityAnalyzer/agent.ts",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "agents/literaryQualityAnalyzer/agent.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "agents/literaryQualityAnalyzer/instructions.ts",
+      "to": "agents/shared/advancedModuleOutputStructure.ts",
+      "specifier": "../shared/advancedModuleOutputStructure"
+    },
+    {
+      "from": "agents/platformAdapter/agent.ts",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "agents/platformAdapter/agent.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "agents/plotPredictor/agent.ts",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "agents/plotPredictor/agent.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "agents/producibilityAnalyzer/agent.ts",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "agents/producibilityAnalyzer/agent.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "agents/producibilityAnalyzer/instructions.ts",
+      "to": "agents/shared/advancedModuleOutputStructure.ts",
+      "specifier": "../shared/advancedModuleOutputStructure"
+    },
+    {
+      "from": "agents/recommendationsGenerator/agent.ts",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "agents/recommendationsGenerator/agent.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "agents/recommendationsGenerator/instructions.ts",
+      "to": "agents/shared/advancedModuleOutputStructure.ts",
+      "specifier": "../shared/advancedModuleOutputStructure"
+    },
+    {
+      "from": "agents/rhythmMapping/agent.ts",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "agents/rhythmMapping/agent.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "agents/sceneGenerator/agent.ts",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "agents/sceneGenerator/agent.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "agents/styleFingerprint/agent.ts",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "agents/styleFingerprint/agent.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "agents/targetAudienceAnalyzer/agent.ts",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "agents/targetAudienceAnalyzer/agent.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "agents/targetAudienceAnalyzer/instructions.ts",
+      "to": "agents/shared/advancedModuleOutputStructure.ts",
+      "specifier": "../shared/advancedModuleOutputStructure"
+    },
+    {
+      "from": "agents/taskInstructions.ts",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "agents/taskInstructions.ts",
+      "to": "agents/analysis/instructions.ts",
+      "specifier": "./analysis/instructions"
+    },
+    {
+      "from": "agents/taskInstructions.ts",
+      "to": "agents/creative/instructions.ts",
+      "specifier": "./creative/instructions"
+    },
+    {
+      "from": "agents/taskInstructions.ts",
+      "to": "agents/integrated/instructions.ts",
+      "specifier": "./integrated/instructions"
+    },
+    {
+      "from": "agents/taskInstructions.ts",
+      "to": "agents/completion/instructions.ts",
+      "specifier": "./completion/instructions"
+    },
+    {
+      "from": "agents/taskInstructions.ts",
+      "to": "agents/rhythmMapping/instructions.ts",
+      "specifier": "./rhythmMapping/instructions"
+    },
+    {
+      "from": "agents/taskInstructions.ts",
+      "to": "agents/characterNetwork/instructions.ts",
+      "specifier": "./characterNetwork/instructions"
+    },
+    {
+      "from": "agents/taskInstructions.ts",
+      "to": "agents/dialogueForensics/instructions.ts",
+      "specifier": "./dialogueForensics/instructions"
+    },
+    {
+      "from": "agents/taskInstructions.ts",
+      "to": "agents/thematicMining/instructions.ts",
+      "specifier": "./thematicMining/instructions"
+    },
+    {
+      "from": "agents/taskInstructions.ts",
+      "to": "agents/styleFingerprint/instructions.ts",
+      "specifier": "./styleFingerprint/instructions"
+    },
+    {
+      "from": "agents/taskInstructions.ts",
+      "to": "agents/conflictDynamics/instructions.ts",
+      "specifier": "./conflictDynamics/instructions"
+    },
+    {
+      "from": "agents/taskInstructions.ts",
+      "to": "agents/adaptiveRewriting/instructions.ts",
+      "specifier": "./adaptiveRewriting/instructions"
+    },
+    {
+      "from": "agents/taskInstructions.ts",
+      "to": "agents/sceneGenerator/instructions.ts",
+      "specifier": "./sceneGenerator/instructions"
+    },
+    {
+      "from": "agents/taskInstructions.ts",
+      "to": "agents/characterVoice/instructions.ts",
+      "specifier": "./characterVoice/instructions"
+    },
+    {
+      "from": "agents/taskInstructions.ts",
+      "to": "agents/worldBuilder/instructions.ts",
+      "specifier": "./worldBuilder/instructions"
+    },
+    {
+      "from": "agents/taskInstructions.ts",
+      "to": "agents/plotPredictor/instructions.ts",
+      "specifier": "./plotPredictor/instructions"
+    },
+    {
+      "from": "agents/taskInstructions.ts",
+      "to": "agents/tensionOptimizer/instructions.ts",
+      "specifier": "./tensionOptimizer/instructions"
+    },
+    {
+      "from": "agents/taskInstructions.ts",
+      "to": "agents/audienceResonance/instructions.ts",
+      "specifier": "./audienceResonance/instructions"
+    },
+    {
+      "from": "agents/taskInstructions.ts",
+      "to": "agents/platformAdapter/instructions.ts",
+      "specifier": "./platformAdapter/instructions"
+    },
+    {
+      "from": "agents/taskInstructions.ts",
+      "to": "agents/characterDeepAnalyzer/instructions.ts",
+      "specifier": "./characterDeepAnalyzer/instructions"
+    },
+    {
+      "from": "agents/taskInstructions.ts",
+      "to": "agents/dialogueAdvancedAnalyzer/instructions.ts",
+      "specifier": "./dialogueAdvancedAnalyzer/instructions"
+    },
+    {
+      "from": "agents/taskInstructions.ts",
+      "to": "agents/visualCinematicAnalyzer/instructions.ts",
+      "specifier": "./visualCinematicAnalyzer/instructions"
+    },
+    {
+      "from": "agents/taskInstructions.ts",
+      "to": "agents/themesMessagesAnalyzer/instructions.ts",
+      "specifier": "./themesMessagesAnalyzer/instructions"
+    },
+    {
+      "from": "agents/taskInstructions.ts",
+      "to": "agents/culturalHistoricalAnalyzer/instructions.ts",
+      "specifier": "./culturalHistoricalAnalyzer/instructions"
+    },
+    {
+      "from": "agents/taskInstructions.ts",
+      "to": "agents/producibilityAnalyzer/instructions.ts",
+      "specifier": "./producibilityAnalyzer/instructions"
+    },
+    {
+      "from": "agents/taskInstructions.ts",
+      "to": "agents/targetAudienceAnalyzer/instructions.ts",
+      "specifier": "./targetAudienceAnalyzer/instructions"
+    },
+    {
+      "from": "agents/taskInstructions.ts",
+      "to": "agents/literaryQualityAnalyzer/instructions.ts",
+      "specifier": "./literaryQualityAnalyzer/instructions"
+    },
+    {
+      "from": "agents/taskInstructions.ts",
+      "to": "agents/recommendationsGenerator/instructions.ts",
+      "specifier": "./recommendationsGenerator/instructions"
+    },
+    {
+      "from": "agents/tensionOptimizer/agent.ts",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "agents/tensionOptimizer/agent.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "agents/thematicMining/agent.ts",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "agents/thematicMining/agent.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "agents/themesMessagesAnalyzer/agent.ts",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "agents/themesMessagesAnalyzer/agent.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "agents/visualCinematicAnalyzer/agent.ts",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "agents/visualCinematicAnalyzer/agent.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "agents/worldBuilder/agent.ts",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "agents/worldBuilder/agent.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "core/constants.ts",
+      "to": "core/enums.ts",
+      "specifier": "./enums"
+    },
+    {
+      "from": "core/constants.ts",
+      "to": "core/types.ts",
+      "specifier": "./types"
+    },
+    {
+      "from": "core/types.ts",
+      "to": "core/enums.ts",
+      "specifier": "./enums"
+    },
+    {
+      "from": "orchestration/agentFactory.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "orchestration/agentFactory.ts",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "orchestration/orchestration.ts",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "orchestration/orchestration.ts",
+      "to": "agents/index.ts",
+      "specifier": "@agents/index"
+    },
+    {
+      "from": "orchestration/orchestration.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "services/fileReaderService.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "services/geminiService.ts",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "services/geminiService.ts",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "services/geminiService.ts",
+      "to": "core/constants.ts",
+      "specifier": "@core/constants"
+    },
+    {
+      "from": "services/geminiService.ts",
+      "to": "agents/taskInstructions.ts",
+      "specifier": "@agents/taskInstructions"
+    },
+    {
+      "from": "services/geminiService.ts",
+      "to": "orchestration/orchestration.ts",
+      "specifier": "@orchestration/orchestration"
+    },
+    {
+      "from": "ui/App.tsx",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "ui/App.tsx",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "ui/App.tsx",
+      "to": "ui/components/CompletionEnhancements.tsx",
+      "specifier": "@ui/components/CompletionEnhancements"
+    },
+    {
+      "from": "ui/App.tsx",
+      "to": "ui/components/ActionButton.tsx",
+      "specifier": "@ui/components/ActionButton"
+    },
+    {
+      "from": "ui/App.tsx",
+      "to": "ui/components/FileUpload.tsx",
+      "specifier": "@ui/components/FileUpload"
+    },
+    {
+      "from": "ui/App.tsx",
+      "to": "ui/components/Footer.tsx",
+      "specifier": "@ui/components/Footer"
+    },
+    {
+      "from": "ui/App.tsx",
+      "to": "ui/components/Header.tsx",
+      "specifier": "@ui/components/Header"
+    },
+    {
+      "from": "ui/App.tsx",
+      "to": "ui/components/Loader.tsx",
+      "specifier": "@ui/components/Loader"
+    },
+    {
+      "from": "ui/App.tsx",
+      "to": "ui/components/RequirementsForm.tsx",
+      "specifier": "@ui/components/RequirementsForm"
+    },
+    {
+      "from": "ui/App.tsx",
+      "to": "ui/components/ResultsDisplay.tsx",
+      "specifier": "@ui/components/ResultsDisplay"
+    },
+    {
+      "from": "ui/App.tsx",
+      "to": "ui/components/TaskSelector.tsx",
+      "specifier": "@ui/components/TaskSelector"
+    },
+    {
+      "from": "ui/App.tsx",
+      "to": "services/fileReaderService.ts",
+      "specifier": "@services/fileReaderService"
+    },
+    {
+      "from": "ui/App.tsx",
+      "to": "services/geminiService.ts",
+      "specifier": "@services/geminiService"
+    },
+    {
+      "from": "ui/App.tsx",
+      "to": "core/constants.ts",
+      "specifier": "@core/constants"
+    },
+    {
+      "from": "ui/App.tsx",
+      "to": "ui/icons.tsx",
+      "specifier": "@ui/icons"
+    },
+    {
+      "from": "ui/components/CompletionEnhancements.tsx",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "ui/components/CompletionEnhancements.tsx",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "ui/components/CompletionEnhancements.tsx",
+      "to": "ui/icons.tsx",
+      "specifier": "@ui/icons"
+    },
+    {
+      "from": "ui/components/FileUpload.tsx",
+      "to": "ui/icons.tsx",
+      "specifier": "@ui/icons"
+    },
+    {
+      "from": "ui/components/FileUpload.tsx",
+      "to": "core/constants.ts",
+      "specifier": "@core/constants"
+    },
+    {
+      "from": "ui/components/Header.tsx",
+      "to": "core/constants.ts",
+      "specifier": "@core/constants"
+    },
+    {
+      "from": "ui/components/ResultsDisplay.tsx",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "ui/components/ResultsDisplay.tsx",
+      "to": "core/types.ts",
+      "specifier": "@core/types"
+    },
+    {
+      "from": "ui/components/ResultsDisplay.tsx",
+      "to": "ui/icons.tsx",
+      "specifier": "@ui/icons"
+    },
+    {
+      "from": "ui/components/ResultsDisplay.tsx",
+      "to": "orchestration/orchestration.ts",
+      "specifier": "@orchestration/orchestration"
+    },
+    {
+      "from": "ui/components/ResultsDisplay.tsx",
+      "to": "ui/components/ActionButton.tsx",
+      "specifier": "@ui/components/ActionButton"
+    },
+    {
+      "from": "ui/components/TaskSelector.tsx",
+      "to": "core/enums.ts",
+      "specifier": "@core/enums"
+    },
+    {
+      "from": "ui/components/TaskSelector.tsx",
+      "to": "core/constants.ts",
+      "specifier": "@core/constants"
+    },
+    {
+      "from": "ui/components/TaskSelector.tsx",
+      "to": "orchestration/orchestration.ts",
+      "specifier": "@orchestration/orchestration"
+    },
+    {
+      "from": "ui/components/TaskSelector.tsx",
+      "to": "ui/icons.tsx",
+      "specifier": "@ui/icons"
+    },
+    {
+      "from": "ui/index.tsx",
+      "to": "ui/App.tsx",
+      "specifier": "@ui/App"
+    },
+    {
+      "from": "ui/main.tsx",
+      "to": "ui/App.tsx",
+      "specifier": "@ui/App"
+    }
+  ],
+  "incomingEdges": {
+    "agents/adaptiveRewriting/agent.ts": 1,
+    "agents/adaptiveRewriting/instructions.ts": 1,
+    "agents/analysis/agent.ts": 1,
+    "agents/analysis/instructions.ts": 1,
+    "agents/audienceResonance/agent.ts": 1,
+    "agents/audienceResonance/instructions.ts": 1,
+    "agents/characterDeepAnalyzer/agent.ts": 1,
+    "agents/characterDeepAnalyzer/instructions.ts": 1,
+    "agents/characterNetwork/agent.ts": 1,
+    "agents/characterNetwork/instructions.ts": 1,
+    "agents/characterVoice/agent.ts": 1,
+    "agents/characterVoice/instructions.ts": 1,
+    "agents/completion/agent.ts": 1,
+    "agents/completion/instructions.ts": 1,
+    "agents/conflictDynamics/agent.ts": 1,
+    "agents/conflictDynamics/instructions.ts": 1,
+    "agents/creative/agent.ts": 1,
+    "agents/creative/instructions.ts": 1,
+    "agents/culturalHistoricalAnalyzer/agent.ts": 1,
+    "agents/culturalHistoricalAnalyzer/instructions.ts": 1,
+    "agents/dialogueAdvancedAnalyzer/agent.ts": 1,
+    "agents/dialogueAdvancedAnalyzer/instructions.ts": 1,
+    "agents/dialogueForensics/agent.ts": 1,
+    "agents/dialogueForensics/instructions.ts": 1,
+    "agents/index.ts": 1,
+    "agents/integrated/agent.ts": 1,
+    "agents/integrated/instructions.ts": 1,
+    "agents/literaryQualityAnalyzer/agent.ts": 1,
+    "agents/literaryQualityAnalyzer/instructions.ts": 1,
+    "agents/platformAdapter/agent.ts": 1,
+    "agents/platformAdapter/instructions.ts": 1,
+    "agents/plotPredictor/agent.ts": 1,
+    "agents/plotPredictor/instructions.ts": 1,
+    "agents/producibilityAnalyzer/agent.ts": 1,
+    "agents/producibilityAnalyzer/instructions.ts": 1,
+    "agents/recommendationsGenerator/agent.ts": 1,
+    "agents/recommendationsGenerator/instructions.ts": 1,
+    "agents/rhythmMapping/agent.ts": 1,
+    "agents/rhythmMapping/instructions.ts": 1,
+    "agents/sceneGenerator/agent.ts": 1,
+    "agents/sceneGenerator/instructions.ts": 1,
+    "agents/shared/advancedModuleOutputStructure.ts": 7,
+    "agents/styleFingerprint/agent.ts": 1,
+    "agents/styleFingerprint/instructions.ts": 1,
+    "agents/targetAudienceAnalyzer/agent.ts": 1,
+    "agents/targetAudienceAnalyzer/instructions.ts": 1,
+    "agents/taskInstructions.ts": 1,
+    "agents/tensionOptimizer/agent.ts": 1,
+    "agents/tensionOptimizer/instructions.ts": 1,
+    "agents/thematicMining/agent.ts": 1,
+    "agents/thematicMining/instructions.ts": 1,
+    "agents/themesMessagesAnalyzer/agent.ts": 1,
+    "agents/themesMessagesAnalyzer/instructions.ts": 1,
+    "agents/visualCinematicAnalyzer/agent.ts": 1,
+    "agents/visualCinematicAnalyzer/instructions.ts": 1,
+    "agents/worldBuilder/agent.ts": 1,
+    "agents/worldBuilder/instructions.ts": 1,
+    "core/constants.ts": 5,
+    "core/enums.ts": 37,
+    "core/types.ts": 36,
+    "orchestration/agentFactory.ts": 0,
+    "orchestration/orchestration.ts": 3,
+    "services/fileReaderService.ts": 1,
+    "services/geminiService.ts": 1,
+    "types.d.ts": 0,
+    "ui/App.tsx": 2,
+    "ui/components/ActionButton.tsx": 2,
+    "ui/components/CompletionEnhancements.tsx": 1,
+    "ui/components/FileUpload.tsx": 1,
+    "ui/components/Footer.tsx": 1,
+    "ui/components/Header.tsx": 1,
+    "ui/components/Loader.tsx": 1,
+    "ui/components/RequirementsForm.tsx": 1,
+    "ui/components/ResultsDisplay.tsx": 1,
+    "ui/components/TaskSelector.tsx": 1,
+    "ui/icons.tsx": 5,
+    "ui/index.tsx": 0,
+    "ui/main.tsx": 0,
+    "vite.config.ts": 0
+  }
+}

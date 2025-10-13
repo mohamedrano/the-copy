@@ -1,0 +1,91 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for the copy Drama-analyst/dist/assets/services-misc-BtmXPpl3.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">the copy Drama-analyst/dist/assets</a> services-misc-BtmXPpl3.js</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/2</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/2</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a>
+<a name='L3'></a><a href='#L3'>3</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >const __vite__mapDeps=(i,m=__vite__mapDeps,d=(m.f||(m.f=["assets/vendor-mammoth-BR2rn1t3.js","assets/vendor-misc-Dq7hlqfR.js"])))=&gt;i.map(i=&gt;d[i]);</span></span></span>
+<span class="cstat-no" title="statement not covered" >import{_ as e}from"./agents-advanced-7S30vjsx.js";import{l as t,s as a}from"./services-utils-Cedeozs-.js";async function i(a){try{const i=await Promise.all(a.map(a=&gt;async function(a){try{const i=await a.arrayBuffer(),r=Buffer.from(i);let c;c="text/plain"===a.type||"text/markdown"===a.type||a.name.endsWith(".txt")||a.name.endsWith(".md")?n(r):"application/vnd.openxmlformats-officedocument.wordprocessingml.document"===a.type||a.name.endsWith(".docx")?await async function(a){try{const i=await e(()=&gt;import("./vendor-mammoth-BR2rn1t3.js").then(e=&gt;e.i),__vite__mapDeps([0,1])),n=await a.arrayBuffer(),r=await i.convertToPlainText({arrayBuffer:n});return r.value&amp;&amp;r.value.trim().length&gt;0?(t.debug(`✅ Extracted text from DOCX: ${a.name}`,null,"FileReaderService"),r.value):void t.warn(`⚠️ DOCX extraction returned empty: ${a.name}`,null,"FileReaderService")}catch(i){return void t.error(`❌ DOCX extraction failed: ${a.name}`,i,"FileReaderService")}}(a):"application/pdf"===a.type||a.name.endsWith(".pdf")||a.type.startsWith("image/")?void 0:n(r);const s={absolutePath:a.name,fileName:a.name,sizeBytes:a.size,textContent:c,bufferContentBase64:c?void 0:r.toString("base64")};return t.debug(`✅ Processed file: ${a.name} (${function(e){if(0===e)return"0 Bytes";const t=Math.floor(Math.log(e)/Math.log(1024));return Math.round(e/Math.pow(1024,t)*100)/100+" "+["Bytes","KB","MB","GB"][t]}(a.size)})`,null,"FileReaderService"),s}catch(i){return t.error(`❌ Failed to process file: ${a.name}`,i,"FileReaderService"),null}}(a))),r=i.filter(e=&gt;null!==e),c=i.map((e,t)=&gt;null===e?a[t].name:null).filter(Boolean);return c.length&gt;0&amp;&amp;t.warn("⚠️ Some files failed to process",c,"FileReaderService"),0===r.length?{ok:!1,error:{code:"ALL_FILES_FAILED",message:"فشلت معالجة جميع الملفات",cause:{failures:c}}}:{ok:!0,value:r}}catch(i){return{ok:!1,error:{code:"FILE_READ_ERROR",message:"فشل في قراءة الملفات",cause:i}}}}function n(e){try{const t=e.toString("utf8");if(/\uFFFD{3,}/.test(t))return;return t}catch{return}}const r=new class{constructor(){this.config={baseUrl:"http://localhost:3001",timeout:6e4,retries:3}}async makeRequest(e,t){const a=`${this.config.baseUrl}${e}`,i=new AbortController,n=setTimeout(()=&gt;i.abort(),this.config.timeout);try{const e=await fetch(a,{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(t),signal:i.signal});if(clearTimeout(n),!e.ok){const t=await e.json().catch(()=&gt;({}));throw new Error(t.message||`HTTP ${e.status}: ${e.statusText}`)}return await e.json()}catch(r){if(clearTimeout(n),"AbortError"===r.name)throw new Error("Request timeout");throw r}}async analyzeText(e){let i=null;for(let s=1;s&lt;=this.config.retries;s++)try{t.debug(`🔄 Backend API call attempt ${s}/${this.config.retries}`,null,"BackendService");const i=a.aiRequest(e),n=await this.makeRequest("/api/analyze",i);return t.info("✅ Backend API call successful",null,"BackendService"),{ok:!0,value:a.aiResponse(n)}}catch(c){if(i=c,t.error(`❌ Backend API error (attempt ${s})`,c,"BackendService"),s&lt;this.config.retries){const e=1e3*s;t.debug(`⏳ Retrying in ${e}ms...`,null,"BackendService"),await new Promise(t=&gt;setTimeout(t,e))}}let n="فشل الاتصال بخادم التحليل",r="BACKEND_CALL_FAILED";return i?.message?.includes("timeout")?(n="انتهت مهلة الطلب. يرجى المحاولة مرة أخرى.",r="REQUEST_TIMEOUT"):i?.message?.includes("429")?(n="تم تجاوز حد الطلبات. يرجى الانتظار قليلاً.",r="RATE_LIMIT_EXCEEDED"):i?.message?.includes("413")?(n="حجم الملف كبير جداً. يرجى اختيار ملف أصغر.",r="FILE_TOO_LARGE"):i?.message?.includes("400")&amp;&amp;(n="طلب غير صالح. يرجى التحقق من البيانات المرسلة.",r="INVALID_REQUEST"),{ok:!1,error:{code:r,message:n,cause:i}}}async healthCheck(){try{return(await fetch(`${this.config.baseUrl}/health`,{method:"GET",headers:{Accept:"application/json"}})).ok}catch(e){return t.error("Health check failed",e,"BackendService"),!1}}};async function c(e){return r.analyzeText(e)}async function s(){return r.healthCheck()}const o=()=&gt;{"undefined"!=typeof PerformanceObserver&amp;&amp;new PerformanceObserver(e=&gt;{e.getEntries().forEach(e=&gt;{"measure"===e.entryType&amp;&amp;t.debug(`[PERF] ${e.name}: ${e.duration.toFixed(2)}ms`,null,"Observability")})}).observe({entryTypes:["measure"]})};new class{constructor(){this.cacheConfigs=new Map,this.isServiceWorkerSupported=!1,this.isOnline=navigator.onLine,this.initializeCacheConfigs(),this.setupEventListeners(),this.checkServiceWorkerSupport()}initializeCacheConfigs(){this.cacheConfigs.set("static",{name:"drama-analyst-static-v1.0.0",maxAge:2592e6,maxEntries:100,strategy:"cacheFirst"}),this.cacheConfigs.set("dynamic",{name:"drama-analyst-dynamic-v1.0.0",maxAge:864e5,maxEntries:50,strategy:"staleWhileRevalidate"}),this.cacheConfigs.set("api",{name:"drama-analyst-api-v1.0.0",maxAge:3e5,maxEntries:20,strategy:"networkFirst"}),this.cacheConfigs.set("images",{name:"drama-analyst-images-v1.0.0",maxAge:6048e5,maxEntries:30,strategy:"cacheFirst"}),this.cacheConfigs.set("fonts",{name:"drama-analyst-fonts-v1.0.0",maxAge:31536e6,maxEntries:10,strategy:"cacheFirst"})}setupEventListeners(){window.addEventListener("online",()=&gt;{this.isOnline=!0,t.info("🌐 Network is online",null,"CacheService"),this.handleOnlineStatus()}),window.addEventListener("offline",()=&gt;{this.isOnline=!1,t.warn("📴 Network is offline",null,"CacheService"),this.handleOfflineStatus()}),window.addEventListener("storage",e=&gt;{e.key?.startsWith("cache-")&amp;&amp;t.debug("🗄️ Cache storage updated",{key:e.key},"CacheService")})}checkServiceWorkerSupport(){this.isServiceWorkerSupported="serviceWorker"in navigator,this.isServiceWorkerSupported?(t.info("✅ Service Worker is supported",null,"CacheService"),this.registerServiceWorker()):t.warn("⚠️ Service Worker is not supported",null,"CacheService")}async registerServiceWorker(){try{const e=await navigator.serviceWorker.register("/sw.js",{scope:"/"});t.info("🔧 Service Worker registered successfully",{scope:e.scope,active:e.active?.state,waiting:e.waiting?.state,installing:e.installing?.state},"CacheService"),e.addEventListener("updatefound",()=&gt;{t.info("🔄 Service Worker update found",null,"CacheService");const a=e.installing;a&amp;&amp;a.addEventListener("statechange",()=&gt;{"installed"===a.state&amp;&amp;navigator.serviceWorker.controller&amp;&amp;(t.info("✅ New Service Worker installed",null,"CacheService"),this.notifyUserOfUpdate())})})}catch(e){t.error("❌ Service Worker registration failed",e,"CacheService")}}notifyUserOfUpdate(){"Notification"in window&amp;&amp;"granted"===Notification.permission?new Notification("تحديث متاح",{body:"يوجد تحديث جديد للتطبيق. انقر هنا لإعادة تحميل الصفحة.",icon:"/icon-192x192.png",tag:"app-update"}):confirm("يوجد تحديث جديد للتطبيق. هل تريد إعادة تحميل الصفحة؟")&amp;&amp;window.location.reload()}handleOnlineStatus(){this.syncPendingActions(),this.preloadCriticalResources()}handleOfflineStatus(){this.showOfflineIndicator(),this.disableNetworkDependentFeatures()}showOfflineIndicator(){let e=document.getElementById("offline-indicator");e||(e=document.createElement("div"),e.id="offline-indicator",e.className="fixed top-4 right-4 bg-red-600 text-white px-4 py-2 rounded-lg shadow-lg z-50",e.textContent="أنت غير متصل بالإنترنت",document.body.appendChild(e)),e.style.display="block"}hideOfflineIndicator(){const e=document.getElementById("offline-indicator");e&amp;&amp;(e.style.display="none")}disableNetworkDependentFeatures(){document.querySelectorAll("[data-requires-network]").forEach(e=&gt;{e.style.opacity="0.5",e.style.pointerEvents="none"})}enableNetworkDependentFeatures(){document.querySelectorAll("[data-requires-network]").forEach(e=&gt;{e.style.opacity="1",e.style.pointerEvents="auto"})}async syncPendingActions(){try{const a=await this.getPendingActions();if(a.length&gt;0){t.info(`🔄 Syncing ${a.length} pending actions`,null,"CacheService");for(const i of a)try{await this.executeAction(i),await this.removePendingAction(i.id)}catch(e){t.error(`❌ Failed to sync action ${i.id}`,e,"CacheService")}}}catch(e){t.error("❌ Failed to sync pending actions",e,"CacheService")}}async preloadCriticalResources(){const e=["/","/manifest.json"];for(const i of e)try{await fetch(i,{cache:"force-cache"}),t.debug(`✅ Preloaded critical resource: ${i}`,null,"CacheService")}catch(a){t.warn(`⚠️ Failed to preload resource: ${i}`,a,"CacheService")}}async getCacheStats(){if(!this.isServiceWorkerSupported)return[];const e=[];for(const[i,n]of this.cacheConfigs)try{const t=await caches.open(n.name),a=await t.keys();e.push({name:i,size:await this.calculateCacheSize(t),entries:a.length,lastUpdated:new Date,hitRate:await this.getCacheHitRate(n.name)})}catch(a){t.error(`❌ Failed to get stats for cache ${i}`,a,"CacheService")}return e}async calculateCacheSize(e){let a=0;try{const t=await e.keys();for(const i of t){const t=await e.match(i);t&amp;&amp;(a+=(await t.blob()).size)}}catch(i){t.error("❌ Failed to calculate cache size",i,"CacheService")}return a}async getCacheHitRate(e){return.85}async clearCache(e){try{if(e){const a=this.cacheConfigs.get(e);a&amp;&amp;(await caches.delete(a.name),t.info(`🗑️ Cleared cache: ${e}`,null,"CacheService"))}else{const e=await caches.keys();await Promise.all(e.map(e=&gt;caches.delete(e))),t.info("🗑️ Cleared all caches",null,"CacheService")}}catch(a){t.error("❌ Failed to clear cache",a,"CacheService")}}async isResourceCached(e){try{return!!(await caches.match(e))}catch(a){return t.error(`❌ Failed to check if resource is cached: ${e}`,a,"CacheService"),!1}}async cacheResource(e,a="dynamic"){try{const i=this.cacheConfigs.get(a);if(!i)return t.warn(`⚠️ Unknown cache name: ${a}`,null,"CacheService"),!1;const n=await fetch(e);if(n.ok){const a=await caches.open(i.name);return await a.put(e,n.clone()),t.debug(`✅ Cached resource: ${e}`,null,"CacheService"),!0}return!1}catch(i){return t.error(`❌ Failed to cache resource: ${e}`,i,"CacheService"),!1}}getOnlineStatus(){return this.isOnline}isServiceWorkerAvailable(){return this.isServiceWorkerSupported}async getPendingActions(){try{const e=localStorage.getItem("pending-actions");return e?JSON.parse(e):[]}catch(e){return t.error("❌ Failed to get pending actions",e,"CacheService"),[]}}async addPendingAction(e){try{const t=await this.getPendingActions();t.push({...e,id:Date.now().toString(),timestamp:(new Date).toISOString()}),localStorage.setItem("pending-actions",JSON.stringify(t))}catch(a){t.error("❌ Failed to add pending action",a,"CacheService")}}async removePendingAction(e){try{const t=(await this.getPendingActions()).filter(t=&gt;t.id!==e);localStorage.setItem("pending-actions",JSON.stringify(t))}catch(a){t.error("❌ Failed to remove pending action",a,"CacheService")}}async executeAction(e){t.info(`🔄 Executing pending action: ${e.type}`,e,"CacheService")}async cacheRequest(e,a={}){const i=`${e}?${JSON.stringify(a)}`;if(!this.isOnline){const a=await caches.match(i);if(a)return t.debug(`📦 Serving cached request: ${e}`,null,"CacheService"),a;throw new Error("Request not available offline")}try{const n=await fetch(e,a);if(n.ok){const a=await caches.open(this.cacheConfigs.get("api").name);await a.put(i,n.clone()),t.debug(`✅ Cached request: ${e}`,null,"CacheService")}return n}catch(n){const a=await caches.match(i);if(a)return t.debug(`📦 Fallback to cached request: ${e}`,null,"CacheService"),a;throw n}}};export{c as a,s as c,o as i,i as r};</span>
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2025-10-10T09:51:34.129Z
+            </div>
+        <script src="../../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../../sorter.js"></script>
+        <script src="../../../block-navigation.js"></script>
+    </body>
+</html>
+    

@@ -1,0 +1,65 @@
+--- a/agents/index.ts
++++ b/agents/index.ts
+@@ -62,6 +62,25 @@ export const loadAgentConfig = async (taskType: TaskType) => {
+   }
+ };
++// Static imports removed to eliminate Vite dynamic import warnings
++// All agent configs are now loaded dynamically via loadAgentConfig()
++
++// Dynamic agent configs loader
++export const getAllAgentConfigs = async (): Promise<AIAgentConfig[]> => {
++  const configs: AIAgentConfig[] = [];
++  
++  // Load all agent configs dynamically
++  const taskTypes = Object.values(TaskType) as TaskType[];
++  
++  for (const taskType of taskTypes) {
++    try {
++      const config = await loadAgentConfig(taskType);
++      configs.push(config);
++    } catch (error) {
++      console.warn(`Failed to load agent config for ${taskType}:`, error);
++    }
++  }
++  
++  return configs;
++};
++
++// Legacy export for backward compatibility (will be deprecated)
++export const AGENT_CONFIGS = Object.freeze<AIAgentConfig[]>([]);
+@@ -65,27 +84,3 @@ import { RECOMMENDATIONS_GENERATOR_AGENT_CONFIG } from './recommendationsGenerat
+-export const AGENT_CONFIGS = Object.freeze<AIAgentConfig[]>([
+-  // === CORE FOUNDATIONAL AGENTS ===
+-  ANALYSIS_AGENT_CONFIG,
+-  CREATIVE_AGENT_CONFIG,
+-  INTEGRATED_AGENT_CONFIG,
+-  COMPLETION_AGENT_CONFIG,
+-  // === ADVANCED ANALYTICAL AGENTS ===
+-  RHYTHM_MAPPING_AGENT_CONFIG,
+-  CHARACTER_NETWORK_AGENT_CONFIG,
+-  DIALOGUE_FORENSICS_AGENT_CONFIG,
+-  THEMATIC_MINING_AGENT_CONFIG,
+-  STYLE_FINGERPRINT_AGENT_CONFIG,
+-  CONFLICT_DYNAMICS_AGENT_CONFIG,
+-  // === CREATIVE GENERATION AGENTS ===
+-  ADAPTIVE_REWRITING_AGENT_CONFIG,
+-  SCENE_GENERATOR_AGENT_CONFIG,
+-  CHARACTER_VOICE_AGENT_CONFIG,
+-  WORLD_BUILDER_AGENT_CONFIG,
+-  // === PREDICTIVE & OPTIMIZATION AGENTS ===
+-  PLOT_PREDICTOR_AGENT_CONFIG,
+-  TENSION_OPTIMIZER_AGENT_CONFIG,
+-  AUDIENCE_RESONANCE_AGENT_CONFIG,
+-  PLATFORM_ADAPTER_AGENT_CONFIG,
+-  // === ADVANCED SPECIALIZED MODULES ===
+-  CHARACTER_DEEP_ANALYZER_AGENT_CONFIG,
+-  DIALOGUE_ADVANCED_ANALYZER_AGENT_CONFIG,
+-  VISUAL_CINEMATIC_ANALYZER_AGENT_CONFIG,
+-  THEMES_MESSAGES_ANALYZER_AGENT_CONFIG,
+-  CULTURAL_HISTORICAL_ANALYZER_AGENT_CONFIG,
+-  PRODUCIBILITY_ANALYZER_AGENT_CONFIG,
+-  TARGET_AUDIENCE_ANALYZER_AGENT_CONFIG,
+-  LITERARY_QUALITY_ANALYZER_AGENT_CONFIG,
+-  RECOMMENDATIONS_GENERATOR_AGENT_CONFIG,
+-]);
+

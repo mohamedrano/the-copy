@@ -1,0 +1,772 @@
+{
+  "project": "Drama-analyst-and-creative-mimic",
+  "compilation": {
+    "tsc_noEmit": "fail",
+    "errors": [
+      "services/fileReaderService.ts(2,10): error TS2305: Module '\"@core/types\"' has no exported member 'ProcessedFile'.",
+      "services/geminiService.ts(19,84): error TS2305: Module '\"@core/types\"' has no exported member 'ProcessedFile'.",
+      "ui/App.tsx(7,3): error TS2305: Module '\"@core/types\"' has no exported member 'ProcessedFile'."
+    ]
+  },
+  "build": {
+    "vite_build": "pass",
+    "errors": []
+  },
+  "agents": [
+    {
+      "name": "adaptiveRewriting",
+      "files": {
+        "agent": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\adaptiveRewriting\\\\agent.ts",
+        "instructions": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\adaptiveRewriting\\\\instructions.ts"
+      },
+      "registeredIn": {
+        "agents_index": true,
+        "taskInstructions": true,
+        "agentFactory": false
+      },
+      "typeSafety": {
+        "any_in_public_api": 1,
+        "notes": [
+          "H:\\\\Drama-analyst-and-creative-mimic\\\\core\\\\types.ts:89: placeholder exports default to any for advanced result types"
+        ]
+      },
+      "status": "active",
+      "prod_ready": "no",
+      "evidence": [
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\adaptiveRewriting\\\\agent.ts:4: defines adaptiveRewriting agent config",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\index.ts:12: included in AGENT_CONFIGS array",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\taskInstructions.ts:12: task instructions registered",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\fileReaderService.ts:2: missing ProcessedFile export blocks compilation"
+      ]
+    },
+    {
+      "name": "analysis",
+      "files": {
+        "agent": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\analysis\\\\agent.ts",
+        "instructions": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\analysis\\\\instructions.ts"
+      },
+      "registeredIn": {
+        "agents_index": true,
+        "taskInstructions": true,
+        "agentFactory": false
+      },
+      "typeSafety": {
+        "any_in_public_api": 1,
+        "notes": [
+          "H:\\\\Drama-analyst-and-creative-mimic\\\\core\\\\types.ts:89: placeholder exports default to any for advanced result types"
+        ]
+      },
+      "status": "active",
+      "prod_ready": "no",
+      "evidence": [
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\analysis\\\\agent.ts:4: defines analysis agent config",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\index.ts:2: included in AGENT_CONFIGS array",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\taskInstructions.ts:2: task instructions registered",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\fileReaderService.ts:2: missing ProcessedFile export blocks compilation"
+      ]
+    },
+    {
+      "name": "audienceResonance",
+      "files": {
+        "agent": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\audienceResonance\\\\agent.ts",
+        "instructions": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\audienceResonance\\\\instructions.ts"
+      },
+      "registeredIn": {
+        "agents_index": true,
+        "taskInstructions": true,
+        "agentFactory": false
+      },
+      "typeSafety": {
+        "any_in_public_api": 1,
+        "notes": [
+          "H:\\\\Drama-analyst-and-creative-mimic\\\\core\\\\types.ts:89: placeholder exports default to any for advanced result types"
+        ]
+      },
+      "status": "active",
+      "prod_ready": "no",
+      "evidence": [
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\audienceResonance\\\\agent.ts:4: defines audienceResonance agent config",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\index.ts:18: included in AGENT_CONFIGS array",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\taskInstructions.ts:18: task instructions registered",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\fileReaderService.ts:2: missing ProcessedFile export blocks compilation"
+      ]
+    },
+    {
+      "name": "characterDeepAnalyzer",
+      "files": {
+        "agent": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\characterDeepAnalyzer\\\\agent.ts",
+        "instructions": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\characterDeepAnalyzer\\\\instructions.ts"
+      },
+      "registeredIn": {
+        "agents_index": true,
+        "taskInstructions": true,
+        "agentFactory": false
+      },
+      "typeSafety": {
+        "any_in_public_api": 1,
+        "notes": [
+          "H:\\\\Drama-analyst-and-creative-mimic\\\\core\\\\types.ts:89: placeholder exports default to any for advanced result types"
+        ]
+      },
+      "status": "active",
+      "prod_ready": "no",
+      "evidence": [
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\characterDeepAnalyzer\\\\agent.ts:4: defines characterDeepAnalyzer agent config",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\index.ts:20: included in AGENT_CONFIGS array",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\taskInstructions.ts:20: task instructions registered",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\fileReaderService.ts:2: missing ProcessedFile export blocks compilation"
+      ]
+    },
+    {
+      "name": "characterNetwork",
+      "files": {
+        "agent": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\characterNetwork\\\\agent.ts",
+        "instructions": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\characterNetwork\\\\instructions.ts"
+      },
+      "registeredIn": {
+        "agents_index": true,
+        "taskInstructions": true,
+        "agentFactory": false
+      },
+      "typeSafety": {
+        "any_in_public_api": 1,
+        "notes": [
+          "H:\\\\Drama-analyst-and-creative-mimic\\\\core\\\\types.ts:89: placeholder exports default to any for advanced result types"
+        ]
+      },
+      "status": "active",
+      "prod_ready": "no",
+      "evidence": [
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\characterNetwork\\\\agent.ts:4: defines characterNetwork agent config",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\index.ts:7: included in AGENT_CONFIGS array",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\taskInstructions.ts:7: task instructions registered",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\fileReaderService.ts:2: missing ProcessedFile export blocks compilation"
+      ]
+    },
+    {
+      "name": "characterVoice",
+      "files": {
+        "agent": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\characterVoice\\\\agent.ts",
+        "instructions": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\characterVoice\\\\instructions.ts"
+      },
+      "registeredIn": {
+        "agents_index": true,
+        "taskInstructions": true,
+        "agentFactory": false
+      },
+      "typeSafety": {
+        "any_in_public_api": 1,
+        "notes": [
+          "H:\\\\Drama-analyst-and-creative-mimic\\\\core\\\\types.ts:89: placeholder exports default to any for advanced result types"
+        ]
+      },
+      "status": "active",
+      "prod_ready": "no",
+      "evidence": [
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\characterVoice\\\\agent.ts:4: defines characterVoice agent config",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\index.ts:14: included in AGENT_CONFIGS array",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\taskInstructions.ts:14: task instructions registered",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\fileReaderService.ts:2: missing ProcessedFile export blocks compilation"
+      ]
+    },
+    {
+      "name": "completion",
+      "files": {
+        "agent": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\completion\\\\agent.ts",
+        "instructions": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\completion\\\\instructions.ts"
+      },
+      "registeredIn": {
+        "agents_index": true,
+        "taskInstructions": true,
+        "agentFactory": false
+      },
+      "typeSafety": {
+        "any_in_public_api": 1,
+        "notes": [
+          "H:\\\\Drama-analyst-and-creative-mimic\\\\core\\\\types.ts:89: placeholder exports default to any for advanced result types"
+        ]
+      },
+      "status": "active",
+      "prod_ready": "no",
+      "evidence": [
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\completion\\\\agent.ts:4: defines completion agent config",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\index.ts:5: included in AGENT_CONFIGS array",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\taskInstructions.ts:5: task instructions registered",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\fileReaderService.ts:2: missing ProcessedFile export blocks compilation"
+      ]
+    },
+    {
+      "name": "conflictDynamics",
+      "files": {
+        "agent": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\conflictDynamics\\\\agent.ts",
+        "instructions": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\conflictDynamics\\\\instructions.ts"
+      },
+      "registeredIn": {
+        "agents_index": true,
+        "taskInstructions": true,
+        "agentFactory": false
+      },
+      "typeSafety": {
+        "any_in_public_api": 1,
+        "notes": [
+          "H:\\\\Drama-analyst-and-creative-mimic\\\\core\\\\types.ts:89: placeholder exports default to any for advanced result types"
+        ]
+      },
+      "status": "active",
+      "prod_ready": "no",
+      "evidence": [
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\conflictDynamics\\\\agent.ts:4: defines conflictDynamics agent config",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\index.ts:11: included in AGENT_CONFIGS array",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\taskInstructions.ts:11: task instructions registered",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\fileReaderService.ts:2: missing ProcessedFile export blocks compilation"
+      ]
+    },
+    {
+      "name": "creative",
+      "files": {
+        "agent": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\creative\\\\agent.ts",
+        "instructions": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\creative\\\\instructions.ts"
+      },
+      "registeredIn": {
+        "agents_index": true,
+        "taskInstructions": true,
+        "agentFactory": false
+      },
+      "typeSafety": {
+        "any_in_public_api": 1,
+        "notes": [
+          "H:\\\\Drama-analyst-and-creative-mimic\\\\core\\\\types.ts:89: placeholder exports default to any for advanced result types"
+        ]
+      },
+      "status": "active",
+      "prod_ready": "no",
+      "evidence": [
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\creative\\\\agent.ts:4: defines creative agent config",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\index.ts:3: included in AGENT_CONFIGS array",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\taskInstructions.ts:3: task instructions registered",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\fileReaderService.ts:2: missing ProcessedFile export blocks compilation"
+      ]
+    },
+    {
+      "name": "culturalHistoricalAnalyzer",
+      "files": {
+        "agent": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\culturalHistoricalAnalyzer\\\\agent.ts",
+        "instructions": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\culturalHistoricalAnalyzer\\\\instructions.ts"
+      },
+      "registeredIn": {
+        "agents_index": true,
+        "taskInstructions": true,
+        "agentFactory": false
+      },
+      "typeSafety": {
+        "any_in_public_api": 1,
+        "notes": [
+          "H:\\\\Drama-analyst-and-creative-mimic\\\\core\\\\types.ts:89: placeholder exports default to any for advanced result types"
+        ]
+      },
+      "status": "active",
+      "prod_ready": "no",
+      "evidence": [
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\culturalHistoricalAnalyzer\\\\agent.ts:4: defines culturalHistoricalAnalyzer agent config",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\index.ts:24: included in AGENT_CONFIGS array",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\taskInstructions.ts:24: task instructions registered",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\fileReaderService.ts:2: missing ProcessedFile export blocks compilation"
+      ]
+    },
+    {
+      "name": "dialogueAdvancedAnalyzer",
+      "files": {
+        "agent": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\dialogueAdvancedAnalyzer\\\\agent.ts",
+        "instructions": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\dialogueAdvancedAnalyzer\\\\instructions.ts"
+      },
+      "registeredIn": {
+        "agents_index": true,
+        "taskInstructions": true,
+        "agentFactory": false
+      },
+      "typeSafety": {
+        "any_in_public_api": 1,
+        "notes": [
+          "H:\\\\Drama-analyst-and-creative-mimic\\\\core\\\\types.ts:89: placeholder exports default to any for advanced result types"
+        ]
+      },
+      "status": "active",
+      "prod_ready": "no",
+      "evidence": [
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\dialogueAdvancedAnalyzer\\\\agent.ts:4: defines dialogueAdvancedAnalyzer agent config",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\index.ts:21: included in AGENT_CONFIGS array",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\taskInstructions.ts:21: task instructions registered",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\fileReaderService.ts:2: missing ProcessedFile export blocks compilation"
+      ]
+    },
+    {
+      "name": "dialogueForensics",
+      "files": {
+        "agent": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\dialogueForensics\\\\agent.ts",
+        "instructions": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\dialogueForensics\\\\instructions.ts"
+      },
+      "registeredIn": {
+        "agents_index": true,
+        "taskInstructions": true,
+        "agentFactory": false
+      },
+      "typeSafety": {
+        "any_in_public_api": 1,
+        "notes": [
+          "H:\\\\Drama-analyst-and-creative-mimic\\\\core\\\\types.ts:89: placeholder exports default to any for advanced result types"
+        ]
+      },
+      "status": "active",
+      "prod_ready": "no",
+      "evidence": [
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\dialogueForensics\\\\agent.ts:4: defines dialogueForensics agent config",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\index.ts:8: included in AGENT_CONFIGS array",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\taskInstructions.ts:8: task instructions registered",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\fileReaderService.ts:2: missing ProcessedFile export blocks compilation"
+      ]
+    },
+    {
+      "name": "integrated",
+      "files": {
+        "agent": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\integrated\\\\agent.ts",
+        "instructions": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\integrated\\\\instructions.ts"
+      },
+      "registeredIn": {
+        "agents_index": true,
+        "taskInstructions": true,
+        "agentFactory": false
+      },
+      "typeSafety": {
+        "any_in_public_api": 1,
+        "notes": [
+          "H:\\\\Drama-analyst-and-creative-mimic\\\\core\\\\types.ts:89: placeholder exports default to any for advanced result types"
+        ]
+      },
+      "status": "active",
+      "prod_ready": "no",
+      "evidence": [
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\integrated\\\\agent.ts:4: defines integrated agent config",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\index.ts:4: included in AGENT_CONFIGS array",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\taskInstructions.ts:4: task instructions registered",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\fileReaderService.ts:2: missing ProcessedFile export blocks compilation"
+      ]
+    },
+    {
+      "name": "literaryQualityAnalyzer",
+      "files": {
+        "agent": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\literaryQualityAnalyzer\\\\agent.ts",
+        "instructions": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\literaryQualityAnalyzer\\\\instructions.ts"
+      },
+      "registeredIn": {
+        "agents_index": true,
+        "taskInstructions": true,
+        "agentFactory": false
+      },
+      "typeSafety": {
+        "any_in_public_api": 1,
+        "notes": [
+          "H:\\\\Drama-analyst-and-creative-mimic\\\\core\\\\types.ts:89: placeholder exports default to any for advanced result types"
+        ]
+      },
+      "status": "active",
+      "prod_ready": "no",
+      "evidence": [
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\literaryQualityAnalyzer\\\\agent.ts:4: defines literaryQualityAnalyzer agent config",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\index.ts:27: included in AGENT_CONFIGS array",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\taskInstructions.ts:27: task instructions registered",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\fileReaderService.ts:2: missing ProcessedFile export blocks compilation"
+      ]
+    },
+    {
+      "name": "platformAdapter",
+      "files": {
+        "agent": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\platformAdapter\\\\agent.ts",
+        "instructions": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\platformAdapter\\\\instructions.ts"
+      },
+      "registeredIn": {
+        "agents_index": true,
+        "taskInstructions": true,
+        "agentFactory": false
+      },
+      "typeSafety": {
+        "any_in_public_api": 1,
+        "notes": [
+          "H:\\\\Drama-analyst-and-creative-mimic\\\\core\\\\types.ts:89: placeholder exports default to any for advanced result types"
+        ]
+      },
+      "status": "active",
+      "prod_ready": "no",
+      "evidence": [
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\platformAdapter\\\\agent.ts:4: defines platformAdapter agent config",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\index.ts:19: included in AGENT_CONFIGS array",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\taskInstructions.ts:19: task instructions registered",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\fileReaderService.ts:2: missing ProcessedFile export blocks compilation"
+      ]
+    },
+    {
+      "name": "plotPredictor",
+      "files": {
+        "agent": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\plotPredictor\\\\agent.ts",
+        "instructions": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\plotPredictor\\\\instructions.ts"
+      },
+      "registeredIn": {
+        "agents_index": true,
+        "taskInstructions": true,
+        "agentFactory": false
+      },
+      "typeSafety": {
+        "any_in_public_api": 1,
+        "notes": [
+          "H:\\\\Drama-analyst-and-creative-mimic\\\\core\\\\types.ts:89: placeholder exports default to any for advanced result types"
+        ]
+      },
+      "status": "active",
+      "prod_ready": "no",
+      "evidence": [
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\plotPredictor\\\\agent.ts:4: defines plotPredictor agent config",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\index.ts:16: included in AGENT_CONFIGS array",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\taskInstructions.ts:16: task instructions registered",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\fileReaderService.ts:2: missing ProcessedFile export blocks compilation"
+      ]
+    },
+    {
+      "name": "producibilityAnalyzer",
+      "files": {
+        "agent": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\producibilityAnalyzer\\\\agent.ts",
+        "instructions": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\producibilityAnalyzer\\\\instructions.ts"
+      },
+      "registeredIn": {
+        "agents_index": true,
+        "taskInstructions": true,
+        "agentFactory": false
+      },
+      "typeSafety": {
+        "any_in_public_api": 1,
+        "notes": [
+          "H:\\\\Drama-analyst-and-creative-mimic\\\\core\\\\types.ts:89: placeholder exports default to any for advanced result types"
+        ]
+      },
+      "status": "active",
+      "prod_ready": "no",
+      "evidence": [
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\producibilityAnalyzer\\\\agent.ts:4: defines producibilityAnalyzer agent config",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\index.ts:25: included in AGENT_CONFIGS array",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\taskInstructions.ts:25: task instructions registered",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\fileReaderService.ts:2: missing ProcessedFile export blocks compilation"
+      ]
+    },
+    {
+      "name": "recommendationsGenerator",
+      "files": {
+        "agent": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\recommendationsGenerator\\\\agent.ts",
+        "instructions": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\recommendationsGenerator\\\\instructions.ts"
+      },
+      "registeredIn": {
+        "agents_index": true,
+        "taskInstructions": true,
+        "agentFactory": false
+      },
+      "typeSafety": {
+        "any_in_public_api": 1,
+        "notes": [
+          "H:\\\\Drama-analyst-and-creative-mimic\\\\core\\\\types.ts:89: placeholder exports default to any for advanced result types"
+        ]
+      },
+      "status": "active",
+      "prod_ready": "no",
+      "evidence": [
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\recommendationsGenerator\\\\agent.ts:4: defines recommendationsGenerator agent config",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\index.ts:28: included in AGENT_CONFIGS array",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\taskInstructions.ts:28: task instructions registered",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\fileReaderService.ts:2: missing ProcessedFile export blocks compilation"
+      ]
+    },
+    {
+      "name": "rhythmMapping",
+      "files": {
+        "agent": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\rhythmMapping\\\\agent.ts",
+        "instructions": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\rhythmMapping\\\\instructions.ts"
+      },
+      "registeredIn": {
+        "agents_index": true,
+        "taskInstructions": true,
+        "agentFactory": false
+      },
+      "typeSafety": {
+        "any_in_public_api": 1,
+        "notes": [
+          "H:\\\\Drama-analyst-and-creative-mimic\\\\core\\\\types.ts:89: placeholder exports default to any for advanced result types"
+        ]
+      },
+      "status": "active",
+      "prod_ready": "no",
+      "evidence": [
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\rhythmMapping\\\\agent.ts:4: defines rhythmMapping agent config",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\index.ts:6: included in AGENT_CONFIGS array",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\taskInstructions.ts:6: task instructions registered",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\fileReaderService.ts:2: missing ProcessedFile export blocks compilation"
+      ]
+    },
+    {
+      "name": "sceneGenerator",
+      "files": {
+        "agent": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\sceneGenerator\\\\agent.ts",
+        "instructions": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\sceneGenerator\\\\instructions.ts"
+      },
+      "registeredIn": {
+        "agents_index": true,
+        "taskInstructions": true,
+        "agentFactory": false
+      },
+      "typeSafety": {
+        "any_in_public_api": 1,
+        "notes": [
+          "H:\\\\Drama-analyst-and-creative-mimic\\\\core\\\\types.ts:89: placeholder exports default to any for advanced result types"
+        ]
+      },
+      "status": "active",
+      "prod_ready": "no",
+      "evidence": [
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\sceneGenerator\\\\agent.ts:4: defines sceneGenerator agent config",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\index.ts:13: included in AGENT_CONFIGS array",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\taskInstructions.ts:13: task instructions registered",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\fileReaderService.ts:2: missing ProcessedFile export blocks compilation"
+      ]
+    },
+    {
+      "name": "styleFingerprint",
+      "files": {
+        "agent": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\styleFingerprint\\\\agent.ts",
+        "instructions": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\styleFingerprint\\\\instructions.ts"
+      },
+      "registeredIn": {
+        "agents_index": true,
+        "taskInstructions": true,
+        "agentFactory": false
+      },
+      "typeSafety": {
+        "any_in_public_api": 1,
+        "notes": [
+          "H:\\\\Drama-analyst-and-creative-mimic\\\\core\\\\types.ts:89: placeholder exports default to any for advanced result types"
+        ]
+      },
+      "status": "active",
+      "prod_ready": "no",
+      "evidence": [
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\styleFingerprint\\\\agent.ts:4: defines styleFingerprint agent config",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\index.ts:10: included in AGENT_CONFIGS array",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\taskInstructions.ts:10: task instructions registered",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\fileReaderService.ts:2: missing ProcessedFile export blocks compilation"
+      ]
+    },
+    {
+      "name": "targetAudienceAnalyzer",
+      "files": {
+        "agent": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\targetAudienceAnalyzer\\\\agent.ts",
+        "instructions": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\targetAudienceAnalyzer\\\\instructions.ts"
+      },
+      "registeredIn": {
+        "agents_index": true,
+        "taskInstructions": true,
+        "agentFactory": false
+      },
+      "typeSafety": {
+        "any_in_public_api": 1,
+        "notes": [
+          "H:\\\\Drama-analyst-and-creative-mimic\\\\core\\\\types.ts:89: placeholder exports default to any for advanced result types"
+        ]
+      },
+      "status": "active",
+      "prod_ready": "no",
+      "evidence": [
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\targetAudienceAnalyzer\\\\agent.ts:4: defines targetAudienceAnalyzer agent config",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\index.ts:26: included in AGENT_CONFIGS array",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\taskInstructions.ts:26: task instructions registered",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\fileReaderService.ts:2: missing ProcessedFile export blocks compilation"
+      ]
+    },
+    {
+      "name": "tensionOptimizer",
+      "files": {
+        "agent": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\tensionOptimizer\\\\agent.ts",
+        "instructions": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\tensionOptimizer\\\\instructions.ts"
+      },
+      "registeredIn": {
+        "agents_index": true,
+        "taskInstructions": true,
+        "agentFactory": false
+      },
+      "typeSafety": {
+        "any_in_public_api": 1,
+        "notes": [
+          "H:\\\\Drama-analyst-and-creative-mimic\\\\core\\\\types.ts:89: placeholder exports default to any for advanced result types"
+        ]
+      },
+      "status": "active",
+      "prod_ready": "no",
+      "evidence": [
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\tensionOptimizer\\\\agent.ts:4: defines tensionOptimizer agent config",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\index.ts:17: included in AGENT_CONFIGS array",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\taskInstructions.ts:17: task instructions registered",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\fileReaderService.ts:2: missing ProcessedFile export blocks compilation"
+      ]
+    },
+    {
+      "name": "thematicMining",
+      "files": {
+        "agent": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\thematicMining\\\\agent.ts",
+        "instructions": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\thematicMining\\\\instructions.ts"
+      },
+      "registeredIn": {
+        "agents_index": true,
+        "taskInstructions": true,
+        "agentFactory": false
+      },
+      "typeSafety": {
+        "any_in_public_api": 1,
+        "notes": [
+          "H:\\\\Drama-analyst-and-creative-mimic\\\\core\\\\types.ts:89: placeholder exports default to any for advanced result types"
+        ]
+      },
+      "status": "active",
+      "prod_ready": "no",
+      "evidence": [
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\thematicMining\\\\agent.ts:4: defines thematicMining agent config",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\index.ts:9: included in AGENT_CONFIGS array",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\taskInstructions.ts:9: task instructions registered",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\fileReaderService.ts:2: missing ProcessedFile export blocks compilation"
+      ]
+    },
+    {
+      "name": "themesMessagesAnalyzer",
+      "files": {
+        "agent": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\themesMessagesAnalyzer\\\\agent.ts",
+        "instructions": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\themesMessagesAnalyzer\\\\instructions.ts"
+      },
+      "registeredIn": {
+        "agents_index": true,
+        "taskInstructions": true,
+        "agentFactory": false
+      },
+      "typeSafety": {
+        "any_in_public_api": 1,
+        "notes": [
+          "H:\\\\Drama-analyst-and-creative-mimic\\\\core\\\\types.ts:89: placeholder exports default to any for advanced result types"
+        ]
+      },
+      "status": "active",
+      "prod_ready": "no",
+      "evidence": [
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\themesMessagesAnalyzer\\\\agent.ts:4: defines themesMessagesAnalyzer agent config",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\index.ts:23: included in AGENT_CONFIGS array",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\taskInstructions.ts:23: task instructions registered",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\fileReaderService.ts:2: missing ProcessedFile export blocks compilation"
+      ]
+    },
+    {
+      "name": "visualCinematicAnalyzer",
+      "files": {
+        "agent": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\visualCinematicAnalyzer\\\\agent.ts",
+        "instructions": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\visualCinematicAnalyzer\\\\instructions.ts"
+      },
+      "registeredIn": {
+        "agents_index": true,
+        "taskInstructions": true,
+        "agentFactory": false
+      },
+      "typeSafety": {
+        "any_in_public_api": 1,
+        "notes": [
+          "H:\\\\Drama-analyst-and-creative-mimic\\\\core\\\\types.ts:89: placeholder exports default to any for advanced result types"
+        ]
+      },
+      "status": "active",
+      "prod_ready": "no",
+      "evidence": [
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\visualCinematicAnalyzer\\\\agent.ts:4: defines visualCinematicAnalyzer agent config",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\index.ts:22: included in AGENT_CONFIGS array",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\taskInstructions.ts:22: task instructions registered",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\fileReaderService.ts:2: missing ProcessedFile export blocks compilation"
+      ]
+    },
+    {
+      "name": "worldBuilder",
+      "files": {
+        "agent": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\worldBuilder\\\\agent.ts",
+        "instructions": "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\worldBuilder\\\\instructions.ts"
+      },
+      "registeredIn": {
+        "agents_index": true,
+        "taskInstructions": true,
+        "agentFactory": false
+      },
+      "typeSafety": {
+        "any_in_public_api": 1,
+        "notes": [
+          "H:\\\\Drama-analyst-and-creative-mimic\\\\core\\\\types.ts:89: placeholder exports default to any for advanced result types"
+        ]
+      },
+      "status": "active",
+      "prod_ready": "no",
+      "evidence": [
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\worldBuilder\\\\agent.ts:4: defines worldBuilder agent config",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\index.ts:15: included in AGENT_CONFIGS array",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\agents\\\\taskInstructions.ts:15: task instructions registered",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\fileReaderService.ts:2: missing ProcessedFile export blocks compilation"
+      ]
+    }
+  ],
+  "services": {
+    "geminiService": {
+      "file": "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\geminiService.ts",
+      "network_error_handling": true,
+      "typed_requests": false,
+      "typed_responses": true,
+      "ui_leak": false,
+      "prod_ready": "no",
+      "evidence": [
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\geminiService.ts:27: imports agent instructions from services layer",
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\geminiService.ts:32: ProcessedFile typing missing from @core/types"
+      ]
+    },
+    "fileReaderService": {
+      "file": "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\fileReaderService.ts",
+      "path_safety": true,
+      "prod_ready": "no",
+      "evidence": [
+        "H:\\\\Drama-analyst-and-creative-mimic\\\\services\\\\fileReaderService.ts:2: depends on missing ProcessedFile export"
+      ]
+    }
+  },
+  "layer_boundaries": {
+    "violations": [
+      {
+        "from": "services/geminiService.ts",
+        "to": "agents/taskInstructions.ts",
+        "fromLayer": "services",
+        "toLayer": "agents",
+        "severity": "medium",
+        "explanation": "Service layer depends on agent layer, creating tight coupling",
+        "specifier": "@agents/taskInstructions"
+      },
+      {
+        "from": "ui/App.tsx",
+        "to": "services/fileReaderService.ts",
+        "fromLayer": "ui",
+        "toLayer": "services",
+        "severity": "high",
+        "explanation": "UI importing service directly instead of going through orchestration",
+        "specifier": "@services/fileReaderService"
+      },
+      {
+        "from": "ui/App.tsx",
+        "to": "services/geminiService.ts",
+        "fromLayer": "ui",
+        "toLayer": "services",
+        "severity": "high",
+        "explanation": "UI importing service directly instead of going through orchestration",
+        "specifier": "@services/geminiService"
+      }
+    ]
+  }
+}

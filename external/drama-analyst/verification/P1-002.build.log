@@ -1,0 +1,102 @@
+
+> drama-analytica-&-creative-emissary@0.0.0 build
+> vite build
+
+vite v6.3.6 building for production...
+transforming...
+Γ£ô 488 modules transformed.
+rendering chunks...
+[plugin vite:reporter] 
+(!) H:/Drama-analyst-and-creative-mimic/agents/analysis/agent.ts is dynamically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts but also statically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) H:/Drama-analyst-and-creative-mimic/agents/creative/agent.ts is dynamically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts but also statically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) H:/Drama-analyst-and-creative-mimic/agents/integrated/agent.ts is dynamically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts but also statically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) H:/Drama-analyst-and-creative-mimic/agents/completion/agent.ts is dynamically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts but also statically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) H:/Drama-analyst-and-creative-mimic/agents/rhythmMapping/agent.ts is dynamically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts but also statically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) H:/Drama-analyst-and-creative-mimic/agents/characterNetwork/agent.ts is dynamically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts but also statically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) H:/Drama-analyst-and-creative-mimic/agents/dialogueForensics/agent.ts is dynamically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts but also statically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) H:/Drama-analyst-and-creative-mimic/agents/thematicMining/agent.ts is dynamically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts but also statically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) H:/Drama-analyst-and-creative-mimic/agents/styleFingerprint/agent.ts is dynamically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts but also statically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) H:/Drama-analyst-and-creative-mimic/agents/conflictDynamics/agent.ts is dynamically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts but also statically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) H:/Drama-analyst-and-creative-mimic/agents/adaptiveRewriting/agent.ts is dynamically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts but also statically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) H:/Drama-analyst-and-creative-mimic/agents/sceneGenerator/agent.ts is dynamically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts but also statically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) H:/Drama-analyst-and-creative-mimic/agents/characterVoice/agent.ts is dynamically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts but also statically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) H:/Drama-analyst-and-creative-mimic/agents/worldBuilder/agent.ts is dynamically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts but also statically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) H:/Drama-analyst-and-creative-mimic/agents/plotPredictor/agent.ts is dynamically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts but also statically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) H:/Drama-analyst-and-creative-mimic/agents/tensionOptimizer/agent.ts is dynamically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts but also statically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) H:/Drama-analyst-and-creative-mimic/agents/audienceResonance/agent.ts is dynamically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts but also statically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) H:/Drama-analyst-and-creative-mimic/agents/platformAdapter/agent.ts is dynamically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts but also statically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) H:/Drama-analyst-and-creative-mimic/agents/characterDeepAnalyzer/agent.ts is dynamically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts but also statically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) H:/Drama-analyst-and-creative-mimic/agents/dialogueAdvancedAnalyzer/agent.ts is dynamically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts but also statically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) H:/Drama-analyst-and-creative-mimic/agents/visualCinematicAnalyzer/agent.ts is dynamically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts but also statically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) H:/Drama-analyst-and-creative-mimic/agents/themesMessagesAnalyzer/agent.ts is dynamically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts but also statically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) H:/Drama-analyst-and-creative-mimic/agents/culturalHistoricalAnalyzer/agent.ts is dynamically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts but also statically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) H:/Drama-analyst-and-creative-mimic/agents/producibilityAnalyzer/agent.ts is dynamically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts but also statically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) H:/Drama-analyst-and-creative-mimic/agents/targetAudienceAnalyzer/agent.ts is dynamically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts but also statically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) H:/Drama-analyst-and-creative-mimic/agents/literaryQualityAnalyzer/agent.ts is dynamically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts but also statically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts, dynamic import will not move module into another chunk.
+
+[plugin vite:reporter] 
+(!) H:/Drama-analyst-and-creative-mimic/agents/recommendationsGenerator/agent.ts is dynamically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts but also statically imported by H:/Drama-analyst-and-creative-mimic/agents/index.ts, dynamic import will not move module into another chunk.
+
+computing gzip size...
+dist/index.html                   3.09 kB Γöé gzip:   1.31 kB
+dist/assets/vendor-wzZzN_Jv.js   12.45 kB Γöé gzip:   4.41 kB
+dist/assets/gemini-BpRkNtKl.js   28.06 kB Γöé gzip:   6.37 kB
+dist/assets/agents-D5ch5KUH.js   90.59 kB Γöé gzip:  26.02 kB
+dist/assets/index-Nv1p_Nzi.js   315.84 kB Γöé gzip:  96.95 kB
+dist/assets/index-Cec0GZtf.js   500.14 kB Γöé gzip: 130.31 kB
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+Γ£ô built in 4.05s
