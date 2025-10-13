@@ -1,6 +1,6 @@
-const { execSync } = require('child_process');
-const fs = require('fs');
-const path = require('path');
+import { execSync } from 'node:child_process'
+import fs from 'node:fs'
+import path from 'node:path'
 
 const projects = [
   { name: 'Drama Analyst', source: 'external/drama-analyst', target: 'public/drama-analyst' },
@@ -36,3 +36,4 @@ if (hasErrors) {
   process.exit(1);
 }
 console.log('✅ All external projects built successfully!');
+
