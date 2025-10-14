@@ -73,13 +73,14 @@ export function sanitizeUserInput(input: string): string {
  */
 export function sanitizeFilename(filename: string): string {
   if (!filename) return 'untitled';
-  
+
   // Remove dangerous characters
-  return filename
-    .replace(/[<>:"/\\|?*\x00-\x1f]/g, '')
-    .replace(/^\.+/, '')
-    .substring(0, 255)
-    .trim() || 'untitled';
+  const trimmed = filename.trim();
+  const stripped = trimmed.replace(/[<>:"/\\|?*\x00-\x1f]/g, '');
+  const withoutLeadingDots = stripped.replace(/^\.+/, '');
+  const bounded = withoutLeadingDots.substring(0, 255).trim();
+
+  return bounded || 'untitled';
 }
 
 /**

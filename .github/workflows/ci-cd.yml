@@ -36,6 +36,23 @@ jobs:
       - name: Run tests
         run: npm run test:run
 
+      - name: Generate coverage reports
+        run: npm run coverage
+
+      - name: Coverage diff (changed files)
+        run: npm run coverage:diff
+        env:
+          COVERAGE_BASE_REF: ${{ github.event.pull_request.base.sha || 'origin/main' }}
+
+      - name: Enforce coverage gates
+        run: npm run coverage:enforce
+
+      - name: Upload coverage artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-latest
+          path: reports/coverage/latest
+
       - name: Security audit
         run: npm run security-audit
 

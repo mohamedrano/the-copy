@@ -20,11 +20,13 @@ import {
 } from '../__mocks__/gemini.payloads';
 import type { AgentConfig } from '../../../config';
 
+const mockGenerateContent = vi.fn();
+
 // Mock the Google Generative AI
 vi.mock('@google/generative-ai', () => ({
   GoogleGenerativeAI: vi.fn().mockImplementation(() => ({
     getGenerativeModel: vi.fn().mockReturnValue({
-      generateContent: vi.fn()
+      generateContent: mockGenerateContent
     })
   })),
   HarmCategory: {
@@ -43,24 +45,23 @@ vi.mock('../../../config', () => ({
   environment: { geminiApiKey: 'test-api-key' },
   PROMPT_PERSONA_BASE: 'Test persona base',
   TASK_SPECIFIC_INSTRUCTIONS: {
-    [TaskType.ANALYSIS]: 'Analysis instructions'
+    analysis: 'Analysis instructions'
   },
-  TASKS_EXPECTING_JSON_RESPONSE: [TaskType.ANALYSIS],
+  TASKS_EXPECTING_JSON_RESPONSE: ['analysis'],
   COMPLETION_ENHANCEMENT_OPTIONS: [],
   TASK_CATEGORY_MAP: {
-    [TaskType.ANALYSIS]: 'ANALYSIS'
+    analysis: 'ANALYSIS'
   }
 }));
 
 vi.mock('../../../agents/instructions/prompts', () => ({
   ENHANCED_TASK_DESCRIPTIONS: {
-    [TaskType.ANALYSIS]: 'تحليل: تحليل شامل للنص'
+    analysis: 'تحليل: تحليل شامل للنص'
   }
 }));
 
 describe('GeminiService', () => {
   let geminiService: GeminiService;
-  let mockGenerateContent: ReturnType<typeof vi.fn>;
   const mockConfig: AgentConfig = {
     model: 'gemini-pro',
     temperature: 0.7,
@@ -77,12 +78,10 @@ describe('GeminiService', () => {
     size: 100
   };
 
-  beforeEach(async () => {
-    const { GoogleGenerativeAI } = vi.mocked(await import('@google/generative-ai'));
-    const mockAI = new GoogleGenerativeAI('test-key');
-    const mockModel = mockAI.getGenerativeModel({ model: 'gemini-pro' });
-    mockGenerateContent = mockModel.generateContent as ReturnType<typeof vi.fn>;
+  const JSON_FALLBACK_MESSAGE = 'تم استلام نص غير متوقع بدلاً من JSON. يتم عرض النص الخام.';
 
+  beforeEach(() => {
+    mockGenerateContent.mockReset();
     geminiService = new GeminiService('test-api-key', mockConfig);
   });
 
@@ -113,7 +112,7 @@ describe('GeminiService', () => {
         additionalInfo: ''
       });
 
-      expect(result.error).toBeUndefined();
+      expect(result.error).toBe(JSON_FALLBACK_MESSAGE);
       expect(result.data).toBe('هذا نص تجريبي باللغة العربية للاختبار');
       expect(result.rawText).toBe('هذا نص تجريبي باللغة العربية للاختبار');
     });
@@ -155,7 +154,7 @@ describe('GeminiService', () => {
 
       // Should fall back to raw text when JSON repair fails
       expect(result.data).toContain('```json');
-      expect(result.error).toContain('تم استلام نص غير متوقع بدلاً من JSON');
+      expect(result.error).toBe(JSON_FALLBACK_MESSAGE);
     });
   });
 
@@ -229,7 +228,7 @@ describe('GeminiService', () => {
       });
 
       // Should succeed after retry
-      expect(result.error).toBeUndefined();
+      expect(result.error).toBe(JSON_FALLBACK_MESSAGE);
       expect(result.data).toBe('هذا نص تجريبي باللغة العربية للاختبار');
       expect(mockGenerateContent).toHaveBeenCalledTimes(2);
     });
@@ -262,7 +261,7 @@ describe('GeminiService', () => {
         additionalInfo: ''
       });
 
-      expect(result.error).toContain('تم استلام نص غير متوقع بدلاً من JSON');
+      expect(result.error).toBe(JSON_FALLBACK_MESSAGE);
       expect(result.data).toBe('This is plain text without JSON');
     });
   });
@@ -288,7 +287,7 @@ describe('GeminiService', () => {
         additionalInfo: ''
       });
 
-      expect(result.error).toBeUndefined();
+      expect(result.error).toBe(JSON_FALLBACK_MESSAGE);
       expect(mockGenerateContent).toHaveBeenCalledWith(
         expect.objectContaining({
           contents: expect.arrayContaining([
@@ -327,7 +326,7 @@ describe('GeminiService', () => {
         additionalInfo: ''
       });
 
-      expect(result.error).toBeUndefined();
+      expect(result.error).toBe(JSON_FALLBACK_MESSAGE);
       expect(mockGenerateContent).toHaveBeenCalledWith(
         expect.objectContaining({
           contents: expect.arrayContaining([

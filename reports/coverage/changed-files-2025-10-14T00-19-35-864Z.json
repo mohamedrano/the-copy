@@ -1,0 +1,31 @@
+{
+  "baseRef": "HEAD~1",
+  "changedFileCount": 0,
+  "thresholds": {
+    "lines": 90,
+    "branches": 85
+  },
+  "totals": {
+    "lines": {
+      "covered": 0,
+      "total": 0,
+      "pct": 100
+    },
+    "branches": {
+      "covered": 0,
+      "total": 0,
+      "pct": 100
+    },
+    "functions": {
+      "covered": 0,
+      "total": 0,
+      "pct": 100
+    },
+    "statements": {
+      "covered": 0,
+      "total": 0,
+      "pct": 100
+    }
+  },
+  "perFile": []
+}

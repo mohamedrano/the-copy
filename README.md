@@ -5,6 +5,8 @@
 [![React](https://img.shields.io/badge/React-19+-61dafb)](https://reactjs.org/)
 [![Vite](https://img.shields.io/badge/Vite-7+-646cff)](https://vitejs.dev/)
 [![License](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+[![Coverage Gates](https://img.shields.io/badge/Coverage%20(Core%2FServices%2FUI)-99%25%2F94%25%2F98%25-brightgreen)](docs/testing/coverage-report.md)
+[![Mutation Score](https://img.shields.io/badge/Mutation%20Score-60%25-yellow)](docs/testing/CONTRIBUTING-TESTS.md#اختبارات-الطفرات-mutation-testing)
 
 ## نظرة عامة
 
