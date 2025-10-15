@@ -1,6 +1,6 @@
 import * as Sentry from '@sentry/react';
 import { log } from './loggerService';
-import { setGAUserProperties, sendGAEvent } from './analyticsService';
+import { getAnalyticsService } from './analyticsService';
 import { initUptimeMonitoring } from './uptimeMonitoringService';
 
 // Sentry configuration for production monitoring
@@ -78,11 +78,9 @@ export const initObservability = () => {
             /^https:\/\/fonts\.gstatic\.com/
           ]
         }),
-        Sentry.browserTracingIntegration({
-          routingInstrumentation: Sentry.reactRouterV6Instrumentation(
-            // React Router v6 instrumentation will be added when router is implemented
-          )
-        })
+        Sentry.browserTracingIntegration()
+        // React Router v6 instrumentation will be added when router is implemented
+        // Sentry.reactRouterV6Instrumentation is not available in current version
       ],
       
       // Release tracking
@@ -298,24 +296,26 @@ const initAnalyticsMonitoring = () => {
     log.info('📊 Initializing Google Analytics 4...', { ga4Id, environment }, 'Observability');
     
     // Import and initialize GA4
-    import('./analyticsService').then(({ initGA4 }) => {
-      initGA4(ga4Id);
-      
+    import('./analyticsService').then(({ initAnalytics }) => {
+      const analyticsService = initAnalytics({
+        measurementId: ga4Id,
+        debug: environment !== 'production'
+      });
+
       // Set user context for GA4
-      setGAUserProperties({
-        app_version: import.meta.env.VITE_APP_VERSION || '1.0.0',
-        environment,
-        platform: 'web',
+      analyticsService?.setUserProperties({
+        user_id: getUserId(),
         session_id: getSessionId()
       });
-      
+
       // Track app initialization
-      sendGAEvent('app_initialized', {
+      analyticsService?.sendEvent('app_initialized', {
+        event_category: 'App Lifecycle',
         app_version: import.meta.env.VITE_APP_VERSION || '1.0.0',
         environment,
         timestamp: new Date().toISOString()
       });
-      
+
       log.info('✅ Google Analytics 4 initialized successfully', null, 'Observability');
     }).catch(error => {
       log.error('❌ Failed to initialize Google Analytics 4', error, 'Observability');

@@ -1,0 +1,1440 @@
+H:\the-copy\external\drama-analyst
+H:\the-copy\external\multi-agent-story
+H:\the-copy\external\stations
+H:\the-copy\external\BUILD_GUIDE.md
+H:\the-copy\external\README.md
+H:\the-copy\external\drama-analyst\.claude
+H:\the-copy\external\drama-analyst\.idx
+H:\the-copy\external\drama-analyst\~
+H:\the-copy\external\drama-analyst\agents
+H:\the-copy\external\drama-analyst\archive
+H:\the-copy\external\drama-analyst\artifacts
+H:\the-copy\external\drama-analyst\backend
+H:\the-copy\external\drama-analyst\cleanup
+H:\the-copy\external\drama-analyst\config
+H:\the-copy\external\drama-analyst\core
+H:\the-copy\external\drama-analyst\coverage
+H:\the-copy\external\drama-analyst\dist
+H:\the-copy\external\drama-analyst\docs
+H:\the-copy\external\drama-analyst\orchestration
+H:\the-copy\external\drama-analyst\patches
+H:\the-copy\external\drama-analyst\plan
+H:\the-copy\external\drama-analyst\public
+H:\the-copy\external\drama-analyst\scripts
+H:\the-copy\external\drama-analyst\services
+H:\the-copy\external\drama-analyst\src
+H:\the-copy\external\drama-analyst\ui
+H:\the-copy\external\drama-analyst\verification
+H:\the-copy\external\drama-analyst\.dockerignore
+H:\the-copy\external\drama-analyst\.env
+H:\the-copy\external\drama-analyst\.env.example
+H:\the-copy\external\drama-analyst\.lighthouserc.json
+H:\the-copy\external\drama-analyst\.sentryclirc
+H:\the-copy\external\drama-analyst\CLAUDE.md
+H:\the-copy\external\drama-analyst\CONTRIBUTING.md
+H:\the-copy\external\drama-analyst\debug.log
+H:\the-copy\external\drama-analyst\DEPLOYMENT.md
+H:\the-copy\external\drama-analyst\docker-compose.dev.yml
+H:\the-copy\external\drama-analyst\docker-compose.prod.yml
+H:\the-copy\external\drama-analyst\docker-compose.yml
+H:\the-copy\external\drama-analyst\Dockerfile
+H:\the-copy\external\drama-analyst\Dockerfile.dev
+H:\the-copy\external\drama-analyst\Drama-analyst-and-creative-mimic.code-workspace
+H:\the-copy\external\drama-analyst\env.example
+H:\the-copy\external\drama-analyst\GEMINI.md
+H:\the-copy\external\drama-analyst\IMPLEMENTATION_DIRECTIVE.md
+H:\the-copy\external\drama-analyst\IMPLEMENTATION_STATUS.md
+H:\the-copy\external\drama-analyst\index.html
+H:\the-copy\external\drama-analyst\Makefile
+H:\the-copy\external\drama-analyst\nginx.conf
+H:\the-copy\external\drama-analyst\package-lock.json
+H:\the-copy\external\drama-analyst\package.json
+H:\the-copy\external\drama-analyst\playwright.config.ts
+H:\the-copy\external\drama-analyst\PR_BODY.md
+H:\the-copy\external\drama-analyst\PRODUCTION_READINESS_REPORT.md
+H:\the-copy\external\drama-analyst\PRODUCTION_STATUS.md
+H:\the-copy\external\drama-analyst\README.md
+H:\the-copy\external\drama-analyst\sentry.properties
+H:\the-copy\external\drama-analyst\to-dos
+H:\the-copy\external\drama-analyst\tsconfig.json
+H:\the-copy\external\drama-analyst\types.d.ts
+H:\the-copy\external\drama-analyst\vite.config.ts
+H:\the-copy\external\drama-analyst\vitest.config.ts
+H:\the-copy\external\drama-analyst\تقرير_جاهزية_الإنتاج_الشامل.md
+H:\the-copy\external\drama-analyst\.claude\agents
+H:\the-copy\external\drama-analyst\.claude\rules-orchestrator
+H:\the-copy\external\drama-analyst\.claude\settings.local.json
+H:\the-copy\external\drama-analyst\.claude\agents\devops-infrastructure-specialist.md
+H:\the-copy\external\drama-analyst\.claude\agents\gemini-api-expert.md
+H:\the-copy\external\drama-analyst\.claude\agents\orchestrator.md
+H:\the-copy\external\drama-analyst\.claude\agents\senior-software-engineer.md
+H:\the-copy\external\drama-analyst\.claude\agents\technical-planning-leadr.md
+H:\the-copy\external\drama-analyst\.claude\rules-orchestrator\system-prompt-orchestrator
+H:\the-copy\external\drama-analyst\.idx\dev.nix
+H:\the-copy\external\drama-analyst\agents\adaptiveRewriting
+H:\the-copy\external\drama-analyst\agents\analysis
+H:\the-copy\external\drama-analyst\agents\audienceResonance
+H:\the-copy\external\drama-analyst\agents\characterDeepAnalyzer
+H:\the-copy\external\drama-analyst\agents\characterNetwork
+H:\the-copy\external\drama-analyst\agents\characterVoice
+H:\the-copy\external\drama-analyst\agents\completion
+H:\the-copy\external\drama-analyst\agents\conflictDynamics
+H:\the-copy\external\drama-analyst\agents\creative
+H:\the-copy\external\drama-analyst\agents\culturalHistoricalAnalyzer
+H:\the-copy\external\drama-analyst\agents\dialogueAdvancedAnalyzer
+H:\the-copy\external\drama-analyst\agents\dialogueForensics
+H:\the-copy\external\drama-analyst\agents\integrated
+H:\the-copy\external\drama-analyst\agents\literaryQualityAnalyzer
+H:\the-copy\external\drama-analyst\agents\platformAdapter
+H:\the-copy\external\drama-analyst\agents\plotPredictor
+H:\the-copy\external\drama-analyst\agents\producibilityAnalyzer
+H:\the-copy\external\drama-analyst\agents\recommendationsGenerator
+H:\the-copy\external\drama-analyst\agents\rhythmMapping
+H:\the-copy\external\drama-analyst\agents\sceneGenerator
+H:\the-copy\external\drama-analyst\agents\shared
+H:\the-copy\external\drama-analyst\agents\styleFingerprint
+H:\the-copy\external\drama-analyst\agents\targetAudienceAnalyzer
+H:\the-copy\external\drama-analyst\agents\tensionOptimizer
+H:\the-copy\external\drama-analyst\agents\thematicMining
+H:\the-copy\external\drama-analyst\agents\themesMessagesAnalyzer
+H:\the-copy\external\drama-analyst\agents\visualCinematicAnalyzer
+H:\the-copy\external\drama-analyst\agents\worldBuilder
+H:\the-copy\external\drama-analyst\agents\index.ts
+H:\the-copy\external\drama-analyst\agents\taskInstructions.ts
+H:\the-copy\external\drama-analyst\agents\adaptiveRewriting\agent.ts
+H:\the-copy\external\drama-analyst\agents\adaptiveRewriting\instructions.ts
+H:\the-copy\external\drama-analyst\agents\analysis\agent.ts
+H:\the-copy\external\drama-analyst\agents\analysis\instructions.ts
+H:\the-copy\external\drama-analyst\agents\audienceResonance\agent.ts
+H:\the-copy\external\drama-analyst\agents\audienceResonance\instructions.ts
+H:\the-copy\external\drama-analyst\agents\characterDeepAnalyzer\agent.ts
+H:\the-copy\external\drama-analyst\agents\characterDeepAnalyzer\instructions.ts
+H:\the-copy\external\drama-analyst\agents\characterNetwork\agent.ts
+H:\the-copy\external\drama-analyst\agents\characterNetwork\instructions.ts
+H:\the-copy\external\drama-analyst\agents\characterVoice\agent.ts
+H:\the-copy\external\drama-analyst\agents\characterVoice\instructions.ts
+H:\the-copy\external\drama-analyst\agents\completion\agent.ts
+H:\the-copy\external\drama-analyst\agents\completion\instructions.ts
+H:\the-copy\external\drama-analyst\agents\conflictDynamics\agent.ts
+H:\the-copy\external\drama-analyst\agents\conflictDynamics\instructions.ts
+H:\the-copy\external\drama-analyst\agents\creative\agent.ts
+H:\the-copy\external\drama-analyst\agents\creative\instructions.ts
+H:\the-copy\external\drama-analyst\agents\culturalHistoricalAnalyzer\agent.ts
+H:\the-copy\external\drama-analyst\agents\culturalHistoricalAnalyzer\instructions.ts
+H:\the-copy\external\drama-analyst\agents\dialogueAdvancedAnalyzer\agent.ts
+H:\the-copy\external\drama-analyst\agents\dialogueAdvancedAnalyzer\instructions.ts
+H:\the-copy\external\drama-analyst\agents\dialogueForensics\agent.ts
+H:\the-copy\external\drama-analyst\agents\dialogueForensics\instructions.ts
+H:\the-copy\external\drama-analyst\agents\integrated\agent.ts
+H:\the-copy\external\drama-analyst\agents\integrated\instructions.ts
+H:\the-copy\external\drama-analyst\agents\literaryQualityAnalyzer\agent.ts
+H:\the-copy\external\drama-analyst\agents\literaryQualityAnalyzer\instructions.ts
+H:\the-copy\external\drama-analyst\agents\platformAdapter\agent.ts
+H:\the-copy\external\drama-analyst\agents\platformAdapter\instructions.ts
+H:\the-copy\external\drama-analyst\agents\plotPredictor\agent.ts
+H:\the-copy\external\drama-analyst\agents\plotPredictor\instructions.ts
+H:\the-copy\external\drama-analyst\agents\producibilityAnalyzer\agent.ts
+H:\the-copy\external\drama-analyst\agents\producibilityAnalyzer\instructions.ts
+H:\the-copy\external\drama-analyst\agents\recommendationsGenerator\agent.ts
+H:\the-copy\external\drama-analyst\agents\recommendationsGenerator\instructions.ts
+H:\the-copy\external\drama-analyst\agents\rhythmMapping\agent.ts
+H:\the-copy\external\drama-analyst\agents\rhythmMapping\instructions.ts
+H:\the-copy\external\drama-analyst\agents\sceneGenerator\agent.ts
+H:\the-copy\external\drama-analyst\agents\sceneGenerator\instructions.ts
+H:\the-copy\external\drama-analyst\agents\shared\advancedModuleOutputStructure.ts
+H:\the-copy\external\drama-analyst\agents\styleFingerprint\agent.ts
+H:\the-copy\external\drama-analyst\agents\styleFingerprint\instructions.ts
+H:\the-copy\external\drama-analyst\agents\targetAudienceAnalyzer\agent.ts
+H:\the-copy\external\drama-analyst\agents\targetAudienceAnalyzer\instructions.ts
+H:\the-copy\external\drama-analyst\agents\tensionOptimizer\agent.ts
+H:\the-copy\external\drama-analyst\agents\tensionOptimizer\instructions.ts
+H:\the-copy\external\drama-analyst\agents\thematicMining\agent.ts
+H:\the-copy\external\drama-analyst\agents\thematicMining\instructions.ts
+H:\the-copy\external\drama-analyst\agents\themesMessagesAnalyzer\agent.ts
+H:\the-copy\external\drama-analyst\agents\themesMessagesAnalyzer\instructions.ts
+H:\the-copy\external\drama-analyst\agents\visualCinematicAnalyzer\agent.ts
+H:\the-copy\external\drama-analyst\agents\visualCinematicAnalyzer\instructions.ts
+H:\the-copy\external\drama-analyst\agents\worldBuilder\agent.ts
+H:\the-copy\external\drama-analyst\agents\worldBuilder\instructions.ts
+H:\the-copy\external\drama-analyst\archive\old-analysis
+H:\the-copy\external\drama-analyst\archive\old-docs
+H:\the-copy\external\drama-analyst\archive\old-scripts
+H:\the-copy\external\drama-analyst\archive\temp-files
+H:\the-copy\external\drama-analyst\archive\old-analysis\analysis
+H:\the-copy\external\drama-analyst\archive\old-analysis\analysis\agents-status.json
+H:\the-copy\external\drama-analyst\archive\old-analysis\analysis\dependency-graph.json
+H:\the-copy\external\drama-analyst\archive\old-analysis\analysis\duplicate-files.json
+H:\the-copy\external\drama-analyst\archive\old-analysis\analysis\layer-analysis.json
+H:\the-copy\external\drama-analyst\archive\old-docs\analysis-20250930
+H:\the-copy\external\drama-analyst\archive\old-docs\analysis-20250930\activation_matrix.json
+H:\the-copy\external\drama-analyst\archive\old-docs\analysis-20250930\dead_code_report.json
+H:\the-copy\external\drama-analyst\archive\old-docs\analysis-20250930\integration_gaps.json
+H:\the-copy\external\drama-analyst\archive\old-docs\analysis-20250930\INTEGRATION_REPORT.md
+H:\the-copy\external\drama-analyst\archive\old-docs\analysis-20250930\REDUNDANCY_REPORT.md
+H:\the-copy\external\drama-analyst\archive\old-docs\analysis-20250930\restructure_plan.json
+H:\the-copy\external\drama-analyst\archive\old-docs\analysis-20250930\RESTRUCTURE_PLAN.md
+H:\the-copy\external\drama-analyst\archive\old-scripts\scripts
+H:\the-copy\external\drama-analyst\archive\old-scripts\scripts\analyze-agents.mjs
+H:\the-copy\external\drama-analyst\archive\old-scripts\scripts\analyze-deps.mjs
+H:\the-copy\external\drama-analyst\archive\old-scripts\scripts\analyze-layers.mjs
+H:\the-copy\external\drama-analyst\archive\old-scripts\scripts\find-duplicates.mjs
+H:\the-copy\external\drama-analyst\archive\old-scripts\scripts\generate-activation.mjs
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload
+H:\the-copy\external\drama-analyst\archive\temp-files\archive.tar.gz
+H:\the-copy\external\drama-analyst\archive\temp-files\debug.log
+H:\the-copy\external\drama-analyst\archive\temp-files\temp_build_phase1.log
+H:\the-copy\external\drama-analyst\archive\temp-files\temp_build_phase2.log
+H:\the-copy\external\drama-analyst\archive\temp-files\temp_build_phase3.log
+H:\the-copy\external\drama-analyst\archive\temp-files\temp_tsc_phase1.log
+H:\the-copy\external\drama-analyst\archive\temp-files\temp_tsc_phase2.log
+H:\the-copy\external\drama-analyst\archive\temp-files\temp_tsc_phase3.log
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64141
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64143
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64147
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64149
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64153
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64157
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64159
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64163
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64167
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64171
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64175
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64179
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64183
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64187
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64191
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64195
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64199
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64203
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64207
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64211
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64215
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64219
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64223
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64227
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64231
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64235
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64239
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64243
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64247
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64251
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64255
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64259
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64263
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64267
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64273
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64275
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64279
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64283
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64287
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64291
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64293
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64295
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64299
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64303
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64307
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64311
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64313
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64317
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64321
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64325
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64329
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64333
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64337
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64341
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64345
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64349
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64353
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64355
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64359
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64363
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64367
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64369
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64373
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64377
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64381
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64385
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64389
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64393
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64397
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64401
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64405
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64409
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64413
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64417
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64421
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64425
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64429
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64433
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64437
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64441
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64445
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64449
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64453
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64455
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64459
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64463
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64467
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64471
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64475
+H:\the-copy\external\drama-analyst\archive\temp-files\.tmp.driveupload\64479
+H:\the-copy\external\drama-analyst\artifacts\baseline
+H:\the-copy\external\drama-analyst\artifacts\baseline\audit.initial.json
+H:\the-copy\external\drama-analyst\artifacts\baseline\build.initial.log
+H:\the-copy\external\drama-analyst\artifacts\baseline\build.log
+H:\the-copy\external\drama-analyst\artifacts\baseline\bundle.size.before.json
+H:\the-copy\external\drama-analyst\artifacts\baseline\tsc.initial.log
+H:\the-copy\external\drama-analyst\artifacts\baseline\tsc.log
+H:\the-copy\external\drama-analyst\backend\src
+H:\the-copy\external\drama-analyst\backend\Dockerfile
+H:\the-copy\external\drama-analyst\backend\env.example
+H:\the-copy\external\drama-analyst\backend\openapi.yaml
+H:\the-copy\external\drama-analyst\backend\package.json
+H:\the-copy\external\drama-analyst\backend\swagger-ui.html
+H:\the-copy\external\drama-analyst\backend\src\index.js
+H:\the-copy\external\drama-analyst\backend\src\monitoring.js
+H:\the-copy\external\drama-analyst\cleanup\all_files_sizes.txt
+H:\the-copy\external\drama-analyst\cleanup\dynamic_refs.txt
+H:\the-copy\external\drama-analyst\cleanup\static_imports.txt
+H:\the-copy\external\drama-analyst\config\environment.test.ts
+H:\the-copy\external\drama-analyst\config\environment.ts
+H:\the-copy\external\drama-analyst\core\constants.test.ts
+H:\the-copy\external\drama-analyst\core\constants.ts
+H:\the-copy\external\drama-analyst\core\enums.test.ts
+H:\the-copy\external\drama-analyst\core\enums.ts
+H:\the-copy\external\drama-analyst\core\types.test.ts
+H:\the-copy\external\drama-analyst\core\types.ts
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst
+H:\the-copy\external\drama-analyst\coverage\base.css
+H:\the-copy\external\drama-analyst\coverage\block-navigation.js
+H:\the-copy\external\drama-analyst\coverage\coverage-final.json
+H:\the-copy\external\drama-analyst\coverage\favicon.png
+H:\the-copy\external\drama-analyst\coverage\index.html
+H:\the-copy\external\drama-analyst\coverage\prettify.css
+H:\the-copy\external\drama-analyst\coverage\prettify.js
+H:\the-copy\external\drama-analyst\coverage\sort-arrow-sprite.png
+H:\the-copy\external\drama-analyst\coverage\sorter.js
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\archive
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\backend
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\config
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\core
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\dist
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\orchestration
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\public
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\services
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\ui
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\playwright.config.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\types.d.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\vite.config.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\vitest.config.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\adaptiveRewriting
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\analysis
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\audienceResonance
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\characterDeepAnalyzer
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\characterNetwork
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\characterVoice
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\completion
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\conflictDynamics
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\creative
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\culturalHistoricalAnalyzer
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\dialogueAdvancedAnalyzer
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\dialogueForensics
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\integrated
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\literaryQualityAnalyzer
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\platformAdapter
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\plotPredictor
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\producibilityAnalyzer
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\recommendationsGenerator
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\rhythmMapping
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\sceneGenerator
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\shared
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\styleFingerprint
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\targetAudienceAnalyzer
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\tensionOptimizer
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\thematicMining
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\themesMessagesAnalyzer
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\visualCinematicAnalyzer
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\worldBuilder
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\index.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\taskInstructions.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\adaptiveRewriting\agent.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\adaptiveRewriting\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\adaptiveRewriting\instructions.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\analysis\agent.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\analysis\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\analysis\instructions.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\audienceResonance\agent.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\audienceResonance\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\audienceResonance\instructions.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\characterDeepAnalyzer\agent.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\characterDeepAnalyzer\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\characterDeepAnalyzer\instructions.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\characterNetwork\agent.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\characterNetwork\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\characterNetwork\instructions.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\characterVoice\agent.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\characterVoice\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\characterVoice\instructions.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\completion\agent.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\completion\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\completion\instructions.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\conflictDynamics\agent.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\conflictDynamics\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\conflictDynamics\instructions.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\creative\agent.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\creative\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\creative\instructions.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\culturalHistoricalAnalyzer\agent.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\culturalHistoricalAnalyzer\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\culturalHistoricalAnalyzer\instructions.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\dialogueAdvancedAnalyzer\agent.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\dialogueAdvancedAnalyzer\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\dialogueAdvancedAnalyzer\instructions.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\dialogueForensics\agent.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\dialogueForensics\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\dialogueForensics\instructions.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\integrated\agent.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\integrated\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\integrated\instructions.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\literaryQualityAnalyzer\agent.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\literaryQualityAnalyzer\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\literaryQualityAnalyzer\instructions.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\platformAdapter\agent.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\platformAdapter\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\platformAdapter\instructions.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\plotPredictor\agent.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\plotPredictor\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\plotPredictor\instructions.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\producibilityAnalyzer\agent.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\producibilityAnalyzer\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\producibilityAnalyzer\instructions.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\recommendationsGenerator\agent.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\recommendationsGenerator\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\recommendationsGenerator\instructions.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\rhythmMapping\agent.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\rhythmMapping\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\rhythmMapping\instructions.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\sceneGenerator\agent.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\sceneGenerator\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\sceneGenerator\instructions.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\shared\advancedModuleOutputStructure.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\shared\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\styleFingerprint\agent.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\styleFingerprint\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\styleFingerprint\instructions.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\targetAudienceAnalyzer\agent.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\targetAudienceAnalyzer\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\targetAudienceAnalyzer\instructions.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\tensionOptimizer\agent.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\tensionOptimizer\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\tensionOptimizer\instructions.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\thematicMining\agent.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\thematicMining\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\thematicMining\instructions.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\themesMessagesAnalyzer\agent.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\themesMessagesAnalyzer\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\themesMessagesAnalyzer\instructions.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\visualCinematicAnalyzer\agent.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\visualCinematicAnalyzer\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\visualCinematicAnalyzer\instructions.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\worldBuilder\agent.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\worldBuilder\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\agents\worldBuilder\instructions.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\archive\old-scripts
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\archive\old-scripts\scripts
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\archive\old-scripts\scripts\analyze-agents.mjs.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\archive\old-scripts\scripts\analyze-deps.mjs.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\archive\old-scripts\scripts\analyze-layers.mjs.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\archive\old-scripts\scripts\find-duplicates.mjs.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\archive\old-scripts\scripts\generate-activation.mjs.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\archive\old-scripts\scripts\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\backend\src
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\backend\src\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\backend\src\index.js.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\backend\src\monitoring.js.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\config\environment.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\config\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\core\constants.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\core\enums.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\core\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\core\types.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\dist\assets
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\dist\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\dist\registerSW.js.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\dist\sw.js.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\dist\workbox-40c80ae4.js.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\dist\assets\agents-advanced-7S30vjsx.js.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\dist\assets\agents-analysis-BS1CeMND.js.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\dist\assets\agents-core-DHB0Lyfs.js.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\dist\assets\agents-creative-C2ffmiSs.js.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\dist\assets\app-main-EjxGC_Pa.js.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\dist\assets\core-Da5P05oc.js.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\dist\assets\index-DY8k37kC.js.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\dist\assets\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\dist\assets\orchestration-DZ2o25hX.js.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\dist\assets\services-core-CAr_CprC.js.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\dist\assets\services-misc-BtmXPpl3.js.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\dist\assets\services-utils-Cedeozs-.js.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\dist\assets\ui-components-CN0kWbza.js.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\dist\assets\ui-heavy-Chf_rjrq.js.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\dist\assets\vendor-ai-CnSNHDKN.js.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\dist\assets\vendor-mammoth-BR2rn1t3.js.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\dist\assets\vendor-misc-Dq7hlqfR.js.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\dist\assets\vendor-react-C5xrpApC.js.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\dist\assets\vendor-sentry-GiBdjFNr.js.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\orchestration\agentFactory.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\orchestration\executor.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\orchestration\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\orchestration\orchestration.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\orchestration\promptBuilder.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\public\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\public\sw.js.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\services\analyticsService.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\services\apiService.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\services\backendService.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\services\cacheService.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\services\errorHandler.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\services\fileReaderService.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\services\fontOptimizer.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\services\geminiService.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\services\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\services\loggerService.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\services\observability.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\services\sanitizationService.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\services\uptimeMonitoringService.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\services\webVitalsService.ts.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\ui\components
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\ui\App.tsx.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\ui\icons.tsx.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\ui\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\ui\index.tsx.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\ui\main.tsx.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\ui\components\ActionButton.tsx.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\ui\components\CompletionEnhancements.tsx.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\ui\components\ErrorBoundary.tsx.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\ui\components\FileUpload.tsx.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\ui\components\FontLoader.tsx.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\ui\components\Footer.tsx.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\ui\components\Header.tsx.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\ui\components\index.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\ui\components\LazyComponents.tsx.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\ui\components\Loader.tsx.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\ui\components\OptimizedImage.tsx.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\ui\components\ProgressIndicator.tsx.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\ui\components\RequirementsForm.tsx.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\ui\components\ResultsDisplay.tsx.html
+H:\the-copy\external\drama-analyst\coverage\the copy Drama-analyst\ui\components\TaskSelector.tsx.html
+H:\the-copy\external\drama-analyst\dist\assets
+H:\the-copy\external\drama-analyst\dist\index.html
+H:\the-copy\external\drama-analyst\dist\manifest.json
+H:\the-copy\external\drama-analyst\dist\manifest.webmanifest
+H:\the-copy\external\drama-analyst\dist\registerSW.js
+H:\the-copy\external\drama-analyst\dist\sw.js
+H:\the-copy\external\drama-analyst\dist\workbox-40c80ae4.js
+H:\the-copy\external\drama-analyst\dist\assets\agents-advanced-CPukrf9q.js
+H:\the-copy\external\drama-analyst\dist\assets\agents-analysis-BS1CeMND.js
+H:\the-copy\external\drama-analyst\dist\assets\agents-core-DHB0Lyfs.js
+H:\the-copy\external\drama-analyst\dist\assets\agents-creative-C2ffmiSs.js
+H:\the-copy\external\drama-analyst\dist\assets\app-main-CAg9yzX-.js
+H:\the-copy\external\drama-analyst\dist\assets\core-Da5P05oc.js
+H:\the-copy\external\drama-analyst\dist\assets\index-CoKkK9mQ.js
+H:\the-copy\external\drama-analyst\dist\assets\orchestration-BZQTPLrD.js
+H:\the-copy\external\drama-analyst\dist\assets\services-core-B9mybWP-.js
+H:\the-copy\external\drama-analyst\dist\assets\services-misc-DrUEJiW7.js
+H:\the-copy\external\drama-analyst\dist\assets\services-utils-Bv-vgpKH.js
+H:\the-copy\external\drama-analyst\dist\assets\ui-components-CbAvRhI_.js
+H:\the-copy\external\drama-analyst\dist\assets\ui-heavy-Bf213O-A.js
+H:\the-copy\external\drama-analyst\dist\assets\vendor-ai-CnSNHDKN.js
+H:\the-copy\external\drama-analyst\dist\assets\vendor-mammoth-Cn03V9oA.js
+H:\the-copy\external\drama-analyst\dist\assets\vendor-misc-BvvAFSkU.js
+H:\the-copy\external\drama-analyst\dist\assets\vendor-react-kOndYpSO.js
+H:\the-copy\external\drama-analyst\dist\assets\vendor-sentry-CKJYTS4-.js
+H:\the-copy\external\drama-analyst\docs\ADRs
+H:\the-copy\external\drama-analyst\docs\agents_protocol.md
+H:\the-copy\external\drama-analyst\docs\SENTRY_SETUP.md
+H:\the-copy\external\drama-analyst\docs\USER_MANUAL.md
+H:\the-copy\external\drama-analyst\docs\ADRs\ADR-001-agent-based-architecture.md
+H:\the-copy\external\drama-analyst\docs\ADRs\ADR-002-backend-proxy.md
+H:\the-copy\external\drama-analyst\docs\ADRs\ADR-003-typescript-strict.md
+H:\the-copy\external\drama-analyst\docs\ADRs\ADR-004-monitoring-stack.md
+H:\the-copy\external\drama-analyst\docs\ADRs\README.md
+H:\the-copy\external\drama-analyst\orchestration\agentFactory.test.ts
+H:\the-copy\external\drama-analyst\orchestration\agentFactory.ts
+H:\the-copy\external\drama-analyst\orchestration\executor.test.ts
+H:\the-copy\external\drama-analyst\orchestration\executor.ts
+H:\the-copy\external\drama-analyst\orchestration\orchestration.test.ts
+H:\the-copy\external\drama-analyst\orchestration\orchestration.ts
+H:\the-copy\external\drama-analyst\orchestration\promptBuilder.test.ts
+H:\the-copy\external\drama-analyst\orchestration\promptBuilder.ts
+H:\the-copy\external\drama-analyst\patches\P0-001.diff
+H:\the-copy\external\drama-analyst\patches\P0-002.diff
+H:\the-copy\external\drama-analyst\patches\P0-003.diff
+H:\the-copy\external\drama-analyst\patches\P0-004.diff
+H:\the-copy\external\drama-analyst\patches\T-P0-001.diff
+H:\the-copy\external\drama-analyst\patches\T-P0-002.diff
+H:\the-copy\external\drama-analyst\patches\T-P1-001.diff
+H:\the-copy\external\drama-analyst\plan\tasks.normalized.json
+H:\the-copy\external\drama-analyst\public\manifest.json
+H:\the-copy\external\drama-analyst\public\sw.js
+H:\the-copy\external\drama-analyst\scripts\deploy.sh
+H:\the-copy\external\drama-analyst\services\analyticsService.ts
+H:\the-copy\external\drama-analyst\services\apiService.ts
+H:\the-copy\external\drama-analyst\services\backendService.ts
+H:\the-copy\external\drama-analyst\services\cacheService.test.ts
+H:\the-copy\external\drama-analyst\services\cacheService.ts
+H:\the-copy\external\drama-analyst\services\errorHandler.test.ts
+H:\the-copy\external\drama-analyst\services\errorHandler.ts
+H:\the-copy\external\drama-analyst\services\fileReaderService.ts
+H:\the-copy\external\drama-analyst\services\fontOptimizer.ts
+H:\the-copy\external\drama-analyst\services\geminiService.ts
+H:\the-copy\external\drama-analyst\services\loggerService.test.ts
+H:\the-copy\external\drama-analyst\services\loggerService.ts
+H:\the-copy\external\drama-analyst\services\observability.ts
+H:\the-copy\external\drama-analyst\services\sanitizationService.test.ts
+H:\the-copy\external\drama-analyst\services\sanitizationService.ts
+H:\the-copy\external\drama-analyst\services\uptimeMonitoringService.ts
+H:\the-copy\external\drama-analyst\services\webVitalsService.ts
+H:\the-copy\external\drama-analyst\src\test
+H:\the-copy\external\drama-analyst\src\test\agents.test.ts
+H:\the-copy\external\drama-analyst\src\test\integration.test.ts
+H:\the-copy\external\drama-analyst\src\test\orchestration.test.ts
+H:\the-copy\external\drama-analyst\src\test\setup.ts
+H:\the-copy\external\drama-analyst\ui\components
+H:\the-copy\external\drama-analyst\ui\App.tsx
+H:\the-copy\external\drama-analyst\ui\icons.tsx
+H:\the-copy\external\drama-analyst\ui\index.tsx
+H:\the-copy\external\drama-analyst\ui\main.tsx
+H:\the-copy\external\drama-analyst\ui\components\ActionButton.tsx
+H:\the-copy\external\drama-analyst\ui\components\CompletionEnhancements.tsx
+H:\the-copy\external\drama-analyst\ui\components\ErrorBoundary.tsx
+H:\the-copy\external\drama-analyst\ui\components\FileUpload.tsx
+H:\the-copy\external\drama-analyst\ui\components\FontLoader.tsx
+H:\the-copy\external\drama-analyst\ui\components\Footer.tsx
+H:\the-copy\external\drama-analyst\ui\components\Header.tsx
+H:\the-copy\external\drama-analyst\ui\components\LazyComponents.tsx
+H:\the-copy\external\drama-analyst\ui\components\Loader.tsx
+H:\the-copy\external\drama-analyst\ui\components\OptimizedImage.tsx
+H:\the-copy\external\drama-analyst\ui\components\ProgressIndicator.tsx
+H:\the-copy\external\drama-analyst\ui\components\RequirementsForm.tsx
+H:\the-copy\external\drama-analyst\ui\components\ResultsDisplay.tsx
+H:\the-copy\external\drama-analyst\ui\components\TaskSelector.tsx
+H:\the-copy\external\drama-analyst\verification\bundle_stats.json
+H:\the-copy\external\drama-analyst\verification\final-checklist.md
+H:\the-copy\external\drama-analyst\verification\P0-001.build.log
+H:\the-copy\external\drama-analyst\verification\P0-001.tsc.log
+H:\the-copy\external\drama-analyst\verification\P0-002.tsc.log
+H:\the-copy\external\drama-analyst\verification\P0-003.tsc.log
+H:\the-copy\external\drama-analyst\verification\P0-004.tsc.log
+H:\the-copy\external\drama-analyst\verification\P0-final.build.log
+H:\the-copy\external\drama-analyst\verification\P0-final.summary.txt
+H:\the-copy\external\drama-analyst\verification\P0-final.tsc.log
+H:\the-copy\external\drama-analyst\verification\P1-001.test.log
+H:\the-copy\external\drama-analyst\verification\P1-002.build.log
+H:\the-copy\external\drama-analyst\verification\P1-004.api-key-check.log
+H:\the-copy\external\drama-analyst\verification\PRODUCTION_READINESS_FINAL_REPORT.md
+H:\the-copy\external\drama-analyst\verification\render.build.log
+H:\the-copy\external\drama-analyst\verification\render.summary.md
+H:\the-copy\external\drama-analyst\verification\smoke_tests.sh
+H:\the-copy\external\drama-analyst\verification\T-P0-001.tsc.log
+H:\the-copy\external\drama-analyst\verification\T-P0-002.build.log
+H:\the-copy\external\drama-analyst\verification\T-P1-001.build.log
+H:\the-copy\external\drama-analyst\verification\T-P1-003.test.log
+H:\the-copy\external\drama-analyst\verification\T-P1-004.api-key-check.log
+H:\the-copy\external\drama-analyst\~\.ssh
+H:\the-copy\external\drama-analyst\~\.ssh\config
+H:\the-copy\external\multi-agent-story\.claude
+H:\the-copy\external\multi-agent-story\.cursor
+H:\the-copy\external\multi-agent-story\artifacts
+H:\the-copy\external\multi-agent-story\jules-backend
+H:\the-copy\external\multi-agent-story\jules-frontend
+H:\the-copy\external\multi-agent-story\patches
+H:\the-copy\external\multi-agent-story\plan
+H:\the-copy\external\multi-agent-story\scripts
+H:\the-copy\external\multi-agent-story\.dockerignore
+H:\the-copy\external\multi-agent-story\.env
+H:\the-copy\external\multi-agent-story\.env.development
+H:\the-copy\external\multi-agent-story\.env.example
+H:\the-copy\external\multi-agent-story\.env.production
+H:\the-copy\external\multi-agent-story\.env.production.example
+H:\the-copy\external\multi-agent-story\AGENTS.md
+H:\the-copy\external\multi-agent-story\CLAUDE.md
+H:\the-copy\external\multi-agent-story\COMPLETION_SUMMARY.md
+H:\the-copy\external\multi-agent-story\debug.log
+H:\the-copy\external\multi-agent-story\DEPLOYMENT.md
+H:\the-copy\external\multi-agent-story\docker-compose.dev.yml
+H:\the-copy\external\multi-agent-story\docker-compose.prod.yml
+H:\the-copy\external\multi-agent-story\docker-compose.yml
+H:\the-copy\external\multi-agent-story\FINAL_STRUCTURE.md
+H:\the-copy\external\multi-agent-story\FINAL_SUMMARY.md
+H:\the-copy\external\multi-agent-story\GEMINI.md
+H:\the-copy\external\multi-agent-story\package-lock.json
+H:\the-copy\external\multi-agent-story\package.json
+H:\the-copy\external\multi-agent-story\PR_BODY.md
+H:\the-copy\external\multi-agent-story\QUICK-START.md
+H:\the-copy\external\multi-agent-story\README-SIMPLE.md
+H:\the-copy\external\multi-agent-story\README.md
+H:\the-copy\external\multi-agent-story\STATUS_REPORT.md
+H:\the-copy\external\multi-agent-story\the-copy--Multi-agent-Story-Development-Platform.code-workspace
+H:\the-copy\external\multi-agent-story\to-dos
+H:\the-copy\external\multi-agent-story\to-dos.txt
+H:\the-copy\external\multi-agent-story\VERIFICATION_SUMMARY.md
+H:\the-copy\external\multi-agent-story\أمر توجيهي تنفيذي لوكيل الترميز — دمج ثلاثة مشاريع في تطبيق واحد جاهز للإنتاج، مع إعادة تسمية المشروع إلى “the copy”.md
+H:\the-copy\external\multi-agent-story\.claude\settings.local.json
+H:\the-copy\external\multi-agent-story\.cursor\environment.json
+H:\the-copy\external\multi-agent-story\artifacts\baseline
+H:\the-copy\external\multi-agent-story\artifacts\baseline\build.log
+H:\the-copy\external\multi-agent-story\artifacts\baseline\npm-audit.json
+H:\the-copy\external\multi-agent-story\artifacts\baseline\tests.log
+H:\the-copy\external\multi-agent-story\artifacts\baseline\tsc-errors.log
+H:\the-copy\external\multi-agent-story\jules-backend\agent-guides
+H:\the-copy\external\multi-agent-story\jules-backend\coverage
+H:\the-copy\external\multi-agent-story\jules-backend\dist
+H:\the-copy\external\multi-agent-story\jules-backend\prisma
+H:\the-copy\external\multi-agent-story\jules-backend\src
+H:\the-copy\external\multi-agent-story\jules-backend\tests
+H:\the-copy\external\multi-agent-story\jules-backend\.dockerignore
+H:\the-copy\external\multi-agent-story\jules-backend\.env
+H:\the-copy\external\multi-agent-story\jules-backend\.env.dev
+H:\the-copy\external\multi-agent-story\jules-backend\.eslintrc.json
+H:\the-copy\external\multi-agent-story\jules-backend\docker-compose.yml
+H:\the-copy\external\multi-agent-story\jules-backend\Dockerfile
+H:\the-copy\external\multi-agent-story\jules-backend\entrypoint.sh
+H:\the-copy\external\multi-agent-story\jules-backend\env.example
+H:\the-copy\external\multi-agent-story\jules-backend\init.sql
+H:\the-copy\external\multi-agent-story\jules-backend\jest.config.js
+H:\the-copy\external\multi-agent-story\jules-backend\package-lock.json
+H:\the-copy\external\multi-agent-story\jules-backend\package.json
+H:\the-copy\external\multi-agent-story\jules-backend\README.md
+H:\the-copy\external\multi-agent-story\jules-backend\tsconfig.json
+H:\the-copy\external\multi-agent-story\jules-backend\agent-guides\character_development_guide.md
+H:\the-copy\external\multi-agent-story\jules-backend\agent-guides\character_expansion_guide.md
+H:\the-copy\external\multi-agent-story\jules-backend\agent-guides\conflict_tension_guide.md
+H:\the-copy\external\multi-agent-story\jules-backend\agent-guides\dialogue_voice_guide.md
+H:\the-copy\external\multi-agent-story\jules-backend\agent-guides\genre_tone_guide.md
+H:\the-copy\external\multi-agent-story\jules-backend\agent-guides\pacing_agent_guide.md
+H:\the-copy\external\multi-agent-story\jules-backend\agent-guides\realism_critic_guide.md
+H:\the-copy\external\multi-agent-story\jules-backend\agent-guides\story_architect_guide.md
+H:\the-copy\external\multi-agent-story\jules-backend\agent-guides\strategic_analyst_guide.md
+H:\the-copy\external\multi-agent-story\jules-backend\agent-guides\theme_agent_guide.md
+H:\the-copy\external\multi-agent-story\jules-backend\agent-guides\world_building_guide.md
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\src
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\base.css
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\block-navigation.js
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\favicon.png
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\index.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov.info
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\prettify.css
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\prettify.js
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\sort-arrow-sprite.png
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\sorter.js
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\src
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\base.css
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\block-navigation.js
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\favicon.png
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\index.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\prettify.css
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\prettify.js
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\sort-arrow-sprite.png
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\sorter.js
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\src\integrations
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\src\services
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\src\types
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\src\utils
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\src\app.ts.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\src\config.ts.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\src\index.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\src\integrations\gemini
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\src\integrations\gemini\client.ts.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\src\integrations\gemini\index.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\src\integrations\gemini\pool.ts.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\src\integrations\gemini\prompts.ts.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\src\services\agent.service.ts.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\src\services\idea.service.ts.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\src\services\index.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\src\services\orchestrator.service.ts.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\src\services\review.service.ts.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\src\services\session.service.ts.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\src\services\tournament.service.ts.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\src\types\gemini.types.ts.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\src\types\index.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\src\types\session.types.ts.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\src\utils\index.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\lcov-report\src\utils\logger.ts.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\src\integrations
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\src\services
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\src\types
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\src\utils
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\src\app.ts.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\src\config.ts.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\src\index.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\src\integrations\gemini
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\src\integrations\gemini\client.ts.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\src\integrations\gemini\index.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\src\integrations\gemini\pool.ts.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\src\integrations\gemini\prompts.ts.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\src\services\agent.service.ts.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\src\services\idea.service.ts.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\src\services\index.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\src\services\orchestrator.service.ts.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\src\services\review.service.ts.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\src\services\session.service.ts.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\src\services\tournament.service.ts.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\src\types\gemini.types.ts.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\src\types\index.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\src\types\session.types.ts.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\src\utils\index.html
+H:\the-copy\external\multi-agent-story\jules-backend\coverage\src\utils\logger.ts.html
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api
+H:\the-copy\external\multi-agent-story\jules-backend\dist\integrations
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types
+H:\the-copy\external\multi-agent-story\jules-backend\dist\utils
+H:\the-copy\external\multi-agent-story\jules-backend\dist\app.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\app.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\app.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\app.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\config.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\config.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\config.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\config.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\main.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\main.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\main.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\main.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\server.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\server.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\server.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\server.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\session.routes.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\session.routes.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\session.routes.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\session.routes.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\test-server.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\test-server.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\test-server.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\test-server.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\middlewares
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\websocket
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\middlewares\auth.middleware.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\middlewares\auth.middleware.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\middlewares\auth.middleware.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\middlewares\auth.middleware.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\middlewares\error.middleware.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\middlewares\error.middleware.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\middlewares\error.middleware.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\middlewares\error.middleware.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\middlewares\index.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\middlewares\index.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\middlewares\index.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\middlewares\index.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\middlewares\rate-limit.middleware.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\middlewares\rate-limit.middleware.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\middlewares\rate-limit.middleware.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\middlewares\rate-limit.middleware.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\middlewares\validate.middleware.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\middlewares\validate.middleware.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\middlewares\validate.middleware.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\middlewares\validate.middleware.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\agent.routes.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\agent.routes.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\agent.routes.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\agent.routes.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\auth.routes.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\auth.routes.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\auth.routes.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\auth.routes.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\decision.routes.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\decision.routes.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\decision.routes.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\decision.routes.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\idea.routes.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\idea.routes.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\idea.routes.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\idea.routes.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\index.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\index.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\index.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\index.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\review.routes.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\review.routes.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\review.routes.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\review.routes.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\session.routes.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\session.routes.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\session.routes.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\session.routes.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\tournament.routes.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\tournament.routes.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\tournament.routes.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\routes\tournament.routes.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\websocket\connection-manager.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\websocket\connection-manager.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\websocket\connection-manager.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\websocket\connection-manager.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\websocket\event-handlers.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\websocket\event-handlers.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\websocket\event-handlers.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\api\websocket\event-handlers.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\integrations\gemini
+H:\the-copy\external\multi-agent-story\jules-backend\dist\integrations\gemini\client.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\integrations\gemini\client.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\integrations\gemini\client.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\integrations\gemini\client.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\integrations\gemini\pool.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\integrations\gemini\pool.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\integrations\gemini\pool.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\integrations\gemini\pool.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\integrations\gemini\prompts.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\integrations\gemini\prompts.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\integrations\gemini\prompts.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\integrations\gemini\prompts.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\agent.service.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\agent.service.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\agent.service.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\agent.service.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\api-key.service.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\api-key.service.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\api-key.service.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\api-key.service.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\decision.service.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\decision.service.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\decision.service.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\decision.service.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\idea.service.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\idea.service.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\idea.service.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\idea.service.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\orchestrator.service.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\orchestrator.service.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\orchestrator.service.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\orchestrator.service.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\review.service.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\review.service.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\review.service.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\review.service.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\session.service.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\session.service.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\session.service.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\session.service.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\tournament.service.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\tournament.service.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\tournament.service.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\services\tournament.service.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\agent.types.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\agent.types.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\agent.types.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\agent.types.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\api.types.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\api.types.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\api.types.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\api.types.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\auth.types.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\auth.types.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\auth.types.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\auth.types.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\decision.types.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\decision.types.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\decision.types.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\decision.types.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\gemini.types.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\gemini.types.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\gemini.types.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\gemini.types.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\idea.types.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\idea.types.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\idea.types.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\idea.types.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\index.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\index.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\index.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\index.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\session.types.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\session.types.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\session.types.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\session.types.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\tournament.types.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\tournament.types.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\tournament.types.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\types\tournament.types.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\utils\encryption.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\utils\encryption.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\utils\encryption.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\utils\encryption.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\utils\errors.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\utils\errors.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\utils\errors.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\utils\errors.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\utils\jwt.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\utils\jwt.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\utils\jwt.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\utils\jwt.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\utils\logger.d.ts
+H:\the-copy\external\multi-agent-story\jules-backend\dist\utils\logger.d.ts.map
+H:\the-copy\external\multi-agent-story\jules-backend\dist\utils\logger.js
+H:\the-copy\external\multi-agent-story\jules-backend\dist\utils\logger.js.map
+H:\the-copy\external\multi-agent-story\jules-backend\prisma\migrations
+H:\the-copy\external\multi-agent-story\jules-backend\prisma\schema.prisma
+H:\the-copy\external\multi-agent-story\jules-backend\prisma\migrations\20251003131500_init
+H:\the-copy\external\multi-agent-story\jules-backend\prisma\migrations\migration_lock.toml
+H:\the-copy\external\multi-agent-story\jules-backend\prisma\migrations\20251003131500_init\migration.sql
+H:\the-copy\external\multi-agent-story\jules-backend\src\api
+H:\the-copy\external\multi-agent-story\jules-backend\src\integrations
+H:\the-copy\external\multi-agent-story\jules-backend\src\services
+H:\the-copy\external\multi-agent-story\jules-backend\src\types
+H:\the-copy\external\multi-agent-story\jules-backend\src\utils
+H:\the-copy\external\multi-agent-story\jules-backend\src\app.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\config.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\main.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\server.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\session.routes.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\test-server.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\api\middlewares
+H:\the-copy\external\multi-agent-story\jules-backend\src\api\routes
+H:\the-copy\external\multi-agent-story\jules-backend\src\api\websocket
+H:\the-copy\external\multi-agent-story\jules-backend\src\api\middlewares\auth.middleware.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\api\middlewares\error.middleware.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\api\middlewares\index.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\api\middlewares\rate-limit.middleware.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\api\middlewares\validate.middleware.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\api\routes\agent.routes.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\api\routes\auth.routes.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\api\routes\decision.routes.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\api\routes\idea.routes.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\api\routes\index.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\api\routes\review.routes.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\api\routes\session.routes.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\api\routes\tournament.routes.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\api\websocket\connection-manager.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\api\websocket\event-handlers.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\integrations\gemini
+H:\the-copy\external\multi-agent-story\jules-backend\src\integrations\gemini\client.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\integrations\gemini\pool.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\integrations\gemini\prompts.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\services\__tests__
+H:\the-copy\external\multi-agent-story\jules-backend\src\services\agent.service.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\services\api-key.service.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\services\decision.service.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\services\idea.service.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\services\orchestrator.service.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\services\review.service.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\services\session.service.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\services\tournament.service.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\services\__tests__\api-key.service.test.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\services\__tests__\session.service.test.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\types\agent.types.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\types\api.types.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\types\auth.types.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\types\decision.types.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\types\gemini.types.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\types\idea.types.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\types\index.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\types\session.types.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\types\tournament.types.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\utils\encryption.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\utils\errors.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\utils\jwt.ts
+H:\the-copy\external\multi-agent-story\jules-backend\src\utils\logger.ts
+H:\the-copy\external\multi-agent-story\jules-backend\tests\e2e
+H:\the-copy\external\multi-agent-story\jules-backend\tests\integration
+H:\the-copy\external\multi-agent-story\jules-backend\tests\unit
+H:\the-copy\external\multi-agent-story\jules-backend\tests\setup.ts
+H:\the-copy\external\multi-agent-story\jules-backend\tests\e2e\api.test.ts
+H:\the-copy\external\multi-agent-story\jules-backend\tests\integration\session.flow.test.ts
+H:\the-copy\external\multi-agent-story\jules-backend\tests\unit\agent.service.test.ts
+H:\the-copy\external\multi-agent-story\jules-frontend\src
+H:\the-copy\external\multi-agent-story\jules-frontend\.dockerignore
+H:\the-copy\external\multi-agent-story\jules-frontend\Dockerfile
+H:\the-copy\external\multi-agent-story\jules-frontend\index.html
+H:\the-copy\external\multi-agent-story\jules-frontend\nginx.conf
+H:\the-copy\external\multi-agent-story\jules-frontend\package-lock.json
+H:\the-copy\external\multi-agent-story\jules-frontend\package.json
+H:\the-copy\external\multi-agent-story\jules-frontend\postcss.config.js
+H:\the-copy\external\multi-agent-story\jules-frontend\tailwind.config.js
+H:\the-copy\external\multi-agent-story\jules-frontend\tsconfig.json
+H:\the-copy\external\multi-agent-story\jules-frontend\tsconfig.node.json
+H:\the-copy\external\multi-agent-story\jules-frontend\vite.config.ts
+H:\the-copy\external\multi-agent-story\jules-frontend\src\components
+H:\the-copy\external\multi-agent-story\jules-frontend\src\config
+H:\the-copy\external\multi-agent-story\jules-frontend\src\hooks
+H:\the-copy\external\multi-agent-story\jules-frontend\src\lib
+H:\the-copy\external\multi-agent-story\jules-frontend\src\pages
+H:\the-copy\external\multi-agent-story\jules-frontend\src\services
+H:\the-copy\external\multi-agent-story\jules-frontend\src\store
+H:\the-copy\external\multi-agent-story\jules-frontend\src\types
+H:\the-copy\external\multi-agent-story\jules-frontend\src\utils
+H:\the-copy\external\multi-agent-story\jules-frontend\src\App.css
+H:\the-copy\external\multi-agent-story\jules-frontend\src\App.tsx
+H:\the-copy\external\multi-agent-story\jules-frontend\src\index.css
+H:\the-copy\external\multi-agent-story\jules-frontend\src\main.tsx
+H:\the-copy\external\multi-agent-story\jules-frontend\src\components\auth
+H:\the-copy\external\multi-agent-story\jules-frontend\src\components\features
+H:\the-copy\external\multi-agent-story\jules-frontend\src\components\forms
+H:\the-copy\external\multi-agent-story\jules-frontend\src\components\layout
+H:\the-copy\external\multi-agent-story\jules-frontend\src\components\ui
+H:\the-copy\external\multi-agent-story\jules-frontend\src\components\auth\ProtectedRoute.tsx
+H:\the-copy\external\multi-agent-story\jules-frontend\src\components\features\AgentCard.tsx
+H:\the-copy\external\multi-agent-story\jules-frontend\src\components\features\IdeaDisplay.tsx
+H:\the-copy\external\multi-agent-story\jules-frontend\src\components\forms\ApiKeyForm.tsx
+H:\the-copy\external\multi-agent-story\jules-frontend\src\components\forms\CreativeBriefForm.tsx
+H:\the-copy\external\multi-agent-story\jules-frontend\src\components\layout\Footer.tsx
+H:\the-copy\external\multi-agent-story\jules-frontend\src\components\layout\Header.tsx
+H:\the-copy\external\multi-agent-story\jules-frontend\src\components\layout\Layout.tsx
+H:\the-copy\external\multi-agent-story\jules-frontend\src\components\layout\Sidebar.tsx
+H:\the-copy\external\multi-agent-story\jules-frontend\src\components\ui\badge.tsx
+H:\the-copy\external\multi-agent-story\jules-frontend\src\components\ui\button.tsx
+H:\the-copy\external\multi-agent-story\jules-frontend\src\components\ui\card.tsx
+H:\the-copy\external\multi-agent-story\jules-frontend\src\components\ui\input.tsx
+H:\the-copy\external\multi-agent-story\jules-frontend\src\components\ui\progress.tsx
+H:\the-copy\external\multi-agent-story\jules-frontend\src\config\routing.ts
+H:\the-copy\external\multi-agent-story\jules-frontend\src\hooks\useAgents.ts
+H:\the-copy\external\multi-agent-story\jules-frontend\src\hooks\useApiKey.ts
+H:\the-copy\external\multi-agent-story\jules-frontend\src\hooks\useIdeas.ts
+H:\the-copy\external\multi-agent-story\jules-frontend\src\hooks\useSession.ts
+H:\the-copy\external\multi-agent-story\jules-frontend\src\hooks\useTournament.ts
+H:\the-copy\external\multi-agent-story\jules-frontend\src\lib\utils.ts
+H:\the-copy\external\multi-agent-story\jules-frontend\src\pages\Dashboard.tsx
+H:\the-copy\external\multi-agent-story\jules-frontend\src\pages\FinalDecision.tsx
+H:\the-copy\external\multi-agent-story\jules-frontend\src\pages\History.tsx
+H:\the-copy\external\multi-agent-story\jules-frontend\src\pages\Home.tsx
+H:\the-copy\external\multi-agent-story\jules-frontend\src\pages\IdeaGeneration.tsx
+H:\the-copy\external\multi-agent-story\jules-frontend\src\pages\Login.tsx
+H:\the-copy\external\multi-agent-story\jules-frontend\src\pages\NewSession.tsx
+H:\the-copy\external\multi-agent-story\jules-frontend\src\pages\Register.tsx
+H:\the-copy\external\multi-agent-story\jules-frontend\src\pages\ReviewPhase.tsx
+H:\the-copy\external\multi-agent-story\jules-frontend\src\pages\SessionDetail.tsx
+H:\the-copy\external\multi-agent-story\jules-frontend\src\pages\Tournament.tsx
+H:\the-copy\external\multi-agent-story\jules-frontend\src\services\agent.service.ts
+H:\the-copy\external\multi-agent-story\jules-frontend\src\services\api-key.service.ts
+H:\the-copy\external\multi-agent-story\jules-frontend\src\services\api.ts
+H:\the-copy\external\multi-agent-story\jules-frontend\src\services\auth.service.ts
+H:\the-copy\external\multi-agent-story\jules-frontend\src\services\decision.service.ts
+H:\the-copy\external\multi-agent-story\jules-frontend\src\services\idea.service.ts
+H:\the-copy\external\multi-agent-story\jules-frontend\src\services\tournament.service.ts
+H:\the-copy\external\multi-agent-story\jules-frontend\src\store\agentStore.ts
+H:\the-copy\external\multi-agent-story\jules-frontend\src\store\authStore.ts
+H:\the-copy\external\multi-agent-story\jules-frontend\src\store\ideaStore.ts
+H:\the-copy\external\multi-agent-story\jules-frontend\src\store\sessionStore.ts
+H:\the-copy\external\multi-agent-story\jules-frontend\src\store\tournamentStore.ts
+H:\the-copy\external\multi-agent-story\jules-frontend\src\types\agent.types.ts
+H:\the-copy\external\multi-agent-story\jules-frontend\src\types\api.types.ts
+H:\the-copy\external\multi-agent-story\jules-frontend\src\types\decision.types.ts
+H:\the-copy\external\multi-agent-story\jules-frontend\src\types\idea.types.ts
+H:\the-copy\external\multi-agent-story\jules-frontend\src\types\session.types.ts
+H:\the-copy\external\multi-agent-story\jules-frontend\src\types\tournament.types.ts
+H:\the-copy\external\multi-agent-story\jules-frontend\src\utils\constants.ts
+H:\the-copy\external\multi-agent-story\jules-frontend\src\utils\formatters.ts
+H:\the-copy\external\multi-agent-story\jules-frontend\src\utils\helpers.ts
+H:\the-copy\external\multi-agent-story\jules-frontend\src\utils\validators.ts
+H:\the-copy\external\multi-agent-story\patches\P0-002.diff
+H:\the-copy\external\multi-agent-story\patches\P0-003.diff
+H:\the-copy\external\multi-agent-story\patches\P0-004.diff
+H:\the-copy\external\multi-agent-story\patches\P0-005.diff
+H:\the-copy\external\multi-agent-story\patches\P0-006-fix.diff
+H:\the-copy\external\multi-agent-story\patches\P0-006.diff
+H:\the-copy\external\multi-agent-story\patches\P0-007.diff
+H:\the-copy\external\multi-agent-story\patches\P1-001-fix.diff
+H:\the-copy\external\multi-agent-story\patches\P1-001.diff
+H:\the-copy\external\multi-agent-story\patches\P1-002.diff
+H:\the-copy\external\multi-agent-story\patches\P1-003.diff
+H:\the-copy\external\multi-agent-story\patches\P1-004.diff
+H:\the-copy\external\multi-agent-story\patches\P1-005.diff
+H:\the-copy\external\multi-agent-story\patches\P1-006.diff
+H:\the-copy\external\multi-agent-story\patches\P1-007.diff
+H:\the-copy\external\multi-agent-story\patches\P1-008.diff
+H:\the-copy\external\multi-agent-story\plan\tasks.normalized.json
+H:\the-copy\external\multi-agent-story\scripts\setup-db.js
+H:\the-copy\external\multi-agent-story\scripts\start.js
+H:\the-copy\external\stations\.claude
+H:\the-copy\external\stations\artifacts
+H:\the-copy\external\stations\cleanup
+H:\the-copy\external\stations\dist
+H:\the-copy\external\stations\plan
+H:\the-copy\external\stations\scripts
+H:\the-copy\external\stations\server
+H:\the-copy\external\stations\shared
+H:\the-copy\external\stations\tests
+H:\the-copy\external\stations\verification
+H:\the-copy\external\stations\.dockerignore
+H:\the-copy\external\stations\.env.example
+H:\the-copy\external\stations\.eslintrc.json
+H:\the-copy\external\stations\.prettierignore
+H:\the-copy\external\stations\.prettierrc
+H:\the-copy\external\stations\AGENTS.md
+H:\the-copy\external\stations\API_DOCUMENTATION.md
+H:\the-copy\external\stations\components.json
+H:\the-copy\external\stations\debug.log
+H:\the-copy\external\stations\deps.json
+H:\the-copy\external\stations\design_guidelines.md
+H:\the-copy\external\stations\docker-compose.production.yml
+H:\the-copy\external\stations\docker-compose.yml
+H:\the-copy\external\stations\Dockerfile
+H:\the-copy\external\stations\Dockerfile.production
+H:\the-copy\external\stations\drizzle.config.ts
+H:\the-copy\external\stations\env.example
+H:\the-copy\external\stations\env.production
+H:\the-copy\external\stations\eslint.config.js
+H:\the-copy\external\stations\fix-typescript-issues.sh
+H:\the-copy\external\stations\gitignore
+H:\the-copy\external\stations\IMPLEMENTATION_CHECKLIST.md
+H:\the-copy\external\stations\index.html
+H:\the-copy\external\stations\nginx.conf
+H:\the-copy\external\stations\package-lock.json
+H:\the-copy\external\stations\package.json
+H:\the-copy\external\stations\postcss.config.js
+H:\the-copy\external\stations\PRODUCTION_GUIDE.md
+H:\the-copy\external\stations\PRODUCTION_README.md
+H:\the-copy\external\stations\QUICKSTART.md.pdf
+H:\the-copy\external\stations\README.md
+H:\the-copy\external\stations\stations.code-workspace
+H:\the-copy\external\stations\stations.thecopy.code-workspace
+H:\the-copy\external\stations\tailwind.config.ts
+H:\the-copy\external\stations\TESTING_DIRECTIVE_STATIONS.md
+H:\the-copy\external\stations\the copy stations.code-workspace
+H:\the-copy\external\stations\tsconfig.json
+H:\the-copy\external\stations\USAGE_GUIDE.md
+H:\the-copy\external\stations\vite.config.ts
+H:\the-copy\external\stations\vitest.config.ts
+H:\the-copy\external\stations\السياق الهندسي للتطبيق كاملا.ini
+H:\the-copy\external\stations\.claude\settings.local.json
+H:\the-copy\external\stations\artifacts\baseline
+H:\the-copy\external\stations\artifacts\baseline\build.log
+H:\the-copy\external\stations\artifacts\baseline\eslint_issues.log
+H:\the-copy\external\stations\artifacts\baseline\metrics.json
+H:\the-copy\external\stations\artifacts\baseline\tests.log
+H:\the-copy\external\stations\artifacts\baseline\typescript_errors.log
+H:\the-copy\external\stations\cleanup\_backup
+H:\the-copy\external\stations\cleanup\analysis_report.json
+H:\the-copy\external\stations\cleanup\analyze_dependencies.js
+H:\the-copy\external\stations\cleanup\apply_cleanup.py
+H:\the-copy\external\stations\cleanup\apply_cleanup.sh
+H:\the-copy\external\stations\cleanup\cleanup_summary.json
+H:\the-copy\external\stations\cleanup\cleanup.diff
+H:\the-copy\external\stations\cleanup\deps.json
+H:\the-copy\external\stations\cleanup\FINAL_REPORT.md
+H:\the-copy\external\stations\cleanup\generate_report.py
+H:\the-copy\external\stations\cleanup\PR_BODY.md
+H:\the-copy\external\stations\cleanup\run_cleanup.py
+H:\the-copy\external\stations\cleanup\trash_report.jsonl
+H:\the-copy\external\stations\cleanup\tsprune.txt
+H:\the-copy\external\stations\cleanup\verification.md
+H:\the-copy\external\stations\cleanup\_backup\AnalysisCard_20251003_113041.tsx
+H:\the-copy\external\stations\cleanup\_backup\AnalysisCard_20251003_113054.tsx
+H:\the-copy\external\stations\cleanup\_backup\AnalysisCard_20251003_113106.tsx
+H:\the-copy\external\stations\cleanup\_backup\auth_20251003_113041.ts
+H:\the-copy\external\stations\cleanup\_backup\auth_20251003_113054.ts
+H:\the-copy\external\stations\cleanup\_backup\auth_20251003_113106.ts
+H:\the-copy\external\stations\cleanup\_backup\CharacterNode_20251003_113041.tsx
+H:\the-copy\external\stations\cleanup\_backup\CharacterNode_20251003_113054.tsx
+H:\the-copy\external\stations\cleanup\_backup\CharacterNode_20251003_113106.tsx
+H:\the-copy\external\stations\cleanup\_backup\ConflictNetwork_20251003_113041.tsx
+H:\the-copy\external\stations\cleanup\_backup\ConflictNetwork_20251003_113054.tsx
+H:\the-copy\external\stations\cleanup\_backup\ConflictNetwork_20251003_113106.tsx
+H:\the-copy\external\stations\cleanup\_backup\debug_20251003_113041.log
+H:\the-copy\external\stations\cleanup\_backup\debug_20251003_113054.log
+H:\the-copy\external\stations\cleanup\_backup\debug_20251003_113106.log
+H:\the-copy\external\stations\cleanup\_backup\DiagnosticPanel_20251003_113041.tsx
+H:\the-copy\external\stations\cleanup\_backup\DiagnosticPanel_20251003_113054.tsx
+H:\the-copy\external\stations\cleanup\_backup\DiagnosticPanel_20251003_113106.tsx
+H:\the-copy\external\stations\cleanup\_backup\example_usage.py.tar.gz
+H:\the-copy\external\stations\cleanup\_backup\Header_20251003_113041.tsx
+H:\the-copy\external\stations\cleanup\_backup\Header_20251003_113054.tsx
+H:\the-copy\external\stations\cleanup\_backup\Header_20251003_113106.tsx
+H:\the-copy\external\stations\cleanup\_backup\HeroSection_20251003_113041.tsx
+H:\the-copy\external\stations\cleanup\_backup\HeroSection_20251003_113054.tsx
+H:\the-copy\external\stations\cleanup\_backup\HeroSection_20251003_113106.tsx
+H:\the-copy\external\stations\cleanup\_backup\MetricCard_20251003_113041.tsx
+H:\the-copy\external\stations\cleanup\_backup\MetricCard_20251003_113054.tsx
+H:\the-copy\external\stations\cleanup\_backup\MetricCard_20251003_113106.tsx
+H:\the-copy\external\stations\cleanup\_backup\QUICKSTART.md_20251003_113041.pdf
+H:\the-copy\external\stations\cleanup\_backup\QUICKSTART.md_20251003_113054.pdf
+H:\the-copy\external\stations\cleanup\_backup\QUICKSTART.md_20251003_113106.pdf
+H:\the-copy\external\stations\cleanup\_backup\rate-limit_20251003_113041.ts
+H:\the-copy\external\stations\cleanup\_backup\rate-limit_20251003_113054.ts
+H:\the-copy\external\stations\cleanup\_backup\rate-limit_20251003_113106.ts
+H:\the-copy\external\stations\cleanup\_backup\requirements.txt.tar.gz
+H:\the-copy\external\stations\cleanup\_backup\result-selector_20251003_113041.ts
+H:\the-copy\external\stations\cleanup\_backup\result-selector_20251003_113054.ts
+H:\the-copy\external\stations\cleanup\_backup\result-selector_20251003_113106.ts
+H:\the-copy\external\stations\cleanup\_backup\sanitize_20251003_113041.ts
+H:\the-copy\external\stations\cleanup\_backup\sanitize_20251003_113054.ts
+H:\the-copy\external\stations\cleanup\_backup\sanitize_20251003_113106.ts
+H:\the-copy\external\stations\cleanup\_backup\StationProgress_20251003_113041.tsx
+H:\the-copy\external\stations\cleanup\_backup\StationProgress_20251003_113054.tsx
+H:\the-copy\external\stations\cleanup\_backup\StationProgress_20251003_113106.tsx
+H:\the-copy\external\stations\cleanup\_backup\stations.thecopy_20251003_113041.code-workspace
+H:\the-copy\external\stations\cleanup\_backup\stations.thecopy_20251003_113054.code-workspace
+H:\the-copy\external\stations\cleanup\_backup\stations.thecopy_20251003_113106.code-workspace
+H:\the-copy\external\stations\cleanup\_backup\storage_20251003_113041.ts
+H:\the-copy\external\stations\cleanup\_backup\storage_20251003_113054.ts
+H:\the-copy\external\stations\cleanup\_backup\storage_20251003_113106.ts
+H:\the-copy\external\stations\cleanup\_backup\TextInput_20251003_113041.tsx
+H:\the-copy\external\stations\cleanup\_backup\TextInput_20251003_113054.tsx
+H:\the-copy\external\stations\cleanup\_backup\TextInput_20251003_113106.tsx
+H:\the-copy\external\stations\cleanup\_backup\vite_20251003_113041.ts
+H:\the-copy\external\stations\cleanup\_backup\vite_20251003_113054.ts
+H:\the-copy\external\stations\cleanup\_backup\vite_20251003_113106.ts
+H:\the-copy\external\stations\cleanup\_backup\السياق الهندسي للتطبيق كاملا_20251003_113041.ini
+H:\the-copy\external\stations\cleanup\_backup\السياق الهندسي للتطبيق كاملا_20251003_113054.ini
+H:\the-copy\external\stations\cleanup\_backup\السياق الهندسي للتطبيق كاملا_20251003_113106.ini
+H:\the-copy\external\stations\dist\assets
+H:\the-copy\external\stations\dist\index.html
+H:\the-copy\external\stations\dist\index.js
+H:\the-copy\external\stations\dist\assets\css
+H:\the-copy\external\stations\dist\assets\chunk-Bmne0XXo.js
+H:\the-copy\external\stations\dist\assets\chunk-BPSaZwug.js
+H:\the-copy\external\stations\dist\assets\chunk-C_VuIbOR.js
+H:\the-copy\external\stations\dist\assets\chunk-CqOSS027.js
+H:\the-copy\external\stations\dist\assets\chunk-l0sNRNKZ.js
+H:\the-copy\external\stations\dist\assets\chunk-v6ZOr5pf.js
+H:\the-copy\external\stations\dist\assets\index-dOEhtn1B.js
+H:\the-copy\external\stations\dist\assets\css\index-D1R2yxzW.css
+H:\the-copy\external\stations\plan\tasks.normalized.json
+H:\the-copy\external\stations\scripts\deploy.sh
+H:\the-copy\external\stations\server\analysis_modules
+H:\the-copy\external\stations\server\config
+H:\the-copy\external\stations\server\core
+H:\the-copy\external\stations\server\middleware
+H:\the-copy\external\stations\server\routes
+H:\the-copy\external\stations\server\services
+H:\the-copy\external\stations\server\stations
+H:\the-copy\external\stations\server\types
+H:\the-copy\external\stations\server\utils
+H:\the-copy\external\stations\server\index.ts
+H:\the-copy\external\stations\server\routes.ts
+H:\the-copy\external\stations\server\run-all-stations.ts
+H:\the-copy\external\stations\server\storage.ts
+H:\the-copy\external\stations\server\vite.ts
+H:\the-copy\external\stations\server\analysis_modules\efficiency-metrics.ts
+H:\the-copy\external\stations\server\analysis_modules\network-diagnostics.ts
+H:\the-copy\external\stations\server\config\environment.ts
+H:\the-copy\external\stations\server\core\models
+H:\the-copy\external\stations\server\core\pipeline
+H:\the-copy\external\stations\server\core\models\base-entities.ts
+H:\the-copy\external\stations\server\core\pipeline\base-station.ts
+H:\the-copy\external\stations\server\middleware\asset-optimization.ts
+H:\the-copy\external\stations\server\middleware\auth.ts
+H:\the-copy\external\stations\server\middleware\error-handler.ts
+H:\the-copy\external\stations\server\middleware\performance.ts
+H:\the-copy\external\stations\server\middleware\rate-limit.ts
+H:\the-copy\external\stations\server\middleware\sanitize.ts
+H:\the-copy\external\stations\server\middleware\security.ts
+H:\the-copy\external\stations\server\routes\health.ts
+H:\the-copy\external\stations\server\services\ai
+H:\the-copy\external\stations\server\services\cache
+H:\the-copy\external\stations\server\services\database
+H:\the-copy\external\stations\server\services\ai\gemini-service.ts
+H:\the-copy\external\stations\server\services\ai\result-selector.ts
+H:\the-copy\external\stations\server\services\cache\redis-cache.ts
+H:\the-copy\external\stations\server\services\database\query-optimizer.ts
+H:\the-copy\external\stations\server\stations\station1
+H:\the-copy\external\stations\server\stations\station2
+H:\the-copy\external\stations\server\stations\station3
+H:\the-copy\external\stations\server\stations\station4
+H:\the-copy\external\stations\server\stations\station5
+H:\the-copy\external\stations\server\stations\station6
+H:\the-copy\external\stations\server\stations\station7
+H:\the-copy\external\stations\server\stations\station1\station1-text-analysis.ts
+H:\the-copy\external\stations\server\stations\station2\station2-conceptual-analysis.ts
+H:\the-copy\external\stations\server\stations\station3\station3-network-builder.ts
+H:\the-copy\external\stations\server\stations\station4\station4-efficiency-metrics.ts
+H:\the-copy\external\stations\server\stations\station5\station5-dynamic-symbolic-stylistic.ts
+H:\the-copy\external\stations\server\stations\station6\station6-diagnostics-treatment.ts
+H:\the-copy\external\stations\server\stations\station7\station7-finalization.ts
+H:\the-copy\external\stations\server\types\contexts.ts
+H:\the-copy\external\stations\server\utils\logger.ts
+H:\the-copy\external\stations\shared\src
+H:\the-copy\external\stations\shared\schema.ts
+H:\the-copy\external\stations\shared\src\components
+H:\the-copy\external\stations\shared\src\contexts
+H:\the-copy\external\stations\shared\src\hooks
+H:\the-copy\external\stations\shared\src\lib
+H:\the-copy\external\stations\shared\src\pages
+H:\the-copy\external\stations\shared\src\App.tsx
+H:\the-copy\external\stations\shared\src\index.css
+H:\the-copy\external\stations\shared\src\main.tsx
+H:\the-copy\external\stations\shared\src\components\__tests__
+H:\the-copy\external\stations\shared\src\components\ui
+H:\the-copy\external\stations\shared\src\components\AnalysisCard.tsx
+H:\the-copy\external\stations\shared\src\components\CharacterNode.tsx
+H:\the-copy\external\stations\shared\src\components\ConflictNetwork.tsx
+H:\the-copy\external\stations\shared\src\components\DiagnosticPanel.tsx
+H:\the-copy\external\stations\shared\src\components\Header.tsx
+H:\the-copy\external\stations\shared\src\components\HeroSection.tsx
+H:\the-copy\external\stations\shared\src\components\MetricCard.tsx
+H:\the-copy\external\stations\shared\src\components\station-progress-utils.ts
+H:\the-copy\external\stations\shared\src\components\StationProgress.tsx
+H:\the-copy\external\stations\shared\src\components\TextInput.tsx
+H:\the-copy\external\stations\shared\src\components\ui\accordion.tsx
+H:\the-copy\external\stations\shared\src\components\ui\alert-dialog.tsx
+H:\the-copy\external\stations\shared\src\components\ui\alert.tsx
+H:\the-copy\external\stations\shared\src\components\ui\aspect-ratio.tsx
+H:\the-copy\external\stations\shared\src\components\ui\avatar.tsx
+H:\the-copy\external\stations\shared\src\components\ui\badge.tsx
+H:\the-copy\external\stations\shared\src\components\ui\breadcrumb.tsx
+H:\the-copy\external\stations\shared\src\components\ui\button.tsx
+H:\the-copy\external\stations\shared\src\components\ui\calendar.tsx
+H:\the-copy\external\stations\shared\src\components\ui\card.tsx
+H:\the-copy\external\stations\shared\src\components\ui\carousel.tsx
+H:\the-copy\external\stations\shared\src\components\ui\chart.tsx
+H:\the-copy\external\stations\shared\src\components\ui\checkbox.tsx
+H:\the-copy\external\stations\shared\src\components\ui\collapsible.tsx
+H:\the-copy\external\stations\shared\src\components\ui\command.tsx
+H:\the-copy\external\stations\shared\src\components\ui\context-menu.tsx
+H:\the-copy\external\stations\shared\src\components\ui\dialog.tsx
+H:\the-copy\external\stations\shared\src\components\ui\drawer.tsx
+H:\the-copy\external\stations\shared\src\components\ui\dropdown-menu.tsx
+H:\the-copy\external\stations\shared\src\components\ui\form.tsx
+H:\the-copy\external\stations\shared\src\components\ui\hover-card.tsx
+H:\the-copy\external\stations\shared\src\components\ui\input-otp.tsx
+H:\the-copy\external\stations\shared\src\components\ui\input.tsx
+H:\the-copy\external\stations\shared\src\components\ui\label.tsx
+H:\the-copy\external\stations\shared\src\components\ui\menubar.tsx
+H:\the-copy\external\stations\shared\src\components\ui\navigation-menu.tsx
+H:\the-copy\external\stations\shared\src\components\ui\pagination.tsx
+H:\the-copy\external\stations\shared\src\components\ui\popover.tsx
+H:\the-copy\external\stations\shared\src\components\ui\progress.tsx
+H:\the-copy\external\stations\shared\src\components\ui\radio-group.tsx
+H:\the-copy\external\stations\shared\src\components\ui\resizable.tsx
+H:\the-copy\external\stations\shared\src\components\ui\scroll-area.tsx
+H:\the-copy\external\stations\shared\src\components\ui\select.tsx
+H:\the-copy\external\stations\shared\src\components\ui\separator.tsx
+H:\the-copy\external\stations\shared\src\components\ui\sheet.tsx
+H:\the-copy\external\stations\shared\src\components\ui\sidebar.tsx
+H:\the-copy\external\stations\shared\src\components\ui\skeleton.tsx
+H:\the-copy\external\stations\shared\src\components\ui\slider.tsx
+H:\the-copy\external\stations\shared\src\components\ui\switch.tsx
+H:\the-copy\external\stations\shared\src\components\ui\table.tsx
+H:\the-copy\external\stations\shared\src\components\ui\tabs.tsx
+H:\the-copy\external\stations\shared\src\components\ui\textarea.tsx
+H:\the-copy\external\stations\shared\src\components\ui\toast.tsx
+H:\the-copy\external\stations\shared\src\components\ui\toaster.tsx
+H:\the-copy\external\stations\shared\src\components\ui\toggle-group.tsx
+H:\the-copy\external\stations\shared\src\components\ui\toggle.tsx
+H:\the-copy\external\stations\shared\src\components\ui\tooltip.tsx
+H:\the-copy\external\stations\shared\src\components\__tests__\station-progress-utils.test.ts
+H:\the-copy\external\stations\shared\src\contexts\LanguageContext.tsx
+H:\the-copy\external\stations\shared\src\contexts\ThemeContext.tsx
+H:\the-copy\external\stations\shared\src\hooks\use-mobile.tsx
+H:\the-copy\external\stations\shared\src\hooks\use-toast.ts
+H:\the-copy\external\stations\shared\src\lib\queryClient.ts
+H:\the-copy\external\stations\shared\src\lib\utils.ts
+H:\the-copy\external\stations\shared\src\pages\HomePage.tsx
+H:\the-copy\external\stations\shared\src\pages\not-found.tsx
+H:\the-copy\external\stations\tests\api
+H:\the-copy\external\stations\tests\performance
+H:\the-copy\external\stations\tests\security
+H:\the-copy\external\stations\tests\units
+H:\the-copy\external\stations\tests\README.md
+H:\the-copy\external\stations\tests\setup.ts
+H:\the-copy\external\stations\tests\api\analyze-text.test.ts
+H:\the-copy\external\stations\tests\api\health.test.ts
+H:\the-copy\external\stations\tests\performance\load.test.ts
+H:\the-copy\external\stations\tests\security\cors.test.ts
+H:\the-copy\external\stations\tests\units\environment.test.ts
+H:\the-copy\external\stations\verification\P0-build.log
+H:\the-copy\external\stations\verification\P0-typescript-check.log

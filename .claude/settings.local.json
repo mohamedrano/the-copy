@@ -7,7 +7,22 @@
       "Bash(cat:*)",
       "Bash(npm run type-check:*)",
       "Bash(npm install:*)",
-      "Bash(npm run lint)"
+      "Bash(npm run lint)",
+      "Bash(dir:*)",
+      "Bash(npx tsc:*)",
+      "Bash(tee:*)",
+      "Bash(npm audit:*)",
+      "Bash(echo:*)",
+      "Bash(rm:*)",
+      "Bash(mkdir:*)",
+      "Bash(cp:*)",
+      "Bash(test:*)",
+      "Bash(wait)",
+      "Bash(npx vite build:*)",
+      "Read(//h/the-copy--Multi-agent-Story-Development-Platform/**)",
+      "Read(//k/المشروع/the-copy-Multi-agent-Story/**)",
+      "Bash(rsync:*)",
+      "Bash(tree:*)"
     ],
     "deny": [],
     "ask": []

@@ -71,7 +71,7 @@ export default function App(): JSX.Element {
       case 'settings':
         return <SettingsPage onBack={() => setCurrentPage('home')} />;
       default:
-        return <HomePage onNavigate={setCurrentPage} />;
+        return <HomePage onNavigate={(page: string) => setCurrentPage(page as PageId)} />;
     }
   };
 

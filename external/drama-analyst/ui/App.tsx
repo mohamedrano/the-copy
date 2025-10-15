@@ -3,7 +3,7 @@ import { TaskCategory, TaskType } from '@core/enums';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { Loader } from './components/Loader';
 import { log } from '@services/loggerService';
-import { sendGAEvent, sendPageView } from '@services/analyticsService';
+import { getAnalyticsService } from '@services/analyticsService';
 import { getUptimeMonitoringService } from '@services/uptimeMonitoringService';
 import {
   AIResponse,
@@ -85,10 +85,17 @@ const App: React.FC = () => {
   // Initialize app and track analytics
   useEffect(() => {
     log.info('🚀 Drama Analyst App initialized', null, 'App');
-    
+
     // Track app initialization in analytics
-    sendPageView();
-    sendGAEvent('app_initialized', {
+    const analyticsService = getAnalyticsService();
+    analyticsService?.sendEvent('page_view', {
+      event_category: 'Page View',
+      page_title: document.title,
+      page_location: window.location.href,
+      page_path: window.location.pathname
+    });
+    analyticsService?.sendEvent('app_initialized', {
+      event_category: 'App Lifecycle',
       timestamp: Date.now(),
       user_agent: navigator.userAgent,
       screen_resolution: `${screen.width}x${screen.height}`,
@@ -230,11 +237,13 @@ const App: React.FC = () => {
         });
         
         // Track task completion in analytics
-        sendGAEvent('task_completed', {
+        const analyticsService = getAnalyticsService();
+        analyticsService?.sendEvent('task_completed', {
+          event_category: 'Task Completion',
           agent: request.agent,
           file_count: request.files.length,
-          total_file_size: request.files.reduce((sum, file) => sum + (file.size || 0), 0),
-          completion_scope: request.parameters?.completionScope,
+          total_file_size: request.files.reduce((sum, file) => sum + (file.sizeBytes || 0), 0),
+          completion_scope: request.params?.completionScope,
           timestamp: Date.now()
         });
         
@@ -269,7 +278,9 @@ const App: React.FC = () => {
         }
         
         // Track task failure in analytics
-        sendGAEvent('task_failed', {
+        const analyticsService = getAnalyticsService();
+        analyticsService?.sendEvent('task_failed', {
+          event_category: 'Task Failure',
           agent: request.agent,
           error_type: result.error.type || 'unknown',
           error_message: result.error.message || 'Unknown error',
@@ -291,7 +302,9 @@ const App: React.FC = () => {
         }
         
         // Track unexpected error in analytics
-        sendGAEvent('task_error', {
+        const analyticsService = getAnalyticsService();
+        analyticsService?.sendEvent('task_error', {
+          event_category: 'Task Error',
           agent: request.agent,
           error_type: 'unexpected_error',
           error_message: e.message || 'Unknown error',

@@ -365,15 +365,6 @@ class AnalyticsService {
     });
   }
 
-  public trackUserEngagement(action: string, component: string, details?: Record<string, any>): void {
-    this.sendEvent('user_engagement', {
-      event_category: 'User Interaction',
-      action: action,
-      component: component,
-      ...details
-    });
-  }
-
   public trackFeatureUsage(feature: string, usage_count: number = 1): void {
     this.sendEvent('feature_usage', {
       event_category: 'Feature Usage',

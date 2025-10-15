@@ -4,7 +4,7 @@
 import { getCLS, getFID, getFCP, getLCP, getTTFB, Metric } from 'web-vitals';
 import { log } from './loggerService';
 import { reportError, addBreadcrumb } from './observability';
-import { sendGAEvent } from './analyticsService';
+import { getAnalyticsService } from './analyticsService';
 
 interface WebVitalsConfig {
   enableGA4: boolean;
@@ -358,7 +358,9 @@ class WebVitalsService {
   private sendToGA4(name: string, metric: CustomMetric): void {
     try {
       // Send detailed Web Vitals data to GA4 using our analytics service
-      sendGAEvent('web_vitals', {
+      const analyticsService = getAnalyticsService();
+      analyticsService?.sendEvent('web_vitals', {
+        event_category: 'Web Vitals',
         metric_name: metric.name,
         metric_value: Math.round(metric.value),
         metric_delta: Math.round(metric.delta),
@@ -376,9 +378,10 @@ class WebVitalsService {
         // Add custom data
         ...metric.customData
       });
-      
+
       // Send individual metric events for better segmentation
-      sendGAEvent(`web_vital_${metric.name.toLowerCase()}`, {
+      analyticsService?.sendEvent(`web_vital_${metric.name.toLowerCase()}`, {
+        event_category: 'Web Vitals',
         value: Math.round(metric.value),
         rating: metric.rating,
         delta: Math.round(metric.delta),
@@ -601,10 +604,12 @@ export const initWebVitals = (config?: Partial<WebVitalsConfig>) => {
   }
 
   webVitalsService = new WebVitalsService(config);
-  
+
   // Track Web Vitals initialization in analytics
   try {
-    sendGAEvent('web_vitals_initialized', {
+    const analyticsService = getAnalyticsService();
+    analyticsService?.sendEvent('web_vitals_initialized', {
+      event_category: 'Web Vitals',
       config: {
         enableGA4: config?.enableGA4,
         enableSentry: config?.enableSentry,
@@ -616,7 +621,7 @@ export const initWebVitals = (config?: Partial<WebVitalsConfig>) => {
   } catch (error) {
     log.error('❌ Failed to track Web Vitals initialization', error, 'WebVitalsService');
   }
-  
+
   return webVitalsService;
 };
 

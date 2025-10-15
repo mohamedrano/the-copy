@@ -17,7 +17,6 @@ describe('geminiTypes helpers', () => {
       parts: [{ text: 'مرحبا' }, { text: ' بالعالم' }],
       role: 'model',
     },
-    finishReason: 'STOP',
     index: 0,
   }
 

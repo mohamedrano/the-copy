@@ -36,8 +36,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             className="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow group"
           >
             <FolderOpen className="w-12 h-12 text-blue-500 mb-4 group-hover:scale-110 transition-transform" />
-            <h3 className="text-xl font-bold text-gray-900 mb-2">المشاريع</h3>
-            <p className="text-gray-600">إدارة وتنظيم مشاريع السيناريو</p>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">محلل الدراما</h3>
+            <p className="text-gray-600">تحليل متقدم للسيناريوهات والشخصيات</p>
           </button>
 
           <button
@@ -45,8 +45,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             className="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow group"
           >
             <LayoutTemplate className="w-12 h-12 text-purple-500 mb-4 group-hover:scale-110 transition-transform" />
-            <h3 className="text-xl font-bold text-gray-900 mb-2">القوالب</h3>
-            <p className="text-gray-600">قوالب جاهزة للسيناريوهات</p>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">المحطات</h3>
+            <p className="text-gray-600">محطات السيناريو والهيكل الدرامي</p>
           </button>
 
           <button
@@ -54,8 +54,8 @@ export default function HomePage({ onNavigate }: HomePageProps) {
             className="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow group"
           >
             <Download className="w-12 h-12 text-green-500 mb-4 group-hover:scale-110 transition-transform" />
-            <h3 className="text-xl font-bold text-gray-900 mb-2">التصدير</h3>
-            <p className="text-gray-600">تصدير بصيغ مختلفة ومشاركة</p>
+            <h3 className="text-xl font-bold text-gray-900 mb-2">القصة متعددة الوكلاء</h3>
+            <p className="text-gray-600">توليد قصص بواسطة وكلاء ذكاء اصطناعي</p>
           </button>
 
           <button

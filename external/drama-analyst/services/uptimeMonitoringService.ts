@@ -2,7 +2,7 @@
 // Monitors application uptime, health, and performance metrics
 
 import { log } from './loggerService';
-import { sendGAEvent } from './analyticsService';
+import { getAnalyticsService } from './analyticsService';
 import { addBreadcrumb, reportError } from './observability';
 
 interface UptimeConfig {
@@ -366,7 +366,9 @@ class UptimeMonitoringService {
     try {
       // Track in GA4
       if (this.config.enableGA4) {
-        sendGAEvent(eventName, {
+        const analyticsService = getAnalyticsService();
+        analyticsService?.sendEvent(eventName, {
+          event_category: 'Uptime Monitoring',
           ...eventData,
           uptime: Math.round((Date.now() - this.startTime) / 1000),
           memory_usage: Math.round(this.getMemoryUsage()),
