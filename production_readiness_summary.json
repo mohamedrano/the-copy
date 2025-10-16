@@ -1,0 +1,66 @@
+{
+  "status": "Needs-Work",
+  "readiness_score": 30,
+  "top_risks": [
+    {
+      "id": "P0-1",
+      "title": "Multi-agent story type-check fails",
+      "root_cause": "Missing store helpers and framer-motion imports in SessionManager",
+      "impact": "Shell integration breaks and runtime errors likely",
+      "fix": "Restore helper implementations, import motion, and re-run pnpm --filter multi-agent-story run type-check",
+      "owner": "multi-agent-story team",
+      "eta_hours": 8
+    },
+    {
+      "id": "P0-2",
+      "title": "Drama analyst build blocked by TypeScript errors",
+      "root_cause": "Outdated typings and invalid mocks across orchestration and UI modules",
+      "impact": "Production bundle cannot be generated",
+      "fix": "Align React 19 types, correct mocks, and pass pnpm --filter drama-analyst run type-check",
+      "owner": "drama-analyst team",
+      "eta_hours": 24
+    },
+    {
+      "id": "P0-3",
+      "title": "ESLint crashes with react-hooks plugin",
+      "root_cause": "Plugin version incompatible with TypeScript 5.9 AST",
+      "impact": "Lint gate cannot run and violations go undetected",
+      "fix": "Upgrade eslint-plugin-react-hooks or downgrade TypeScript to a supported version",
+      "owner": "platform team",
+      "eta_hours": 4
+    }
+  ],
+  "env": {
+    "node": ">=20",
+    "package_manager": "pnpm",
+    "ci_detected": "github_actions"
+  },
+  "build": {
+    "passes": false,
+    "warnings": 1,
+    "bundle_size_kb": 231.87
+  },
+  "tests": {
+    "total": 0,
+    "passed": 0,
+    "coverage": 0.0
+  },
+  "security": {
+    "critical": 0,
+    "high": 0,
+    "medium": 2,
+    "low": 0
+  },
+  "docs": {
+    "found": ["README.md", "PRODUCTION_READINESS_REPORT.md", "ProductionReadiness.md"],
+    "gaps": ["Legacy readiness docs outdated", "CI instructions misaligned with pnpm"]
+  },
+  "actions_0_48h": [
+    "Fix multi-agent story type errors and add tests",
+    "Resolve drama-analyst TypeScript failures and rebuild",
+    "Align ESLint tooling with TypeScript 5.9",
+    "Patch esbuild advisory and re-run pnpm audit",
+    "Update CI to use pnpm without Docker"
+  ],
+  "notes": "Focus on stabilizing TypeScript, lint, and build pipelines before attempting deployment."
+}
