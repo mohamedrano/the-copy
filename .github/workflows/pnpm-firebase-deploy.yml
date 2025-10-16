@@ -77,7 +77,7 @@ jobs:
           name: build-artifacts
           path: |
             public/
-            apps/main-app/dist/
+            apps/the-copy/dist/
 
   deploy:
     name: Deploy to Firebase Hosting
@@ -141,9 +141,9 @@ jobs:
         run: |
           npx @sentry/cli sourcemaps upload \
             --org the-copy \
-            --project main-app \
+            --project the-copy \
             --release ${{ github.sha }} \
-            ./apps/main-app/dist
+            ./apps/the-copy/dist
           
       - name: Upload Sentry sourcemaps - Drama Analyst
         if: success()

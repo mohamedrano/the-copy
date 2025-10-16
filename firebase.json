@@ -1,8 +1,12 @@
 {
   "hosting": {
-    "public": "apps/main-app/dist",
+    "public": "apps/the-copy/dist",
     "cleanUrls": true,
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
     "headers": [
       {
         "source": "**/*.js",

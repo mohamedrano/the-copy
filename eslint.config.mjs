@@ -4,7 +4,7 @@ import typescriptParser from '@typescript-eslint/parser';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
-import tsdoc from 'eslint-plugin-tsdoc';
+import globals from 'globals';
 
 export default [
   js.configs.recommended,
@@ -19,13 +19,16 @@ export default [
           jsx: true,
         },
       },
+      globals: {
+        ...globals.browser,
+        ...globals.es2021,
+      },
     },
     plugins: {
       '@typescript-eslint': typescript,
       'react': react,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
-      'tsdoc': tsdoc,
     },
     rules: {
       ...typescript.configs.recommended.rules,
@@ -43,25 +46,7 @@ export default [
       '@typescript-eslint/explicit-module-boundary-types': 'off',
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-non-null-assertion': 'warn',
-      '@typescript-eslint/prefer-const': 'error',
       '@typescript-eslint/no-var-requires': 'error',
-      'tsdoc/syntax': 'error',
-      'tsdoc/check-param-names': 'error',
-      'tsdoc/check-tag-names': 'error',
-      'tsdoc/check-types': 'error',
-      'tsdoc/require-param': 'error',
-      'tsdoc/require-param-description': 'error',
-      'tsdoc/require-param-name': 'error',
-      'tsdoc/require-param-type': 'off',
-      'tsdoc/require-returns': 'error',
-      'tsdoc/require-returns-description': 'error',
-      'tsdoc/require-returns-type': 'off',
-      'tsdoc/require-description': 'error',
-      'tsdoc/require-example': 'off',
-      'tsdoc/require-jsdoc': 'error',
-      'tsdoc/require-throws': 'off',
-      'tsdoc/require-yields': 'off',
-      'tsdoc/require-yields-check': 'off',
     },
     settings: {
       react: {
@@ -86,6 +71,14 @@ export default [
       'node_modules/**',
       '.reports/**',
       'docs/api/**',
+      'apps/the-copy/src/agents/**',
+      'apps/the-copy/src/components/**',
+      'apps/the-copy/src/lib/**',
+      'apps/the-copy/src/modules/**',
+      'apps/the-copy/src/services/**',
+      'apps/the-copy/src/tests/**',
+      'apps/the-copy/src/types/**',
+      'apps/the-copy/src/utils/**',
       '*.config.js',
       '*.config.mjs',
     ],

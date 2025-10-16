@@ -7,7 +7,7 @@ This is a monorepo setup for The Copy project using pnpm workspaces.
 ```
 /
 ├── apps/
-│   ├── main-app/           # التطبيق الرئيسي (The Copy main application)
+│   ├── the-copy/           # التطبيق الرئيسي (The Copy unified shell)
 │   ├── basic-editor/       # المحرر الأساسي (Basic Arabic Screenplay Editor)
 │   ├── drama-analyst/      # محلل الدراما (Drama Analyst & Creative Mimic)
 │   ├── stations/           # المحطات (Stations App)
@@ -127,8 +127,8 @@ pnpm verify:all
 # Run command in specific workspace
 pnpm --filter <workspace-name> <command>
 
-# Example: Install package in main-app
-pnpm --filter main-app add lodash
+# Example: Install package in the-copy
+pnpm --filter the-copy add lodash
 
 # Example: Run dev in drama-analyst
 pnpm --filter drama-analyst run dev
@@ -165,7 +165,7 @@ pnpm --filter <workspace-name> add <package-name>
 
 ```bash
 # In app's package.json
-pnpm --filter main-app add @the-copy/shared-ui@workspace:*
+pnpm --filter the-copy add @the-copy/shared-ui@workspace:*
 ```
 
 ## Path Aliases
@@ -178,7 +178,7 @@ The following path aliases are configured in `tsconfig.base.json`:
 
 ## Next Steps
 
-1. Move existing code from root to `apps/main-app/`
+1. Move existing code from root to `apps/the-copy/`
 2. Move external apps to their respective directories in `apps/`
 3. Extract common components to `packages/shared-ui/`
 4. Extract common types to `packages/shared-types/`
