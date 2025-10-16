@@ -1,0 +1,137 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  password  String
+  apiKey    String?  @unique
+  role      Role     @default(USER)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  sessions  Session[]
+  @@index([email])
+}
+
+model Session {
+  id          String        @id @default(cuid())
+  brief       String        @db.Text
+  phase       Int           @default(1)
+  status      SessionStatus @default(ACTIVE)
+  userId      String
+  user        User          @relation(fields: [userId], references: [id])
+  startTime   DateTime      @default(now())
+  endTime     DateTime?
+  metadata    Json?
+  
+  ideas       Idea[]
+  agents      AgentSession[]
+  messages    Message[]
+  
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+  
+  @@index([userId])
+  @@index([status])
+}
+
+model Idea {
+  id          String   @id @default(cuid())
+  sessionId   String
+  session     Session  @relation(fields: [sessionId], references: [id])
+  title       String
+  description String   @db.Text
+  agentId     String
+  score       Float    @default(0)
+  feedback    Json
+  isWinner    Boolean  @default(false)
+  
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  
+  @@index([sessionId])
+}
+
+model Agent {
+  id          String         @id @default(cuid())
+  name        String
+  nameAr      String
+  role        String
+  roleAr      String
+  description String         @db.Text
+  capabilities Json
+  prompt      String         @db.Text
+  
+  sessions    AgentSession[]
+  messages    Message[]
+  
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+}
+
+model AgentSession {
+  id        String      @id @default(cuid())
+  sessionId String
+  session   Session     @relation(fields: [sessionId], references: [id])
+  agentId   String
+  agent     Agent       @relation(fields: [agentId], references: [id])
+  status    AgentStatus @default(IDLE)
+  lastAction String?
+  
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  
+  @@unique([sessionId, agentId])
+  @@index([sessionId])
+  @@index([agentId])
+}
+
+model Message {
+  id        String      @id @default(cuid())
+  sessionId String
+  session   Session     @relation(fields: [sessionId], references: [id])
+  agentId   String?
+  agent     Agent?      @relation(fields: [agentId], references: [id])
+  type      MessageType
+  content   String      @db.Text
+  metadata  Json?
+  
+  createdAt DateTime    @default(now())
+  
+  @@index([sessionId])
+  @@index([agentId])
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+enum SessionStatus {
+  ACTIVE
+  PAUSED
+  COMPLETED
+  ERROR
+}
+
+enum AgentStatus {
+  IDLE
+  WORKING
+  COMPLETED
+  ERROR
+}
+
+enum MessageType {
+  SYSTEM
+  AGENT
+  USER
+  NOTIFICATION
+}

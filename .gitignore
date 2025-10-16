@@ -13,6 +13,7 @@ dist-ssr
 *.local
 
 # Environment files
+.env
 .env.local
 .env.*.local
 
@@ -40,3 +41,9 @@ coverage
 # Temporary files
 *.tmp
 *.temp
+node_modules
+node_modules
+node_modules
+node_modules
+node_modules
+node_modules

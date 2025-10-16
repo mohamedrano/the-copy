@@ -1,758 +1,507 @@
 # CLAUDE.md
 
-This file provides comprehensive guidance to Claude Code (claude.ai/code) when working with code in this repository. It serves as the primary reference for automated code assistance, development workflows, and project architecture understanding.
-
-## Table of Contents
-
-1. [Repository Overview](#repository-overview)
-2. [Project Architecture](#project-architecture)
-3. [Development Environment](#development-environment)
-4. [Core Components & APIs](#core-components--apis)
-5. [Arabic Language Processing](#arabic-language-processing)
-6. [Code Quality Standards](#code-quality-standards)
-7. [Testing Strategy](#testing-strategy)
-8. [Deployment & Production](#deployment--production)
-9. [Troubleshooting Guide](#troubleshooting-guide)
-10. [Contributing Guidelines](#contributing-guidelines)
-
-## Repository Overview
-
-### Structure
-```
-├── arabic-screenplay-editor/          # Main React/TypeScript application
-│   ├── src/
-│   │   ├── ScreenplayEditor.tsx      # Primary component (76KB+ core logic)
-│   │   ├── components/               # Reusable UI components
-│   │   ├── utils/                    # Utility functions and helpers
-│   │   ├── types/                    # TypeScript type definitions
-│   │   └── tests/                    # Test files and samples
-│   ├── public/                       # Static assets
-│   ├── vite.config.ts               # Vite configuration
-│   ├── package.json                 # Dependencies and scripts
-│   └── tsconfig.json                # TypeScript configuration
-├── standalone-modules/               # Independent JavaScript utilities
-│   ├── screenplay-parser.js          # Legacy parsing utilities
-│   └── text-processors.js           # Text manipulation tools
-└── docs/                            # Additional documentation
-```
-
-### Project Types
-- **Primary**: Arabic Screenplay Editor (React/TypeScript SPA)
-- **Secondary**: Standalone JavaScript modules for screenplay processing
-- **Target Environment**: Modern browsers with ES2020+ support
-
-## Project Architecture
-
-### Technology Stack
-```typescript
-// Core Technologies
-- Framework: React 18+ with TypeScript 5+
-- Build Tool: Vite 5+ (optimized for dev speed)
-- Styling: Tailwind CSS 4.1.13+ (utility-first)
-- Language: TypeScript (strict mode enabled)
-- Runtime: ES2020+ target with modern browser support
-```
-
-### Design Patterns
-
-#### 1. Component Architecture
-- **Monolithic Main Component**: `ScreenplayEditor.tsx` contains core logic
-- **Separation of Concerns**: UI rendering separate from text processing
-- **State Management**: React hooks with local state management
-- **Event-Driven Updates**: Real-time text processing and formatting
-
-#### 2. Text Processing Pipeline
-```typescript
-interface TextProcessingPipeline {
-  input: string;           // Raw Arabic text
-  tokenization: string[];  // Line-by-line breakdown
-  classification: LineType[]; // Scene header, dialogue, action, etc.
-  formatting: FormattedLine[]; // Styled output with CSS classes
-  output: JSX.Element[];   // Rendered components
-}
-```
-
-## Development Environment
-
-### Prerequisites
-```bash
-# Required Software
-Node.js >= 18.0.0
-npm >= 9.0.0 OR yarn >= 1.22.0
-Git >= 2.30.0
-
-# Recommended VS Code Extensions
-- TypeScript Importer
-- Tailwind CSS IntelliSense
-- Arabic Language Support
-- Prettier - Code formatter
-- ESLint
-```
-
-### Setup Instructions
-```bash
-# Clone repository
-git clone <repository-url>
-cd <repository-name>
-
-# Install dependencies
-cd arabic-screenplay-editor
-npm install
-
-# Verify installation
-npm run type-check
-npm run lint
-
-# Start development server
-npm run dev
-# Server runs on http://localhost:5173 (NOT default 5174)
-```
-
-### Development Commands
-```bash
-# Development
-npm run dev          # Start dev server (localhost:5173)
-npm run dev:host     # Expose to network (0.0.0.0:5173)
-
-# Building
-npm run build        # Production build (type-check + vite build)
-npm run build:analyze # Build with bundle analyzer
-
-# Quality Assurance
-npm run type-check   # TypeScript compilation check
-npm run lint         # ESLint analysis
-npm run lint:fix     # Auto-fix linting issues
-npm run format       # Prettier formatting
-
-# Testing
-npm run test         # Run test suite
-npm run test:watch   # Watch mode testing
-npm run test:coverage # Coverage report
-
-# Production
-npm run preview      # Preview production build
-npm run start        # Production server
-```
-
-## Core Components & APIs
-
-### ScreenplayClassifier Class
-
-#### Purpose
-Advanced Arabic text classification engine for screenplay formatting.
-
-#### Key Features
-```typescript
-class ScreenplayClassifier {
-  // Context tracking for dialogue blocks
-  private dialogueContext: {
-    inDialogueBlock: boolean;
-    lastCharacter: string;
-    blockLineCount: number;
-  };
-
-  // Arabic verb recognition (60+ verbs)
-  private actionVerbs: Set<string>;
-
-  // Classification methods
-  classifyLine(line: string, previousContext: LineContext): LineType;
-  detectSceneHeader(line: string): boolean;
-  detectCharacterLine(line: string): boolean;
-  detectDialogue(line: string, context: DialogueContext): boolean;
-  detectActionLine(line: string): boolean;
-}
-```
-
-#### Usage Example
-```typescript
-const classifier = new ScreenplayClassifier();
-const result = classifier.classifyLine("محمد: مرحباً بك في المنزل", {
-  previousLineType: 'action',
-  dialogueState: { inBlock: false, character: null }
-});
-// Returns: { type: 'character', confidence: 0.95, formatting: {...} }
-```
-
-### Text Processing Utilities
-
-#### RTL Text Handling
-```typescript
-interface RTLTextProcessor {
-  direction: 'rtl' | 'ltr';
-  alignment: 'right' | 'center' | 'left';
-  
-  processArabicText(text: string): ProcessedText;
-  handleMixedContent(text: string): MixedContentResult;
-  convertNumerals(text: string, format: 'eastern' | 'western'): string;
-}
-```
-
-#### Pattern Matching System
-```typescript
-const ARABIC_PATTERNS = {
-  SCENE_HEADER: /^مشهد\s+\d+/,
-  TIME_LOCATION: /^(ليل|نهار|صباح|مساء)-(داخلي|خارجي)/,
-  CHARACTER_NAME: /^[أ-ي\s]+:$/,
-  TRANSITION: /^(قطع|ذوبان|انتقال)/,
-  ACTION_VERB: new RegExp(`^(${ARABIC_ACTION_VERBS.join('|')})`),
-};
-```
-
-## Arabic Language Processing
-
-### Character Recognition
-- **Arabic Range**: U+0600 to U+06FF (standard Arabic)
-- **Extended Range**: U+0750 to U+077F (Arabic supplement)
-- **Diacritics**: U+064B to U+065F (Arabic diacritical marks)
-- **Presentation Forms**: U+FB50 to U+FDFF (Arabic presentation forms)
-
-### Screenplay Conventions
-```typescript
-interface ArabicScreenplayFormat {
-  sceneHeaders: {
-    pattern: "مشهد [number]";
-    style: { textAlign: 'center', fontWeight: 'bold' };
-  };
-  
-  timeLocation: {
-    pattern: "[time]-[location] [place]";
-    style: { textAlign: 'center', fontStyle: 'italic' };
-  };
-  
-  characterNames: {
-    pattern: "[NAME]:";
-    style: { textAlign: 'center', fontWeight: 'bold', textTransform: 'uppercase' };
-  };
-  
-  dialogue: {
-    style: { textAlign: 'center', margin: '0 20%' };
-  };
-  
-  actionLines: {
-    style: { textAlign: 'right', direction: 'rtl' };
-  };
-}
-```
-
-### Text Direction Rules
-1. **Pure Arabic**: Always RTL alignment
-2. **Mixed Content**: RTL base with embedded LTR for numbers/English
-3. **Scene Numbers**: LTR numerals within RTL context
-4. **Character Names**: Centered regardless of content direction
-
-## Code Quality Standards
-
-### TypeScript Configuration
-```json
-{
-  "compilerOptions": {
-    "strict": true,
-    "noUncheckedIndexedAccess": true,
-    "noImplicitReturns": true,
-    "noImplicitOverride": true,
-    "exactOptionalPropertyTypes": true
-  }
-}
-```
-
-### Error Handling Patterns
-```typescript
-// Robust error handling for text processing
-function processScreenplayText(input: string): Result<ProcessedText, ProcessingError> {
-  try {
-    validateInput(input);
-    const lines = tokenizeText(input);
-    const classified = classifyLines(lines);
-    return { success: true, data: classified };
-  } catch (error) {
-    logError('processScreenplayText', error);
-    return { 
-      success: false, 
-      error: new ProcessingError('Failed to process text', error) 
-    };
-  }
-}
-
-// Input validation
-function validateInput(text: string): void {
-  if (!text || typeof text !== 'string') {
-    throw new ValidationError('Input must be a non-empty string');
-  }
-  
-  if (text.length > MAX_SCREENPLAY_LENGTH) {
-    throw new ValidationError(`Text exceeds maximum length of ${MAX_SCREENPLAY_LENGTH} characters`);
-  }
-}
-```
-
-### Performance Optimization
-```typescript
-// Memoization for expensive operations
-const memoizedClassifier = useMemo(() => 
-  new ScreenplayClassifier(), []
-);
-
-// Debounced text processing
-const debouncedProcess = useCallback(
-  debounce((text: string) => {
-    setProcessedText(processText(text));
-  }, 300),
-  []
-);
-
-// Virtual scrolling for large documents
-const VirtualizedScreenplay = memo(({ lines }: { lines: ScreenplayLine[] }) => {
-  // Implementation with react-window or react-virtualized
-});
-```
-
-## Testing Strategy
-
-### Test File Organization
-```
-src/tests/
-├── unit/
-│   ├── classifier.test.ts        # ScreenplayClassifier tests
-│   ├── text-processing.test.ts   # Utility function tests
-│   └── components.test.tsx       # Component unit tests
-├── integration/
-│   ├── screenplay-flow.test.ts   # End-to-end screenplay processing
-│   └── user-interactions.test.ts # User workflow tests
-├── fixtures/
-│   ├── sample-screenplays/       # Test screenplay files
-│   ├── edge-cases/              # Boundary condition tests
-│   └── performance/             # Large file tests
-└── helpers/
-    └── test-utils.ts            # Testing utilities and mocks
-```
-
-### Test Data Files
-- `final-test.txt`: Complete screenplay sample (production-like)
-- `comprehensive-test.txt`: Edge cases and boundary conditions
-- `action-line-test.txt`: Action line classification tests
-- `dialogue-action-test.txt`: Mixed dialogue/action scenarios
-- `basmala-test.cjs`: Node.js compatibility tests
-- `test-classifier.cjs`: Classifier unit tests
-
-### Testing Commands
-```bash
-# Unit tests with coverage
-npm run test:unit -- --coverage
-
-# Integration tests
-npm run test:integration
-
-# Performance benchmarks
-npm run test:performance
-
-# Arabic text processing tests
-npm run test:arabic-processing
-
-# Visual regression tests
-npm run test:visual
-```
-
-## Deployment & Production
-
-### Build Configuration
-```typescript
-// vite.config.ts
-export default defineConfig({
-  build: {
-    target: 'es2020',
-    outDir: 'dist',
-    sourcemap: process.env.NODE_ENV === 'development',
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          vendor: ['react', 'react-dom'],
-          arabic: ['./src/utils/arabic-processing']
-        }
-      }
-    }
-  },
-  optimizeDeps: {
-    include: ['react', 'react-dom']
-  }
-});
-```
-
-### Environment Variables
-```bash
-# Development
-VITE_DEV_SERVER_PORT=5173
-VITE_API_BASE_URL=http://localhost:3001
-
-# Production
-VITE_API_BASE_URL=https://api.screenplay-editor.com
-VITE_ENABLE_ANALYTICS=true
-VITE_ERROR_REPORTING_URL=https://errors.screenplay-editor.com
-```
-
-### Performance Metrics
-- **Bundle Size**: Target < 500KB gzipped
-- **First Contentful Paint**: < 2s
-- **Time to Interactive**: < 3s
-- **Arabic Text Processing**: < 100ms for typical screenplay
-
-## Troubleshooting Guide
-
-### Common Issues
-
-#### 1. Arabic Text Rendering Problems
-```typescript
-// Symptom: Text appears broken or reversed
-// Solution: Ensure proper RTL CSS and Unicode normalization
-const normalizeArabicText = (text: string): string => {
-  return text.normalize('NFC').replace(/\u202E|\u202D/g, '');
-};
-```
-
-#### 2. Classification Accuracy Issues
-```typescript
-// Symptom: Lines classified incorrectly
-// Solution: Check context state and pattern matching
-const debugClassification = (line: string, context: LineContext) => {
-  console.log('Line:', line);
-  console.log('Context:', context);
-  console.log('Patterns matched:', getMatchingPatterns(line));
-};
-```
-
-#### 3. Performance Degradation
-```typescript
-// Symptom: Slow processing with large texts
-// Solution: Implement progressive processing
-const processInChunks = async (text: string, chunkSize = 1000) => {
-  const chunks = splitIntoChunks(text, chunkSize);
-  const results = [];
-  
-  for (const chunk of chunks) {
-    results.push(await processChunk(chunk));
-    await new Promise(resolve => setTimeout(resolve, 0)); // Yield control
-  }
-  
-  return results.flat();
-};
-```
-
-### Debugging Tools
-```bash
-# Enable debug logging
-VITE_DEBUG=true npm run dev
-
-# Profile performance
-npm run dev -- --profile
-
-# Analyze bundle
-npm run build:analyze
-```
-
-## Contributing Guidelines
-
-### Code Style
-- **Formatting**: Prettier with 2-space indentation
-- **Linting**: ESLint with TypeScript recommended rules
-- **Naming**: camelCase for variables, PascalCase for components
-- **File Organization**: Group by feature, not by type
-
-### Commit Messages
-```
-feat(classifier): add support for complex Arabic dialogue patterns
-fix(ui): resolve RTL text alignment in character names
-docs(readme): update installation instructions
-perf(processing): optimize large screenplay handling
-test(classifier): add edge cases for scene header detection
-```
-
-### Pull Request Process
-1. Fork repository and create feature branch
-2. Implement changes with comprehensive tests
-3. Ensure all quality checks pass (`npm run quality-check`)
-4. Update documentation as needed
-5. Submit PR with detailed description and test results
-
-### Testing Requirements
-- Unit test coverage: minimum 80%
-- Integration tests for new features
-- Performance benchmarks for processing changes
-- Arabic text processing validation
-
----
-
-## Quick Reference
-
-### Essential Commands
-```bash
-npm run dev          # Development server (localhost:5173)
-npm run build        # Production build
-npm run test         # Run all tests
-npm run quality-check # Lint + type-check + test
-```
-
-### Key Files
-- `src/ScreenplayEditor.tsx` - Main application component
-- `vite.config.ts` - Build configuration
-- `tsconfig.json` - TypeScript settings
-- `tailwind.config.js` - Styling configuration
-
-### Performance Targets
-- Bundle size: < 500KB gzipped
-- Classification speed: < 100ms per screenplay
-- Memory usage: < 50MB for typical documents
-- Startup time: < 2s on modern browsers
-
----
-
-*Last updated: [Current Date]*
-*For Claude Code assistance and automated development workflows*
-
-
-# CLAUDE.md
-
 This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
 
 ## Project Overview
 
-**Drama Analyst & Creative Mimic** is an AI-powered dramatic text analysis and creative generation platform built with React, TypeScript, and Google's Gemini API. The system uses a sophisticated multi-agent architecture where specialized AI agents handle different aspects of dramatic text processing, from critical analysis to creative scene generation.
+**The Copy** is a comprehensive Arabic screenplay development platform that combines four distinct applications into a unified system. The project uses a hybrid monorepo structure with both integrated and external applications.
 
 **Core Tech Stack:**
-- Frontend: React 19, TypeScript, Vite
-- AI Provider: Google Gemini API (`@google/genai`)
-- Document Processing: Mammoth (for .docx files)
-- File Upload: react-dropzone
+- Frontend: React 18-19, TypeScript 5.3+, Vite 5-7
+- Build System: pnpm workspaces (monorepo)
+- AI Integration: Google Gemini API, Multi-agent systems
+- Styling: Tailwind CSS
+- Package Manager: pnpm 10.18.3+
+
+## Monorepo Structure
+
+```
+the-copy/
+├── apps/                       # Workspace applications
+│   ├── main-app/              # Main unified application (port 5177)
+│   ├── basic-editor/          # Standalone basic editor (port 5178)
+│   ├── drama-analyst/         # Drama analysis platform (port 5179)
+│   ├── stations/              # Stations management (port 5180)
+│   └── multi-agent-story/     # Multi-agent storytelling (port 5181)
+├── packages/                   # Shared packages
+│   ├── shared-ui/             # Shared UI components
+│   ├── shared-types/          # Shared TypeScript types
+│   └── shared-utils/          # Shared utility functions
+├── external/                   # External integrated projects
+│   ├── drama-analyst/         # Full drama analyst with 29 AI agents
+│   ├── stations/              # Stations with Express backend
+│   └── multi-agent-story/     # Jules (React + Fastify + PostgreSQL)
+├── src/                       # Root application source
+│   ├── App.tsx               # Main router with 4 sections
+│   ├── components/           # React components
+│   │   ├── HomePage.tsx      # Landing page with 4 buttons
+│   │   ├── editor/           # Integrated screenplay editor
+│   │   ├── ProjectsPage.tsx  # Drama analyst iframe
+│   │   ├── TemplatesPage.tsx # Stations iframe
+│   │   └── ExportPage.tsx    # Multi-agent story iframe
+│   ├── agents/               # AI agent definitions
+│   ├── services/             # Core services
+│   └── lib/                  # Libraries and utilities
+├── public/                    # Static assets and built externals
+│   ├── drama-analyst/        # Built drama analyst (974 KB)
+│   ├── stations/             # Built stations (495 KB)
+│   └── multi-agent-story/    # Built multi-agent app
+├── pnpm-workspace.yaml        # Workspace configuration
+├── tsconfig.base.json         # Base TypeScript config
+└── package.json               # Root package.json
+```
 
 ## Development Commands
 
+### Root Commands (pnpm workspaces)
+
 ```bash
-# Install dependencies
-npm install
+# Install all dependencies
+pnpm install
 
-# Run development server (default port 5173)
-npm run dev
+# Development - run all apps in parallel
+pnpm dev                 # All apps
+pnpm dev:main           # Main app only (port 5177)
+pnpm dev:basic          # Basic editor (port 5178)
+pnpm dev:drama          # Drama analyst (port 5179)
+pnpm dev:stations       # Stations (port 5180)
+pnpm dev:story          # Multi-agent story (port 5181)
 
-# Build for production
-npm run build
+# Build commands
+pnpm build              # Build all apps
+pnpm build:all          # Build apps + packages
+pnpm build:main         # Build main app only
+pnpm build:basic        # Build basic editor
+pnpm build:drama        # Build drama analyst → public/drama-analyst/
+pnpm build:stations     # Build stations → public/stations/
+pnpm build:story        # Build multi-agent → public/multi-agent-story/
 
-# Preview production build
-npm run preview
+# Quality assurance
+pnpm type-check         # Type check all workspaces
+pnpm type-check:main    # Type check main app
+pnpm lint               # Lint all workspaces
+pnpm lint:fix           # Fix linting issues
+pnpm test               # Run all tests
+pnpm test:main          # Test main app
+pnpm coverage           # Coverage reports
+
+# Maintenance
+pnpm clean              # Clean build outputs and node_modules
+pnpm clean:all          # Clean everything including .turbo
+pnpm verify:all         # Run type-check + lint + test
+
+# Preview
+pnpm preview            # Preview main app production build
+```
+
+### Working with Specific Workspaces
+
+```bash
+# Install package to specific workspace
+pnpm --filter main-app add <package>
+pnpm --filter drama-analyst add <package>
+
+# Run command in specific workspace
+pnpm --filter <workspace-name> <command>
+
+# Add shared package as dependency
+pnpm --filter main-app add @the-copy/shared-types@workspace:*
 ```
 
 ## Architecture
 
-### Agent-Based System
+### The Four Applications
 
-The codebase implements an **AI Agent Orchestration System** where specialized agents handle different tasks. This is the core architectural pattern that distinguishes this project.
+The Copy consists of **4 distinct sections** accessible from the main app:
 
-**Key Concepts:**
-1. **AIAgentConfig** ([core/types.ts](core/types.ts)): Defines agent capabilities, dependencies, and behavior
-2. **Agent Registry** ([agents/index.ts](agents/index.ts)): Central registry of all 29 specialized agents
-3. **Orchestration Manager** ([orchestration/orchestration.ts](orchestration/orchestration.ts)): Manages agent lifecycle, collaboration, and performance
+#### 1. Basic Editor (Integrated)
+- **Location**: `src/components/editor/ScreenplayEditor.tsx`
+- **Type**: React component (embedded)
+- **Access**: Direct component rendering (no iframe)
+- **Features**: Arabic screenplay editor with auto-formatting
+- **Status**: ✅ Working
 
-**Agent Categories:**
-- **Core Agents** (4): Analysis, Creative, Integrated, Completion
-- **Analytical Agents** (6): Rhythm mapping, character networks, dialogue forensics, thematic mining, style fingerprinting, conflict dynamics
-- **Creative Agents** (4): Adaptive rewriting, scene generation, character voice, world building
-- **Predictive Agents** (4): Plot prediction, tension optimization, audience resonance, platform adaptation
-- **Advanced Modules** (11): Deep analyzers for characters, dialogue, visual/cinematic elements, themes, cultural context, producibility, target audience, literary quality, and recommendations
+#### 2. Drama Analyst (External)
+- **Location**: `external/drama-analyst/` or `apps/drama-analyst/`
+- **Type**: Full React SPA with 29 AI agents
+- **Access**: iframe loading `/drama-analyst/`
+- **Build Output**: `public/drama-analyst/` (974 KB)
+- **Features**: Advanced text analysis, Gemini API, PWA
+- **Status**: ✅ Working
+
+#### 3. Stations (External)
+- **Location**: `external/stations/` or `apps/stations/`
+- **Type**: React + Express backend
+- **Access**: iframe loading `/stations/`
+- **Build Output**: `public/stations/` (495 KB)
+- **Features**: Story structure analysis, dramatic stations
+- **Status**: ✅ Working
+
+#### 4. Multi-Agent Story (External - Jules)
+- **Location**: `external/multi-agent-story/`
+- **Type**: Full-stack (React + Fastify + PostgreSQL)
+- **Structure**:
+  - `jules-frontend/`: React SPA
+  - `jules-backend/`: Fastify API server
+  - `prisma/`: Database schema
+- **Access**: iframe loading `/multi-agent-story/`
+- **Build Output**: `public/multi-agent-story/`
+- **Features**: Multi-agent story generation, WebSocket, database
+- **Status**: ⚠️ Build issues (currently showing drama-analyst duplicate)
+
+### Request Flow
+
+```
+User visits /
+  → Main App (src/App.tsx)
+    → HomePage (4 buttons)
+      ├→ Button 1: المحرر الأساسي
+      │   └→ <ScreenplayEditor /> (integrated component)
+      │
+      ├→ Button 2: محلل الدراما
+      │   └→ <ProjectsPage>
+      │       └→ <iframe src="/drama-analyst/" />
+      │
+      ├→ Button 3: المحطات
+      │   └→ <TemplatesPage>
+      │       └→ <iframe src="/stations/" />
+      │
+      └→ Button 4: قصة متعددة الوكلاء
+          └→ <ExportPage>
+              └→ <iframe src="/multi-agent-story/" />
+```
 
 ### Path Aliases
 
-The project uses TypeScript path aliases configured in [tsconfig.json](tsconfig.json#L21-L39):
+Configured in [tsconfig.base.json](tsconfig.base.json):
 
 ```typescript
-"@/*"             → ./*              // Root directory
-"@core/*"         → core/*           // Core types, enums, constants
-"@agents/*"       → agents/*         // Agent configurations
-"@orchestration/*"→ orchestration/*  // Orchestration logic
-"@ui/*"           → ui/*             // React components
-"@services/*"     → services/*       // Services (file processing, Gemini API)
+"@the-copy/shared-ui"       → packages/shared-ui/src
+"@the-copy/shared-types"    → packages/shared-types/src
+"@the-copy/shared-utils"    → packages/shared-utils/src
 ```
 
-### Directory Structure
-
-```
-agents/               # 29 specialized AI agents, each in its own folder
-  <agentName>/
-    agent.ts         # Agent configuration (AIAgentConfig)
-    instructions.ts  # Detailed system prompt
-core/                # Shared types, enums, and constants
-  types.ts           # Core TypeScript interfaces
-  enums.ts           # TaskType and TaskCategory enums
-  constants.ts       # App configuration and labels
-orchestration/       # Agent coordination and execution
-  orchestration.ts   # AIAgentOrchestraManager singleton
-  executor.ts        # Main execution pipeline
-  promptBuilder.ts   # Dynamic prompt construction
-services/            # External service integrations
-  geminiService.ts   # Google Gemini API calls
-  fileReaderService.ts # File processing (txt, md, pdf, docx, images)
-ui/                  # React frontend
-  App.tsx           # Main application component
-  components/       # Reusable UI components
-```
+Individual apps may have their own path aliases configured in their local `tsconfig.json`.
 
 ## Key Implementation Patterns
 
-### 1. Agent Configuration Pattern
+### 1. External App Integration Pattern
 
-Each agent follows a strict configuration structure defined in [agents/\<name\>/agent.ts](agents/analysis/agent.ts):
+External apps are built independently and loaded via iframes:
 
 ```typescript
-export const AGENT_CONFIG: AIAgentConfig = {
-  id: TaskType.EXAMPLE,
-  name: "Agent Name",
-  description: "Arabic description",
-  category: TaskCategory.CORE,
-  capabilities: {
-    multiModal: boolean,
-    reasoningChains: boolean,
-    ragEnabled: boolean,
-    // ... 15+ capability flags
-  },
-  collaboratesWith: TaskType[],  // Agents that work together
-  dependsOn: TaskType[],          // Required prerequisite agents
-  enhances: TaskType[],           // Agents this improves
-  systemPrompt: "...",            // Agent-specific instructions
-  cacheStrategy: 'adaptive' | 'aggressive' | 'none',
-  parallelizable: boolean,
-  confidenceThreshold: number
+// src/components/ExternalAppFrame.tsx
+interface ExternalAppFrameProps {
+  url: string;      // Path to built app in public/
+  title: string;    // App title
+}
+
+// Example usage in ProjectsPage.tsx
+<ExternalAppFrame
+  url="/drama-analyst/"
+  title="Drama Analyst"
+/>
+```
+
+### 2. Build Process for External Apps
+
+Each external app must:
+1. Build to its own `dist/` directory
+2. Copy output to `public/<app-name>/` in main app
+3. Configure correct `base` path in `vite.config.ts`
+
+```typescript
+// external/drama-analyst/vite.config.ts
+export default defineConfig({
+  base: '/drama-analyst/',  // Must match public/ subdirectory
+  build: {
+    outDir: '../../public/drama-analyst/',  // Output to main app public/
+    emptyOutDir: true
+  }
+})
+```
+
+### 3. Workspace Dependencies
+
+Apps can depend on shared packages:
+
+```json
+// apps/drama-analyst/package.json
+{
+  "dependencies": {
+    "@the-copy/shared-types": "workspace:*",
+    "@the-copy/shared-utils": "workspace:*"
+  }
 }
 ```
 
-### 2. Request Flow
+### 4. TypeScript Configuration Inheritance
 
-1. **User uploads files** → [FileUpload.tsx](ui/components/FileUpload.tsx)
-2. **Files processed** → [fileReaderService.ts](services/fileReaderService.ts) converts to `ProcessedFile[]`
-3. **User selects task** → [TaskSelector.tsx](ui/components/TaskSelector.tsx) chooses from `TaskType` enum
-4. **Request submitted** → [App.tsx](ui/App.tsx) creates `AIRequest` object
-5. **Orchestration** → [executor.ts](orchestration/executor.ts) prepares prompt via [promptBuilder.ts](orchestration/promptBuilder.ts)
-6. **API call** → [geminiService.ts](services/geminiService.ts) invokes Gemini model
-7. **Response parsed** → Results displayed in [ResultsDisplay.tsx](ui/components/ResultsDisplay.tsx)
-
-### 3. Type System
-
-The project uses strict TypeScript with comprehensive types in [core/types.ts](core/types.ts):
-
-```typescript
-// Core types
-AIRequest       // User request with agent, files, params
-AIResponse      // Model response with parsed and raw content
-ProcessedFile   // Unified file representation (text or binary)
-AIAgentConfig   // Complete agent specification
-Result<T>       // Success/error wrapper pattern
+```json
+// apps/main-app/tsconfig.json
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    // App-specific overrides
+  }
+}
 ```
-
-### 4. Orchestration System
-
-The [AIAgentOrchestraManager](orchestration/orchestration.ts#L14) is a **singleton** that:
-- Maintains agent registry and collaboration graph
-- Tracks performance metrics with exponential moving averages
-- Manages episodic/semantic/procedural memory systems
-- Optimizes execution order based on dependencies
-- Provides meta-learning capabilities
-
-Access via: `import { aiAgentOrchestra } from '@orchestration/orchestration';`
-
-## Working with Agents
-
-### Adding a New Agent
-
-1. Create directory: `agents/newAgent/`
-2. Create `agent.ts` with `AIAgentConfig` export
-3. Create `instructions.ts` with detailed system prompt
-4. Register in [agents/index.ts](agents/index.ts) by adding to `AGENT_CONFIGS` array
-5. Add enum value to [core/enums.ts](core/enums.ts) `TaskType`
-6. Add label to [core/constants.ts](core/constants.ts) `TASK_LABELS`
-
-### Agent Collaboration
-
-Agents can collaborate through three mechanisms:
-- `collaboratesWith`: Direct peer collaboration
-- `dependsOn`: Sequential dependency (A must run before B)
-- `enhances`: Improvement relationship (A enhances B's output)
-
-The orchestration system automatically builds a collaboration graph and optimizes execution order.
 
 ## Environment Configuration
 
-Required environment variables in `.env`:
+### Main App
 
 ```bash
-API_KEY=<your-gemini-api-key>
+# .env
+VITE_API_KEY=<gemini-api-key>
+VITE_SENTRY_DSN=<sentry-dsn>
 ```
 
-The API key is accessed via `import.meta.env.VITE_API_KEY` in the Gemini service.
+### Drama Analyst
+
+```bash
+# apps/drama-analyst/.env
+API_KEY=<gemini-api-key>
+VITE_SENTRY_DSN=<sentry-dsn>
+```
+
+### Multi-Agent Story
+
+```bash
+# external/multi-agent-story/.env
+DATABASE_URL=<postgres-connection-string>
+API_PORT=3001
+FRONTEND_PORT=5003
+```
 
 ## Important Implementation Details
 
-1. **Arabic Language**: The UI and outputs are primarily in Arabic. Task labels, descriptions, and system prompts use Arabic text.
+### 1. Arabic Language Support
 
-2. **Completion Tasks**: Some tasks (completion, plot prediction, scene generation, etc.) require a `completionScope` parameter that specifies the desired extent of generation.
+All apps prioritize RTL (right-to-left) text rendering:
+- UI text in Arabic
+- RTL CSS directives
+- Proper Unicode handling for Arabic characters (U+0600 to U+06FF)
 
-3. **File Processing**: The system supports multiple formats:
-   - Text: `.txt`, `.md`
-   - Documents: `.docx` (via Mammoth), `.doc` (limited), `.pdf`
-   - Images: `.png`, `.jpg`, `.jpeg`, `.webp`
+### 2. Port Allocation
 
-4. **Memory Systems**: The orchestration layer implements three memory types:
-   - **Episodic**: Stores recent interaction episodes (last 100)
-   - **Semantic**: Vector embeddings for conceptual memory
-   - **Procedural**: Function-based learned procedures
+| Application | Dev Port | Production Path |
+|-------------|----------|-----------------|
+| Main App | 5177 | `/` |
+| Basic Editor | 5178 | `/` (integrated) |
+| Drama Analyst | 5179 | `/drama-analyst/` |
+| Stations | 5180 | `/stations/` |
+| Multi-Agent Story | 5181 | `/multi-agent-story/` |
 
-5. **Performance Tracking**: Each agent's performance is monitored with:
-   - Success rate (exponential moving average)
-   - Average execution time
-   - Resource usage intensity
-   - User satisfaction scores
+### 3. Build Outputs
+
+```
+public/
+├── drama-analyst/      # Built from apps/drama-analyst/
+│   ├── index.html
+│   ├── assets/
+│   └── ... (974 KB total)
+├── stations/           # Built from apps/stations/
+│   ├── index.html
+│   ├── assets/
+│   └── ... (495 KB total)
+└── multi-agent-story/  # Built from external/multi-agent-story/jules-frontend/
+    ├── index.html
+    ├── assets/
+    └── ...
+```
+
+### 4. Agent-Based Architecture (Drama Analyst)
+
+Drama Analyst uses a sophisticated AI agent system:
+
+- **29 specialized agents** organized by category:
+  - Core Agents (4): Analysis, Creative, Integrated, Completion
+  - Analytical Agents (6): Rhythm, Character Networks, Dialogue Forensics, etc.
+  - Creative Agents (4): Rewriting, Scene Generation, Character Voice, etc.
+  - Predictive Agents (4): Plot Prediction, Tension Optimization, etc.
+  - Advanced Modules (11): Deep analyzers for various aspects
+
+- **Orchestration System**: Manages agent collaboration, dependencies, and performance
+- **Memory Systems**: Episodic, semantic, and procedural memory
+
+### 5. Current Known Issues
+
+⚠️ **Multi-Agent Story Build Problem**:
+- `public/multi-agent-story/` currently contains drama-analyst instead of Jules
+- Build process needs fixing to properly build and copy jules-frontend
+- Backend (jules-backend) runs separately and needs database connection
 
 ## Testing & Type Checking
 
 ```bash
-# Type checking (recommended before commits)
-npx tsc --noEmit
+# Type checking
+npx tsc --noEmit                    # Root level
+pnpm --filter main-app type-check   # Specific app
 
-# The project uses TypeScript strict mode with:
-# - experimentalDecorators enabled
-# - isolatedModules enforced
-# - noEmit (build handled by Vite)
+# Testing
+pnpm test                           # All tests
+pnpm --filter drama-analyst test    # Specific app tests
+pnpm --filter drama-analyst test:coverage  # With coverage
+
+# E2E Testing (Drama Analyst)
+pnpm --filter drama-analyst test:e2e     # Playwright tests
+pnpm --filter drama-analyst test:e2e:ui  # With UI
 ```
 
 ## Common Development Tasks
 
-**Modifying agent behavior:**
-- Edit `agents/<agentName>/instructions.ts` for prompt changes
-- Edit `agents/<agentName>/agent.ts` for capability/configuration changes
+### Adding a New Workspace
 
-**Adding UI components:**
-- Place in `ui/components/` directory
-- Import using `@ui/components/<ComponentName>`
-- Follow existing pattern of styled components with Tailwind CSS
+1. Create directory in `apps/` or `packages/`
+2. Initialize with `package.json`:
+```json
+{
+  "name": "@the-copy/new-app",
+  "version": "1.0.0",
+  "private": true
+}
+```
+3. Run `pnpm install` from root
+4. The workspace is automatically detected
 
-**Updating orchestration logic:**
-- Core logic in [orchestration/orchestration.ts](orchestration/orchestration.ts)
-- Execution pipeline in [orchestration/executor.ts](orchestration/executor.ts)
-- Prompt construction in [orchestration/promptBuilder.ts](orchestration/promptBuilder.ts)
+### Migrating Code Between Workspaces
 
-**File processing:**
-- All file handling logic in [services/fileReaderService.ts](services/fileReaderService.ts)
-- Returns `Result<ProcessedFile[]>` with success/error wrapper
+1. Extract shared code to appropriate package:
+   - UI components → `packages/shared-ui/`
+   - Types → `packages/shared-types/`
+   - Utilities → `packages/shared-utils/`
+
+2. Update imports in consuming apps:
+```typescript
+// Before
+import { MyComponent } from '../../../components/MyComponent';
+
+// After
+import { MyComponent } from '@the-copy/shared-ui';
+```
+
+3. Add dependency in consuming app's `package.json`
+
+### Building External Apps for Production
+
+```bash
+# From root
+pnpm build:drama      # Builds to public/drama-analyst/
+pnpm build:stations   # Builds to public/stations/
+pnpm build:story      # Builds to public/multi-agent-story/
+
+# Then build main app
+pnpm build:main       # Includes all external apps from public/
+```
+
+### Fixing Multi-Agent Story Build
+
+The multi-agent story app has a complex structure that needs special attention:
+
+```bash
+# Navigate to frontend
+cd external/multi-agent-story/jules-frontend
+
+# Install dependencies
+pnpm install
+
+# Build with correct base path
+# Ensure vite.config.ts has:
+# base: '/multi-agent-story/'
+# outDir: '../../../public/multi-agent-story/'
+
+pnpm build
+
+# Verify output
+ls -lh ../../../public/multi-agent-story/
+```
 
 ## Notable Design Decisions
 
-1. **Agent-based architecture** instead of monolithic prompt system allows:
-   - Specialized expertise per task
-   - Independent capability configuration
-   - Collaborative multi-agent workflows
-   - Performance tracking per agent
+1. **Hybrid Integration Strategy**:
+   - Basic Editor: Fully integrated for simplicity and direct access
+   - External Apps: Isolated for independent development and deployment
 
-2. **Orchestration manager singleton** ensures:
-   - Single source of truth for agent registry
-   - Centralized performance metrics
-   - Consistent collaboration graph
+2. **Monorepo with pnpm**:
+   - Efficient disk space usage with shared dependencies
+   - Fast installation and builds
+   - Workspace protocol for internal dependencies
 
-3. **Path aliases** reduce import verbosity and make refactoring easier
+3. **iframe Integration**:
+   - Isolation: Each app runs in its own context
+   - Independent routing: Apps manage their own routes
+   - Security: CSP headers configured appropriately
+   - Fallback: Error boundaries handle loading failures
 
-4. **Result<T> pattern** for error handling provides type-safe success/failure handling without exceptions
+4. **Multiple Build Targets**:
+   - Apps can be developed independently
+   - Main app aggregates all built apps
+   - Each app maintains its own release cycle
 
-5. **ProcessedFile abstraction** unifies text and binary file handling with a single interface
+5. **Shared Packages Strategy**:
+   - Deduplication of common code
+   - Consistent typing across apps
+   - Centralized utility functions
+
+## Troubleshooting
+
+### pnpm Issues
+
+```bash
+# pnpm not found
+npm install -g pnpm
+
+# Clear cache
+pnpm store prune
+
+# Reinstall everything
+pnpm clean:all
+pnpm install
+```
+
+### Type Errors After Migration
+
+```bash
+# Clear TypeScript cache
+rm -rf node_modules/.cache
+pnpm clean
+pnpm install
+pnpm type-check
+```
+
+### Build Failures
+
+```bash
+# Check individual app builds
+cd apps/drama-analyst
+pnpm build
+
+# Check dependencies
+pnpm list --depth=0
+
+# Verify vite.config.ts base path matches deployment path
+```
+
+### iframe Loading Issues
+
+1. Check `public/<app-name>/index.html` exists
+2. Verify `base` path in `vite.config.ts` matches iframe `src`
+3. Check browser console for CSP violations
+4. Ensure built assets reference correct paths (relative to base)
+
+## Resources
+
+- [pnpm Workspaces Documentation](https://pnpm.io/workspaces)
+- [Vite Configuration](https://vitejs.dev/config/)
+- [TypeScript Project References](https://www.typescriptlang.org/docs/handbook/project-references.html)
+- Main README: [README.md](README.md)
+- Architecture Details: [ARCHITECTURE.md](ARCHITECTURE.md)
+- External Apps: [external/README.md](external/README.md)
+- Build Guide: [external/BUILD_GUIDE.md](external/BUILD_GUIDE.md)
+- Monorepo Setup: [MONOREPO_README.md](MONOREPO_README.md)
+
+---
+
+**Last Updated**: 2025-10-15
+**For**: Claude Code automated assistance and development workflows

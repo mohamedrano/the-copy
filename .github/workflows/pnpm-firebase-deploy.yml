@@ -1,0 +1,168 @@
+name: PNPM CI/CD with Firebase Deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  ci:
+    name: Build and Test with PNPM
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10.18.3
+          run_install: false
+          
+      - name: Get pnpm store directory
+        shell: bash
+        run: |
+          echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+          
+      - name: Setup pnpm cache
+        uses: actions/cache@v4
+        with:
+          path: ${{ env.STORE_PATH }}
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
+            
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        
+      - name: Type check all workspaces
+        run: pnpm -r type-check
+        
+      - name: Lint all workspaces
+        run: pnpm -r lint
+        
+      - name: Run tests with coverage
+        run: pnpm -r test -- --coverage
+        
+      - name: Build Drama Analyst
+        run: pnpm build:drama
+        
+      - name: Build Stations
+        run: pnpm build:stations
+        
+      - name: Build Main App
+        run: pnpm build:main
+          
+      - name: Build Jules Platform
+        run: pnpm build:story
+          
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v4
+        if: success()
+        with:
+          files: ./coverage/lcov.info
+          flags: unittests
+          name: codecov-umbrella
+          
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: |
+            public/
+            apps/main-app/dist/
+
+  deploy:
+    name: Deploy to Firebase Hosting
+    needs: ci
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 10.18.3
+          
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+        
+      - name: Build production (Drama Analyst)
+        run: pnpm build:drama
+        env:
+          NODE_ENV: production
+          VITE_SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          VITE_GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          
+      - name: Build production (Stations)
+        run: pnpm build:stations
+        env:
+          NODE_ENV: production
+          
+      - name: Build production (Main App)
+        run: pnpm build:main
+        env:
+          NODE_ENV: production
+          VITE_GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          
+      - name: Build production (Jules Platform)
+        run: pnpm build:story
+        env:
+          NODE_ENV: production
+          VITE_GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          
+      - name: Deploy to Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          channelId: live
+          projectId: the-copy-production
+          
+      - name: Upload Sentry sourcemaps - Main App
+        if: success()
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        run: |
+          npx @sentry/cli sourcemaps upload \
+            --org the-copy \
+            --project main-app \
+            --release ${{ github.sha }} \
+            ./apps/main-app/dist
+          
+      - name: Upload Sentry sourcemaps - Drama Analyst
+        if: success()
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        run: |
+          npx @sentry/cli sourcemaps upload \
+            --org the-copy \
+            --project drama-analyst \
+            --release ${{ github.sha }} \
+            ./public/drama-analyst
+            
+      - name: Upload Sentry sourcemaps - Jules Platform
+        if: success()
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+        run: |
+          npx @sentry/cli sourcemaps upload \
+            --org the-copy \
+            --project jules-platform \
+            --release ${{ github.sha }} \
+            ./public/multi-agent-story

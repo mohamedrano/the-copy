@@ -1,0 +1,715 @@
+openapi: 3.0.3
+info:
+  title: Drama Analyst Backend API
+  description: |
+    Secure backend proxy for Drama Analyst AI-powered dramatic text analysis platform.
+    
+    This API provides secure access to AI services with rate limiting, input sanitization,
+    and comprehensive monitoring capabilities.
+    
+    ## Features
+    - 🔒 **Security**: Rate limiting, input sanitization, CORS protection
+    - 📊 **Monitoring**: Health checks, performance metrics, error tracking
+    - 🚀 **Performance**: Optimized for production workloads
+    - 🔍 **Observability**: Sentry integration, structured logging
+    
+    ## Authentication
+    API keys are managed server-side and not exposed to clients.
+    
+    ## Rate Limiting
+    - **Default**: 10 requests per minute per IP
+    - **Headers**: `X-RateLimit-Limit`, `X-RateLimit-Remaining`, `X-RateLimit-Reset`
+    
+    ## Error Handling
+    All errors follow a consistent format with appropriate HTTP status codes.
+  version: 1.0.0
+  contact:
+    name: Drama Analyst Support
+    email: support@drama-analyst.com
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+
+servers:
+  - url: http://localhost:3001
+    description: Development server
+  - url: https://api.drama-analyst.com
+    description: Production server
+
+tags:
+  - name: Health
+    description: Health check and monitoring endpoints
+  - name: Analysis
+    description: AI-powered text analysis operations
+
+paths:
+  /health:
+    get:
+      tags:
+        - Health
+      summary: Health Check
+      description: |
+        Returns the current health status of the backend service.
+        
+        This endpoint provides comprehensive health metrics including:
+        - Service uptime
+        - Memory usage
+        - Request/error counts
+        - Active connections
+        - Average response time
+        
+        Used for monitoring, load balancing, and service discovery.
+      operationId: getHealth
+      responses:
+        '200':
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              examples:
+                healthy:
+                  summary: Healthy service
+                  value:
+                    status: "healthy"
+                    timestamp: "2024-01-15T10:30:00.000Z"
+                    version: "1.0.0"
+                    metrics:
+                      uptime: 3600
+                      requests: 150
+                      errors: 2
+                      activeConnections: 5
+                      averageResponseTime: 250
+                      memoryUsage:
+                        rss: "45MB"
+                        heapUsed: "32MB"
+                        heapTotal: "48MB"
+                degraded:
+                  summary: Degraded service
+                  value:
+                    status: "degraded"
+                    timestamp: "2024-01-15T10:30:00.000Z"
+                    version: "1.0.0"
+                    metrics:
+                      uptime: 3600
+                      requests: 150
+                      errors: 15
+                      activeConnections: 25
+                      averageResponseTime: 800
+                      memoryUsage:
+                        rss: "85MB"
+                        heapUsed: "72MB"
+                        heapTotal: "88MB"
+        '500':
+          description: Service is unhealthy
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                unhealthy:
+                  summary: Unhealthy service
+                  value:
+                    status: "unhealthy"
+                    timestamp: "2024-01-15T10:30:00.000Z"
+                    error: "Health check failed"
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X GET "http://localhost:3001/health" \
+              -H "Accept: application/json"
+        - lang: javascript
+          source: |
+            const response = await fetch('http://localhost:3001/health');
+            const health = await response.json();
+            console.log('Service status:', health.status);
+        - lang: python
+          source: |
+            import requests
+            
+            response = requests.get('http://localhost:3001/health')
+            health = response.json()
+            print(f"Service status: {health['status']}")
+
+  /api/analyze:
+    post:
+      tags:
+        - Analysis
+      summary: Analyze Text with AI
+      description: |
+        Analyzes uploaded text files using AI agents for dramatic text analysis.
+        
+        ## Supported Analysis Types
+        - **Character Analysis**: Character development, relationships, motivations
+        - **Plot Analysis**: Story structure, pacing, conflict resolution
+        - **Dialogue Analysis**: Speech patterns, authenticity, character voice
+        - **Theme Analysis**: Underlying messages, symbolism, cultural context
+        - **Style Analysis**: Writing techniques, narrative voice, literary devices
+        
+        ## File Processing
+        - Supports multiple file formats (TXT, MD, DOCX, PDF)
+        - Maximum file size: 20MB per file
+        - Maximum files per request: 10
+        
+        ## AI Agents
+        The system uses specialized AI agents for different analysis tasks:
+        - **Core Agents**: General analysis, creative generation, integration
+        - **Analytical Agents**: Rhythm mapping, character networks, dialogue forensics
+        - **Creative Agents**: Scene generation, character voice, world building
+        - **Predictive Agents**: Plot prediction, tension optimization, audience resonance
+        
+        ## Response Format
+        Returns structured analysis results with:
+        - Raw AI response
+        - Processed insights
+        - Metadata (model used, processing time, file count)
+        
+        ## Rate Limiting
+        - 10 requests per minute per IP
+        - Headers include rate limit information
+        
+        ## Error Handling
+        Comprehensive error responses for:
+        - Invalid file formats
+        - File size limits
+        - AI service errors
+        - Rate limit exceeded
+        - Input validation errors
+      operationId: analyzeText
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AnalysisRequest'
+            examples:
+              character_analysis:
+                summary: Character Analysis
+                value:
+                  agent: "character_analysis"
+                  files:
+                    - name: "script.txt"
+                      content: "Character dialogue and actions..."
+                      type: "text"
+                      size: 1024
+                  parameters:
+                    analysis_depth: "detailed"
+                    focus_areas: ["motivation", "development", "relationships"]
+              plot_analysis:
+                summary: Plot Analysis
+                value:
+                  agent: "plot_analysis"
+                  files:
+                    - name: "story.md"
+                      content: "Story content..."
+                      type: "text"
+                      size: 2048
+                  parameters:
+                    analysis_type: "structure"
+                    include_pacing: true
+              completion_task:
+                summary: Completion Task
+                value:
+                  agent: "completion"
+                  files:
+                    - name: "incomplete.txt"
+                      content: "Incomplete story..."
+                      type: "text"
+                      size: 1536
+                  parameters:
+                    completionScope: "medium"
+                    enhancementOptions: ["character_development", "plot_advancement"]
+      responses:
+        '200':
+          description: Analysis completed successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AnalysisResponse'
+              examples:
+                success:
+                  summary: Successful analysis
+                  value:
+                    ok: true
+                    agent: "character_analysis"
+                    raw: "Character analysis results..."
+                    meta:
+                      provider: "gemini"
+                      model: "gemini-1.5-flash"
+                      timestamp: "2024-01-15T10:30:00.000Z"
+                      filesProcessed: 1
+                completion:
+                  summary: Completion task
+                  value:
+                    ok: true
+                    agent: "completion"
+                    raw: "Completed story content..."
+                    meta:
+                      provider: "gemini"
+                      model: "gemini-1.5-flash"
+                      timestamp: "2024-01-15T10:30:00.000Z"
+                      filesProcessed: 1
+                      completionScope: "medium"
+        '400':
+          description: Bad request - invalid input
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                validation_error:
+                  summary: Validation error
+                  value:
+                    code: "VALIDATION_ERROR"
+                    message: "Invalid request format"
+                    details:
+                      - "Field 'agent' is required"
+                      "Field 'files' must be an array"
+                file_too_large:
+                  summary: File too large
+                  value:
+                    code: "FILE_TOO_LARGE"
+                    message: "File size exceeds maximum allowed size (20MB)"
+        '413':
+          description: Payload too large
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                code: "FILE_TOO_LARGE"
+                message: "File size exceeds maximum allowed size (20MB)"
+        '429':
+          description: Too many requests - rate limit exceeded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                code: "RATE_LIMIT_EXCEEDED"
+                message: "Rate limit exceeded. Please try again later."
+                retryAfter: 60
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              examples:
+                analysis_failed:
+                  summary: Analysis failed
+                  value:
+                    code: "ANALYSIS_FAILED"
+                    message: "فشل في تحليل النص. يرجى المحاولة مرة أخرى."
+                    timestamp: "2024-01-15T10:30:00.000Z"
+                quota_exceeded:
+                  summary: Quota exceeded
+                  value:
+                    code: "QUOTA_EXCEEDED"
+                    message: "تم تجاوز حد الاستخدام. يرجى المحاولة لاحقاً."
+                    timestamp: "2024-01-15T10:30:00.000Z"
+                api_key_error:
+                  summary: API key error
+                  value:
+                    code: "INVALID_API_KEY"
+                    message: "خطأ في إعدادات الخدمة"
+                    timestamp: "2024-01-15T10:30:00.000Z"
+        '408':
+          description: Request timeout
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                code: "REQUEST_TIMEOUT"
+                message: "انتهت مهلة الطلب. يرجى المحاولة مرة أخرى."
+                timestamp: "2024-01-15T10:30:00.000Z"
+      x-code-samples:
+        - lang: curl
+          source: |
+            curl -X POST "http://localhost:3001/api/analyze" \
+              -H "Content-Type: application/json" \
+              -H "Accept: application/json" \
+              -d '{
+                "agent": "character_analysis",
+                "files": [
+                  {
+                    "name": "script.txt",
+                    "content": "Character dialogue...",
+                    "type": "text",
+                    "size": 1024
+                  }
+                ],
+                "parameters": {
+                  "analysis_depth": "detailed"
+                }
+              }'
+        - lang: javascript
+          source: |
+            const response = await fetch('http://localhost:3001/api/analyze', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
+              },
+              body: JSON.stringify({
+                agent: 'character_analysis',
+                files: [{
+                  name: 'script.txt',
+                  content: 'Character dialogue...',
+                  type: 'text',
+                  size: 1024
+                }],
+                parameters: {
+                  analysis_depth: 'detailed'
+                }
+              })
+            });
+            
+            const result = await response.json();
+            console.log('Analysis result:', result);
+        - lang: python
+          source: |
+            import requests
+            
+            payload = {
+                "agent": "character_analysis",
+                "files": [
+                    {
+                        "name": "script.txt",
+                        "content": "Character dialogue...",
+                        "type": "text",
+                        "size": 1024
+                    }
+                ],
+                "parameters": {
+                    "analysis_depth": "detailed"
+                }
+            }
+            
+            response = requests.post(
+                'http://localhost:3001/api/analyze',
+                json=payload,
+                headers={'Accept': 'application/json'}
+            )
+            
+            result = response.json()
+            print(f"Analysis result: {result}")
+
+components:
+  schemas:
+    HealthResponse:
+      type: object
+      required:
+        - status
+        - timestamp
+        - version
+        - metrics
+      properties:
+        status:
+          type: string
+          enum: [healthy, degraded, unhealthy]
+          description: Current health status of the service
+          example: "healthy"
+        timestamp:
+          type: string
+          format: date-time
+          description: Timestamp of the health check
+          example: "2024-01-15T10:30:00.000Z"
+        version:
+          type: string
+          description: Service version
+          example: "1.0.0"
+        metrics:
+          type: object
+          required:
+            - uptime
+            - requests
+            - errors
+            - activeConnections
+            - averageResponseTime
+            - memoryUsage
+          properties:
+            uptime:
+              type: number
+              description: Service uptime in seconds
+              example: 3600
+            requests:
+              type: integer
+              description: Total number of requests processed
+              example: 150
+            errors:
+              type: integer
+              description: Total number of errors encountered
+              example: 2
+            activeConnections:
+              type: integer
+              description: Number of active connections
+              example: 5
+            averageResponseTime:
+              type: number
+              description: Average response time in milliseconds
+              example: 250
+            memoryUsage:
+              type: object
+              required:
+                - rss
+                - heapUsed
+                - heapTotal
+              properties:
+                rss:
+                  type: string
+                  description: Resident Set Size memory usage
+                  example: "45MB"
+                heapUsed:
+                  type: string
+                  description: Heap memory used
+                  example: "32MB"
+                heapTotal:
+                  type: string
+                  description: Total heap memory allocated
+                  example: "48MB"
+
+    AnalysisRequest:
+      type: object
+      required:
+        - agent
+        - files
+      properties:
+        agent:
+          type: string
+          description: |
+            AI agent to use for analysis. Must be one of the supported agent types:
+            
+            **Core Agents:**
+            - `analysis` - General text analysis
+            - `creative` - Creative content generation
+            - `integrated` - Integrated analysis
+            - `completion` - Text completion
+            
+            **Analytical Agents:**
+            - `rhythm_mapping` - Rhythm and pacing analysis
+            - `character_network` - Character relationship analysis
+            - `dialogue_forensics` - Dialogue analysis
+            - `thematic_mining` - Theme extraction
+            - `style_fingerprinting` - Writing style analysis
+            - `conflict_dynamics` - Conflict analysis
+            
+            **Creative Agents:**
+            - `adaptive_rewriting` - Adaptive text rewriting
+            - `scene_generator` - Scene generation
+            - `character_voice` - Character voice development
+            - `world_builder` - World building
+            
+            **Predictive Agents:**
+            - `plot_prediction` - Plot prediction
+            - `tension_optimization` - Tension optimization
+            - `audience_resonance` - Audience analysis
+            - `platform_adaptation` - Platform-specific adaptation
+          minLength: 1
+          maxLength: 100
+          example: "character_analysis"
+        files:
+          type: array
+          description: Array of files to analyze
+          minItems: 1
+          maxItems: 10
+          items:
+            $ref: '#/components/schemas/FileInput'
+        parameters:
+          type: object
+          description: |
+            Optional parameters for the analysis. Structure depends on the agent type.
+            
+            **Common Parameters:**
+            - `analysis_depth` - Analysis depth (shallow, medium, detailed)
+            - `focus_areas` - Specific areas to focus on
+            - `language` - Target language for analysis
+            - `output_format` - Desired output format
+            
+            **Completion-specific Parameters:**
+            - `completionScope` - Scope of completion (short, medium, long)
+            - `enhancementOptions` - Enhancement options to apply
+            
+            **Creative Parameters:**
+            - `creativity_level` - Creativity level (conservative, balanced, creative)
+            - `style_preference` - Preferred writing style
+          additionalProperties: true
+          example:
+            analysis_depth: "detailed"
+            focus_areas: ["motivation", "development", "relationships"]
+            completionScope: "medium"
+
+    FileInput:
+      type: object
+      required:
+        - name
+        - content
+        - type
+      properties:
+        name:
+          type: string
+          description: Original filename
+          minLength: 1
+          maxLength: 255
+          example: "script.txt"
+        content:
+          type: string
+          description: |
+            File content. For text files, this is the raw text content.
+            For binary files, this should be base64-encoded content.
+          minLength: 1
+          example: "Character dialogue and actions..."
+        type:
+          type: string
+          enum: [text, binary]
+          description: File type indicator
+          example: "text"
+        size:
+          type: integer
+          description: File size in bytes
+          minimum: 1
+          maximum: 20971520
+          example: 1024
+
+    AnalysisResponse:
+      type: object
+      required:
+        - ok
+        - agent
+        - raw
+        - meta
+      properties:
+        ok:
+          type: boolean
+          description: Whether the analysis was successful
+          example: true
+        agent:
+          type: string
+          description: Agent used for analysis
+          example: "character_analysis"
+        raw:
+          type: string
+          description: Raw AI response content
+          example: "Character analysis results..."
+        meta:
+          type: object
+          required:
+            - provider
+            - model
+            - timestamp
+            - filesProcessed
+          properties:
+            provider:
+              type: string
+              description: AI service provider
+              example: "gemini"
+            model:
+              type: string
+              description: AI model used
+              example: "gemini-1.5-flash"
+            timestamp:
+              type: string
+              format: date-time
+              description: Analysis completion timestamp
+              example: "2024-01-15T10:30:00.000Z"
+            filesProcessed:
+              type: integer
+              description: Number of files processed
+              example: 1
+            completionScope:
+              type: string
+              description: Completion scope (for completion tasks)
+              example: "medium"
+            processingTime:
+              type: number
+              description: Processing time in milliseconds
+              example: 2500
+
+    ErrorResponse:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: string
+          description: Error code for programmatic handling
+          example: "VALIDATION_ERROR"
+        message:
+          type: string
+          description: Human-readable error message
+          example: "Invalid request format"
+        timestamp:
+          type: string
+          format: date-time
+          description: Error occurrence timestamp
+          example: "2024-01-15T10:30:00.000Z"
+        details:
+          type: array
+          description: Additional error details
+          items:
+            type: string
+          example: ["Field 'agent' is required", "Field 'files' must be an array"]
+        retryAfter:
+          type: integer
+          description: Seconds to wait before retrying (for rate limit errors)
+          example: 60
+
+  securitySchemes:
+    RateLimit:
+      type: apiKey
+      in: header
+      name: X-RateLimit-Limit
+      description: Rate limit information header
+
+  responses:
+    RateLimitExceeded:
+      description: Rate limit exceeded
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            code: "RATE_LIMIT_EXCEEDED"
+            message: "Rate limit exceeded. Please try again later."
+            retryAfter: 60
+      headers:
+        X-RateLimit-Limit:
+          schema:
+            type: integer
+          description: Maximum requests per time window
+          example: 10
+        X-RateLimit-Remaining:
+          schema:
+            type: integer
+          description: Remaining requests in current time window
+          example: 3
+        X-RateLimit-Reset:
+          schema:
+            type: integer
+          description: Unix timestamp when rate limit resets
+          example: 1642248600
+
+  headers:
+    RateLimitHeaders:
+      description: Rate limiting headers included in all responses
+      schema:
+        type: object
+        properties:
+          X-RateLimit-Limit:
+            type: integer
+            description: Maximum requests per time window
+            example: 10
+          X-RateLimit-Remaining:
+            type: integer
+            description: Remaining requests in current time window
+            example: 3
+          X-RateLimit-Reset:
+            type: integer
+            description: Unix timestamp when rate limit resets
+            example: 1642248600
+
+security:
+  - RateLimit: []
+

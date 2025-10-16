@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run build:*)",
+      "Bash(mv:*)",
+      "Bash(find:*)",
+      "Bash(cat:*)",
+      "Bash(npm run type-check:*)",
+      "Bash(npm install:*)",
+      "Bash(npm run lint)",
+      "Bash(tree:*)",
+      "Bash(git checkout:*)",
+      "Bash(mkdir:*)",
+      "Bash(awk:*)",
+      "Bash(npm test:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

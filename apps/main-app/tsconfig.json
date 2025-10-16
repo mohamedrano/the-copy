@@ -1,0 +1,32 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "types": ["vite/client", "node"],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@/components/*": ["./src/components/*"],
+      "@/agents/*": ["./src/agents/*"],
+      "@/services/*": ["./src/services/*"],
+      "@/types/*": ["./src/types/*"],
+      "@/config/*": ["./src/config/*"],
+      "@/modules/*": ["./src/modules/*"],
+      "@the-copy/shared-ui": ["../../packages/shared-ui/src"],
+      "@the-copy/shared-ui/*": ["../../packages/shared-ui/src/*"],
+      "@the-copy/shared-types": ["../../packages/shared-types/src"],
+      "@the-copy/shared-types/*": ["../../packages/shared-types/src/*"],
+      "@the-copy/shared-utils": ["../../packages/shared-utils/src"],
+      "@the-copy/shared-utils/*": ["../../packages/shared-utils/src/*"]
+    }
+  },
+  "include": ["src"],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "public",
+    "src/agents/advanced_module_output_structure.ts",
+    "src/components/editor/ScreenplayEditor-original.tsx",
+    "src/components/editor/ScreenplayEditor-backup.tsx"
+  ],
+  "references": [{ "path": "./tsconfig.node.json" }]
+}

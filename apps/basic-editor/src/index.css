@@ -1,0 +1,120 @@
+/* استيراد الخطوط العربية */
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* دعم RTL عالمي */
+:root {
+  direction: rtl;
+  text-align: right;
+}
+
+/* تحسين دعم العربية */
+.rtl-container {
+  direction: rtl;
+  text-align: right;
+  font-family: 'Amiri', 'Cairo', 'Tajawal', 'Noto Sans Arabic', sans-serif;
+}
+
+.rtl-container input,
+.rtl-container textarea,
+.rtl-container [contenteditable] {
+  direction: rtl;
+  text-align: right;
+}
+
+/* تحسين عرض النصوص العربية */
+body {
+  font-family: 'Amiri', 'Cairo', 'Tajawal', 'Noto Sans Arabic', sans-serif;
+  direction: rtl;
+  text-align: right;
+}
+
+/* تحسين الأزرار والعناصر التفاعلية */
+button {
+  font-family: inherit;
+}
+
+/* تحسين القوائم المنسدلة */
+select {
+  direction: rtl;
+  text-align: right;
+}
+
+/* تحسين النماذج */
+form {
+  direction: rtl;
+}
+
+/* تحسين الجداول */
+table {
+  direction: rtl;
+}
+
+th, td {
+  text-align: right;
+}
+
+/* تحسين التخطيط المرن */
+.flex {
+  direction: rtl;
+}
+
+.flex-row-reverse {
+  flex-direction: row;
+}
+
+/* إصلاح مشاكل الهوامش في RTL */
+.mr-auto {
+  margin-left: auto;
+  margin-right: 0;
+}
+
+.ml-auto {
+  margin-right: auto;
+  margin-left: 0;
+}
+
+/* أمان المحرر */
+[contenteditable] {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+  outline: none;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+[contenteditable]:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* منع تسريب المحتوى */
+.screenplay-content {
+  max-width: 100%;
+  overflow: hidden;
+}
+
+/* تحسين الأداء */
+.lazy-load {
+  content-visibility: auto;
+  contain-intrinsic-size: 200px;
+}
+
+/* تحسين الطباعة */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+}

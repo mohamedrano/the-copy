@@ -1,0 +1,26 @@
+{
+  "unregistered_agents": [],
+  "tsconfig_exclusions": {
+    "exclude_patterns": [],
+    "impact": "tsconfig.json includes the entire source tree; no files are explicitly skipped from compilation."
+  },
+  "orchestration_issues": [
+    {
+      "file": "H:\\Drama-analyst-and-creative-mimic\\orchestration\\agentFactory.ts",
+      "issue": "Factory builder is never imported and does not expose mappings for TaskType -> agent config.",
+      "suggested_fix": "Either remove agentFactory.ts or wire its builder into orchestration with exported create/get functions."
+    },
+    {
+      "file": "H:\\Drama-analyst-and-creative-mimic\\services\\geminiService.ts",
+      "issue": "Service layer assembles prompts by reaching into agents/taskInstructions instead of using orchestration.",
+      "suggested_fix": "Expose a dedicated orchestration facade that returns prompts and metadata for services to call Gemini."
+    }
+  ],
+  "ui_integration_gaps": [
+    {
+      "file": "H:\\Drama-analyst-and-creative-mimic\\ui\\App.tsx",
+      "issue": "UI bypasses orchestration and invokes services directly, so collaboration graph and cache strategy are unused.",
+      "suggested_fix": "Route task submission through orchestration helpers (e.g., aiAgentOrchestra facade) and keep UI pure."
+    }
+  ]
+}

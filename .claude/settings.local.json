@@ -22,7 +22,11 @@
       "Read(//h/the-copy--Multi-agent-Story-Development-Platform/**)",
       "Read(//k/المشروع/the-copy-Multi-agent-Story/**)",
       "Bash(rsync:*)",
-      "Bash(tree:*)"
+      "Bash(tree:*)",
+      "Bash(pnpm --version)",
+      "Bash(/c/Users/menot/AppData/Roaming/npm/pnpm --version)",
+      "Bash(awk:*)",
+      "Bash(pnpm install)"
     ],
     "deny": [],
     "ask": []
