@@ -1,6 +1,7 @@
 import { FastifyPluginAsync } from 'fastify';
 import { z } from 'zod';
 import { agentManager } from '../agents/config';
+import { QueueService } from '../services/queue';
 
 const createSessionSchema = z.object({
   brief: z.string().min(10),
@@ -46,10 +47,8 @@ export const sessionRoutes: FastifyPluginAsync = async (fastify) => {
       // Store in Redis for quick access
       await redis.set(`session:${session.id}`, JSON.stringify(session), 'EX', 86400);
 
-      // Start first phase
-      setTimeout(async () => {
-        await startPhase(session.id, 1);
-      }, 1000);
+      // Start first phase using queue system
+      await QueueService.schedulePhaseStart(session.id, 1, 1000);
 
       return reply.send(session);
     } catch (error: any) {
@@ -172,6 +171,9 @@ export const sessionRoutes: FastifyPluginAsync = async (fastify) => {
       return reply.status(403).send({ error: 'Forbidden' });
     }
 
+    // Cancel any pending queue jobs for this session
+    await QueueService.cancelSessionJobs(id);
+
     // Delete related data
     await prisma.message.deleteMany({ where: { sessionId: id } });
     await prisma.agentSession.deleteMany({ where: { sessionId: id } });
@@ -228,60 +230,25 @@ export const sessionRoutes: FastifyPluginAsync = async (fastify) => {
     return reply.send(winner);
   });
 
-  // Helper function to start a phase
-  async function startPhase(sessionId: string, phase: number) {
-    try {
-      // Get session data
-      const session = await prisma.session.findUnique({
-        where: { id: sessionId },
-        include: {
-          ideas: true,
-        },
-      });
+  // Get session job status
+  fastify.get('/:id/jobs', {
+    preHandler: [fastify.authenticate],
+  }, async (request: any, reply) => {
+    const { id } = request.params;
 
-      if (!session || session.status !== 'ACTIVE') {
-        return;
-      }
+    const session = await prisma.session.findUnique({
+      where: { id },
+    });
 
-      // Update phase
-      await prisma.session.update({
-        where: { id: sessionId },
-        data: { phase },
-      });
-
-      // Execute agents for this phase
-      const results = await agentManager.runPhase(phase, session);
-
-      // Store results
-      for (const result of results) {
-        await prisma.message.create({
-          data: {
-            sessionId,
-            agentId: result.agentId,
-            type: 'AGENT',
-            content: result.result,
-          },
-        });
-
-        // Update agent status
-        await prisma.agentSession.updateMany({
-          where: {
-            sessionId,
-            agentId: result.agentId,
-          },
-          data: {
-            status: 'COMPLETED',
-            lastAction: result.result.substring(0, 200),
-          },
-        });
-      }
-
-      // Move to next phase if not final
-      if (phase < 5 && session.status === 'ACTIVE') {
-        setTimeout(() => startPhase(sessionId, phase + 1), 5000);
-      }
-    } catch (error) {
-      fastify.log.error(`Error in phase ${phase} for session ${sessionId}:`, error);
+    if (!session) {
+      return reply.status(404).send({ error: 'Session not found' });
     }
-  }
+
+    if (session.userId !== request.user.id && request.user.role !== 'ADMIN') {
+      return reply.status(403).send({ error: 'Forbidden' });
+    }
+
+    const jobStatus = await QueueService.getSessionJobStatus(id);
+    return reply.send(jobStatus);
+  });
 };

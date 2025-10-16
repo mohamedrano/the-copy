@@ -26,13 +26,16 @@
     "lint": "pnpm -r run lint",
     "lint:fix": "pnpm -r run lint:fix",
     "test": "pnpm -r run test",
+    "test:coverage": "pnpm --filter \"./apps/*\" test -- --coverage",
     "coverage": "pnpm -r run coverage",
     "preview": "pnpm --filter @the-copy/the-copy run preview",
     "verify:all": "pnpm run type-check && pnpm run lint && pnpm run test",
     "dev:shell": "pnpm --filter @the-copy/the-copy run dev",
     "build:shell": "pnpm --filter @the-copy/the-copy run build",
     "type-check:shell": "pnpm --filter @the-copy/the-copy run type-check",
-    "test:shell": "pnpm --filter @the-copy/the-copy run test"
+    "test:shell": "pnpm --filter @the-copy/the-copy run test",
+    "docker:build": "docker build -f Dockerfile . -t the-copy-app",
+    "docker:run": "docker run -p 8080:80 the-copy-app"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",

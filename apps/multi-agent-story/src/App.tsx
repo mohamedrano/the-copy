@@ -1,9 +1,112 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FileText, Users, Brain, Sparkles, Play, Settings, BookOpen, Target, Trophy, MessageSquare, Zap, Shield, Cpu, Layers, Rocket } from 'lucide-react';
+import { useStore } from './store/useStore';
+import { sessionService, agentService, wsService } from './services/api';
 
 function App() {
-  const [activePhase, setActivePhase] = useState<number | null>(null);
+  const {
+    isAuthenticated,
+    user,
+    currentSession,
+    sessions,
+    agents,
+    isLoading,
+    error,
+    activePhase,
+    setAuth,
+    logout,
+    setCurrentSession,
+    setSessions,
+    addSession,
+    updateSession,
+    setAgents,
+    updateAgent,
+    setActivePhase: setStoreActivePhase,
+    setLoading,
+    setError,
+  } = useStore();
+
   const [sessionActive, setSessionActive] = useState(false);
+
+  // Load initial data
+  useEffect(() => {
+    const loadInitialData = async () => {
+      try {
+        setLoading(true);
+        
+        // Load sessions
+        const sessionsData = await sessionService.listSessions();
+        setSessions(sessionsData);
+        
+        // Load agents
+        const agentsData = await agentService.getAgents();
+        setAgents(agentsData);
+        
+        // Set current session if exists
+        if (sessionsData.length > 0 && !currentSession) {
+          setCurrentSession(sessionsData[0]);
+        }
+      } catch (err) {
+        setError('Failed to load initial data');
+        console.error('Error loading initial data:', err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (isAuthenticated) {
+      loadInitialData();
+    }
+  }, [isAuthenticated, setSessions, setAgents, setCurrentSession, setLoading, setError, currentSession]);
+
+  // WebSocket connection management
+  useEffect(() => {
+    if (currentSession && sessionActive) {
+      wsService.connect(currentSession.id);
+      
+      const unsubscribe = wsService.on('agentUpdate', (data) => {
+        updateAgent(data.agentId, {
+          status: data.status,
+          lastMessage: data.result ? JSON.stringify(data.result) : undefined,
+        });
+      });
+
+      return () => {
+        unsubscribe();
+        wsService.disconnect();
+      };
+    }
+  }, [currentSession, sessionActive, updateAgent]);
+
+  // Session management functions
+  const handleStartSession = async () => {
+    try {
+      setLoading(true);
+      const brief = prompt('أدخل ملخص الفكرة الإبداعية:');
+      if (!brief) return;
+
+      const newSession = await sessionService.createSession(brief);
+      addSession(newSession);
+      setCurrentSession(newSession);
+      setSessionActive(true);
+      setStoreActivePhase(1);
+    } catch (err) {
+      setError('Failed to start session');
+      console.error('Error starting session:', err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleStopSession = () => {
+    setSessionActive(false);
+    wsService.disconnect();
+  };
+
+  const handlePhaseChange = (phase: number) => {
+    setStoreActivePhase(phase);
+    setActivePhase(phase);
+  };
 
   const phases = [
     {
@@ -73,6 +176,17 @@ function App() {
           <p className="text-xl text-gray-300">
             منصة التطوير القصصي بالذكاء الاصطناعي متعدد الوكلاء
           </p>
+          {error && (
+            <div className="mt-4 p-4 bg-red-500/20 rounded-xl border border-red-500/50">
+              <p className="text-red-400 font-semibold">خطأ: {error}</p>
+            </div>
+          )}
+          {currentSession && (
+            <div className="mt-4 p-4 bg-blue-500/20 rounded-xl border border-blue-500/50">
+              <p className="text-blue-400 font-semibold">الجلسة الحالية: {currentSession.brief}</p>
+              <p className="text-sm text-gray-300 mt-1">الحالة: {currentSession.status} | المرحلة: {currentSession.phase}</p>
+            </div>
+          )}
         </div>
 
         {/* Main Dashboard */}
@@ -91,7 +205,7 @@ function App() {
                 {phases.map((phase) => (
                   <button
                     key={phase.id}
-                    onClick={() => setActivePhase(phase.id)}
+                    onClick={() => handlePhaseChange(phase.id)}
                     className={`p-4 rounded-xl text-white transition-all flex items-center gap-3 ${
                       activePhase === phase.id
                         ? `${phase.color} ring-4 ring-white/50`
@@ -111,15 +225,18 @@ function App() {
             {/* Session Actions */}
             <div className="flex gap-4">
               <button
-                onClick={() => setSessionActive(!sessionActive)}
-                className={`flex-1 py-4 px-6 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-3 ${
+                onClick={sessionActive ? handleStopSession : handleStartSession}
+                disabled={isLoading}
+                className={`flex-1 py-4 px-6 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-3 disabled:opacity-50 ${
                   sessionActive
                     ? 'bg-red-500 hover:bg-red-600'
                     : 'bg-gradient-to-r from-green-500 to-emerald-500 hover:from-green-600 hover:to-emerald-600'
                 }`}
               >
-                {sessionActive ? (
-                  <><Settings className="w-6 h-6 animate-spin" /> إيقاف الجلسة</>
+                {isLoading ? (
+                  <><Settings className="w-6 h-6 animate-spin" /> جاري التحميل...</>
+                ) : sessionActive ? (
+                  <><Settings className="w-6 h-6" /> إيقاف الجلسة</>
                 ) : (
                   <><Play className="w-6 h-6" /> بدء جلسة جديدة</>
                 )}
@@ -143,19 +260,29 @@ function App() {
               فريق الوكلاء
             </h2>
             <div className="space-y-3 max-h-96 overflow-y-auto">
-              {agents.map((agent, index) => (
+              {agents.length > 0 ? agents.map((agent) => (
                 <div
-                  key={index}
+                  key={agent.id}
                   className="flex items-center gap-3 p-3 bg-white/5 rounded-lg hover:bg-white/10 transition-colors"
                 >
                   <div className="text-cyan-400">{agent.icon}</div>
                   <div className="flex-1">
                     <p className="font-semibold text-sm">{agent.name}</p>
                     <p className="text-xs text-gray-400">{agent.role}</p>
+                    {agent.lastMessage && (
+                      <p className="text-xs text-gray-500 mt-1 truncate">{agent.lastMessage}</p>
+                    )}
                   </div>
-                  <div className={`w-2 h-2 rounded-full ${sessionActive ? 'bg-green-400 animate-pulse' : 'bg-gray-500'}`} />
+                  <div className={`w-2 h-2 rounded-full ${
+                    agent.status === 'working' ? 'bg-blue-400 animate-pulse' :
+                    agent.status === 'completed' ? 'bg-green-400' :
+                    agent.status === 'error' ? 'bg-red-400' :
+                    'bg-gray-500'
+                  }`} />
                 </div>
-              ))}
+              )) : (
+                <p className="text-gray-400 text-sm">جاري تحميل الوكلاء...</p>
+              )}
             </div>
           </div>
         </div>

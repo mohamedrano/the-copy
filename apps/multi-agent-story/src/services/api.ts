@@ -12,23 +12,30 @@ export const api = axios.create({
   },
 });
 
-// Add auth interceptor
-api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('auth_token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
-  }
-  return config;
-});
+// Add credentials to all requests for cookie support
+api.defaults.withCredentials = true;
 
-// Response interceptor for error handling
+// Response interceptor for error handling and token refresh
 api.interceptors.response.use(
   (response) => response,
-  (error) => {
-    if (error.response?.status === 401) {
-      localStorage.removeItem('auth_token');
-      window.location.href = '/login';
+  async (error) => {
+    const originalRequest = error.config;
+    
+    if (error.response?.status === 401 && !originalRequest._retry) {
+      originalRequest._retry = true;
+      
+      try {
+        // Attempt to refresh the token
+        await api.post('/api/auth/refresh');
+        // Retry the original request
+        return api(originalRequest);
+      } catch (refreshError) {
+        // Refresh failed, redirect to login
+        window.location.href = '/login';
+        return Promise.reject(refreshError);
+      }
     }
+    
     return Promise.reject(error);
   }
 );
@@ -118,18 +125,37 @@ export const ideaService = {
   }
 };
 
+// WebSocket message types
+interface WebSocketMessage {
+  type: string;
+  data?: unknown;
+  sessionId?: string;
+  agentId?: string;
+  timestamp?: string;
+}
+
+interface WebSocketEventMap {
+  connected: void;
+  disconnected: void;
+  error: Error;
+  sessionUpdate: { sessionId: string; status: string };
+  agentUpdate: { agentId: string; status: string; result?: unknown };
+  ideaUpdate: { sessionId: string; idea: Idea };
+  winnerSelected: { sessionId: string; ideaId: string };
+}
+
 // WebSocket connection for real-time updates
 export class WebSocketService {
   private ws: WebSocket | null = null;
-  private listeners: Map<string, Set<(payload: unknown) => void>> = new Map();
+  private listeners: Map<keyof WebSocketEventMap, Set<(payload: WebSocketEventMap[keyof WebSocketEventMap]) => void>> = new Map();
   
   connect(sessionId: string) {
     if (this.ws) {
       this.disconnect();
     }
     
-    const token = localStorage.getItem('auth_token');
-    const wsUrl = `${WS_URL}/ws/${sessionId}?token=${token}`;
+    // WebSocket will automatically include cookies due to same-origin policy
+    const wsUrl = `${WS_URL}/ws/${sessionId}`;
     
     this.ws = new WebSocket(wsUrl);
     

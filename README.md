@@ -32,9 +32,11 @@
 
 ### المتطلبات
 
-- Node.js 18.0.0 أو أحدث
-- npm 9.0.0 أو أحدث
+- Node.js 20.0.0 أو أحدث
+- pnpm 10.0.0 أو أحدث
 - متصفح حديث يدعم ES2020+
+- Redis (للخادم الخلفي)
+- PostgreSQL (للبيانات)
 
 ### التثبيت
 
@@ -44,57 +46,81 @@ git clone https://github.com/your-org/the-copy.git
 cd the-copy
 
 # تثبيت التبعيات
-npm install
+pnpm install
 
-# تشغيل الخادم المحلي
-npm run dev
+# تشغيل جميع التطبيقات
+pnpm run dev
+
+# أو تشغيل تطبيق محدد
+pnpm run dev:story    # Multi-Agent Story Platform
+pnpm run dev:drama    # Drama Analyst
+pnpm run dev:stations # Stations
+pnpm run dev:basic    # Basic Editor
 ```
-
-يفتح التطبيق على `http://localhost:5177`
 
 ### البناء للإنتاج
 
 ```bash
 # فحص الأنواع والجودة
-npm run type-check
-npm run lint
+pnpm run type-check
+pnpm run lint
+pnpm run test:coverage
 
-# بناء التطبيق
-npm run build
+# بناء جميع التطبيقات
+pnpm run build
 
-# معاينة البناء
-npm run preview
+# بناء Docker
+pnpm run docker:build
+pnpm run docker:run
 ```
 
 ## الهندسة المعمارية
+
+### هيكل Monorepo
+
+```
+the-copy/
+├── apps/
+│   ├── multi-agent-story/     # منصة التطوير القصصي متعدد الوكلاء
+│   ├── drama-analyst/         # محلل الدراما المتقدم
+│   ├── stations/              # محطة التحليل المتخصصة
+│   ├── basic-editor/          # المحرر الأساسي
+│   └── the-copy/              # التطبيق الرئيسي
+├── packages/
+│   ├── shared-types/          # الأنواع المشتركة
+│   ├── shared-ui/             # مكونات الواجهة المشتركة
+│   └── shared-utils/          # الأدوات المشتركة
+└── docs/                      # الوثائق
+```
 
 ### طبقات النظام
 
 ```
 ┌─────────────────────────────────────┐
-│           واجهة المستخدم            │
-│        (React Components)          │
+│         واجهة المستخدم              │
+│      (React + TypeScript)          │
 ├─────────────────────────────────────┤
-│         خدمات التحليل              │
-│      (Analysis Services)           │
+│         خدمات API                  │
+│      (Fastify + WebSocket)         │
+├─────────────────────────────────────┤
+│         نظام الطوابير              │
+│      (BullMQ + Redis)              │
+├─────────────────────────────────────┤
+│         قاعدة البيانات             │
+│      (PostgreSQL + Prisma)         │
 ├─────────────────────────────────────┤
 │         وكلاء الذكاء الاصطناعي      │
-│        (AI Agents)                 │
-├─────────────────────────────────────┤
-│         معالجة النصوص               │
-│      (Text Processing)             │
-├─────────────────────────────────────┤
-│         خدمات البيانات             │
-│       (Data Services)              │
+│      (Gemini AI + Custom)          │
 └─────────────────────────────────────┘
 ```
 
 ### المكونات الرئيسية
 
-- **App.tsx** - المكون الجذر مع نظام التنقل
-- **ScreenplayEditor** - محرر السيناريو الرئيسي
-- **AnalysisService** - خدمة التحليل الأساسية
-- **AgentFacade** - واجهة إدارة الوكلاء الذكيين
+- **Multi-Agent Story Platform** - منصة التطوير القصصي مع 11 وكيل ذكي
+- **Drama Analyst** - محلل الدراما المتقدم مع 20+ وكيل تحليلي
+- **Stations** - محطة التحليل المتخصصة للسيناريوهات
+- **Queue System** - نظام طوابير قوي باستخدام BullMQ
+- **Authentication** - نظام مصادقة آمن مع JWT و httpOnly cookies
 
 ## حالات الاستخدام
 
@@ -143,16 +169,13 @@ const result = await executor.execute('character-analyzer', screenplayText);
 ### تشغيل الاختبارات
 ```bash
 # جميع الاختبارات
-npm test
+pnpm run test
 
-# اختبارات الوحدة
-npm run test:unit
+# اختبارات مع تغطية
+pnpm run test:coverage
 
-# اختبارات التكامل
-npm run test:integration
-
-# تقرير التغطية
-npm run test:coverage
+# فحص الجودة الشامل
+pnpm run verify:all
 ```
 
 ### أنواع الاختبارات
@@ -171,10 +194,10 @@ npm run test:coverage
 ### Docker
 ```bash
 # بناء الصورة
-npm run docker:build
+pnpm run docker:build
 
 # تشغيل الحاوية
-npm run docker:run
+pnpm run docker:run
 ```
 
 ## إدارة الإصدارات

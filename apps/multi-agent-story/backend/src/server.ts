@@ -13,17 +13,28 @@ import { sessionRoutes } from './routes/sessions';
 import { agentRoutes } from './routes/agents';
 import { wsHandler } from './ws/handler';
 
+// Environment validation
+import { validateEnv } from './config/env';
+
+// Start workers (only in production or when explicitly requested)
+if (process.env.NODE_ENV === 'production' || process.env.START_WORKERS === 'true') {
+  import('./services/workers');
+}
+
+// Validate environment variables first
+const env = validateEnv();
+
 // Initialize Prisma
 const prisma = new PrismaClient();
 
 // Initialize Redis
-const redis = new Redis(process.env.REDIS_URL || 'redis://localhost:6379');
+const redis = new Redis(env.REDIS_URL);
 
 // Create Fastify instance
 const server = Fastify({
   logger: {
-    level: process.env.NODE_ENV === 'production' ? 'info' : 'debug',
-    transport: process.env.NODE_ENV !== 'production' ? {
+    level: env.NODE_ENV === 'production' ? 'info' : 'debug',
+    transport: env.NODE_ENV !== 'production' ? {
       target: 'pino-pretty',
       options: {
         colorize: true
@@ -34,21 +45,33 @@ const server = Fastify({
 
 // Register plugins
 server.register(helmet, {
-  contentSecurityPolicy: false
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'"],
+      styleSrc: ["'self'", "'unsafe-inline'"],
+      imgSrc: ["'self'", "data:", "https:"],
+      connectSrc: ["'self'", "ws:", "wss:"],
+      fontSrc: ["'self'"],
+      objectSrc: ["'none'"],
+      mediaSrc: ["'self'"],
+      frameSrc: ["'none'"],
+    },
+  },
 });
 
 server.register(cors, {
-  origin: process.env.CORS_ORIGINS?.split(',') || ['http://localhost:5181'],
+  origin: env.CORS_ORIGINS.split(',').map(origin => origin.trim()),
   credentials: true
 });
 
 server.register(jwt, {
-  secret: process.env.JWT_SECRET || 'your-secret-key'
+  secret: env.JWT_SECRET
 });
 
 server.register(rateLimit, {
-  max: 100,
-  timeWindow: '15 minutes'
+  max: env.RATE_LIMIT_MAX,
+  timeWindow: env.RATE_LIMIT_TIME_WINDOW
 });
 
 server.register(websocket);
@@ -102,12 +125,9 @@ process.on('SIGINT', gracefulShutdown);
 // Start server
 const start = async () => {
   try {
-    const port = parseInt(process.env.PORT || '8000');
-    const host = process.env.HOST || '0.0.0.0';
+    await server.listen({ port: env.PORT, host: env.HOST });
     
-    await server.listen({ port, host });
-    
-    server.log.info(`Jules Backend running on ${host}:${port}`);
+    server.log.info(`Jules Backend running on ${env.HOST}:${env.PORT}`);
   } catch (err) {
     server.log.error(err);
     process.exit(1);

@@ -23,9 +23,11 @@
 ## إعداد بيئة التطوير
 
 ### المتطلبات
-- Node.js 18.0.0 أو أحدث
-- npm 9.0.0 أو أحدث
+- Node.js 20.0.0 أو أحدث
+- pnpm 10.0.0 أو أحدث
 - Git 2.30.0 أو أحدث
+- Redis (للخادم الخلفي)
+- PostgreSQL (للبيانات)
 - محرر نصوص يدعم TypeScript (VS Code مفضل)
 
 ### خطوات الإعداد
@@ -35,13 +37,20 @@ git clone https://github.com/your-org/the-copy.git
 cd the-copy
 
 # 2. تثبيت التبعيات
-npm install
+pnpm install
 
-# 3. تشغيل الخادم المحلي
-npm run dev
+# 3. إعداد متغيرات البيئة
+cp apps/multi-agent-story/backend/.env.example apps/multi-agent-story/backend/.env
+# قم بتحرير ملف .env وأضف القيم المطلوبة
 
-# 4. تشغيل الاختبارات
-npm test
+# 4. تشغيل الخادم المحلي
+pnpm run dev
+
+# 5. تشغيل الاختبارات
+pnpm run test
+
+# 6. فحص الجودة
+pnpm run verify:all
 ```
 
 ### إعداد VS Code

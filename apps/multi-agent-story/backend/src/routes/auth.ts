@@ -13,6 +13,41 @@ const loginSchema = z.object({
   password: z.string(),
 });
 
+// JWT token payload interface
+interface JWTPayload {
+  id: string;
+  email: string;
+  role: string;
+  type: 'access' | 'refresh';
+}
+
+// Cookie configuration
+const cookieConfig = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === 'production',
+  sameSite: 'strict' as const,
+  path: '/',
+};
+
+// Helper function to set cookies
+function setAuthCookies(reply: any, accessToken: string, refreshToken: string) {
+  reply.setCookie('access_token', accessToken, {
+    ...cookieConfig,
+    maxAge: 15 * 60 * 1000, // 15 minutes
+  });
+  
+  reply.setCookie('refresh_token', refreshToken, {
+    ...cookieConfig,
+    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+  });
+}
+
+// Helper function to clear cookies
+function clearAuthCookies(reply: any) {
+  reply.clearCookie('access_token', cookieConfig);
+  reply.clearCookie('refresh_token', cookieConfig);
+}
+
 export const authRoutes: FastifyPluginAsync = async (fastify) => {
   const { prisma } = fastify as any;
 
@@ -48,14 +83,25 @@ export const authRoutes: FastifyPluginAsync = async (fastify) => {
         },
       });
 
-      // Generate token
-      const token = fastify.jwt.sign({
+      // Generate access and refresh tokens
+      const accessToken = fastify.jwt.sign({
         id: user.id,
         email: user.email,
         role: user.role,
-      });
+        type: 'access',
+      } as JWTPayload, { expiresIn: '15m' });
 
-      return reply.send({ user, token });
+      const refreshToken = fastify.jwt.sign({
+        id: user.id,
+        email: user.email,
+        role: user.role,
+        type: 'refresh',
+      } as JWTPayload, { expiresIn: '7d' });
+
+      // Set httpOnly cookies
+      setAuthCookies(reply, accessToken, refreshToken);
+
+      return reply.send({ user });
     } catch (error: any) {
       fastify.log.error(error);
       return reply.status(400).send({ error: error.message });
@@ -83,12 +129,23 @@ export const authRoutes: FastifyPluginAsync = async (fastify) => {
         return reply.status(401).send({ error: 'Invalid credentials' });
       }
 
-      // Generate token
-      const token = fastify.jwt.sign({
+      // Generate access and refresh tokens
+      const accessToken = fastify.jwt.sign({
         id: user.id,
         email: user.email,
         role: user.role,
-      });
+        type: 'access',
+      } as JWTPayload, { expiresIn: '15m' });
+
+      const refreshToken = fastify.jwt.sign({
+        id: user.id,
+        email: user.email,
+        role: user.role,
+        type: 'refresh',
+      } as JWTPayload, { expiresIn: '7d' });
+
+      // Set httpOnly cookies
+      setAuthCookies(reply, accessToken, refreshToken);
 
       return reply.send({
         user: {
@@ -97,7 +154,6 @@ export const authRoutes: FastifyPluginAsync = async (fastify) => {
           name: user.name,
           role: user.role,
         },
-        token,
       });
     } catch (error: any) {
       fastify.log.error(error);
@@ -126,8 +182,61 @@ export const authRoutes: FastifyPluginAsync = async (fastify) => {
     return reply.send({ user });
   });
 
-  // Logout (client-side token removal)
+  // Refresh token endpoint
+  fastify.post('/refresh', async (request, reply) => {
+    try {
+      const refreshToken = request.cookies.refresh_token;
+
+      if (!refreshToken) {
+        return reply.status(401).send({ error: 'Refresh token not found' });
+      }
+
+      // Verify refresh token
+      const decoded = fastify.jwt.verify(refreshToken) as JWTPayload;
+
+      if (decoded.type !== 'refresh') {
+        return reply.status(401).send({ error: 'Invalid token type' });
+      }
+
+      // Get user from database
+      const user = await prisma.user.findUnique({
+        where: { id: decoded.id },
+        select: {
+          id: true,
+          email: true,
+          name: true,
+          role: true,
+        },
+      });
+
+      if (!user) {
+        return reply.status(404).send({ error: 'User not found' });
+      }
+
+      // Generate new access token
+      const newAccessToken = fastify.jwt.sign({
+        id: user.id,
+        email: user.email,
+        role: user.role,
+        type: 'access',
+      } as JWTPayload, { expiresIn: '15m' });
+
+      // Set new access token cookie
+      reply.setCookie('access_token', newAccessToken, {
+        ...cookieConfig,
+        maxAge: 15 * 60 * 1000, // 15 minutes
+      });
+
+      return reply.send({ user });
+    } catch (error: any) {
+      fastify.log.error(error);
+      return reply.status(401).send({ error: 'Invalid refresh token' });
+    }
+  });
+
+  // Logout
   fastify.post('/logout', async (request, reply) => {
+    clearAuthCookies(reply);
     return reply.send({ message: 'Logged out successfully' });
   });
 };

@@ -8,17 +8,33 @@ interface WSMessage {
 
 export async function wsHandler(connection: SocketStream, request: FastifyRequest) {
   const { sessionId } = request.params as { sessionId: string };
-  const { token } = request.query as { token: string };
   const fastify = request.server as any;
+  
+  // Get access token from cookies
+  const accessToken = request.cookies.access_token;
+  
+  if (!accessToken) {
+    connection.socket.send(JSON.stringify({
+      type: 'error',
+      data: { message: 'No access token provided' }
+    }));
+    connection.socket.close();
+    return;
+  }
   
   // Verify token
   let user: any;
   try {
-    user = await fastify.jwt.verify(token);
+    user = await fastify.jwt.verify(accessToken);
+    
+    // Ensure it's an access token
+    if (user.type !== 'access') {
+      throw new Error('Invalid token type');
+    }
   } catch (err) {
     connection.socket.send(JSON.stringify({
       type: 'error',
-      data: { message: 'Invalid token' }
+      data: { message: 'Invalid or expired token' }
     }));
     connection.socket.close();
     return;
