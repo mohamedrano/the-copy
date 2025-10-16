@@ -8,14 +8,14 @@ export class AppError extends Error {
   public readonly statusCode: number;
   public readonly isOperational: boolean;
   public readonly code?: string;
-  public readonly details?: any;
+  public readonly details?: unknown;
 
   constructor(
     message: string, 
     statusCode: number = 500, 
     isOperational: boolean = true,
     code?: string,
-    details?: any
+    details?: unknown
   ) {
     super(message);
     
@@ -31,7 +31,7 @@ export class AppError extends Error {
 }
 
 export class ValidationError extends AppError {
-  constructor(message: string, details?: any) {
+  constructor(message: string, details?: unknown) {
     super(message, 400, true, 'VALIDATION_ERROR', details);
   }
 }
@@ -67,13 +67,13 @@ export class RateLimitError extends AppError {
 }
 
 export class ExternalServiceError extends AppError {
-  constructor(service: string, message: string, details?: any) {
+  constructor(service: string, message: string, details?: unknown) {
     super(`External service error: ${service} - ${message}`, 502, true, 'EXTERNAL_SERVICE_ERROR', details);
   }
 }
 
 export class DatabaseError extends AppError {
-  constructor(message: string, details?: any) {
+  constructor(message: string, details?: unknown) {
     super(`Database error: ${message}`, 500, true, 'DATABASE_ERROR', details);
   }
 }
@@ -83,12 +83,12 @@ export const errorHandler = (
   error: Error,
   req: Request,
   res: Response,
-  next: NextFunction
+  _next: NextFunction
 ): void => {
   let statusCode = 500;
   let message = 'Internal Server Error';
   let code = 'INTERNAL_ERROR';
-  let details: any = undefined;
+  let details: unknown = undefined;
 
   // معالجة أنواع الأخطاء المختلفة
   if (error instanceof AppError) {
@@ -161,7 +161,7 @@ export const errorHandler = (
   }
 
   // إرسال الاستجابة
-  const response: any = {
+  const response: Record<string, unknown> = {
     success: false,
     error: message,
     code,
@@ -219,7 +219,7 @@ export const gracefulShutdownHandler = (req: Request, res: Response, next: NextF
 };
 
 // معالج للتحقق من صحة البيانات
-export const validateRequest = (schema: any) => {
+export const validateRequest = (schema: unknown) => {
   return (req: Request, res: Response, next: NextFunction): void => {
     try {
       const validated = schema.parse({
@@ -307,7 +307,7 @@ export const createError = (
   message: string,
   statusCode: number = 500,
   code?: string,
-  details?: any
+  details?: unknown
 ): AppError => {
   return new AppError(message, statusCode, true, code, details);
 };
@@ -331,7 +331,7 @@ process.on('uncaughtException', (error: Error) => {
   process.exit(1);
 });
 
-process.on('unhandledRejection', (reason: any, promise: Promise<any>) => {
+process.on('unhandledRejection', (reason: unknown, promise: Promise<unknown>) => {
   logger.error('Unhandled Rejection', {
     reason: reason?.message || reason,
     stack: reason?.stack,

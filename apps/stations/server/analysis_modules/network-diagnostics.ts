@@ -1,4 +1,4 @@
-import { ConflictNetwork, Character, Conflict, Relationship } from '../core/models/base-entities';
+import { ConflictNetwork, Conflict, Relationship } from '../core/models/base-entities';
 
 export interface DiagnosticReport {
   overallHealthScore: number;
@@ -405,7 +405,7 @@ export class NetworkDiagnostics {
     return suggestions;
   }
 
-  private suggestConflictInvolvement(characterId: string): string[] {
+  private suggestConflictInvolvement(): string[] {
     const suggestions: string[] = [];
     const conflicts = Array.from(this.network.conflicts.values());
     
@@ -426,7 +426,7 @@ export class NetworkDiagnostics {
     return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
   }
 
-  private suggestConflictActions(conflict: Conflict): string[] {
+  private suggestConflictActions(): string[] {
     return [
       'تطوير الصراع إلى المرحلة التالية',
       'إضافة نقطة تحول جديدة',
@@ -435,7 +435,7 @@ export class NetworkDiagnostics {
     ];
   }
 
-  private suggestLoadDistribution(characterId: string): string[] {
+  private suggestLoadDistribution(): string[] {
     return [
       'نقل بعض العلاقات لشخصيات أخرى',
       'تقسيم الصراعات الكبيرة',

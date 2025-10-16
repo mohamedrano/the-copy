@@ -3,7 +3,6 @@ import request from 'supertest';
 import { createServer } from 'http';
 import express from 'express';
 import { registerRoutes } from '../../server/routes';
-import { environment } from '../../server/config/environment';
 
 // Mock للبيئة
 process.env.NODE_ENV = 'test';
@@ -15,7 +14,7 @@ process.env.ALLOWED_ORIGINS = 'http://localhost:3000,http://localhost:5000';
 
 describe('POST /api/analyze-text', () => {
   let app: express.Application;
-  let server: any;
+  let server: unknown;
 
   beforeAll(async () => {
     app = express();

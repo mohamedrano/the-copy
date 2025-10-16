@@ -6,7 +6,7 @@ import healthRouter from '../../server/routes/health';
 
 describe('GET /health', () => {
   let app: express.Application;
-  let server: any;
+  let server: unknown;
 
   beforeAll(async () => {
     app = express();

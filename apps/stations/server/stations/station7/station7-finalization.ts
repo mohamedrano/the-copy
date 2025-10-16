@@ -1,5 +1,5 @@
 import { BaseStation, type StationConfig } from '../../core/pipeline/base-station';
-import { ConflictNetwork, Character, Relationship, Conflict } from '../../core/models/base-entities';
+import { ConflictNetwork } from '../../core/models/base-entities';
 import { GeminiService } from '../../services/ai/gemini-service';
 import { Station6Output } from '../station6/station6-diagnostics-treatment';
 import { promises as fsPromises } from 'fs';
@@ -120,7 +120,7 @@ interface FinalAnalysisReport {
     overallScore: number;
     rating: 'Excellent' | 'Good' | 'Fair' | 'Needs Improvement' | 'Critical';
   };
-  detailedFindings: Map<string, any>; // from each station
+  detailedFindings: Map<string, unknown>; // from each station
 }
 
 interface ExportPackage {
@@ -174,7 +174,7 @@ class VisualizationEngine {
 }
 
 class PlatformAdaptationEngine {
-    constructor(private network: ConflictNetwork, private s2Conceptual: any) {}
+    constructor(private network: ConflictNetwork, private s2Conceptual: unknown) {}
 
     async generateAllAdaptations(): Promise<PlatformAdaptationResults> {
         // Dummy implementation
@@ -188,7 +188,7 @@ class PlatformAdaptationEngine {
 }
 
 class FinalReportGenerator {
-    constructor(private network: ConflictNetwork, private allStationsData: Map<number, any>) {}
+    constructor(private network: ConflictNetwork, private allStationsData: Map<number, unknown>) {}
 
     async generateComprehensiveReport(): Promise<FinalAnalysisReport> {
         // Dummy implementation
@@ -212,7 +212,7 @@ class FinalReportGenerator {
 }
 
 class ExportPackageGenerator {
-    constructor(private outputDir: string, private allStationsData: Map<number, any>, private finalReport: FinalAnalysisReport) {}
+    constructor(private outputDir: string, private allStationsData: Map<number, unknown>, private finalReport: FinalAnalysisReport) {}
 
     async generateExportPackage(): Promise<ExportPackage> {
         // Dummy implementation

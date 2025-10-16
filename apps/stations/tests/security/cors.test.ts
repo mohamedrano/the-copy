@@ -2,18 +2,18 @@ import { describe, it, expect, beforeAll, afterAll } from 'vitest';
 import request from 'supertest';
 import { createServer } from 'http';
 import express from 'express';
+import cors from 'cors';
 import { corsOptions } from '../../server/middleware/security';
 
 describe('CORS Security', () => {
   let app: express.Application;
-  let server: any;
+  let server: unknown;
 
   beforeAll(async () => {
     app = express();
     app.use(express.json());
     
     // تطبيق CORS
-    const cors = require('cors');
     app.use(cors(corsOptions));
     
     // مسار اختبار

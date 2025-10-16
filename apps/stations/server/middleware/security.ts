@@ -321,7 +321,7 @@ export const advancedRateLimit = (req: Request, res: Response, next: NextFunctio
 };
 
 // دالة لتطبيق جميع middleware الأمان
-export const applySecurityMiddleware = (app: any): void => {
+export const applySecurityMiddleware = (app: unknown): void => {
   // تطبيق CORS
   app.use(cors(corsOptions));
   

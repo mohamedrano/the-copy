@@ -6,7 +6,7 @@ export interface QueryMetrics {
   executionTime: number;
   rowsReturned: number;
   timestamp: Date;
-  parameters?: any[];
+  parameters?: unknown[];
 }
 
 export interface DatabaseStats {
@@ -37,7 +37,7 @@ export class QueryOptimizer {
     query: string, 
     executionTime: number, 
     rowsReturned: number, 
-    parameters?: any[]
+    parameters?: unknown[]
   ): void {
     const metric: QueryMetrics = {
       query: this.sanitizeQuery(query),

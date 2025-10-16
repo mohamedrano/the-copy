@@ -7,7 +7,7 @@ export interface Character {
     motivationsGoals: string;
     potentialArc: string;
   };
-  metadata: Record<string, any>;
+  metadata: Record<string, unknown>;
 }
 
 export enum RelationshipType {
@@ -43,7 +43,7 @@ export interface Relationship {
   strength: number;
   description: string;
   triggers: string[];
-  metadata: Record<string, any>;
+  metadata: Record<string, unknown>;
 }
 
 export enum ConflictSubject {
@@ -89,7 +89,7 @@ export interface Conflict {
   relatedRelationships: string[];
   pivotPoints: string[];
   timestamps: Date[];
-  metadata: Record<string, any>;
+  metadata: Record<string, unknown>;
 }
 
 export interface NetworkSnapshot {
@@ -105,7 +105,7 @@ export interface ConflictNetwork {
   relationships: Map<string, Relationship>;
   conflicts: Map<string, Conflict>;
   snapshots: NetworkSnapshot[];
-  metadata: Record<string, any>;
+  metadata: Record<string, unknown>;
 }
 
 export class ConflictNetworkImpl implements ConflictNetwork {
@@ -115,7 +115,7 @@ export class ConflictNetworkImpl implements ConflictNetwork {
   relationships: Map<string, Relationship>;
   conflicts: Map<string, Conflict>;
   snapshots: NetworkSnapshot[];
-  metadata: Record<string, any>;
+  metadata: Record<string, unknown>;
 
   constructor(id: string, name: string) {
     this.id = id;

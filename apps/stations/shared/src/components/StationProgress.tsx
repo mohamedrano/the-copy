@@ -65,7 +65,7 @@ export default function StationProgress({ stations }: StationProgressProps) {
       <div className="flex items-center justify-between relative">
         <div className="absolute top-5 left-0 right-0 h-0.5 bg-border" style={{ zIndex: 0 }} />
 
-        {stations.map((station, index) => {
+        {stations.map((station) => {
           const isCompleted = station.status === 'completed';
           const isActive = station.status === 'active';
 

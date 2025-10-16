@@ -265,14 +265,14 @@ export class RedisCacheService {
 
   async cacheUserSession(
     sessionId: string, 
-    data: any, 
+    data: unknown, 
     ttl: number = 86400
   ): Promise<boolean> {
     const key = `session:${sessionId}`;
     return this.set(key, data, { ttl, prefix: 'sessions' });
   }
 
-  async getSessionData(sessionId: string): Promise<any | null> {
+  async getSessionData(sessionId: string): Promise<unknown | null> {
     const key = `session:${sessionId}`;
     return this.get(key, { prefix: 'sessions' });
   }

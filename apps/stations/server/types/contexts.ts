@@ -13,8 +13,8 @@ export interface Station2Context {
 
 export interface Station3Context {
   majorCharacters: string[];
-  characterProfiles: Map<string, any>;
-  relationshipData: any[];
+  characterProfiles: Map<string, unknown>;
+  relationshipData: unknown[];
   fullText: string;
 }
 

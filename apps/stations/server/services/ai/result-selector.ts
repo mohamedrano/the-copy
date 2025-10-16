@@ -2,8 +2,8 @@ import { GeminiModel, GeminiResponse } from './gemini-service';
 
 export interface SelectionCriteria {
   preferredModels: GeminiModel[];
-  validationFunction?: (result: any) => boolean;
-  scoreFunction?: (result: any) => number;
+  validationFunction?: (result: unknown) => boolean;
+  scoreFunction?: (result: unknown) => number;
 }
 
 export class AIResultSelector {
@@ -48,7 +48,7 @@ export class AIResultSelector {
 
   private selectByScore<T>(
     results: Map<GeminiModel, GeminiResponse<T>>,
-    scoreFunction: (result: any) => number
+    scoreFunction: (result: unknown) => number
   ): GeminiResponse<T> {
     let bestScore = -Infinity;
     let bestResult: GeminiResponse<T> | null = null;

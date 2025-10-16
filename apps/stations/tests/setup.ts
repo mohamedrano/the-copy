@@ -1,7 +1,6 @@
 import { beforeAll, afterAll, beforeEach, afterEach } from 'vitest';
 import { createServer } from 'http';
 import express from 'express';
-import { environment } from '../server/config/environment';
 
 // Mock للبيئة في الاختبارات
 process.env.NODE_ENV = 'test';
@@ -11,7 +10,7 @@ process.env.SESSION_SECRET = 'test-session-secret-minimum-32-characters-long';
 process.env.DATABASE_URL = 'postgresql://test:test@localhost:5432/test_db';
 process.env.ALLOWED_ORIGINS = 'http://localhost:3000,http://localhost:5000';
 
-let testServer: any;
+let testServer: unknown;
 let testApp: express.Application;
 
 beforeAll(async () => {

@@ -14,7 +14,7 @@ process.env.ALLOWED_ORIGINS = 'http://localhost:3000,http://localhost:5000';
 
 describe('Performance Tests', () => {
   let app: express.Application;
-  let server: any;
+  let server: unknown;
 
   beforeAll(async () => {
     app = express();

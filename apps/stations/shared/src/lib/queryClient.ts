@@ -19,7 +19,7 @@ export async function apiRequest(
     headers: data ? { "Content-Type": "application/json" } : {},
     body: data ? JSON.stringify(data) : undefined,
     credentials: "include",
-  } as RequestInit);
+  });
 
   await throwIfResNotOk(res);
   return res;

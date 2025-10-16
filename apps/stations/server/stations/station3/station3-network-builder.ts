@@ -89,7 +89,7 @@ class RelationshipInferenceEngine {
     `;
 
     const result = await this.geminiService.generate<{
-      inferred_relationships: any[];
+      inferred_relationships: unknown[];
     }>({
       prompt,
       context: context.fullText.substring(0, 25000),
@@ -102,7 +102,7 @@ class RelationshipInferenceEngine {
     return this.convertToRelationships(inferredData, characters);
   }
 
-  private convertToRelationships(inferredData: any[], characters: Character[]): Relationship[] {
+  private convertToRelationships(inferredData: unknown[], characters: Character[]): Relationship[] {
     const relationships: Relationship[] = [];
     const charNameToId = new Map(characters.map(c => [c.name, c.id]));
 
@@ -265,7 +265,7 @@ class ConflictInferenceEngine {
     `;
 
     const result = await this.geminiService.generate<{
-      inferred_conflicts: any[];
+      inferred_conflicts: unknown[];
     }>({
       prompt,
       context: context.fullText.substring(0, 25000),
@@ -278,7 +278,7 @@ class ConflictInferenceEngine {
     return this.convertToConflicts(inferredData, characters);
   }
 
-  private convertToConflicts(inferredData: any[], characters: Character[]): Conflict[] {
+  private convertToConflicts(inferredData: unknown[], characters: Character[]): Conflict[] {
     const conflicts: Conflict[] = [];
     const charNameToId = new Map(characters.map(c => [c.name, c.id]));
 

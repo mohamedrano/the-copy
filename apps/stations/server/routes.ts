@@ -126,7 +126,7 @@ export async function registerRoutes(app: Express): Promise<Server> {
       try {
         const validatedData = analyzeTextSchema.parse(req.body);
 
-        const pipelineInput: any = {
+        const pipelineInput: Record<string, unknown> = {
           fullText: validatedData.fullText,
           projectName: validatedData.projectName,
         };

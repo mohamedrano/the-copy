@@ -13,14 +13,13 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { useToast } from '@/hooks/use-toast';
 import { Users, BookOpen, Network, Activity, TrendingUp, Zap } from 'lucide-react';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import type { Station1Response } from '@shared/schema';
 
 export default function HomePage() {
   const { language } = useLanguage();
   const { toast } = useToast();
   const [currentView, setCurrentView] = useState<'hero' | 'analysis'>('hero');
   const [text, setText] = useState('');
-  const [analysisResult, setAnalysisResult] = useState<any>(null);
+  const [analysisResult, setAnalysisResult] = useState<unknown>(null);
 
   const stations = [
     { id: 1, nameAr: 'تحليل النص', nameEn: 'Text Analysis', status: 'active' as const },
@@ -77,11 +76,11 @@ export default function HomePage() {
           : `Discovered ${data.station1?.majorCharacters?.length || 0} major characters`,
       });
     },
-    onError: (error: any) => {
+    onError: (error: unknown) => {
       toast({
         variant: 'destructive',
         title: language === 'ar' ? 'خطأ في التحليل' : 'Analysis error',
-        description: error.message || 'فشل تحليل النص',
+        description: (error as Error)?.message || 'فشل تحليل النص',
       });
     },
   });
@@ -104,11 +103,11 @@ export default function HomePage() {
           : `${data.message} - Time: ${data.executionTime}`,
       });
     },
-    onError: (error: any) => {
+    onError: (error: unknown) => {
       toast({
         variant: 'destructive',
         title: language === 'ar' ? 'خطأ في التحليل الشامل' : 'Full analysis error',
-        description: error.message || 'فشل التحليل الشامل',
+        description: (error as Error)?.message || 'فشل التحليل الشامل',
       });
     },
   });

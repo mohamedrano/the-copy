@@ -2,12 +2,20 @@ import { Request, Response, NextFunction } from 'express';
 import { environment } from '../config/environment';
 import logger from '../utils/logger';
 
+// تعريف نوع NodeJS للمعالجة
+interface MemoryUsage {
+  rss: number;
+  heapTotal: number;
+  heapUsed: number;
+  external: number;
+}
+
 export interface PerformanceMetrics {
   method: string;
   url: string;
   statusCode: number;
   duration: number;
-  memoryUsage: NodeJS.MemoryUsage;
+  memoryUsage: MemoryUsage;
   timestamp: Date;
   userAgent?: string;
   ip?: string;
@@ -35,7 +43,6 @@ export class PerformanceMonitor {
   static monitorPerformance() {
     return (req: Request, res: Response, next: NextFunction): void => {
       const startTime = process.hrtime.bigint();
-      const startMemory = process.memoryUsage();
 
       // تسجيل بداية الطلب
       logger.debug('Request started', {
@@ -132,7 +139,7 @@ export class PerformanceMonitor {
   /**
    * تنسيق استخدام الذاكرة
    */
-  private static formatMemoryUsage(memory: NodeJS.MemoryUsage): string {
+  private static formatMemoryUsage(memory: MemoryUsage): string {
     const formatBytes = (bytes: number): string => {
       if (bytes === 0) return '0 Bytes';
       const k = 1024;
@@ -233,7 +240,7 @@ export class PerformanceMonitor {
    * تحليل استخدام الذاكرة
    */
   static getMemoryAnalysis(): {
-    current: NodeJS.MemoryUsage;
+    current: MemoryUsage;
     peak: number;
     average: number;
     trend: 'increasing' | 'decreasing' | 'stable';
@@ -287,7 +294,7 @@ export class PerformanceMonitor {
     report += `Average Response Time: ${stats.averageResponseTime.toFixed(2)}ms\n`;
     report += `Error Rate: ${stats.errorRate.toFixed(2)}%\n`;
     report += `Requests Per Minute: ${stats.requestsPerMinute}\n`;
-    report += `Memory Peak: ${this.formatMemoryUsage({ heapUsed: stats.memoryPeak } as NodeJS.MemoryUsage)}\n`;
+    report += `Memory Peak: ${this.formatMemoryUsage({ heapUsed: stats.memoryPeak } as MemoryUsage)}\n`;
     report += `Memory Trend: ${memoryAnalysis.trend}\n\n`;
 
     if (slowRequests.length > 0) {

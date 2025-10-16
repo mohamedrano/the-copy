@@ -1,9 +1,7 @@
 import { BaseStation, type StationConfig } from '../../core/pipeline/base-station';
-import { ConflictNetwork, Conflict, Character, Relationship, ConflictPhase, NetworkSnapshot } from '../../core/models/base-entities';
+import { ConflictNetwork, Conflict, ConflictPhase, NetworkSnapshot } from '../../core/models/base-entities';
 import { GeminiService, GeminiModel } from '../../services/ai/gemini-service';
 import { Station4Output } from '../station4/station4-efficiency-metrics';
-import * as fs from 'fs';
-import * as path from 'path';
 
 const safeGet = <T>(array: T[], index: number): T | undefined => {
   if (index < 0 || index >= array.length) {
@@ -310,8 +308,7 @@ class DynamicAnalysisEngine {
   }
   
   analyzeNetworkEvolution(
-    network: ConflictNetwork,
-    timeline: TimelineEvent[]
+    network: ConflictNetwork
   ): EvolutionAnalysis {
     const complexityProgression: number[] = [];
     const densityProgression: number[] = [];
@@ -714,7 +711,8 @@ class EpisodicIntegrationEngine {
       }
     }
     
-    const avgGap = gaps.reduce((sum, gap) => sum + gap, 0) / gaps.length;
+    // حساب متوسط الفجوات لتقييم جودة التوقيت
+    const _avgGap = gaps.reduce((sum, gap) => sum + gap, 0) / gaps.length;
     const variance = this.calculateVariance(gaps);
     
     const quality = 1 / (1 + variance);
@@ -793,7 +791,7 @@ class EpisodicIntegrationEngine {
         });
       }
       
-      const seasonDetails: any = {
+      const seasonDetails: Record<string, unknown> = {
         seasonNumber: s,
         seasonTitle: `Season ${s}`,
         episodes,

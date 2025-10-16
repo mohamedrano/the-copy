@@ -2,7 +2,6 @@ import { BaseStation, type StationConfig } from '../../core/pipeline/base-statio
 import { GeminiService, GeminiModel } from '../../services/ai/gemini-service';
 import { EfficiencyAnalyzer, EfficiencyMetrics } from '../../analysis_modules/efficiency-metrics';
 import { Station3Output } from '../station3/station3-network-builder';
-import type { ConflictNetwork } from '../../core/models/base-entities';
 
 export interface Station4Input {
   station3Output: Station3Output;
@@ -61,21 +60,15 @@ export class Station4EfficiencyMetrics extends BaseStation<Station4Input, Statio
   }
 
   private async generateRecommendations(
-    metrics: EfficiencyMetrics,
-    _network: ConflictNetwork
+    metrics: EfficiencyMetrics
   ): Promise<{
     priorityActions: string[];
     quickFixes: string[];
     structuralRevisions: string[];
   }> {
-    const context = {
-      overallScore: metrics.overallEfficiencyScore,
-      rating: metrics.overallRating,
-      conflictCohesion: metrics.conflictCohesion,
-      dramaticBalance: metrics.dramaticBalance.balanceScore,
-      narrativeEfficiency: metrics.narrativeEfficiency,
-      redundancy: metrics.redundancyMetrics
-    };
+    // استخدام المقاييس لتوليد التوصيات - سيتم استخدامها في المستقبل
+    const _score = metrics.overallEfficiencyScore;
+    const _redundancy = metrics.redundancyMetrics.totalRedundant;
 
     const prompt = `
 بناءً على تحليل كفاءة الشبكة الدرامية التالي:

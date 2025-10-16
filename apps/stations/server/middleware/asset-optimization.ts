@@ -127,7 +127,7 @@ export class AssetOptimizer {
     try {
       // في الإنتاج، استخدم مكتبة مثل sharp
       // هذا مثال مبسط
-      const sharp = require('sharp');
+      const sharp = await import('sharp');
       
       let pipeline = sharp(inputBuffer);
       
@@ -236,7 +236,7 @@ export class AssetOptimizer {
   /**
    * تحسين JSON
    */
-  static async optimizeJSON(json: any): Promise<string> {
+  static async optimizeJSON(json: unknown): Promise<string> {
     try {
       return JSON.stringify(json, null, environment.isDevelopment() ? 2 : 0);
     } catch (error) {
@@ -248,7 +248,7 @@ export class AssetOptimizer {
   /**
    * تحسين الأصول المتعددة
    */
-  static async optimizeAssets(assets: {
+  static async optimizeMultipleAssets(assets: {
     css?: string;
     js?: string;
     html?: string;
@@ -259,7 +259,7 @@ export class AssetOptimizer {
     html?: string;
     images?: Buffer[];
   }> {
-    const optimized: any = {};
+    const optimized: Record<string, unknown> = {};
 
     try {
       if (assets.css) {

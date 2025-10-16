@@ -20,8 +20,8 @@ describe('Environment Configuration', () => {
       
       expect(() => {
         // إعادة تحميل الوحدة لاختبار التحقق
-        delete require.cache[require.resolve('../../server/config/environment')];
-        require('../../server/config/environment');
+        delete (require as any).cache[(require as any).resolve('../../server/config/environment')];
+        (require as any)('../../server/config/environment');
       }).toThrow();
     });
 
@@ -30,8 +30,8 @@ describe('Environment Configuration', () => {
       delete process.env.DATABASE_URL;
       
       expect(() => {
-        delete require.cache[require.resolve('../../server/config/environment')];
-        require('../../server/config/environment');
+        delete (require as any).cache[(require as any).resolve('../../server/config/environment')];
+        (require as any)('../../server/config/environment');
       }).toThrow();
     });
 
@@ -41,8 +41,8 @@ describe('Environment Configuration', () => {
       process.env.SESSION_SECRET = 'short';
       
       expect(() => {
-        delete require.cache[require.resolve('../../server/config/environment')];
-        require('../../server/config/environment');
+        delete (require as any).cache[(require as any).resolve('../../server/config/environment')];
+        (require as any)('../../server/config/environment');
       }).toThrow();
     });
   });
