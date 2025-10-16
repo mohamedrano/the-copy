@@ -2,7 +2,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   base: '/multi-agent-story/',
   plugins: [react()],
   resolve: {
@@ -24,11 +24,14 @@ export default defineConfig({
     chunkSizeWarningLimit: 500,
     target: 'es2022',
     minify: 'terser',
-    sourcemap: process.env.NODE_ENV === 'development',
+    sourcemap: mode === 'development',
   },
   server: {
     port: 5181,
     host: true,
     strictPort: true,
   },
-});
+  define: {
+    'process.env.NODE_ENV': JSON.stringify(mode),
+  },
+}));

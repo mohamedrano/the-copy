@@ -1,4 +1,5 @@
 import axios from 'axios';
+import type { Agent, Idea, Session } from '../store/useStore';
 
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 const WS_URL = import.meta.env.VITE_WS_URL || 'ws://localhost:8000';
@@ -32,45 +33,59 @@ api.interceptors.response.use(
   }
 );
 
+type SessionResponse = Omit<Session, 'startTime' | 'endTime'> & {
+  startTime: string;
+  endTime?: string | null;
+};
+
+const mapSession = (session: SessionResponse): Session => ({
+  ...session,
+  startTime: new Date(session.startTime),
+  endTime: session.endTime ? new Date(session.endTime) : undefined,
+});
+
 // Session management
 export const sessionService = {
-  createSession: async (brief: string) => {
+  createSession: async (brief: string): Promise<Session> => {
     const response = await api.post('/sessions', { brief });
-    return response.data;
+    return mapSession(response.data as SessionResponse);
   },
-  
-  getSession: async (sessionId: string) => {
+
+  getSession: async (sessionId: string): Promise<Session> => {
     const response = await api.get(`/sessions/${sessionId}`);
-    return response.data;
+    return mapSession(response.data as SessionResponse);
   },
-  
-  listSessions: async () => {
+
+  listSessions: async (): Promise<Session[]> => {
     const response = await api.get('/sessions');
-    return response.data;
+    return (response.data as SessionResponse[]).map(mapSession);
   },
-  
-  deleteSession: async (sessionId: string) => {
-    const response = await api.delete(`/sessions/${sessionId}`);
-    return response.data;
+
+  deleteSession: async (sessionId: string): Promise<void> => {
+    await api.delete(`/sessions/${sessionId}`);
   }
 };
 
 // Agent management
 export const agentService = {
-  getAgents: async () => {
+  getAgents: async (): Promise<Agent[]> => {
     const response = await api.get('/agents');
-    return response.data;
+    return response.data as Agent[];
   },
-  
-  getAgentStatus: async (agentId: string) => {
+
+  getAgentStatus: async (agentId: string): Promise<Agent> => {
     const response = await api.get(`/agents/${agentId}/status`);
-    return response.data;
+    return response.data as Agent;
   },
-  
-  executeAgent: async (agentId: string, sessionId: string, data: any) => {
-    const response = await api.post(`/agents/${agentId}/execute`, { 
-      sessionId, 
-      data 
+
+  executeAgent: async (
+    agentId: string,
+    sessionId: string,
+    data: Record<string, unknown>
+  ): Promise<unknown> => {
+    const response = await api.post(`/agents/${agentId}/execute`, {
+      sessionId,
+      data
     });
     return response.data;
   }
@@ -78,31 +93,35 @@ export const agentService = {
 
 // Ideas management
 export const ideaService = {
-  getIdeas: async (sessionId: string) => {
+  getIdeas: async (sessionId: string): Promise<Idea[]> => {
     const response = await api.get(`/sessions/${sessionId}/ideas`);
-    return response.data;
+    return response.data as Idea[];
   },
-  
-  createIdea: async (sessionId: string, idea: any) => {
+
+  createIdea: async (sessionId: string, idea: Idea): Promise<Idea> => {
     const response = await api.post(`/sessions/${sessionId}/ideas`, idea);
-    return response.data;
+    return response.data as Idea;
   },
-  
-  updateIdea: async (sessionId: string, ideaId: string, updates: any) => {
+
+  updateIdea: async (
+    sessionId: string,
+    ideaId: string,
+    updates: Partial<Idea>
+  ): Promise<Idea> => {
     const response = await api.patch(`/sessions/${sessionId}/ideas/${ideaId}`, updates);
-    return response.data;
+    return response.data as Idea;
   },
-  
-  selectWinner: async (sessionId: string, ideaId: string) => {
+
+  selectWinner: async (sessionId: string, ideaId: string): Promise<Idea> => {
     const response = await api.post(`/sessions/${sessionId}/ideas/${ideaId}/win`);
-    return response.data;
+    return response.data as Idea;
   }
 };
 
 // WebSocket connection for real-time updates
 export class WebSocketService {
   private ws: WebSocket | null = null;
-  private listeners: Map<string, Set<Function>> = new Map();
+  private listeners: Map<string, Set<(payload: unknown) => void>> = new Map();
   
   connect(sessionId: string) {
     if (this.ws) {
@@ -147,18 +166,18 @@ export class WebSocketService {
     this.listeners.clear();
   }
   
-  on(event: string, callback: Function) {
+  on(event: string, callback: (payload: unknown) => void) {
     if (!this.listeners.has(event)) {
       this.listeners.set(event, new Set());
     }
     this.listeners.get(event)!.add(callback);
-    
+
     return () => {
       this.off(event, callback);
     };
   }
-  
-  off(event: string, callback: Function) {
+
+  off(event: string, callback: (payload: unknown) => void) {
     const callbacks = this.listeners.get(event);
     if (callbacks) {
       callbacks.delete(callback);
@@ -167,15 +186,15 @@ export class WebSocketService {
       }
     }
   }
-  
-  private emit(event: string, data?: any) {
+
+  private emit(event: string, data?: unknown) {
     const callbacks = this.listeners.get(event);
     if (callbacks) {
-      callbacks.forEach(callback => callback(data));
+      callbacks.forEach((callback) => callback(data));
     }
   }
-  
-  send(type: string, data: any) {
+
+  send(type: string, data: unknown) {
     if (this.ws && this.ws.readyState === WebSocket.OPEN) {
       this.ws.send(JSON.stringify({ type, data }));
     } else {

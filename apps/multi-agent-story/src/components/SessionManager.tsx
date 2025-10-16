@@ -1,7 +1,21 @@
 import React, { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import { Play, Pause, RotateCcw, CheckCircle, AlertCircle, Loader } from 'lucide-react';
-import { useStore } from '../store/useStore';
+import { useStore, type Agent, type Idea } from '../store/useStore';
 import { sessionService, wsService } from '../services/api';
+
+type AgentUpdateMessage = {
+  agentId: string;
+  update: Partial<Agent>;
+};
+
+type PhaseChangeMessage = {
+  phase: number;
+};
+
+type SessionCompleteMessage = {
+  winner: Idea;
+};
 
 export const SessionManager: React.FC = () => {
   const [brief, setBrief] = useState('');
@@ -13,6 +27,8 @@ export const SessionManager: React.FC = () => {
     setError,
     activePhase,
     setActivePhase,
+    updateAgent,
+    updateSession,
   } = useStore();
 
   useEffect(() => {
@@ -21,19 +37,19 @@ export const SessionManager: React.FC = () => {
       wsService.connect(currentSession.id);
       
       // Listen for agent updates
-      const unsubAgent = wsService.on('agent_update', (data: any) => {
+      const unsubAgent = wsService.on('agent_update', (data: AgentUpdateMessage) => {
         updateAgent(data.agentId, data.update);
       });
-      
+
       // Listen for phase changes
-      const unsubPhase = wsService.on('phase_change', (data: any) => {
+      const unsubPhase = wsService.on('phase_change', (data: PhaseChangeMessage) => {
         setActivePhase(data.phase);
-        updateSession(currentSession.id, { phase: data.phase });
+        updateSession({ phase: data.phase });
       });
-      
+
       // Listen for session completion
-      const unsubComplete = wsService.on('session_complete', (data: any) => {
-        updateSession(currentSession.id, { 
+      const unsubComplete = wsService.on('session_complete', (data: SessionCompleteMessage) => {
+        updateSession({
           status: 'completed',
           winner: data.winner,
           endTime: new Date()
@@ -47,7 +63,7 @@ export const SessionManager: React.FC = () => {
         wsService.disconnect();
       };
     }
-  }, [currentSession]);
+  }, [currentSession, setActivePhase, updateAgent, updateSession]);
 
   const createSession = async () => {
     if (!brief.trim()) {
@@ -62,8 +78,12 @@ export const SessionManager: React.FC = () => {
       const session = await sessionService.createSession(brief);
       setCurrentSession(session);
       setBrief('');
-    } catch (error: any) {
-      setError(error.message || 'حدث خطأ في إنشاء الجلسة');
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setError(error.message);
+      } else {
+        setError('حدث خطأ في إنشاء الجلسة');
+      }
     } finally {
       setIsCreating(false);
     }
@@ -71,14 +91,14 @@ export const SessionManager: React.FC = () => {
 
   const pauseSession = () => {
     if (currentSession) {
-      updateSession(currentSession.id, { status: 'paused' });
+      updateSession({ status: 'paused' });
       wsService.send('pause_session', { sessionId: currentSession.id });
     }
   };
 
   const resumeSession = () => {
     if (currentSession) {
-      updateSession(currentSession.id, { status: 'active' });
+      updateSession({ status: 'active' });
       wsService.send('resume_session', { sessionId: currentSession.id });
     }
   };
@@ -86,13 +106,13 @@ export const SessionManager: React.FC = () => {
   const resetSession = () => {
     if (currentSession) {
       wsService.disconnect();
-      setCurrentSession(null as any); // Temporary fix for type issue
+      setCurrentSession(null);
       setActivePhase(1);
     }
   };
 
   return (
-    <div className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20">
+    <section role="main" className="bg-white/10 backdrop-blur-lg rounded-2xl p-8 border border-white/20">
       <h2 className="text-2xl font-bold mb-6 text-white">إدارة الجلسة</h2>
       
       {!currentSession ? (
@@ -207,7 +227,7 @@ export const SessionManager: React.FC = () => {
           </div>
         </div>
       )}
-    </div>
+    </section>
   );
 };
 

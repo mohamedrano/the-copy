@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { devtools, persist } from 'zustand/middleware';
 
-interface Agent {
+export interface Agent {
   id: string;
   name: string;
   role: string;
@@ -9,7 +9,7 @@ interface Agent {
   lastMessage?: string;
 }
 
-interface Idea {
+export interface Idea {
   id: string;
   title: string;
   description: string;
@@ -18,8 +18,9 @@ interface Idea {
   feedback: Record<string, string>;
 }
 
-interface Session {
+export interface Session {
   id: string;
+  title?: string;
   brief: string;
   phase: number;
   status: 'active' | 'completed' | 'paused' | 'error';
@@ -34,11 +35,11 @@ interface AppState {
   isAuthenticated: boolean;
   user: any | null;
   token: string | null;
-  
+
   // Session
   currentSession: Session | null;
   sessions: Session[];
-  
+
   // Agents
   agents: Agent[];
   
@@ -50,10 +51,10 @@ interface AppState {
   // Actions
   setAuth: (user: any, token: string) => void;
   logout: () => void;
-  setCurrentSession: (session: Session) => void;
+  setCurrentSession: (session: Session | null) => void;
   setSessions: (sessions: Session[]) => void;
   addSession: (session: Session) => void;
-  updateSession: (sessionId: string, updates: Partial<Session>) => void;
+  updateSession: (updates: Partial<Session>) => void;
   setAgents: (agents: Agent[]) => void;
   updateAgent: (agentId: string, updates: Partial<Agent>) => void;
   setActivePhase: (phase: number) => void;
@@ -77,7 +78,7 @@ const initialState = {
 export const useStore = create<AppState>()(
   devtools(
     persist(
-      (set, get) => ({
+      (set) => ({
         ...initialState,
         
         setAuth: (user, token) => set({
@@ -99,14 +100,22 @@ export const useStore = create<AppState>()(
           sessions: [...state.sessions, session],
         })),
         
-        updateSession: (sessionId, updates) => set((state) => ({
-          sessions: state.sessions.map((s) => 
-            s.id === sessionId ? { ...s, ...updates } : s
-          ),
-          currentSession: state.currentSession?.id === sessionId 
-            ? { ...state.currentSession, ...updates }
-            : state.currentSession,
-        })),
+        updateSession: (updates) =>
+          set((state) => {
+            if (!state.currentSession) {
+              return state;
+            }
+
+            const mergedSession = { ...state.currentSession, ...updates };
+
+            return {
+              ...state,
+              currentSession: mergedSession,
+              sessions: state.sessions.map((session) =>
+                session.id === mergedSession.id ? mergedSession : session
+              ),
+            };
+          }),
         
         setAgents: (agents) => set({ agents }),
         
@@ -135,3 +144,5 @@ export const useStore = create<AppState>()(
     )
   )
 );
+
+export { useStore as useSessionStore };
