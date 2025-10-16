@@ -24,11 +24,11 @@ packages:
 
 ## Applications (apps/)
 
-### 1. Main App (`apps/main-app/`)
-- **Name**: `@the-copy/main-app`
-- **Port**: 5177
+### 1. The Copy Shell (`apps/the-copy/`)
+- **Name**: `@the-copy/the-copy`
+- **Port**: 5173
 - **Type**: React + Vite + TypeScript
-- **Purpose**: Main unified application shell
+- **Purpose**: Unified application shell embedding all experiences simultaneously
 - **Status**: ✅ Active
 - **Dependencies**: React 19.2.0, Google Gemini AI, Lucide React
 - **Scripts**: dev, build, preview, type-check, lint, test
