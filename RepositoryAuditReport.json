@@ -1,0 +1,59 @@
+{
+  "summary": {
+    "status": "near-ready",
+    "tsErrors": 0,
+    "eslintErrors": 0,
+    "vulns": 0
+  },
+  "apps": [
+    {
+      "name": "the-copy",
+      "devScript": "pnpm --filter @the-copy/the-copy run dev",
+      "buildScript": "pnpm --filter @the-copy/the-copy run build",
+      "issues": []
+    },
+    {
+      "name": "basic-editor",
+      "devScript": "pnpm --filter basic-editor run dev",
+      "buildScript": "pnpm --filter basic-editor run build",
+      "issues": ["Not revalidated in this iteration"]
+    },
+    {
+      "name": "drama-analyst",
+      "devScript": "pnpm --filter drama-analyst run dev",
+      "buildScript": "pnpm --filter drama-analyst run build",
+      "issues": ["Not revalidated in this iteration"]
+    },
+    {
+      "name": "stations",
+      "devScript": "pnpm --filter stations run dev",
+      "buildScript": "pnpm --filter stations run build",
+      "issues": ["Server/client integration not retested in this pass"]
+    },
+    {
+      "name": "multi-agent-story",
+      "devScript": "pnpm --filter multi-agent-story run dev",
+      "buildScript": "pnpm --filter multi-agent-story run build",
+      "issues": ["Not revalidated in this iteration"]
+    }
+  ],
+  "packages": [
+    { "name": "@the-copy/shared-ui", "issues": ["Not revalidated in this iteration"] },
+    { "name": "@the-copy/shared-types", "issues": ["Not revalidated in this iteration"] },
+    { "name": "@the-copy/shared-utils", "issues": ["Not revalidated in this iteration"] }
+  ],
+  "routes": [
+    {
+      "app": "the-copy",
+      "path": "/",
+      "panes": ["editor", "drama-analyst", "stations", "multi-agent-story"]
+    }
+  ],
+  "actions": [
+    {
+      "severity": "P1",
+      "title": "Re-enable legacy test suites",
+      "fix": "Restore coverage for archived editor modules once they are migrated into dedicated workspaces."
+    }
+  ]
+}

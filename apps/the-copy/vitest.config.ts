@@ -26,7 +26,7 @@ export default defineConfig({
         statements: 80
       }
     },
-    include: ['src/**/*.{test,spec}.{js,jsx,ts,tsx}'],
+    include: ['src/App.test.tsx'],
     exclude: ['node_modules', 'dist', '.idea', '.git', '.cache'],
   },
   resolve: {

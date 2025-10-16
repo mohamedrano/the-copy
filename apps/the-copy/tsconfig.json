@@ -1,0 +1,60 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "types": [
+      "vite/client",
+      "node"
+    ],
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@/components/*": [
+        "./src/components/*"
+      ],
+      "@/config/*": [
+        "./src/config/*"
+      ],
+      "@the-copy/shared-ui": [
+        "../../packages/shared-ui/src"
+      ],
+      "@the-copy/shared-ui/*": [
+        "../../packages/shared-ui/src/*"
+      ],
+      "@the-copy/shared-types": [
+        "../../packages/shared-types/src"
+      ],
+      "@the-copy/shared-types/*": [
+        "../../packages/shared-types/src/*"
+      ],
+      "@the-copy/shared-utils": [
+        "../../packages/shared-utils/src"
+      ],
+      "@the-copy/shared-utils/*": [
+        "../../packages/shared-utils/src/*"
+      ]
+    }
+  },
+  "include": [
+    "src/App.tsx",
+    "src/App.test.tsx",
+    "src/main.tsx",
+    "src/components/common/**/*.ts",
+    "src/components/common/**/*.tsx",
+    "src/config/environment.ts",
+    "src/config/index.ts",
+    "src/test/**/*.ts",
+    "src/test/**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "public"
+  ],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
+}

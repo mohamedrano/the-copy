@@ -18,27 +18,6 @@
     "hasTurbo": false
   },
   "applications": {
-    "main-app": {
-      "name": "@the-copy/main-app",
-      "path": "apps/main-app",
-      "port": 5177,
-      "type": "react-vite",
-      "status": "active",
-      "dependencies": {
-        "react": "19.2.0",
-        "react-dom": "19.2.0",
-        "@google/generative-ai": "^0.1.0",
-        "lucide-react": "^0.545.0"
-      },
-      "scripts": {
-        "dev": "vite --port 5177",
-        "build": "tsc --noEmit && vite build",
-        "preview": "vite preview --port 4173"
-      },
-      "buildOutput": "dist/",
-      "hasTests": true,
-      "hasLinting": true
-    },
     "basic-editor": {
       "name": "@the-copy/basic-editor",
       "path": "apps/basic-editor",
@@ -129,6 +108,27 @@
       "buildOutput": "public/multi-agent-story/",
       "hasTests": true,
       "hasLinting": true
+    },
+    "the-copy": {
+      "name": "@the-copy/the-copy",
+      "path": "apps/the-copy",
+      "port": 5173,
+      "type": "react-vite",
+      "status": "active",
+      "dependencies": {
+        "react": "19.2.0",
+        "react-dom": "19.2.0",
+        "@google/generative-ai": "^0.1.0",
+        "lucide-react": "^0.545.0"
+      },
+      "scripts": {
+        "dev": "vite --port 5173",
+        "build": "tsc --noEmit && vite build",
+        "preview": "vite preview --port 4173"
+      },
+      "buildOutput": "dist/",
+      "hasTests": true,
+      "hasLinting": true
     }
   },
   "packages": {
@@ -201,7 +201,11 @@
         "status": "built",
         "files": 20,
         "size": "~974KB",
-        "features": ["PWA", "Service Worker", "Manifest"]
+        "features": [
+          "PWA",
+          "Service Worker",
+          "Manifest"
+        ]
       },
       "multi-agent-story": {
         "status": "built",
@@ -231,7 +235,11 @@
     },
     "eslint": {
       "configFile": "eslint.config.mjs",
-      "rules": ["typescript", "react", "tsdoc"],
+      "rules": [
+        "typescript",
+        "react",
+        "tsdoc"
+      ],
       "coverage": "all-ts-tsx-files"
     }
   },

@@ -1,0 +1,14 @@
+{
+  "shellApp": "the-copy",
+  "layout": "grid-2x2",
+  "panes": [
+    { "id": "editor", "mount": "/editor", "source": "apps/basic-editor" },
+    { "id": "drama-analyst", "mount": "/drama", "source": "apps/drama-analyst" },
+    { "id": "stations", "mount": "/stations", "source": "apps/stations" },
+    { "id": "multi-agent-story", "mount": "/agents", "source": "apps/multi-agent-story" }
+  ],
+  "integration": {
+    "mode": "iframe",
+    "cors": true
+  }
+}
