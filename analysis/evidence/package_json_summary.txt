@@ -1,0 +1,29 @@
+{
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "lucide-react": "^0.544.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24.5.2",
+    "@types/react": "^19.1.13",
+    "@types/react-dom": "^19.1.9",
+    "@vitejs/plugin-react": "^5.0.3",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.13",
+    "typescript": "~5.8.3",
+    "vite": "^7.1.7"
+  }
+}
+
+// Summary Notes:
+// - No 'test' script found. Confirms lack of testing framework.
+// - Standard React + Vite setup.
+// - Dependencies are minimal, focused on UI.
+// - No 'yjs', 'lexical', or 'axios' found, which contradicts some of the initial assumptions. The project is simpler than it appeared. I need to re-examine the source to find the collaboration logic.

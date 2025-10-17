@@ -1,0 +1,144 @@
+{
+  "deletion_candidates": [
+    {
+      "path": "H:\\arabic-screenplay-editor\\dist",
+      "reason": "مخرجات البناء قابلة للإعادة",
+      "evidence": [
+        "مجلد dist/ يُنشأ تلقائياً عند تشغيل npm run build",
+        "محتوى قابل للتجديد من مجلد src/",
+        "مدرج في .gitignore عادة"
+      ],
+      "risk": "low",
+      "replacement_or_action": "سيُعاد إنشاؤه عند البناء التالي"
+    },
+    {
+      "path": "H:\\arabic-screenplay-editor\\node_modules",
+      "reason": "تبعيات قابلة للتثبيت مجدداً",
+      "evidence": [
+        "يُعاد إنشاؤه من package.json و package-lock.json",
+        "حجم كبير يمكن توفيره",
+        "محتوى قياسي من npm"
+      ],
+      "risk": "low",
+      "replacement_or_action": "npm install لإعادة التثبيت"
+    },
+    {
+      "path": "H:\\arabic-screenplay-editor\\src\\agents",
+      "reason": "مستبعد من التكوين ولا يُستخدم",
+      "evidence": [
+        "مدرج في tsconfig.json exclude",
+        "لا يوجد استيراد من agents/ في الكود الحالي",
+        "يحتوي على 40+ ملف غير مستخدم"
+      ],
+      "risk": "medium",
+      "replacement_or_action": "نقل إلى archive/ إذا كان مطلوباً مستقبلاً"
+    },
+    {
+      "path": "H:\\arabic-screenplay-editor\\src\\config",
+      "reason": "مستبعد من التكوين ولا يُستخدم",
+      "evidence": [
+        "مدرج في tsconfig.json exclude",
+        "agentConfigs.ts غير مستورد في أي مكان",
+        "مرتبط بـ agents/ المستبعد"
+      ],
+      "risk": "medium",
+      "replacement_or_action": "نقل إلى archive/ مع agents/"
+    },
+    {
+      "path": "H:\\arabic-screenplay-editor\\src\\components\\legacy",
+      "reason": "مكونات قديمة مستبعدة",
+      "evidence": [
+        "اسم المجلد يشير إلى كونه legacy",
+        "مستبعد من tsconfig.json",
+        "غير مستخدم في الكود الحالي"
+      ],
+      "risk": "low",
+      "replacement_or_action": "نقل إلى archive/legacy-components/ للمرجعية"
+    },
+    {
+      "path": "H:\\arabic-screenplay-editor\\scripts",
+      "reason": "سكربتات Python غير مرتبطة بالمشروع",
+      "evidence": [
+        "ملفات Python (.py) في مشروع TypeScript/React",
+        "تبدو كأدوات تحليل خارجية",
+        "requirements.txt في الجذر لا يُستخدم",
+        "لا توجد مراجع لهذه السكربتات في package.json"
+      ],
+      "risk": "medium",
+      "replacement_or_action": "نقل إلى archive/analysis-scripts/ إذا كانت أدوات تحليل تاريخية"
+    },
+    {
+      "path": "H:\\arabic-screenplay-editor\\patches\\refactor.diff",
+      "reason": "ملف patch قديم",
+      "evidence": [
+        "ملف diff واحد في مجلد patches",
+        "قد يكون من محاولة refactor سابقة",
+        "لا يُستخدم في البناء الحالي"
+      ],
+      "risk": "low",
+      "replacement_or_action": "نقل إلى archive/patches/ للمرجعية"
+    },
+    {
+      "path": "H:\\arabic-screenplay-editor\\requirements.txt",
+      "reason": "متطلبات Python في مشروع Node.js",
+      "evidence": [
+        "ملف requirements.txt خاص بـ Python",
+        "المشروع يستخدم npm وليس pip",
+        "مرتبط بالسكربتات غير المستخدمة"
+      ],
+      "risk": "low",
+      "replacement_or_action": "حذف أو نقل مع scripts/ إلى archive/"
+    },
+    {
+      "path": "H:\\arabic-screenplay-editor\\archive\\tests-fixtures\\2025-09-28",
+      "reason": "ملفات اختبار قديمة مكررة",
+      "evidence": [
+        "نسخ من ملفات موجودة في src/tests/",
+        "مؤرخة بتاريخ محدد (2025-09-28)",
+        "محتوى مكرر لا يُستخدم"
+      ],
+      "risk": "low",
+      "replacement_or_action": "دمج مع tests/fixtures/ المقترح أو حذف النسخ المكررة"
+    },
+    {
+      "path": "H:\\arabic-screenplay-editor\\.qoderignore",
+      "reason": "ملف تكوين لأداة غير واضحة",
+      "evidence": [
+        "ملف .qoderignore غير معروف الغرض",
+        "قد يكون من أداة تطوير سابقة",
+        "لا يُستخدم في العملية الحالية"
+      ],
+      "risk": "low",
+      "replacement_or_action": "فحص المحتوى وحذف إذا لم يكن ضرورياً"
+    }
+  ],
+  "safe_to_delete": [
+    "dist/",
+    "node_modules/",
+    "requirements.txt",
+    ".qoderignore"
+  ],
+  "requires_review": [
+    "src/agents/",
+    "src/config/",
+    "scripts/",
+    "archive/tests-fixtures/2025-09-28/"
+  ],
+  "preserve": [
+    "src/components/editor/",
+    "src/components/naqid/",
+    "src/services/",
+    "src/types/",
+    "package.json",
+    "tsconfig.json",
+    "vite.config.ts",
+    "tailwind.config.js"
+  ],
+  "total_estimated_space_saved": "~500MB (معظمه من node_modules/)",
+  "recommendations": [
+    "حذف آمن لـ dist/ و node_modules/",
+    "نقل agents/ و config/ إلى archive/ بدلاً من الحذف",
+    "مراجعة scripts/ لتحديد إذا كانت أدوات تحليل مفيدة",
+    "دمج ملفات الاختبار المكررة"
+  ]
+}

@@ -1,0 +1,13 @@
+[defaults]
+url=https://sentry.io/
+org=drama-analyst-org
+project=drama-analyst
+
+[auth]
+token=${SENTRY_AUTH_TOKEN}
+
+[upload]
+strip_prefix=dist/
+strip_common_prefix=true
+rewrite=true
+

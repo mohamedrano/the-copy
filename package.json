@@ -1,0 +1,62 @@
+{
+  "name": "the-copy-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "The Copy - Monorepo for Arabic Screenplay Editor and Drama Analysis Tools",
+  "engines": {
+    "node": ">=18.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "scripts": {
+    "dev": "pnpm --filter \"./apps/**\" --parallel run dev",
+    "dev:basic": "pnpm --filter basic-editor run dev",
+    "dev:drama": "pnpm --filter drama-analyst run dev",
+    "dev:stations": "pnpm --filter stations run dev",
+    "dev:story": "pnpm --filter multi-agent-story run dev",
+    "build": "pnpm -r --filter \"./apps/**\" run build",
+    "build:all": "pnpm -r run build",
+    "build:basic": "pnpm --filter basic-editor run build",
+    "build:drama": "pnpm --filter drama-analyst run build",
+    "build:stations": "pnpm --filter stations run build",
+    "build:story": "pnpm --filter multi-agent-story run build",
+    "clean": "pnpm -r run clean && rm -rf node_modules",
+    "clean:all": "pnpm -r exec rm -rf dist node_modules .turbo && rm -rf node_modules",
+    "type-check": "pnpm -r run type-check",
+    "lint": "pnpm -r run lint",
+    "lint:fix": "pnpm -r run lint:fix",
+    "test": "pnpm -r run test",
+    "test:coverage": "pnpm --filter \"./apps/*\" test -- --coverage",
+    "coverage": "pnpm -r run coverage",
+    "preview": "pnpm --filter @the-copy/the-copy run preview",
+    "verify:all": "pnpm run type-check && pnpm run lint && pnpm run test",
+    "dev:shell": "pnpm --filter @the-copy/the-copy run dev",
+    "build:shell": "pnpm --filter @the-copy/the-copy run build",
+    "type-check:shell": "pnpm --filter @the-copy/the-copy run type-check",
+    "test:shell": "pnpm --filter @the-copy/the-copy run test",
+    "docker:build": "docker build -f Dockerfile . -t the-copy-app",
+    "docker:run": "docker run -p 8080:80 the-copy-app"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "typescript": "^5.3.3",
+    "@eslint/js": "^8.57.1",
+    "@typescript-eslint/eslint-plugin": "^7.2.0",
+    "@typescript-eslint/parser": "^7.2.0",
+    "eslint-plugin-react": "^7.34.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "eslint-plugin-tsdoc": "^0.2.17",
+    "globals": "^13.24.0"
+  },
+  "packageManager": "pnpm@10.18.3",
+  "dependencies": {
+    "@anthropic-ai/claude-agent-sdk": "^0.1.15"
+  },
+  "pnpm": {
+    "overrides": {
+      "react": "19.2.0",
+      "react-dom": "19.2.0"
+    }
+  }
+}

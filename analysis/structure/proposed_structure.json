@@ -1,0 +1,194 @@
+{
+  "proposed_structure": {
+    "rationale": "تحسين تنظيم المشروع بفصل الطبقات وتوضيح المسؤوليات مع الحفاظ على الوظائف الأساسية",
+    "structure": {
+      "src/": {
+        "purpose": "الكود المصدري الأساسي للتطبيق",
+        "children": {
+          "components/": {
+            "purpose": "مكونات واجهة المستخدم",
+            "rationale": "فصل مكونات UI حسب الوظيفة",
+            "children": {
+              "editor/": {
+                "purpose": "مكونات المحرر الأساسي",
+                "files": [
+                  "CleanIntegratedScreenplayEditor.tsx",
+                  "AdvancedAgentsPopup.tsx"
+                ]
+              },
+              "analysis/": {
+                "purpose": "مكونات التحليل والمراجعة",
+                "rationale": "إعادة تسمية naqid/ إلى analysis/ لوضوح أكبر",
+                "files": [
+                  "AnalysisDashboard.tsx"
+                ],
+                "action": "rename naqid/ to analysis/, rename NaqidDashboard.tsx to AnalysisDashboard.tsx"
+              },
+              "shared/": {
+                "purpose": "مكونات مشتركة عبر التطبيق",
+                "rationale": "إنشاء مجلد للمكونات القابلة لإعادة الاستخدام",
+                "files": [
+                  "Button.tsx",
+                  "Modal.tsx",
+                  "Loading.tsx"
+                ]
+              }
+            }
+          },
+          "services/": {
+            "purpose": "منطق العمليات والخدمات",
+            "rationale": "الحفاظ على البنية الحالية",
+            "files": [
+              "AnalysisService.ts",
+              "test-classifier.ts",
+              "counter.ts"
+            ]
+          },
+          "modules/": {
+            "purpose": "وحدات معالجة متخصصة",
+            "children": {
+              "text/": {
+                "purpose": "معالجة واستبدال النصوص",
+                "files": [
+                  "domTextReplacement.ts",
+                  "textProcessor.ts",
+                  "arabicTextUtils.ts"
+                ]
+              },
+              "screenplay/": {
+                "purpose": "منطق السيناريو المتخصص",
+                "rationale": "استخراج منطق السيناريو من المكونات الضخمة",
+                "files": [
+                  "ScreenplayClassifier.ts",
+                  "ScreenplayFormatter.ts",
+                  "ScreenplayValidator.ts"
+                ]
+              }
+            }
+          },
+          "hooks/": {
+            "purpose": "React hooks مخصصة",
+            "rationale": "استخراج منطق hooks من المكونات",
+            "files": [
+              "useAutoSave.ts",
+              "useScreenplayFormat.ts",
+              "useTextSelection.ts"
+            ]
+          },
+          "utils/": {
+            "purpose": "أدوات مساعدة عامة",
+            "rationale": "وظائف مساعدة لا تخص مكون معين",
+            "files": [
+              "constants.ts",
+              "helpers.ts",
+              "arabicUtils.ts"
+            ]
+          },
+          "types/": {
+            "purpose": "تعريفات TypeScript",
+            "rationale": "الحفاظ على البنية الحالية",
+            "files": [
+              "types.ts",
+              "screenplay.types.ts",
+              "api.types.ts"
+            ]
+          }
+        }
+      },
+      "tests/": {
+        "purpose": "اختبارات التطبيق",
+        "rationale": "دمج جميع الاختبارات في مكان واحد",
+        "children": {
+          "unit/": {
+            "purpose": "اختبارات الوحدة",
+            "files": [
+              "analysis-service.test.ts",
+              "replace-helper.test.ts"
+            ]
+          },
+          "integration/": {
+            "purpose": "اختبارات التكامل",
+            "files": [
+              "screenplay-editor.test.ts"
+            ]
+          },
+          "fixtures/": {
+            "purpose": "بيانات اختبار ثابتة",
+            "rationale": "نقل ملفات الاختبار من src/tests/",
+            "files": [
+              "final-test.txt",
+              "comprehensive-test.txt",
+              "basmala-test.cjs"
+            ]
+          }
+        }
+      },
+      "docs/": {
+        "purpose": "وثائق المشروع",
+        "rationale": "نقل الوثائق العربية إلى مجلد منفصل",
+        "children": {
+          "assets/": {
+            "purpose": "ملفات الوثائق المرفقة",
+            "files": [
+              "الحصار الأول .. بين الركن و المقام_.docx",
+              "الرسالة الأولى .. ست بنات.docx"
+            ]
+          }
+        }
+      },
+      "archive/": {
+        "purpose": "ملفات أرشيفية ومواد قديمة",
+        "rationale": "الحفاظ على الملفات التاريخية مع عزلها",
+        "note": "محتويات موجودة بالفعل، يُحتفظ بها كما هي"
+      }
+    }
+  },
+  "migration_actions": [
+    {
+      "action": "rename_directory",
+      "from": "src/components/naqid/",
+      "to": "src/components/analysis/",
+      "rationale": "اسم أوضح وأكثر وصفية"
+    },
+    {
+      "action": "rename_file",
+      "from": "src/components/analysis/NaqidDashboard.tsx",
+      "to": "src/components/analysis/AnalysisDashboard.tsx",
+      "rationale": "اتساق مع اسم المجلد الجديد"
+    },
+    {
+      "action": "extract_classes",
+      "from": "src/components/editor/CleanIntegratedScreenplayEditor.tsx",
+      "to": [
+        "src/modules/screenplay/ScreenplayClassifier.ts",
+        "src/hooks/useAutoSave.ts",
+        "src/utils/constants.ts"
+      ],
+      "rationale": "تقليل حجم الملف الضخم وتحسين إعادة الاستخدام"
+    },
+    {
+      "action": "move_files",
+      "from": "src/tests/",
+      "to": "tests/fixtures/",
+      "rationale": "توحيد ملفات الاختبار في مكان واحد"
+    },
+    {
+      "action": "move_files",
+      "from": "root/*.docx",
+      "to": "docs/assets/",
+      "rationale": "تنظيم الوثائق في مجلد مخصص"
+    },
+    {
+      "action": "create_directories",
+      "directories": [
+        "src/hooks/",
+        "src/utils/",
+        "src/modules/screenplay/",
+        "tests/unit/",
+        "tests/integration/",
+        "docs/assets/"
+      ],
+      "rationale": "إنشاء البنية الجديدة المقترحة"
+    }
+  ]
+}

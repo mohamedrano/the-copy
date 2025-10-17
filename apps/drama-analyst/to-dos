@@ -1,0 +1,40 @@
+Production Readiness Execution Plan for Drama Analyst & Creative Mimic
+
+## Phase 1: assemble (Prepare Baseline)
+- [ ] Clone/setup the repository: git clone {REPO_URL} and cd {PROJECT_DIR}
+- [ ] Detect the stack by examining package.json for React 19 + TypeScript + Vite. Run: cat package.json | jq '.dependencies, .devDependencies'
+- [ ] Record baseline metrics: Create artifacts/baseline directory. Run npm run build > artifacts/baseline/build.initial.log, npx tsc --noEmit > artifacts/baseline/tsc.initial.log, and npm audit --json > artifacts/baseline/audit.initial.json
+- [ ] Create working branches: git checkout -b prod-ready-p0 and git checkout -b prod-ready-p1
+
+## Phase 2: grade (Execute P0 Critical Fixes)
+- [ ] Fix Gemini API import errors: Install @google/generative-ai, uninstall @google/genai, apply patch P0-001.diff (update imports and constructor call in geminiService.ts). Verify with npx tsc --noEmit and npm run build. Commit changes.
+- [ ] Fix cacheService.ts type mismatch: Apply patch P0-002.diff (correct generateKey signature from string[] to ProcessedFile[] and update property access). Verify with npx tsc --noEmit. Commit changes.
+- [ ] Fix fileReaderService.ts mammoth import: Apply patch P0-003.diff (correct dynamic import for mammoth package from destructuring to using mammoth.convertToPlainText). Verify with npx tsc --noEmit. Commit changes.
+- [ ] Fix ui/App.tsx type narrowing: Apply patch P0-004.diff (add type guard 'error' in result for Result<T> type and handle both error/success branches). Verify with npx tsc --noEmit. Commit changes.
+- [ ] Add environment configuration: Create .env.example with VITE_GEMINI_API_KEY and add .env.local to .gitignore. Commit changes.
+- [ ] Perform final verification of P0 fixes: Run npx tsc --noEmit, npm run build, and record bundle stats. Check summary to confirm 0 TypeScript errors.
+
+## Phase 3: mix (Execute P1 Enhancements)
+- [ ] Add Vitest testing framework: Install vitest, @testing-library/react, @testing-library/jest-dom, jsdom. Create vitest.config.ts and src/test/setup.ts. Add basic tests for core services (e.g., geminiService.test.ts). Update package.json scripts. Run npm run test:coverage. Commit changes.
+- [ ] Optimize Bundle Size with code splitting: Update vite.config.ts with manualChunks for vendor, agents, and gemini. Apply dynamic imports for agents. Build and measure bundle size. Commit changes.
+- [ ] Add Error Boundaries: Apply patch P1-003.diff (add getDerivedStateFromError and componentDidCatch to ErrorBoundary.tsx). Apply patch P1-003-app.diff (wrap App component with ErrorBoundary). Commit changes.
+- [ ] Configure Security (API Key Protection): Create src/config/environment.ts. Update geminiService to use the config service for API key. Build and check if API key is exposed in the bundle using grep. Commit changes.
+- [ ] Add Observability (Sentry + Performance): Install @sentry/react. Create src/services/observability.ts to initialize Sentry and PerformanceObserver. Integrate initObservability in main.tsx. Update .env.example with VITE_SENTRY_DSN. Commit changes.
+- [ ] Add GitHub Actions CI/CD pipeline: Create .github/workflows/ci.yml with jobs for test, security, and bundle-size. Ensure it checks TypeScript, tests, npm audit, and bundle size. Commit changes.
+
+## Phase 4: render (Final Build + Smoke Tests)
+- [ ] Perform final production build: npm run build > verification/render.build.log
+- [ ] Collect bundle statistics: Generate verification/bundle_stats.json including build date, file sizes, and gzip sizes.
+- [ ] Run preview server: npm run preview & (and wait for 5 seconds).
+- [ ] Execute Smoke Tests: Run verification/smoke_tests.sh to verify homepage loads and JS bundles are referenced. Log output to verification/render.smoke-tests.log.
+- [ ] Stop preview server: kill PREVIEW_PID.
+- [ ] Run Lighthouse (optional): If Lighthouse CLI is available, run npm run preview, then lighthouse http://localhost:4173 --output=json --output-path=verification/lighthouse.json, then kill the preview server.
+- [ ] Create render summary: Generate verification/render.summary.md.
+
+## Phase 5: export (Prepare PR and Rollback Plan)
+- [ ] Create PR Body: Generate PR_BODY.md with executive summary, changes overview (P0, P1), verification results, artifacts, rollback plan, deployment checklist, risk assessment, and monitoring plan.
+- [ ] Create final checklist: Generate verification/final-checklist.md summarizing P0, P1, and technical verification.
+- [ ] Merge branches: git checkout prod-ready-p0 and git merge prod-ready-p1
+- [ ] Create Git tag: git tag -a v1.0.0-prod-ready -m "Production ready after P0+P1 fixes"
+- [ ] Push branches and tags: git push origin prod-ready-p0 and git push origin --tags
+

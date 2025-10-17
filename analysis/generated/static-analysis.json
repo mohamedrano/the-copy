@@ -1,0 +1,1790 @@
+{
+  "modules": [
+    {
+      "path": "src/config/agents.ts",
+      "imports": [],
+      "importedByCount": 2,
+      "exports": [
+        {
+          "name": "AgentConfig",
+          "isTypeOnly": true
+        },
+        {
+          "name": "AgentsConfig",
+          "isTypeOnly": true
+        },
+        {
+          "name": "agentsConfig",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "AgentConfig": 1,
+        "AgentsConfig": 0,
+        "agentsConfig": 1,
+        "*": 1
+      },
+      "sha256": "d252e0398125a595ed0fb8ab8ca297f89be01dd329db89d150543816484c48cd",
+      "structureHash": "b551294033ad7c509d3340a2c2abf0a5f25b4e154d1218c09c72ea81918a694f",
+      "sizeBytes": 850,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/config/environment.ts",
+      "imports": [],
+      "importedByCount": 2,
+      "exports": [
+        {
+          "name": "EnvironmentConfig",
+          "isTypeOnly": true
+        },
+        {
+          "name": "environment",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "EnvironmentConfig": 0,
+        "environment": 1,
+        "*": 1
+      },
+      "sha256": "8b0c3398fc4236d97db7ccfc04665b583b83379e9b79b2c7a5e74c3c44295e8c",
+      "structureHash": "c7f985eb1f38a78c765ad6161c1564be2caf6845ed6e9a1008d93f71ce2d46fe",
+      "sizeBytes": 706,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/types/types.ts",
+      "imports": [],
+      "importedByCount": 43,
+      "exports": [
+        {
+          "name": "TaskType",
+          "isTypeOnly": false
+        },
+        {
+          "name": "TaskCategory",
+          "isTypeOnly": false
+        },
+        {
+          "name": "CompletionEnhancementOption",
+          "isTypeOnly": true
+        },
+        {
+          "name": "AIAgentConfig",
+          "isTypeOnly": true
+        },
+        {
+          "name": "DialogueLine",
+          "isTypeOnly": true
+        },
+        {
+          "name": "Character",
+          "isTypeOnly": true
+        },
+        {
+          "name": "SceneActionLine",
+          "isTypeOnly": true
+        },
+        {
+          "name": "ProcessedFile",
+          "isTypeOnly": true
+        },
+        {
+          "name": "AIWritingAssistantLike",
+          "isTypeOnly": true
+        },
+        {
+          "name": "Scene",
+          "isTypeOnly": true
+        },
+        {
+          "name": "Script",
+          "isTypeOnly": true
+        }
+      ],
+      "exportUsage": {
+        "TaskType": 38,
+        "TaskCategory": 37,
+        "CompletionEnhancementOption": 0,
+        "AIAgentConfig": 39,
+        "DialogueLine": 1,
+        "Character": 1,
+        "SceneActionLine": 1,
+        "ProcessedFile": 1,
+        "AIWritingAssistantLike": 0,
+        "Scene": 1,
+        "Script": 2
+      },
+      "sha256": "ca8a457e962422a52a8fbfb619feb2df48f158e63c340aa4c1bb8503db9a1e02",
+      "structureHash": "2f1d475811dbdb5266449574e6ae263edc9085b4fa08e5c69c4dcd46be1751dd",
+      "sizeBytes": 9464,
+      "lastModifiedMs": 1759051490760.7285
+    },
+    {
+      "path": "src/agents/analysis/config.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "ANALYSIS_AGENT_CONFIG",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "ANALYSIS_AGENT_CONFIG": 1
+      },
+      "sha256": "ce28aa5eb0f16dfa7b6985d477fc7581b45b5afcbe06de4147170ed794da862c",
+      "structureHash": "c9ecbd3eff81391759606ff8fafbd29d9aa4a0dc6ead7b94a94f8f8baadcd840",
+      "sizeBytes": 5516,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/agents/generation/creativeAgent.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "CREATIVE_AGENT_CONFIG",
+          "isTypeOnly": false
+        },
+        {
+          "name": "creativeAgent",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "CREATIVE_AGENT_CONFIG": 0,
+        "creativeAgent": 1
+      },
+      "sha256": "7bed1b446a033ffc155c165de3c3800bb6de77194f3218b5026f237eabd44b7d",
+      "structureHash": "3903ae21d53813c2259c22293ed91b2ba383afe45cbc79d38428ba3f2ec49511",
+      "sizeBytes": 1606,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/agents/generation/completionAgent.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "completionAgent",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "completionAgent": 1
+      },
+      "sha256": "b2cb12f712783f15eef78ae609f837b7c2f4b7f5d358a45491c542111976edee",
+      "structureHash": "c2c06edc47e2645fa7f7b17bc521cd0ef3f7e3c45da2ad3a04d730a388662156",
+      "sizeBytes": 3187,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/agents/analysis/rhythmMappingAgent.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "RHYTHM_MAPPING_AGENT_CONFIG",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "RHYTHM_MAPPING_AGENT_CONFIG": 1
+      },
+      "sha256": "6bac0a94519d173702af65cb4f97d0fd320827c1075edbc61d6114d169a709d0",
+      "structureHash": "0b9ec0023924b2ac5e7ed9565419bc5afa1786c78ebac363837fe13360a41975",
+      "sizeBytes": 3800,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/analysis/characterNetworkAgent.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "CHARACTER_NETWORK_AGENT_CONFIG",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "CHARACTER_NETWORK_AGENT_CONFIG": 1
+      },
+      "sha256": "8d07c1d9a89ab839b7fb68353a1fd0e3d5c2a87f0e6d791b51e1369dac6e33e8",
+      "structureHash": "ebd475aef7d5636e17a126bf6b978d9810e545ce5f5c804f5b1a0516882890b0",
+      "sizeBytes": 4911,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/analysis/dialogueForensicsAgent.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "DIALOGUE_FORENSICS_AGENT_CONFIG",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "DIALOGUE_FORENSICS_AGENT_CONFIG": 1
+      },
+      "sha256": "68eca6ffec66d003459e71fd70667d257cfe310ae6b39ec1e21c3cbe45dfcb36",
+      "structureHash": "bb10f2c5cf07276a7df5303b12cce2b4156c9f7c26b9e69fb0268bfdb9dc9207",
+      "sizeBytes": 4424,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/analysis/thematicMiningAgent.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "thematicMiningAgent",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "thematicMiningAgent": 1
+      },
+      "sha256": "57fe8a4a03da3a257d98325708d9258163a3104c439f5b6f094b8069f7d0786e",
+      "structureHash": "1c2650758db382f0ba8afa46d4fa393392db19a6350ab218510dd2c9dff1aeac",
+      "sizeBytes": 3983,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/agents/transformation/styleFingerprintAgent.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "styleFingerprintAgent",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "styleFingerprintAgent": 1
+      },
+      "sha256": "53419949716408d6221ea7eb1b980efa0ea89dea4460f0f7e9f3ec2fb0f63661",
+      "structureHash": "4840ac6b008f9b9e3359fff8f5af8f19e7a43fceb5f969d851f835e810cc26d7",
+      "sizeBytes": 2448,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/agents/analysis/conflictDynamicsAgent.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "CONFLICT_DYNAMICS_AGENT_CONFIG",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "CONFLICT_DYNAMICS_AGENT_CONFIG": 1
+      },
+      "sha256": "7eabe849eece8fd64303d4ccb0910a430efeffd55eedce5ef45682a5674501de",
+      "structureHash": "ebd475aef7d5636e17a126bf6b978d9810e545ce5f5c804f5b1a0516882890b0",
+      "sizeBytes": 3351,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/generation/sceneGeneratorAgent.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "sceneGeneratorAgent",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "sceneGeneratorAgent": 1
+      },
+      "sha256": "ed41705e64c19cdc6d3ba97789e1763cce30e31f50215664aa0b59b06b23b538",
+      "structureHash": "46fec114f4f1ff92713f10cf748fd7d9f5168f3418dbe8136f124dad817aa5ab",
+      "sizeBytes": 5966,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/agents/analysis/characterVoiceAgent.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "CHARACTER_VOICE_AGENT_CONFIG",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "CHARACTER_VOICE_AGENT_CONFIG": 1
+      },
+      "sha256": "e4fd5225c3aa67fded4e2410f974181f92de8ad59a73c92fd15e6e052c1ad9b5",
+      "structureHash": "6a9d2027cc0bb75e0ba867b64f019c9d50a5f1b812a453463a39f4b72d0f0131",
+      "sizeBytes": 4099,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/generation/worldBuilderAgent.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "worldBuilderAgent",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "worldBuilderAgent": 1
+      },
+      "sha256": "ac99ee85d69cea7a80f0c146c9d53d424f5c27c371c4e2c7c2d2b65c4c97f676",
+      "structureHash": "2242088b0c0549b81acbdd41171ff42673cd84dec7e214c5bf0278a47c047e1e",
+      "sizeBytes": 5093,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/agents/analysis/plotPredictorAgent.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "PLOT_PREDICTOR_AGENT_CONFIG",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "PLOT_PREDICTOR_AGENT_CONFIG": 1
+      },
+      "sha256": "5406942cac07ac29340004044d3efe8ed473c15e691707749a2a0f1c8bad6966",
+      "structureHash": "69d64639a33cc1b899db339a97ac5d3160ef027f95121b9e64129c34f0eb59eb",
+      "sizeBytes": 4137,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/evaluation/tensionOptimizerAgent.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "tensionOptimizerAgent",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "tensionOptimizerAgent": 1
+      },
+      "sha256": "dbb4379c2d657d7e2a571ed9a504035376ed858223b507bafcfb1435764b2bc6",
+      "structureHash": "d5919f34665adc3568af029c1a2eab2396d81352864fb9962ba1f226285f634d",
+      "sizeBytes": 2911,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/agents/evaluation/audienceResonanceAgent.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "AUDIENCE_RESONANCE_AGENT_CONFIG",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "AUDIENCE_RESONANCE_AGENT_CONFIG": 1
+      },
+      "sha256": "0b845a2f11c400383eb887143e14a313336e9fc78730e5bb183cd660d0f7e882",
+      "structureHash": "3c9bb24f10a76ed2ce96769b0452a7084ccea32da4f0b49af9a3e85eee5049c1",
+      "sizeBytes": 3048,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/transformation/platformAdapterAgent.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "platformAdapterAgent",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "platformAdapterAgent": 1
+      },
+      "sha256": "ce3a855af101f8548ef0bffad909ef958d2e098ac0d5a365d5b0b5e4ba3b3af6",
+      "structureHash": "990429370acb0741f37d7afd0b17f7055e833925937ebbde9b4c11b07070e3d6",
+      "sizeBytes": 2634,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/agents/analysis/characterDeepAnalyzerConfig.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 2,
+      "exports": [
+        {
+          "name": "CHARACTER_DEEP_ANALYZER_AGENT_CONFIG",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "CHARACTER_DEEP_ANALYZER_AGENT_CONFIG": 2
+      },
+      "sha256": "2cfe852585541d4a298d646376ebb1ce52ec54bc55092d8a576e677bbfbecb02",
+      "structureHash": "4a88997091bed0feef44f11ed9f592ba89440380c2b124926e51c145d7ec23b4",
+      "sizeBytes": 3036,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/agents/analysis/dialogueAdvancedAnalyzerAgent.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "DIALOGUE_ADVANCED_ANALYZER_AGENT_CONFIG",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "DIALOGUE_ADVANCED_ANALYZER_AGENT_CONFIG": 1
+      },
+      "sha256": "f1bec966fe8168e3689a45a807ffed40eed03a25b18c62f8dbe98d366e4ab81d",
+      "structureHash": "b438b554066e09caf846485add5b266b426030f3c7b4c88a88e66fd764e0d82a",
+      "sizeBytes": 3076,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/analysis/visualCinematicAnalyzerAgent.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "visualCinematicAnalyzerAgent",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "visualCinematicAnalyzerAgent": 1
+      },
+      "sha256": "9aace9b07ca640203c312469a2e31e118ee8646bfe23cc0cdf42990e1a87547f",
+      "structureHash": "1ac6083589f7cf6b3d4a44cdd444ab2e97729efa9519373c5a1573c6e4b6f0fd",
+      "sizeBytes": 3755,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/agents/analysis/themesMessagesAnalyzerAgent.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "themesMessagesAnalyzerAgent",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "themesMessagesAnalyzerAgent": 1
+      },
+      "sha256": "8dae87c8c93c3fdb42081e52b7fce600c8e651f78c797a45a76048de75b0f8f4",
+      "structureHash": "81ccfe7df4280945cd10d32249c9c073d1d43bc1d4836b56121509d71e14b177",
+      "sizeBytes": 2704,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/agents/analysis/culturalHistoricalAnalyzerAgent.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "CULTURAL_HISTORICAL_ANALYZER_AGENT_CONFIG",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "CULTURAL_HISTORICAL_ANALYZER_AGENT_CONFIG": 1
+      },
+      "sha256": "fadc7af672040decbb9018aeb6060efa4e409a1bbc5b8e3ea3fde9788c9f8efe",
+      "structureHash": "db3c7bb9fdaab17e8b8a62f959574249c0fa47e61dd9d3260ec76c4e80d8d614",
+      "sizeBytes": 3386,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/analysis/producibilityAnalyzerAgent.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "PRODUCIBILITY_ANALYZER_AGENT_CONFIG",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "PRODUCIBILITY_ANALYZER_AGENT_CONFIG": 1
+      },
+      "sha256": "fb3ff5fe258f98fa6fb94e255c5f33f4068f121be956bd3e34c9024a52ea7590",
+      "structureHash": "76749308bb1f2252d3d549fa4ca810521ab2d593264d3c03d3aa802fd83b440e",
+      "sizeBytes": 5443,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/analysis/targetAudienceAnalyzerAgent.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "TARGET_AUDIENCE_ANALYZER_AGENT_CONFIG",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "TARGET_AUDIENCE_ANALYZER_AGENT_CONFIG": 1
+      },
+      "sha256": "8563a0f06ac32f441e3fe0cc4e6af379b508d0c9b87758aed622644ea0baf651",
+      "structureHash": "c11e157cc3307a6d3f1d2919cebfc73333ee4dcf0aac6ae70f0b6cd2fac6153f",
+      "sizeBytes": 4961,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/analysis/literaryQualityAnalyzerAgent.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "LITERARY_QUALITY_ANALYZER_AGENT_CONFIG",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "LITERARY_QUALITY_ANALYZER_AGENT_CONFIG": 1
+      },
+      "sha256": "fd10a2c4c32b51ca52df5f27829f1607615ced1dd3227a056ad8ce1bf46d1ad8",
+      "structureHash": "7834060665d4212f8251de69fb59f96ce67f9362e1a85a14e3aa29a7b8274cf2",
+      "sizeBytes": 4384,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/generation/recommendationsGeneratorAgent.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "recommendationsGeneratorAgent",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "recommendationsGeneratorAgent": 1
+      },
+      "sha256": "b7969d260f952d934e798b6176d3a55b7d5609bb6e50598dc264526875635d3f",
+      "structureHash": "1584d720292d196b8cc12140d88a191a9a55aa90ee933763bc6aebdcd812a130",
+      "sizeBytes": 4057,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/agents/transformation/adaptiveRewritingAgent.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "ADAPTIVE_REWRITING_AGENT_CONFIG",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "ADAPTIVE_REWRITING_AGENT_CONFIG": 1
+      },
+      "sha256": "d3ad5381a972c368c2eb360ba22317acd367fa59b1e51857118761aa423e164b",
+      "structureHash": "ce3acb011fb68e024f2d7460c5546e530589bb10a84e25c990914d4299be1d8f",
+      "sizeBytes": 3038,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/config/agentConfigs.ts",
+      "imports": [
+        "src/agents/analysis/config.ts",
+        "src/agents/generation/creativeAgent.ts",
+        "src/agents/core/integratedAgent.ts",
+        "src/agents/generation/completionAgent.ts",
+        "src/agents/analysis/rhythmMappingAgent.ts",
+        "src/agents/analysis/characterNetworkAgent.ts",
+        "src/agents/analysis/dialogueForensicsAgent.ts",
+        "src/agents/analysis/thematicMiningAgent.ts",
+        "src/agents/transformation/styleFingerprintAgent.ts",
+        "src/agents/analysis/conflictDynamicsAgent.ts",
+        "src/agents/generation/sceneGeneratorAgent.ts",
+        "src/agents/analysis/characterVoiceAgent.ts",
+        "src/agents/generation/worldBuilderAgent.ts",
+        "src/agents/analysis/plotPredictorAgent.ts",
+        "src/agents/evaluation/tensionOptimizerAgent.ts",
+        "src/agents/evaluation/audienceResonanceAgent.ts",
+        "src/agents/transformation/platformAdapterAgent.ts",
+        "src/agents/analysis/characterDeepAnalyzerConfig.ts",
+        "src/agents/analysis/dialogueAdvancedAnalyzerAgent.ts",
+        "src/agents/analysis/visualCinematicAnalyzerAgent.ts",
+        "src/agents/analysis/themesMessagesAnalyzerAgent.ts",
+        "src/agents/analysis/culturalHistoricalAnalyzerAgent.ts",
+        "src/agents/analysis/producibilityAnalyzerAgent.ts",
+        "src/agents/analysis/targetAudienceAnalyzerAgent.ts",
+        "src/agents/analysis/literaryQualityAnalyzerAgent.ts",
+        "src/agents/generation/recommendationsGeneratorAgent.ts",
+        "src/agents/transformation/adaptiveRewritingAgent.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "AGENT_CONFIGS",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "AGENT_CONFIGS": 0,
+        "*": 1
+      },
+      "sha256": "72d4c009d75d5a3b6bd5467062dc496ed024c06dde0bf0ad1fea1556fc45bd1d",
+      "structureHash": "e8eee7941f8b0fa193f086f654cebec379ee1c6ef900814cd7092a90c1ac4273",
+      "sizeBytes": 4523,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/config/prompts.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "PROMPT_PERSONA_BASE",
+          "isTypeOnly": false
+        },
+        {
+          "name": "TASK_SPECIFIC_INSTRUCTIONS",
+          "isTypeOnly": false
+        },
+        {
+          "name": "TASKS_EXPECTING_JSON_RESPONSE",
+          "isTypeOnly": false
+        },
+        {
+          "name": "COMPLETION_ENHANCEMENT_OPTIONS",
+          "isTypeOnly": false
+        },
+        {
+          "name": "TASK_CATEGORY_MAP",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "PROMPT_PERSONA_BASE": 0,
+        "TASK_SPECIFIC_INSTRUCTIONS": 0,
+        "TASKS_EXPECTING_JSON_RESPONSE": 0,
+        "COMPLETION_ENHANCEMENT_OPTIONS": 0,
+        "TASK_CATEGORY_MAP": 0,
+        "*": 1
+      },
+      "sha256": "659cc82b4aee377dbf690ccd2eebcceb057a957f41ea4f099d9436afeca710dd",
+      "structureHash": "e85be0a78e4967d705aa6530895a2b05dea2937001c72069645ad0b93bbe6e75",
+      "sizeBytes": 2101,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/config/index.ts",
+      "imports": [
+        "src/config/agents.ts",
+        "src/config/environment.ts",
+        "src/config/agentConfigs.ts",
+        "src/config/prompts.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "AgentConfig",
+          "isTypeOnly": true
+        },
+        {
+          "name": "AgentsConfig",
+          "isTypeOnly": true
+        },
+        {
+          "name": "agentsConfig",
+          "isTypeOnly": false
+        },
+        {
+          "name": "EnvironmentConfig",
+          "isTypeOnly": true
+        },
+        {
+          "name": "environment",
+          "isTypeOnly": false
+        },
+        {
+          "name": "AGENT_CONFIGS",
+          "isTypeOnly": false
+        },
+        {
+          "name": "PROMPT_PERSONA_BASE",
+          "isTypeOnly": false
+        },
+        {
+          "name": "TASK_SPECIFIC_INSTRUCTIONS",
+          "isTypeOnly": false
+        },
+        {
+          "name": "TASKS_EXPECTING_JSON_RESPONSE",
+          "isTypeOnly": false
+        },
+        {
+          "name": "COMPLETION_ENHANCEMENT_OPTIONS",
+          "isTypeOnly": false
+        },
+        {
+          "name": "TASK_CATEGORY_MAP",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "AgentConfig": 1,
+        "AgentsConfig": 0,
+        "agentsConfig": 0,
+        "EnvironmentConfig": 0,
+        "environment": 1,
+        "AGENT_CONFIGS": 0,
+        "PROMPT_PERSONA_BASE": 1,
+        "TASK_SPECIFIC_INSTRUCTIONS": 1,
+        "TASKS_EXPECTING_JSON_RESPONSE": 1,
+        "COMPLETION_ENHANCEMENT_OPTIONS": 1,
+        "TASK_CATEGORY_MAP": 1
+      },
+      "sha256": "eb0a3e84784cacb09c6e7bb3d5c1e91e46cc397a695020fd4170858ec6ac9564",
+      "structureHash": "08386849519508b15bfee60d93fc0b10621d555608e48b88a4e074baf43b7369",
+      "sizeBytes": 139,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/agents/instructions/prompts.ts",
+      "imports": [],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "ENHANCED_TASK_DESCRIPTIONS",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "ENHANCED_TASK_DESCRIPTIONS": 1
+      },
+      "sha256": "56912b662a082670c191d3763768b6b174797eb4541fdc66ff13bd4efa632af3",
+      "structureHash": "683fb9483729e0498fd9d843e2011b509b34d55087c5b4e1b52f826dbe47a2f0",
+      "sizeBytes": 83,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/agents/core/fileReaderService.ts",
+      "imports": [],
+      "importedByCount": 2,
+      "exports": [
+        {
+          "name": "ProcessedFile",
+          "isTypeOnly": true
+        },
+        {
+          "name": "processFilesForGemini",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "ProcessedFile": 2,
+        "processFilesForGemini": 0
+      },
+      "sha256": "8c0dc5c51e48835efe0894e7d8e870d3a14757359a83f33bcf8d429cbc8d7ab5",
+      "structureHash": "ed150c756b4f96bdd556331237cb02c1937d558c034b38220c81057653369aad",
+      "sizeBytes": 7602,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/core/geminiService.ts",
+      "imports": [
+        "src/config/index.ts",
+        "src/types/types.ts",
+        "src/agents/instructions/prompts.ts",
+        "src/agents/core/fileReaderService.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "GeminiTaskResultData",
+          "isTypeOnly": true
+        },
+        {
+          "name": "GeminiServiceResponse",
+          "isTypeOnly": true
+        },
+        {
+          "name": "GeminiService",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "GeminiTaskResultData": 0,
+        "GeminiServiceResponse": 0,
+        "GeminiService": 1
+      },
+      "sha256": "695e423346950181e07b02582813dffefc7e24f222b5c6ec9dc1254268ed48e4",
+      "structureHash": "6c92e8a50f39f31e6d22223879f15e4841c35f2fbbb779f232062f6a285e0b25",
+      "sizeBytes": 19914,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/agents/core/integratedAgent.ts",
+      "imports": [
+        "src/agents/core/geminiService.ts",
+        "src/config/agents.ts",
+        "src/types/types.ts"
+      ],
+      "importedByCount": 3,
+      "exports": [
+        {
+          "name": "IntegratedAgent",
+          "isTypeOnly": false
+        },
+        {
+          "name": "INTEGRATED_AGENT_CONFIG",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "IntegratedAgent": 2,
+        "INTEGRATED_AGENT_CONFIG": 1
+      },
+      "sha256": "6a91f106ca8af3d387d52b874e67946cd149cdfca3706af8c83718114f788d8e",
+      "structureHash": "6e9350b4bcbe0fb1dcb2d16f8b70f5972ee95dbf5918c28cf5c72ab9da8b41d8",
+      "sizeBytes": 2755,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/agents/analysis/analysisAgent.ts",
+      "imports": [
+        "src/agents/core/integratedAgent.ts",
+        "src/types/types.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "ANALYSIS_AGENT_CONFIG",
+          "isTypeOnly": false
+        },
+        {
+          "name": "AnalysisAgent",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "ANALYSIS_AGENT_CONFIG": 0,
+        "AnalysisAgent": 1
+      },
+      "sha256": "edba67dc599e34aba508aefb3583e9615e22e841f591e9b05f657797680e0348",
+      "structureHash": "9a7e402fbebe5bffa67fe21f63ebece8124024fbda2c1be1598f52b6e3c05ade",
+      "sizeBytes": 2025,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/agents/analysis/characterDeepAnalyzerAgent.ts",
+      "imports": [
+        "src/agents/core/integratedAgent.ts",
+        "src/types/types.ts",
+        "src/agents/analysis/characterDeepAnalyzerConfig.ts",
+        "src/agents/core/fileReaderService.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "CharacterDeepAnalyzerAgent",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "CharacterDeepAnalyzerAgent": 1
+      },
+      "sha256": "50bebb644eba5732b8c2fb6bc3461eff31a0aee0901cb02af42a1dd94abcb756",
+      "structureHash": "102ac6b5eead589f0a3a197d21127c4a94e8bee62867a972bc28b2e747359686",
+      "sizeBytes": 825,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/components/editor/AdvancedAgentsPopup.tsx",
+      "imports": [
+        "src/agents/analysis/analysisAgent.ts",
+        "src/agents/analysis/characterDeepAnalyzerAgent.ts",
+        "src/config/environment.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "default",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "default": 1
+      },
+      "sha256": "c8ff0150ae0c4be3538f6cf75ffa5d3510bb6188d60db31e9928c6b9c297ba52",
+      "structureHash": "e52ec8e5c3209ef9d3b162ce059cebed6255915cacb5e275bafd695ae24644a9",
+      "sizeBytes": 18861,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/modules/text/domTextReplacement.ts",
+      "imports": [],
+      "importedByCount": 2,
+      "exports": [
+        {
+          "name": "applyRegexReplacementToTextNodes",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "applyRegexReplacementToTextNodes": 2
+      },
+      "sha256": "3b67227573c56764dc4abd6bb325ec85a44c6f91375304d422905c0acf91d58f",
+      "structureHash": "4ee88fe762b5aaef7253a0211b5017c08acfdefd35c3efb4adf2846c897a6bd7",
+      "sizeBytes": 2045,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/components/editor/CleanIntegratedScreenplayEditor.tsx",
+      "imports": [
+        "src/components/editor/AdvancedAgentsPopup.tsx",
+        "src/modules/text/domTextReplacement.ts",
+        "src/types/types.ts"
+      ],
+      "importedByCount": 3,
+      "exports": [
+        {
+          "name": "AIWritingAssistant",
+          "isTypeOnly": false
+        },
+        {
+          "name": "ScreenplayClassifier",
+          "isTypeOnly": false
+        },
+        {
+          "name": "default",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "AIWritingAssistant": 1,
+        "ScreenplayClassifier": 2,
+        "default": 1
+      },
+      "sha256": "fafbf02f9938e0617d3994b3d7f7c73c37f31edbb5a4d2ddc8912be9ad8d7c86",
+      "structureHash": "e98b5001cd5b6a50577f098524a52667593a7269a6a0e89934431c49e8d12492",
+      "sizeBytes": 80165,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/services/AnalysisService.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "CharacterDialogueStat",
+          "isTypeOnly": true
+        },
+        {
+          "name": "AnalysisResult",
+          "isTypeOnly": true
+        },
+        {
+          "name": "AIWritingAssistantLike",
+          "isTypeOnly": true
+        },
+        {
+          "name": "default",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "CharacterDialogueStat": 0,
+        "AnalysisResult": 1,
+        "AIWritingAssistantLike": 0,
+        "default": 1
+      },
+      "sha256": "3b95223517a9b057c9a48970582707770b90c5779faedb82c76401137778203c",
+      "structureHash": "e083b4b7c7442d4441885658d090a5212ebeb959e41fc559ba32600533dd534d",
+      "sizeBytes": 3256,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/components/naqid/NaqidDashboard.tsx",
+      "imports": [
+        "src/services/AnalysisService.ts",
+        "src/components/editor/CleanIntegratedScreenplayEditor.tsx"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "default",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "default": 1
+      },
+      "sha256": "05327a9f7420d0e21e852f467ff499ecf36fdea0e7c301799b91582fdfef1974",
+      "structureHash": "c8e92d9388be54b94b981ff52284f401ffd7804757f5c0a5e063a7a6292680ae",
+      "sizeBytes": 7058,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/App.tsx",
+      "imports": [
+        "src/components/editor/CleanIntegratedScreenplayEditor.tsx",
+        "src/components/naqid/NaqidDashboard.tsx"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "default",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "default": 1
+      },
+      "sha256": "373e69e081fc5c5d4c9617f93cda6c28a63128651bd48727a31139e3a6731643",
+      "structureHash": "998259576015503cbaec2c12a0c3ebb420c85765d3093ef0741f6ede95790192",
+      "sizeBytes": 1319,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/main.tsx",
+      "imports": [
+        "src/App.tsx"
+      ],
+      "importedByCount": 0,
+      "exports": [],
+      "exportUsage": {},
+      "sha256": "66b3cb6043cf5c55a1a00820827b5f71eaa424e5c19f8628cad972d711e124da",
+      "structureHash": "cf4402db15cff44cc870d89d211994b095f102554cf31f67621174813e7a1558",
+      "sizeBytes": 238,
+      "lastModifiedMs": 1759018335702.4863
+    },
+    {
+      "path": "src/services/instructions-loader.ts",
+      "imports": [],
+      "importedByCount": 2,
+      "exports": [
+        {
+          "name": "instructionsLoader",
+          "isTypeOnly": false
+        },
+        {
+          "name": "InstructionSet",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "instructionsLoader": 2,
+        "InstructionSet": 1
+      },
+      "sha256": "b0a361694c8ffa4784a4e54e0f0463cb2e8ff697f2f1b6add17eeedfc0a8e6b3",
+      "structureHash": "71efcf5c164e288b8a7d37c1b86cb39760561399494d1728eabe2ab7d98cb96b",
+      "sizeBytes": 3463,
+      "lastModifiedMs": 1759051490760.7285
+    },
+    {
+      "path": "src/agents/core/index.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "getAgentsByCategory",
+          "isTypeOnly": false
+        },
+        {
+          "name": "getAgentById",
+          "isTypeOnly": false
+        },
+        {
+          "name": "AgentCategory",
+          "isTypeOnly": false
+        },
+        {
+          "name": "AGENT_CONFIGS",
+          "isTypeOnly": false
+        },
+        {
+          "name": "AgentExecutor",
+          "isTypeOnly": true
+        },
+        {
+          "name": "SimpleAgentExecutor",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "getAgentsByCategory": 1,
+        "getAgentById": 1,
+        "AgentCategory": 1,
+        "AGENT_CONFIGS": 1,
+        "AgentExecutor": 0,
+        "SimpleAgentExecutor": 1
+      },
+      "sha256": "c455d2bda5ef42623c8f3381df2c1628d2263e7e22dbf1ab4baec64cfffe8d8b",
+      "structureHash": "4cc6b62f74e164b9c77e023875d6e6b5e7582206096fd0a85534821248f1d4c4",
+      "sizeBytes": 6025,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/agents/instructions/adaptive_rewriting_instructions.ts",
+      "imports": [],
+      "importedByCount": 0,
+      "exports": [],
+      "exportUsage": {},
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "structureHash": "e15249287a3a1630bff3388ec498fe9da2d04c4275420c42a6f8742d9e9f7fa9",
+      "sizeBytes": 0,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/instructions/analysis_instructions.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 0,
+      "exports": [
+        {
+          "name": "ANALYSIS_INSTRUCTIONS",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "ANALYSIS_INSTRUCTIONS": 0
+      },
+      "sha256": "0f1a6c5a500d05ce263898d3a1cddd8fd5bff6a195e5573807e5f7cc5abb3898",
+      "structureHash": "2851241f1c7ed24e2ce91a3da8dd897c4ddee014af79483e1bf0c6f960f1b12d",
+      "sizeBytes": 1526,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/agents/instructions/audience_resonance_instructions.ts",
+      "imports": [],
+      "importedByCount": 0,
+      "exports": [],
+      "exportUsage": {},
+      "sha256": "7f19e85805aa10a55b2bf13803529211645b744557ce115208b3a147b8227b5f",
+      "structureHash": "f637830b79827f22095d6e89aa61821ff39004a4ecbebdf0fa937b721dd53663",
+      "sizeBytes": 515,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/advanced_module_output_structure.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 3,
+      "exports": [
+        {
+          "name": "ADVANCED_MODULE_OUTPUT_STRUCTURE",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "ADVANCED_MODULE_OUTPUT_STRUCTURE": 3
+      },
+      "sha256": "a9b8e27335b2e8811e629f1514c1b3e7d9763f67fec64e9940c900729ff503d1",
+      "structureHash": "2851241f1c7ed24e2ce91a3da8dd897c4ddee014af79483e1bf0c6f960f1b12d",
+      "sizeBytes": 967,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/agents/instructions/character_deep_analyzer_instructions.ts",
+      "imports": [
+        "src/types/types.ts",
+        "src/agents/advanced_module_output_structure.ts"
+      ],
+      "importedByCount": 0,
+      "exports": [
+        {
+          "name": "CHARACTER_DEEP_ANALYZER_INSTRUCTIONS",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "CHARACTER_DEEP_ANALYZER_INSTRUCTIONS": 0
+      },
+      "sha256": "be4056f2adf4fdeed2f7f4f29f31229dbb93d37cc74bcfdc9608a8d94df65319",
+      "structureHash": "64054239a9af94cb5e920e130198a4c29227dc82f6cafa94e2d3730cf1a6414f",
+      "sizeBytes": 901,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/agents/instructions/character_network_instructions.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 0,
+      "exports": [
+        {
+          "name": "CHARACTER_NETWORK_INSTRUCTIONS",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "CHARACTER_NETWORK_INSTRUCTIONS": 0
+      },
+      "sha256": "bc39940e0011e35cfe7110b2fbb544a9aae46c17890ba228757af0eec037bb80",
+      "structureHash": "2851241f1c7ed24e2ce91a3da8dd897c4ddee014af79483e1bf0c6f960f1b12d",
+      "sizeBytes": 1337,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/agents/instructions/character_voice_instructions.ts",
+      "imports": [],
+      "importedByCount": 0,
+      "exports": [],
+      "exportUsage": {},
+      "sha256": "91b7477454b85b233e2c112c4c47f57e62fb9ce07ae97911d4bbcde5f794724f",
+      "structureHash": "3b0f2203e43acb2a94b9b817f456e7ae820513fa9312aa842efbf56abbdb5228",
+      "sizeBytes": 114,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/instructions/completion_instructions.ts",
+      "imports": [],
+      "importedByCount": 0,
+      "exports": [],
+      "exportUsage": {},
+      "sha256": "6ebc998d3e01841936775e0f119a6ce89925e2404d8554248ad55c899fc0ae05",
+      "structureHash": "0e845e85acd700b6367a35ca0fa60e93551fd183f6e7bc7a66df556531cb9b26",
+      "sizeBytes": 1251,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/instructions/conflict_dynamics_instructions.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 0,
+      "exports": [
+        {
+          "name": "CONFLICT_DYNAMICS_INSTRUCTIONS",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "CONFLICT_DYNAMICS_INSTRUCTIONS": 0
+      },
+      "sha256": "1af01e723aaf1dd5bc54f740fd34d91cb7cc896943e0bfa80d90b99b23c8a4e5",
+      "structureHash": "2851241f1c7ed24e2ce91a3da8dd897c4ddee014af79483e1bf0c6f960f1b12d",
+      "sizeBytes": 1333,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/agents/instructions/creative_instructions.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 0,
+      "exports": [
+        {
+          "name": "CREATIVE_INSTRUCTIONS",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "CREATIVE_INSTRUCTIONS": 0
+      },
+      "sha256": "450f3ee78db6cb322375757ddccc090364560cbf2c46d9e8db4393d1fcc61477",
+      "structureHash": "2851241f1c7ed24e2ce91a3da8dd897c4ddee014af79483e1bf0c6f960f1b12d",
+      "sizeBytes": 952,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/agents/instructions/cultural_historical_analyzer_instructions.ts",
+      "imports": [],
+      "importedByCount": 0,
+      "exports": [],
+      "exportUsage": {},
+      "sha256": "17fabed5f5939ef19077030e50acb3eeaf43d72d5e82b09951a67c939bbdaa84",
+      "structureHash": "bfcf0314dd2551f39d100bff1741c269a1072c9486a48565266001099915ddae",
+      "sizeBytes": 2093,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/instructions/dialogue_advanced_analyzer_instructions.ts",
+      "imports": [],
+      "importedByCount": 0,
+      "exports": [],
+      "exportUsage": {},
+      "sha256": "ffea83486b642be064f82ff7b5c8a0799db3b8695d2eba25509fd6e4e0dbbab6",
+      "structureHash": "bfcf0314dd2551f39d100bff1741c269a1072c9486a48565266001099915ddae",
+      "sizeBytes": 1989,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/instructions/dialogue_forensics_instructions.ts",
+      "imports": [
+        "src/types/types.ts"
+      ],
+      "importedByCount": 0,
+      "exports": [
+        {
+          "name": "DIALOGUE_FORENSICS_INSTRUCTIONS",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "DIALOGUE_FORENSICS_INSTRUCTIONS": 0
+      },
+      "sha256": "ac4de943e562a40daad29076cd8b9b6cd0884d37a09050a2a25389d28de71b8e",
+      "structureHash": "2851241f1c7ed24e2ce91a3da8dd897c4ddee014af79483e1bf0c6f960f1b12d",
+      "sizeBytes": 1216,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/agents/instructions/integrated_instructions.ts",
+      "imports": [],
+      "importedByCount": 0,
+      "exports": [],
+      "exportUsage": {},
+      "sha256": "91b7477454b85b233e2c112c4c47f57e62fb9ce07ae97911d4bbcde5f794724f",
+      "structureHash": "3b0f2203e43acb2a94b9b817f456e7ae820513fa9312aa842efbf56abbdb5228",
+      "sizeBytes": 114,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/instructions/literary_quality_analyzer_instructions.ts",
+      "imports": [],
+      "importedByCount": 0,
+      "exports": [],
+      "exportUsage": {},
+      "sha256": "b97180e57445aef3e260e474f43c9fc81e12a10594556ed8ef63c6343bdc8868",
+      "structureHash": "bfcf0314dd2551f39d100bff1741c269a1072c9486a48565266001099915ddae",
+      "sizeBytes": 1893,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/instructions/platform_adapter_instructions.ts",
+      "imports": [],
+      "importedByCount": 0,
+      "exports": [],
+      "exportUsage": {},
+      "sha256": "8444eea78295bc74835257a0f53f357a16694c5827e9b728bb555704a5a5b563",
+      "structureHash": "d1a6c60d6ec90ad44762b73c2f18a0614b25b201b96ae5d3affc251454d7c8bb",
+      "sizeBytes": 702,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/instructions/plot_predictor_instructions.ts",
+      "imports": [],
+      "importedByCount": 0,
+      "exports": [],
+      "exportUsage": {},
+      "sha256": "21ebe987cf27a8f56e2bcda2e4ef8b53c6c2eeb4a3c85dc430c58e558fefa1b6",
+      "structureHash": "5a686aadb6a7b7f0fa5b8e413cd122fff4522fdc5d5a3ca8996b430247bb04ec",
+      "sizeBytes": 697,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/instructions/producibility_analyzer_instructions.ts",
+      "imports": [],
+      "importedByCount": 0,
+      "exports": [],
+      "exportUsage": {},
+      "sha256": "1ffe79a4e94752c561df97c793f5c0df19f2c5f5c5efbe7605f33f6dfc8d91c8",
+      "structureHash": "bfcf0314dd2551f39d100bff1741c269a1072c9486a48565266001099915ddae",
+      "sizeBytes": 2227,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/instructions/recommendations_generator_instructions.ts",
+      "imports": [],
+      "importedByCount": 0,
+      "exports": [],
+      "exportUsage": {},
+      "sha256": "6d0159af6786c5c60befcad2124bfb8e4b02cfc1b2a004699ae0345f4c5253bd",
+      "structureHash": "bfcf0314dd2551f39d100bff1741c269a1072c9486a48565266001099915ddae",
+      "sizeBytes": 2880,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/instructions/rhythm_mapping_instructions.ts",
+      "imports": [],
+      "importedByCount": 0,
+      "exports": [],
+      "exportUsage": {},
+      "sha256": "ca45a779330e351e4c7fc49de6f6a52c01a33daf9aa70f4d0fc37f07b8a43d2e",
+      "structureHash": "c57775f768dbcd6d3e6604c877b861651a904240467837e6822873f097749a6c",
+      "sizeBytes": 636,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/instructions/scene_generator_instructions.ts",
+      "imports": [],
+      "importedByCount": 0,
+      "exports": [],
+      "exportUsage": {},
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "structureHash": "e15249287a3a1630bff3388ec498fe9da2d04c4275420c42a6f8742d9e9f7fa9",
+      "sizeBytes": 0,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/instructions/style_fingerprint_instructions.ts",
+      "imports": [],
+      "importedByCount": 0,
+      "exports": [],
+      "exportUsage": {},
+      "sha256": "0497558d01de12f543a4f82eb1d437c80634dbba73eaca0af659551273e82505",
+      "structureHash": "49994affe823d3ae606738eb162fed05b82c76cb2fea915b7061f3d5b43a0514",
+      "sizeBytes": 620,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/instructions/target_audience_analyzer_instructions.ts",
+      "imports": [],
+      "importedByCount": 0,
+      "exports": [],
+      "exportUsage": {},
+      "sha256": "4e830fd830b5d1448f47398249e654b3949a7be66256b45092285bbd534405c7",
+      "structureHash": "bfcf0314dd2551f39d100bff1741c269a1072c9486a48565266001099915ddae",
+      "sizeBytes": 2043,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/instructions/tension_optimizer_instructions.ts",
+      "imports": [],
+      "importedByCount": 0,
+      "exports": [],
+      "exportUsage": {},
+      "sha256": "43c931f9ae5bd7cfc8399140e577ee10bb4e5ab41953dea515969163395e9631",
+      "structureHash": "2852059ec510e93f2d22928f22d0be40a044394c7c6b9140fbe937f1bd9df136",
+      "sizeBytes": 567,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/instructions/thematic_mining_instructions.ts",
+      "imports": [
+        "src/types/types.ts",
+        "src/agents/advanced_module_output_structure.ts"
+      ],
+      "importedByCount": 0,
+      "exports": [
+        {
+          "name": "THEMATIC_MINING_INSTRUCTIONS",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "THEMATIC_MINING_INSTRUCTIONS": 0
+      },
+      "sha256": "9b340607e395a6e45bba6acd1f1e95ca3a2adecec934f532956d137788faef2f",
+      "structureHash": "64054239a9af94cb5e920e130198a4c29227dc82f6cafa94e2d3730cf1a6414f",
+      "sizeBytes": 815,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/agents/instructions/themes_messages_analyzer_instructions.ts",
+      "imports": [],
+      "importedByCount": 0,
+      "exports": [],
+      "exportUsage": {},
+      "sha256": "c5e83959613f87c4f017967410fb628c9eb1065bd25c929295996ec019385c47",
+      "structureHash": "bfcf0314dd2551f39d100bff1741c269a1072c9486a48565266001099915ddae",
+      "sizeBytes": 1836,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/instructions/visual_cinematic_analyzer_instructions.ts",
+      "imports": [],
+      "importedByCount": 0,
+      "exports": [],
+      "exportUsage": {},
+      "sha256": "226dda3ff9ede54a4f980c7d96ce700efc27aa11abaf8aeb36d2064d7bcbc533",
+      "structureHash": "bfcf0314dd2551f39d100bff1741c269a1072c9486a48565266001099915ddae",
+      "sizeBytes": 2310,
+      "lastModifiedMs": 1759018335698.4863
+    },
+    {
+      "path": "src/agents/instructions/world_builder_instructions.ts",
+      "imports": [
+        "src/types/types.ts",
+        "src/agents/advanced_module_output_structure.ts"
+      ],
+      "importedByCount": 0,
+      "exports": [
+        {
+          "name": "WORLD_BUILDER_INSTRUCTIONS",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "WORLD_BUILDER_INSTRUCTIONS": 0
+      },
+      "sha256": "dbdc8540a795a13c6379ffa00eae944a83401ebb4c5d50c23ed20837e5cf4288",
+      "structureHash": "64054239a9af94cb5e920e130198a4c29227dc82f6cafa94e2d3730cf1a6414f",
+      "sizeBytes": 768,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/components/editor/textReplacement.ts",
+      "imports": [
+        "src/modules/text/domTextReplacement.ts"
+      ],
+      "importedByCount": 0,
+      "exports": [
+        {
+          "name": "applyRegexReplacementToTextNodes",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "applyRegexReplacementToTextNodes": 0
+      },
+      "sha256": "1e812e502347fd93c690ae6071d9c73f3e0d85eca018a9cfb7cb982dcfc509e2",
+      "structureHash": "5cf321fec5c02d74088840aa824e26f7811a98b02d055afc76e77ff29acda0cb",
+      "sizeBytes": 311,
+      "lastModifiedMs": 1759051490756.7285
+    },
+    {
+      "path": "src/services/agent-instructions.ts",
+      "imports": [
+        "src/services/instructions-loader.ts"
+      ],
+      "importedByCount": 1,
+      "exports": [
+        {
+          "name": "AgentInstructionsService",
+          "isTypeOnly": false
+        },
+        {
+          "name": "agentInstructions",
+          "isTypeOnly": false
+        },
+        {
+          "name": "InstructionSet",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "AgentInstructionsService": 0,
+        "agentInstructions": 1,
+        "InstructionSet": 0
+      },
+      "sha256": "39179b2a971ccd715df97abe381b6bd929cb7ff26522e249209f392095a22e9b",
+      "structureHash": "2a3a6b483f2de2badc71da1a0bb09f47561c228daa72fb19f321499f1e72a4b8",
+      "sizeBytes": 2234,
+      "lastModifiedMs": 1759051490760.7285
+    },
+    {
+      "path": "src/services/counter.ts",
+      "imports": [],
+      "importedByCount": 0,
+      "exports": [
+        {
+          "name": "setupCounter",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "setupCounter": 0
+      },
+      "sha256": "a5da85de2d1abbf50fcacb24e3769a8c7aab9b4e6f0d8eab5baf03cfc680be89",
+      "structureHash": "6219c83d1bfce68ce7351e45d45630835e37f242731ae471e971469ae55ac5aa",
+      "sizeBytes": 448,
+      "lastModifiedMs": 1759018335702.4863
+    },
+    {
+      "path": "src/services/test-classifier.ts",
+      "imports": [],
+      "importedByCount": 0,
+      "exports": [],
+      "exportUsage": {},
+      "sha256": "15afc8abc04e19fc2b0fa172c97840c73e1b612e587a6600dfe3050660680d09",
+      "structureHash": "1e135bf1f171374de95229ae8b7ed26f96d0d198c5a80c0500e1358295611986",
+      "sizeBytes": 18049,
+      "lastModifiedMs": 1759018335702.4863
+    },
+    {
+      "path": "src/services/test-instructions-system.ts",
+      "imports": [
+        "src/services/agent-instructions.ts"
+      ],
+      "importedByCount": 0,
+      "exports": [
+        {
+          "name": "quickTest",
+          "isTypeOnly": false
+        },
+        {
+          "name": "InstructionsSystemTester",
+          "isTypeOnly": false
+        },
+        {
+          "name": "TestResults",
+          "isTypeOnly": true
+        },
+        {
+          "name": "instructionsTester",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "quickTest": 0,
+        "InstructionsSystemTester": 0,
+        "TestResults": 0,
+        "instructionsTester": 0
+      },
+      "sha256": "506d7266a1b858fba17e079be2315d602831061c4ae578386042f5730539aacc",
+      "structureHash": "2d2417565e6a490d8600db3d3004503bb555c70f23afa2f2db1a64a425734d13",
+      "sizeBytes": 5168,
+      "lastModifiedMs": 1759051490760.7285
+    },
+    {
+      "path": "src/tests/setup.ts",
+      "imports": [],
+      "importedByCount": 0,
+      "exports": [],
+      "exportUsage": {},
+      "sha256": "3224d5bd83c654e71eb1e245f2f8fbe0ea95fbe6f0d789b76bfec25094bc5043",
+      "structureHash": "e5fda0685ae3deec33784417d5f92cc4ea5dca83e004204c8aaa0e09ab743807",
+      "sizeBytes": 932,
+      "lastModifiedMs": 1759051490760.7285
+    },
+    {
+      "path": "src/tests/unit/agents-facade.test.ts",
+      "imports": [
+        "src/agents/core/index.ts"
+      ],
+      "importedByCount": 0,
+      "exports": [],
+      "exportUsage": {},
+      "sha256": "409a201b052b0fd4a0fb5a6428cfc2495e28803d676d94c361edf5d664ef3652",
+      "structureHash": "5292f64fee474f8de4d31c56c4cda31bab952ec1022e01434cfb4de784300d99",
+      "sizeBytes": 3152,
+      "lastModifiedMs": 1759051490760.7285
+    },
+    {
+      "path": "src/tests/unit/instructions-loader.test.ts",
+      "imports": [
+        "src/services/instructions-loader.ts"
+      ],
+      "importedByCount": 0,
+      "exports": [],
+      "exportUsage": {},
+      "sha256": "130d41a788e5810283a15cfc6c4fd066212f806800b3a1dd7e47f4cee97df1bb",
+      "structureHash": "086f2c578e177089fd92ab5c74f81daee985a977ac04a67084f5ede711510d8b",
+      "sizeBytes": 4106,
+      "lastModifiedMs": 1759051490760.7285
+    },
+    {
+      "path": "src/tests/unit/screenplay-classifier.test.ts",
+      "imports": [
+        "src/components/editor/CleanIntegratedScreenplayEditor.tsx"
+      ],
+      "importedByCount": 0,
+      "exports": [],
+      "exportUsage": {},
+      "sha256": "9dc03a3133f749e50cebc239cda64d54e2c8d1480c87ae7091cc5bb54a15b885",
+      "structureHash": "a164a9b9b35c51c164f7b52df2758a97ab2d6cc20323a3a203594028847bd916",
+      "sizeBytes": 3955,
+      "lastModifiedMs": 1759051490760.7285
+    },
+    {
+      "path": "src/utils/sanitizer.ts",
+      "imports": [],
+      "importedByCount": 0,
+      "exports": [
+        {
+          "name": "sanitizeHTML",
+          "isTypeOnly": false
+        },
+        {
+          "name": "sanitizeContentEditable",
+          "isTypeOnly": false
+        },
+        {
+          "name": "sanitizeUserInput",
+          "isTypeOnly": false
+        },
+        {
+          "name": "sanitizeFilename",
+          "isTypeOnly": false
+        },
+        {
+          "name": "generateCSPHeader",
+          "isTypeOnly": false
+        },
+        {
+          "name": "CSP_CONFIG",
+          "isTypeOnly": false
+        }
+      ],
+      "exportUsage": {
+        "sanitizeHTML": 0,
+        "sanitizeContentEditable": 0,
+        "sanitizeUserInput": 0,
+        "sanitizeFilename": 0,
+        "generateCSPHeader": 0,
+        "CSP_CONFIG": 0
+      },
+      "sha256": "4326887c01a1f4f512dbdf06eaaa9bedf4d21b512275886fa585b177f995f9da",
+      "structureHash": "0cdad9bbc46da39a5ffd281f07900764b58b798d71b35dbb2b411191145f9ad1",
+      "sizeBytes": 2407,
+      "lastModifiedMs": 1759051490760.7285
+    }
+  ]
+}

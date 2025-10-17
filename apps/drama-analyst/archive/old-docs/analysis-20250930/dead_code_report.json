@@ -1,0 +1,14 @@
+{
+  "unreferenced_files": [
+    {
+      "path": "H:\\Drama-analyst-and-creative-mimic\\orchestration\\agentFactory.ts",
+      "reason": "Dependency graph shows zero incoming references; factory pattern is unused by orchestration."
+    },
+    {
+      "path": "H:\\Drama-analyst-and-creative-mimic\\ui\\index.tsx",
+      "reason": "index.html loads ui/main.tsx; alternate entry point is dead and duplicative."
+    }
+  ],
+  "duplicate_content_groups": [],
+  "redundant_types": []
+}

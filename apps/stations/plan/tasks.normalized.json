@@ -1,0 +1,246 @@
+{
+  "tasks": [
+    {
+      "id": "P0-001",
+      "priority": "P0",
+      "title": "إصلاح null check في efficiency-metrics.ts:72:34",
+      "evidence": {
+        "path": "server/analysis_modules/efficiency-metrics.ts",
+        "line": "72:34",
+        "tool": "TypeScript",
+        "message": "'conflict1' is possibly 'undefined'"
+      },
+      "actions": [
+        "إضافة null check لـ conflict1",
+        "إضافة null check لـ conflict2",
+        "إضافة null checks لجميع المتغيرات المماثلة",
+        "اختبار البناء بعد الإصلاح"
+      ],
+      "expected_checks": [
+        "npm run check",
+        "npm run build"
+      ],
+      "acceptance": "0 أخطاء TypeScript في الملف"
+    },
+    {
+      "id": "P0-002",
+      "priority": "P0",
+      "title": "إصلاح type mismatch في routes.ts:55:55",
+      "evidence": {
+        "path": "server/routes.ts",
+        "line": "55:55",
+        "tool": "TypeScript",
+        "message": "Argument of type '{ fullText: string; projectName: string; proseFilePath: string | undefined; }' is not assignable to parameter of type 'Station1Input'"
+      },
+      "actions": [
+        "إصلاح نوع proseFilePath في Station1Input",
+        "إصلاح نوع proseFilePath في PipelineInput",
+        "اختبار البناء بعد الإصلاح"
+      ],
+      "expected_checks": [
+        "npm run check",
+        "npm run build"
+      ],
+      "acceptance": "0 أخطاء TypeScript في الملف"
+    },
+    {
+      "id": "P0-003",
+      "priority": "P0",
+      "title": "إضافة missing exports في run-all-stations.ts:7:49",
+      "evidence": {
+        "path": "server/run-all-stations.ts",
+        "line": "7:49",
+        "tool": "TypeScript",
+        "message": "Module declares 'Station5Input' locally, but it is not exported"
+      },
+      "actions": [
+        "إضافة export لـ Station5Input في station5-dynamic-symbolic-stylistic.ts",
+        "إضافة export لـ Station5Output في station5-dynamic-symbolic-stylistic.ts",
+        "إضافة export لـ Station7Input في station7-finalization.ts",
+        "إضافة export لـ Station7Output في station7-finalization.ts",
+        "اختبار البناء بعد الإصلاح"
+      ],
+      "expected_checks": [
+        "npm run check",
+        "npm run build"
+      ],
+      "acceptance": "0 أخطاء TypeScript في الملف"
+    },
+    {
+      "id": "P0-004",
+      "priority": "P0",
+      "title": "إصلاح path resolution في vite.config.ts:24:24",
+      "evidence": {
+        "path": "vite.config.ts",
+        "line": "24:24",
+        "tool": "TypeScript",
+        "message": "Incorrect path resolution"
+      },
+      "actions": [
+        "إصلاح مسار @ في vite.config.ts",
+        "إصلاح root path في vite.config.ts",
+        "اختبار البناء بعد الإصلاح"
+      ],
+      "expected_checks": [
+        "npm run check",
+        "npm run build"
+      ],
+      "acceptance": "0 أخطاء TypeScript في الملف"
+    },
+    {
+      "id": "P0-005",
+      "priority": "P0",
+      "title": "إصلاح missing image asset في HeroSection.tsx:4:4",
+      "evidence": {
+        "path": "src/components/HeroSection.tsx",
+        "line": "4:4",
+        "tool": "TypeScript",
+        "message": "Missing image asset"
+      },
+      "actions": [
+        "استبدال الصورة المفقودة بصورة افتراضية",
+        "إضافة fallback للصورة",
+        "اختبار البناء بعد الإصلاح"
+      ],
+      "expected_checks": [
+        "npm run check",
+        "npm run build"
+      ],
+      "acceptance": "0 أخطاء TypeScript في الملف"
+    },
+    {
+      "id": "P1-001",
+      "priority": "P1",
+      "title": "إصلاح جميع أخطاء TypeScript المتبقية",
+      "evidence": {
+        "tool": "TypeScript",
+        "message": "136 أخطاء TypeScript إجمالية"
+      },
+      "actions": [
+        "إصلاح null checks في جميع الملفات",
+        "إصلاح type mismatches",
+        "إصلاح missing exports",
+        "إصلاح generic type arguments",
+        "إصلاح undefined assignments"
+      ],
+      "expected_checks": [
+        "npm run check"
+      ],
+      "acceptance": "0 أخطاء TypeScript"
+    },
+    {
+      "id": "P1-002",
+      "priority": "P1",
+      "title": "إصلاح ESLint issues (532 مشكلة)",
+      "evidence": {
+        "tool": "ESLint",
+        "message": "532 problems (488 errors, 44 warnings)"
+      },
+      "actions": [
+        "إضافة .eslintignore للملفات المبنية",
+        "إصلاح no-undef errors",
+        "إصلاح no-unused-vars warnings",
+        "إصلاح no-explicit-any warnings",
+        "إصلاح parsing errors في backup files"
+      ],
+      "expected_checks": [
+        "npm run lint"
+      ],
+      "acceptance": "< 50 تحذير ESLint"
+    },
+    {
+      "id": "P1-003",
+      "priority": "P1",
+      "title": "إضافة .env.example و env validation",
+      "evidence": {
+        "tool": "Security Analysis",
+        "message": "مفاتيح API غير محمية"
+      },
+      "actions": [
+        "إنشاء .env.example",
+        "إضافة server/config/env.ts",
+        "إضافة validation للأسرار",
+        "إضافة rate limiting محسن"
+      ],
+      "expected_checks": [
+        "npm run start مع متغيرات بيئة فارغة"
+      ],
+      "acceptance": "تطبيق لا يبدأ بدون أسرار صحيحة"
+    },
+    {
+      "id": "P1-004",
+      "priority": "P1",
+      "title": "إضافة caching و compression middleware",
+      "evidence": {
+        "tool": "Performance Analysis",
+        "message": "تحسين أوقات الاستجابة"
+      },
+      "actions": [
+        "إضافة caching للنتائج",
+        "تحسين استدعاءات Gemini API",
+        "إضافة compression middleware"
+      ],
+      "expected_checks": [
+        "npm run build && npm start"
+      ],
+      "acceptance": "استجابة < 2 ثانية للطلبات البسيطة"
+    },
+    {
+      "id": "P1-005",
+      "priority": "P1",
+      "title": "إضافة Prometheus metrics",
+      "evidence": {
+        "tool": "Observability Analysis",
+        "message": "عدم وجود مراقبة وتتبع"
+      },
+      "actions": [
+        "إضافة server/utils/metrics.ts",
+        "إضافة request counter",
+        "إضافة request duration histogram",
+        "إضافة /metrics endpoint"
+      ],
+      "expected_checks": [
+        "curl http://localhost:5000/metrics"
+      ],
+      "acceptance": "metrics endpoint يعمل"
+    },
+    {
+      "id": "P1-006",
+      "priority": "P1",
+      "title": "إضافة GitHub Actions CI/CD",
+      "evidence": {
+        "tool": "CI/CD Analysis",
+        "message": "عدم وجود CI/CD pipeline"
+      },
+      "actions": [
+        "إنشاء .github/workflows/ci.yml",
+        "إضافة test job",
+        "إضافة security job",
+        "إضافة deploy jobs"
+      ],
+      "expected_checks": [
+        "GitHub Actions run successfully"
+      ],
+      "acceptance": "CI/CD pipeline يعمل"
+    },
+    {
+      "id": "P1-007",
+      "priority": "P1",
+      "title": "إضافة Docker health checks",
+      "evidence": {
+        "tool": "Docker Analysis",
+        "message": "إعداد بيئات متعددة"
+      },
+      "actions": [
+        "إضافة health check endpoint",
+        "تحديث docker-compose.yml",
+        "إضافة health checks في Dockerfile"
+      ],
+      "expected_checks": [
+        "docker-compose up"
+      ],
+      "acceptance": "تطبيق يعمل في Docker بدون أخطاء"
+    }
+  ]
+}
+

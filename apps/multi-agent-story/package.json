@@ -1,0 +1,57 @@
+{
+  "name": "@the-copy/multi-agent-story",
+  "version": "1.0.0",
+  "type": "module",
+  "private": true,
+  "description": "Jules - Multi-Agent Storytelling Development Platform",
+  "scripts": {
+    "dev": "vite --port 5181",
+    "build": "vite build --outDir ../../public/multi-agent-story",
+    "preview": "vite preview",
+    "type-check": "tsc --noEmit",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "test": "vitest",
+    "test:coverage": "vitest --coverage",
+    "start": "node scripts/start.js",
+    "setup": "npm run install:deps && npm run prisma:generate",
+    "install:deps": "pnpm install",
+    "prisma:generate": "cd backend && npx prisma generate",
+    "prisma:migrate": "cd backend && npx prisma migrate deploy",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:build": "docker-compose build"
+  },
+  "dependencies": {
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
+    "lucide-react": "^0.545.0",
+    "@google/generative-ai": "^0.24.1",
+    "axios": "^1.6.0",
+    "zustand": "^4.4.0",
+    "react-router-dom": "^6.20.0",
+    "@tanstack/react-query": "^5.0.0",
+    "socket.io-client": "^4.5.0",
+    "framer-motion": "^11.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.13",
+    "@types/react-dom": "^19.1.9",
+    "@vitejs/plugin-react": "^4.2.1",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/react": "^16.0.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.2.0",
+    "vitest": "^1.4.0",
+    "@vitest/coverage-v8": "^1.4.0",
+    "concurrently": "^8.2.2",
+    "rimraf": "^5.0.5",
+    "chalk": "^5.3.0",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^3.4.18"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=8.0.0"
+  }
+}

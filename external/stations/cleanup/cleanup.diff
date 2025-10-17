@@ -1,0 +1,412 @@
+--- a/src\components\AnalysisCard.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\CharacterNode.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ConflictNetwork.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\DiagnosticPanel.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\examples\AnalysisCard.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\examples\CharacterNode.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\examples\ConflictNetwork.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\examples\DiagnosticPanel.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\examples\Header.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\examples\HeroSection.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\examples\MetricCard.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\examples\StationProgress.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\examples\TextInput.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\Header.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\HeroSection.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\MetricCard.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\station-progress-utils.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\StationProgress.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\TextInput.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\accordion.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\alert-dialog.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\alert.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\aspect-ratio.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\avatar.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\badge.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\breadcrumb.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\button.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\calendar.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\card.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\carousel.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\chart.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\checkbox.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\collapsible.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\command.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\context-menu.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\dialog.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\drawer.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\dropdown-menu.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\form.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\hover-card.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\input-otp.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\input.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\label.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\menubar.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\navigation-menu.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\pagination.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\popover.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\progress.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\radio-group.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\resizable.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\scroll-area.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\select.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\separator.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\sheet.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\sidebar.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\skeleton.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\slider.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\switch.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\table.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\tabs.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\textarea.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\toast.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\toaster.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\toggle-group.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\toggle.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\ui\tooltip.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\components\__tests__\station-progress-utils.test.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\contexts\LanguageContext.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\contexts\ThemeContext.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\hooks\use-mobile.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\hooks\use-toast.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\lib\queryClient.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\lib\utils.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\pages\HomePage.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/src\pages\not-found.tsx
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/server\analysis_modules\efficiency-metrics.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/server\analysis_modules\network-diagnostics.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/server\core\models\base-entities.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/server\core\pipeline\base-station.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/server\middleware\auth.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/server\middleware\rate-limit.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/server\middleware\sanitize.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/server\routes\health.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/server\run-all-stations.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/server\services\ai\gemini-service.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/server\services\ai\result-selector.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/server\stations\station1\station1-text-analysis.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/server\stations\station2\station2-conceptual-analysis.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/server\stations\station3\station3-network-builder.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/server\stations\station4\station4-efficiency-metrics.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/server\stations\station5\station5-dynamic-symbolic-stylistic.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/server\stations\station6\station6-diagnostics-treatment.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/server\stations\station7\station7-finalization.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/server\storage.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/server\types\contexts.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/server\utils\logger.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/server\vite.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/shared\schema.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/drizzle.config.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/postcss.config.js
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/tailwind.config.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/vite.config.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف
+--- a/vitest.config.ts
++++ /dev/null
+@@ -1,1 +0,0 @@
+-ملف محذوف

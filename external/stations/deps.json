@@ -1,0 +1,215 @@
+{
+  "server/analysis_modules/efficiency-metrics.ts": [
+    "server/core/models/base-entities.ts"
+  ],
+  "server/analysis_modules/network-diagnostics.ts": [
+    "server/core/models/base-entities.ts"
+  ],
+  "server/core/models/base-entities.ts": [],
+  "server/core/pipeline/base-station.ts": [
+    "server/services/ai/gemini-service.ts",
+    "server/utils/logger.ts"
+  ],
+  "server/index.ts": [
+    "server/routes.ts",
+    "server/utils/logger.ts",
+    "server/vite.ts"
+  ],
+  "server/middleware/auth.ts": [
+    "server/utils/logger.ts"
+  ],
+  "server/middleware/rate-limit.ts": [],
+  "server/middleware/sanitize.ts": [],
+  "server/routes.ts": [
+    "server/core/pipeline/base-station.ts",
+    "server/middleware/auth.ts",
+    "server/middleware/rate-limit.ts",
+    "server/middleware/sanitize.ts",
+    "server/routes/health.ts",
+    "server/run-all-stations.ts",
+    "server/services/ai/gemini-service.ts",
+    "server/stations/station1/station1-text-analysis.ts",
+    "server/stations/station2/station2-conceptual-analysis.ts",
+    "server/stations/station3/station3-network-builder.ts",
+    "server/utils/logger.ts"
+  ],
+  "server/routes/health.ts": [],
+  "server/run-all-stations.ts": [
+    "server/core/pipeline/base-station.ts",
+    "server/services/ai/gemini-service.ts",
+    "server/stations/station1/station1-text-analysis.ts",
+    "server/stations/station2/station2-conceptual-analysis.ts",
+    "server/stations/station3/station3-network-builder.ts",
+    "server/stations/station4/station4-efficiency-metrics.ts",
+    "server/stations/station5/station5-dynamic-symbolic-stylistic.ts",
+    "server/stations/station6/station6-diagnostics-treatment.ts",
+    "server/stations/station7/station7-finalization.ts",
+    "server/utils/logger.ts"
+  ],
+  "server/services/ai/gemini-service.ts": [
+    "server/utils/logger.ts"
+  ],
+  "server/services/ai/result-selector.ts": [
+    "server/services/ai/gemini-service.ts"
+  ],
+  "server/stations/station1/station1-text-analysis.ts": [
+    "server/core/pipeline/base-station.ts",
+    "server/services/ai/gemini-service.ts"
+  ],
+  "server/stations/station2/station2-conceptual-analysis.ts": [
+    "server/core/pipeline/base-station.ts",
+    "server/services/ai/gemini-service.ts",
+    "server/stations/station1/station1-text-analysis.ts",
+    "server/types/contexts.ts"
+  ],
+  "server/stations/station3/station3-network-builder.ts": [
+    "server/core/models/base-entities.ts",
+    "server/core/pipeline/base-station.ts",
+    "server/services/ai/gemini-service.ts",
+    "server/stations/station1/station1-text-analysis.ts",
+    "server/stations/station2/station2-conceptual-analysis.ts",
+    "server/types/contexts.ts",
+    "server/utils/logger.ts"
+  ],
+  "server/stations/station4/station4-efficiency-metrics.ts": [
+    "server/analysis_modules/efficiency-metrics.ts",
+    "server/core/models/base-entities.ts",
+    "server/core/pipeline/base-station.ts",
+    "server/services/ai/gemini-service.ts",
+    "server/stations/station3/station3-network-builder.ts"
+  ],
+  "server/stations/station5/station5-dynamic-symbolic-stylistic.ts": [
+    "server/core/models/base-entities.ts",
+    "server/core/pipeline/base-station.ts",
+    "server/services/ai/gemini-service.ts",
+    "server/stations/station4/station4-efficiency-metrics.ts"
+  ],
+  "server/stations/station6/station6-diagnostics-treatment.ts": [
+    "server/core/models/base-entities.ts",
+    "server/core/pipeline/base-station.ts",
+    "server/services/ai/gemini-service.ts",
+    "server/utils/logger.ts"
+  ],
+  "server/stations/station7/station7-finalization.ts": [
+    "server/core/models/base-entities.ts",
+    "server/core/pipeline/base-station.ts",
+    "server/services/ai/gemini-service.ts",
+    "server/stations/station6/station6-diagnostics-treatment.ts",
+    "server/utils/logger.ts"
+  ],
+  "server/storage.ts": [],
+  "server/types/contexts.ts": [],
+  "server/utils/logger.ts": [],
+  "server/vite.ts": [
+    "vite.config.ts"
+  ],
+  "shared/schema.ts": [],
+  "src/App.tsx": [
+    "src/lib/queryClient.ts"
+  ],
+  "src/components/AnalysisCard.tsx": [],
+  "src/components/CharacterNode.tsx": [],
+  "src/components/ConflictNetwork.tsx": [
+    "src/components/CharacterNode.tsx"
+  ],
+  "src/components/DiagnosticPanel.tsx": [],
+  "src/components/Header.tsx": [],
+  "src/components/HeroSection.tsx": [],
+  "src/components/MetricCard.tsx": [],
+  "src/components/StationProgress.tsx": [
+    "src/components/station-progress-utils.ts"
+  ],
+  "src/components/TextInput.tsx": [],
+  "src/components/__tests__/station-progress-utils.test.ts": [
+    "src/components/station-progress-utils.ts"
+  ],
+  "src/components/examples/AnalysisCard.tsx": [
+    "src/components/AnalysisCard.tsx"
+  ],
+  "src/components/examples/CharacterNode.tsx": [
+    "src/components/CharacterNode.tsx"
+  ],
+  "src/components/examples/ConflictNetwork.tsx": [
+    "src/components/ConflictNetwork.tsx"
+  ],
+  "src/components/examples/DiagnosticPanel.tsx": [
+    "src/components/DiagnosticPanel.tsx"
+  ],
+  "src/components/examples/Header.tsx": [
+    "src/components/Header.tsx"
+  ],
+  "src/components/examples/HeroSection.tsx": [
+    "src/components/HeroSection.tsx"
+  ],
+  "src/components/examples/MetricCard.tsx": [
+    "src/components/MetricCard.tsx"
+  ],
+  "src/components/examples/StationProgress.tsx": [
+    "src/components/StationProgress.tsx"
+  ],
+  "src/components/examples/TextInput.tsx": [
+    "src/components/TextInput.tsx"
+  ],
+  "src/components/station-progress-utils.ts": [],
+  "src/components/ui/accordion.tsx": [],
+  "src/components/ui/alert-dialog.tsx": [],
+  "src/components/ui/alert.tsx": [],
+  "src/components/ui/aspect-ratio.tsx": [],
+  "src/components/ui/avatar.tsx": [],
+  "src/components/ui/badge.tsx": [],
+  "src/components/ui/breadcrumb.tsx": [],
+  "src/components/ui/button.tsx": [],
+  "src/components/ui/calendar.tsx": [],
+  "src/components/ui/card.tsx": [],
+  "src/components/ui/carousel.tsx": [],
+  "src/components/ui/chart.tsx": [],
+  "src/components/ui/checkbox.tsx": [],
+  "src/components/ui/collapsible.tsx": [],
+  "src/components/ui/command.tsx": [],
+  "src/components/ui/context-menu.tsx": [],
+  "src/components/ui/dialog.tsx": [],
+  "src/components/ui/drawer.tsx": [],
+  "src/components/ui/dropdown-menu.tsx": [],
+  "src/components/ui/form.tsx": [],
+  "src/components/ui/hover-card.tsx": [],
+  "src/components/ui/input-otp.tsx": [],
+  "src/components/ui/input.tsx": [],
+  "src/components/ui/label.tsx": [],
+  "src/components/ui/menubar.tsx": [],
+  "src/components/ui/navigation-menu.tsx": [],
+  "src/components/ui/pagination.tsx": [],
+  "src/components/ui/popover.tsx": [],
+  "src/components/ui/progress.tsx": [],
+  "src/components/ui/radio-group.tsx": [],
+  "src/components/ui/resizable.tsx": [],
+  "src/components/ui/scroll-area.tsx": [],
+  "src/components/ui/select.tsx": [],
+  "src/components/ui/separator.tsx": [],
+  "src/components/ui/sheet.tsx": [],
+  "src/components/ui/sidebar.tsx": [],
+  "src/components/ui/skeleton.tsx": [],
+  "src/components/ui/slider.tsx": [],
+  "src/components/ui/switch.tsx": [],
+  "src/components/ui/table.tsx": [],
+  "src/components/ui/tabs.tsx": [],
+  "src/components/ui/textarea.tsx": [],
+  "src/components/ui/toast.tsx": [],
+  "src/components/ui/toaster.tsx": [],
+  "src/components/ui/toggle-group.tsx": [],
+  "src/components/ui/toggle.tsx": [],
+  "src/components/ui/tooltip.tsx": [],
+  "src/contexts/LanguageContext.tsx": [],
+  "src/contexts/ThemeContext.tsx": [],
+  "src/hooks/use-mobile.tsx": [],
+  "src/hooks/use-toast.ts": [],
+  "src/index.css": [],
+  "src/lib/queryClient.ts": [],
+  "src/lib/utils.ts": [],
+  "src/main.tsx": [
+    "src/App.tsx",
+    "src/index.css"
+  ],
+  "src/pages/HomePage.tsx": [],
+  "src/pages/not-found.tsx": [],
+  "vite.config.ts": []
+}

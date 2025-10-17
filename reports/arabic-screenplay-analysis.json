@@ -1,0 +1,344 @@
+{
+  "inactive_or_excluded_files_report": {
+    "summary": {
+      "total_files_scanned": 85,
+      "inactive_count": 32,
+      "excluded_by_config_count": 0,
+      "unreferenced_count": 32
+    },
+    "items": [
+      {
+        "path": "src/agents/instructions/adaptive_rewriting_instructions.ts",
+        "status": "unreferenced",
+        "evidence": {
+          "config_file": null,
+          "references_inbound": 0
+        },
+        "last_modified": "2025-09-28T00:12:15.698Z",
+        "size_bytes": 0,
+        "recommended_action": "remove",
+        "risk_level": "low",
+        "notes": "ملف تعليمات فارغ بالكامل؛ لا توجد أي استيرادات تشير إليه."
+      },
+      {
+        "path": "src/agents/instructions/completion_instructions.ts",
+        "status": "unreferenced",
+        "evidence": {
+          "config_file": null,
+          "references_inbound": 0
+        },
+        "last_modified": "2025-09-28T00:12:15.698Z",
+        "size_bytes": 1251,
+        "recommended_action": "refactor",
+        "risk_level": "medium",
+        "notes": "يحتوي على تعليمات Markdown غير صالحة لـ TypeScript وتتسبب في عشرات أخطاء البناء."
+      },
+      {
+        "path": "src/agents/instructions/audience_resonance_instructions.ts",
+        "status": "unreferenced",
+        "evidence": {
+          "config_file": null,
+          "references_inbound": 0
+        },
+        "last_modified": "2025-09-28T00:12:15.698Z",
+        "size_bytes": 515,
+        "recommended_action": "refactor",
+        "risk_level": "medium",
+        "notes": "يتضمن كائناً شبيهاً بـ JSON بدون تغليف في قالب، ما ينتج أخطاء TypeScript متتالية."
+      },
+      {
+        "path": "src/agents/instructions/character_voice_instructions.ts",
+        "status": "unreferenced",
+        "evidence": {
+          "config_file": null,
+          "references_inbound": 0
+        },
+        "last_modified": "2025-09-28T00:12:15.698Z",
+        "size_bytes": 114,
+        "recommended_action": "refactor",
+        "risk_level": "medium",
+        "notes": "ينتهي الملف بعلامة backtick منفردة تكسر عملية الترجمة."
+      },
+      {
+        "path": "src/agents/instructions/scene_generator_instructions.ts",
+        "status": "unreferenced",
+        "evidence": {
+          "config_file": null,
+          "references_inbound": 0
+        },
+        "last_modified": "2025-09-28T00:12:15.698Z",
+        "size_bytes": 0,
+        "recommended_action": "remove",
+        "risk_level": "low",
+        "notes": "ملف placeholder خالٍ من المحتوى مثل نظيره للتعديل التكيفي."
+      }
+    ]
+  },
+  "duplicates_or_unused_candidates_report": {
+    "summary": {
+      "duplicate_groups": 4,
+      "unused_candidates": 3
+    },
+    "duplicate_groups": [
+      {
+        "group_id": "dup-001",
+        "similarity_basis": "sha256",
+        "representative": "src/agents/instructions/adaptive_rewriting_instructions.ts",
+        "members": [
+          {
+            "path": "src/agents/instructions/scene_generator_instructions.ts",
+            "similarity_score": 1,
+            "evidence": {
+              "ast_fingerprint": "e15249287a3a1630bff3388ec498fe9da2d04c4275420c42a6f8742d9e9f7fa9"
+            }
+          }
+        ],
+        "recommended_action": "deduplicate_keep_representative",
+        "impact": "maintenance",
+        "risk_level": "low",
+        "notes": "كلا الملفين فارغان تماماً ولا حاجة لنسختين."
+      },
+      {
+        "group_id": "dup-002",
+        "similarity_basis": "sha256",
+        "representative": "src/agents/instructions/character_voice_instructions.ts",
+        "members": [
+          {
+            "path": "src/agents/instructions/integrated_instructions.ts",
+            "similarity_score": 1,
+            "evidence": {
+              "ast_fingerprint": "5a305d3891b5f21c52a7eb51214b9f6ee2844d5fd4314b8a9a6d3874c0d5e3a1"
+            }
+          }
+        ],
+        "recommended_action": "deduplicate_keep_representative",
+        "impact": "maintenance",
+        "risk_level": "low",
+        "notes": "ملفات التعليمات هذه عبارة عن قوالب غير مكتملة ومتطابقة."
+      },
+      {
+        "group_id": "dup-003",
+        "similarity_basis": "ast",
+        "representative": "src/agents/instructions/cultural_historical_analyzer_instructions.ts",
+        "members": [
+          {
+            "path": "src/agents/instructions/dialogue_advanced_analyzer_instructions.ts",
+            "similarity_score": 0.98,
+            "evidence": {
+              "ast_fingerprint": "bfcf0314dd2551f39d100bff1741c269a1072c9486a48565266001099915ddae"
+            }
+          },
+          {
+            "path": "src/agents/instructions/literary_quality_analyzer_instructions.ts",
+            "similarity_score": 0.98,
+            "evidence": {
+              "ast_fingerprint": "bfcf0314dd2551f39d100bff1741c269a1072c9486a48565266001099915ddae"
+            }
+          },
+          {
+            "path": "src/agents/instructions/producibility_analyzer_instructions.ts",
+            "similarity_score": 0.98,
+            "evidence": {
+              "ast_fingerprint": "bfcf0314dd2551f39d100bff1741c269a1072c9486a48565266001099915ddae"
+            }
+          },
+          {
+            "path": "src/agents/instructions/recommendations_generator_instructions.ts",
+            "similarity_score": 0.98,
+            "evidence": {
+              "ast_fingerprint": "bfcf0314dd2551f39d100bff1741c269a1072c9486a48565266001099915ddae"
+            }
+          },
+          {
+            "path": "src/agents/instructions/target_audience_analyzer_instructions.ts",
+            "similarity_score": 0.98,
+            "evidence": {
+              "ast_fingerprint": "bfcf0314dd2551f39d100bff1741c269a1072c9486a48565266001099915ddae"
+            }
+          },
+          {
+            "path": "src/agents/instructions/themes_messages_analyzer_instructions.ts",
+            "similarity_score": 0.98,
+            "evidence": {
+              "ast_fingerprint": "bfcf0314dd2551f39d100bff1741c269a1072c9486a48565266001099915ddae"
+            }
+          },
+          {
+            "path": "src/agents/instructions/visual_cinematic_analyzer_instructions.ts",
+            "similarity_score": 0.98,
+            "evidence": {
+              "ast_fingerprint": "bfcf0314dd2551f39d100bff1741c269a1072c9486a48565266001099915ddae"
+            }
+          }
+        ],
+        "recommended_action": "deduplicate_template",
+        "impact": "maintenance",
+        "risk_level": "medium",
+        "notes": "مجموعة من ملفات التعليمات المتطابقة بنيوياً يمكن دمجها في قالب واحد مع معطيات ديناميكية."
+      },
+      {
+        "group_id": "dup-004",
+        "similarity_basis": "ast",
+        "representative": "src/agents/analysis/characterNetworkAgent.ts",
+        "members": [
+          {
+            "path": "src/agents/analysis/conflictDynamicsAgent.ts",
+            "similarity_score": 0.96,
+            "evidence": {
+              "ast_fingerprint": "ebd475aef7d5636e17a126bf6b978d9810e545ce5f5c804f5b1a0516882890b0"
+            }
+          }
+        ],
+        "recommended_action": "review_for_consolidation",
+        "impact": "performance",
+        "risk_level": "medium",
+        "notes": "العاملان التحليليان يشتركان في نفس البنية تقريباً؛ يمكن توحيد المنطق المشترك في خدمة واحدة."
+      }
+    ],
+    "unused_candidates": [
+      {
+        "path": "src/config/prompts.ts",
+        "export_name": "TASK_SPECIFIC_INSTRUCTIONS",
+        "evidence": {
+          "importer_count": 0
+        },
+        "recommended_action": "remove",
+        "risk_level": "low",
+        "notes": "لم يتم استخدام أيٍّ من الثوابت المرتبطة بالمطالبات ضمن التطبيق الحالي."
+      },
+      {
+        "path": "src/agents/core/fileReaderService.ts",
+        "export_name": "processFilesForGemini",
+        "evidence": {
+          "importer_count": 0
+        },
+        "recommended_action": "remove",
+        "risk_level": "medium",
+        "notes": "الخدمة غير مستخدمة حالياً رغم أنها جزء من خط المعالجة الأساسي للملفات."
+      },
+      {
+        "path": "src/agents/generation/creativeAgent.ts",
+        "export_name": "CREATIVE_AGENT_CONFIG",
+        "evidence": {
+          "importer_count": 0
+        },
+        "recommended_action": "integrate",
+        "risk_level": "medium",
+        "notes": "تكوين وكيل الإنشاء غير موصول بأي وحدة استهلاك، ما يعطل السيناريوهات الإبداعية المتوقعة."
+      }
+    ]
+  },
+  "production_readiness_report": {
+    "status": "NotReady",
+    "build_results": {
+      "toolchain": "vite",
+      "commands_run": [
+        "npm ci",
+        "npm run build",
+        "npm run lint",
+        "npm run type-check",
+        "npm run test -- --run"
+      ],
+      "outcome": {
+        "build": "failed",
+        "lint": "failed",
+        "typecheck": "failed",
+        "tests": "failed"
+      },
+      "key_logs": [
+        "npm ci -> 403 Forbidden - GET https://registry.npmjs.org/@typescript-eslint%2feslint-plugin",
+        "npm run build -> Found 181 errors in 17 files (ملفات تعليمات الوكلاء)",
+        "npm run lint -> ESLint couldn't find an eslint.config.(js|mjs|cjs) file",
+        "npm run test -> vitest: not found"
+      ],
+      "artifacts": {
+        "bundle_count": 0,
+        "approx_total_size_kb": 0,
+        "notable_warnings": [
+          "لم يتم إنشاء مجلد dist بسبب فشل الترجمة المبكرة"
+        ]
+      }
+    },
+    "blocking_issues": [
+      {
+        "id": "BLK-001",
+        "severity": "critical",
+        "title": "أخطاء TypeScript في ملفات تعليمات الوكلاء",
+        "affected_paths": [
+          "src/agents/instructions"
+        ],
+        "evidence": {
+          "log_excerpt": "Found 181 errors in 17 files."
+        },
+        "fix_suggestion": "إعادة صياغة ملفات التعليمات كقوالب TypeScript/JSON صالحة أو استبعادها من التجميع.",
+        "owner_hint": "frontend"
+      },
+      {
+        "id": "BLK-002",
+        "severity": "critical",
+        "title": "تعذّر تثبيت الاعتماديات بسبب أخطاء 403 من سجل npm",
+        "affected_paths": [
+          "package.json"
+        ],
+        "evidence": {
+          "log_excerpt": "npm error 403 403 Forbidden - GET https://registry.npmjs.org/@typescript-eslint%2feslint-plugin"
+        },
+        "fix_suggestion": "تكوين registry بديل أو توفير توكن وصول صالح للسجل الداخلي.",
+        "owner_hint": "devops"
+      },
+      {
+        "id": "BLK-003",
+        "severity": "critical",
+        "title": "تهيئة ESLint غير متوافقة مع الإصدار 9",
+        "affected_paths": [
+          "src"
+        ],
+        "evidence": {
+          "log_excerpt": "ESLint couldn't find an eslint.config.(js|mjs|cjs) file."
+        },
+        "fix_suggestion": "إنشاء ملف eslint.config.js أو الرجوع إلى إصدار مدعوم من ESLint.",
+        "owner_hint": "frontend"
+      },
+      {
+        "id": "BLK-004",
+        "severity": "critical",
+        "title": "بيئة الاختبار غير صالحة",
+        "affected_paths": [
+          "package.json",
+          "tests"
+        ],
+        "evidence": {
+          "log_excerpt": "sh: 1: vitest: not found"
+        },
+        "fix_suggestion": "إعادة تثبيت vitest أو استخدام بديل مدعوم للتشغيل الآلي للاختبارات.",
+        "owner_hint": "qa"
+      }
+    ],
+    "final_required_steps": [
+      {
+        "order": 1,
+        "step": "تطبيع ملفات التعليمات واستعادة نجاح البناء",
+        "rationale": "فشل الترجمة الحالي يمنع إنشاء أي مخرجات إنتاجية.",
+        "definition_of_done": "نجاح أوامر npm run build و npm run type-check بدون أخطاء."
+      },
+      {
+        "order": 2,
+        "step": "تحديث إعدادات ESLint وتثبيت الاعتماديات في بيئة معزولة",
+        "rationale": "التثبيت والفحص الآلي ضروريان لضمان الجودة قبل الدمج.",
+        "definition_of_done": "نجاح npm ci، توافر eslint.config.js، وتشغيل npm run lint بدون فشل."
+      },
+      {
+        "order": 3,
+        "step": "إعادة تفعيل مجموعة الاختبارات",
+        "rationale": "الاختبارات هي خط الدفاع الأخير قبل الشحن ولا يمكن تجاهلها.",
+        "definition_of_done": "تثبيت Vitest وتشغيل npm run test بنجاح مع إضافة حالات تغطي الخدمات الحرجة."
+      }
+    ],
+    "env_matrix": {
+      "required_env_vars": [
+        "VITE_GEMINI_API_KEY"
+      ],
+      "secrets_handling": "throws_on_missing"
+    }
+  }
+}

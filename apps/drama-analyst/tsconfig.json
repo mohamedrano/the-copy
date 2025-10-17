@@ -1,0 +1,56 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "target": "ES2022",
+    "experimentalDecorators": true,
+    "useDefineForClassFields": false,
+    "module": "ESNext",
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "skipLibCheck": true,
+    "types": [
+      "node"
+    ],
+    "moduleResolution": "bundler",
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "allowJs": true,
+    "jsx": "react-jsx",
+    "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "./*"
+      ],
+      "@core/*": [
+        "core/*"
+      ],
+      "@agents/*": [
+        "agents/*"
+      ],
+      "@orchestration/*": [
+        "orchestration/*"
+      ],
+      "@ui/*": [
+        "ui/*"
+      ],
+      "@services/*": [
+        "services/*"
+      ],
+      "@the-copy/shared-types": [
+        "../../packages/shared-types/src"
+      ],
+      "@the-copy/shared-utils": [
+        "../../packages/shared-utils/src"
+      ]
+    },
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "noUncheckedIndexedAccess": true,
+    "strictNullChecks": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true
+  }
+}
