@@ -2,15 +2,17 @@ import { Request, Response, NextFunction } from 'express';
 import { environment } from '../config/environment';
 import logger from '../utils/logger';
 
+type ProcessMemoryUsage = ReturnType<typeof process.memoryUsage>;
+
 export interface PerformanceMetrics {
   method: string;
   url: string;
   statusCode: number;
   duration: number;
-  memoryUsage: NodeJS.MemoryUsage;
+  memoryUsage: ProcessMemoryUsage;
   timestamp: Date;
-  userAgent?: string;
-  ip?: string;
+  userAgent: string | undefined;
+  ip: string | undefined;
 }
 
 export interface PerformanceStats {
@@ -35,23 +37,22 @@ export class PerformanceMonitor {
   static monitorPerformance() {
     return (req: Request, res: Response, next: NextFunction): void => {
       const startTime = process.hrtime.bigint();
-      const startMemory = process.memoryUsage();
 
       // تسجيل بداية الطلب
       logger.debug('Request started', {
         method: req.method,
         url: req.url,
         ip: req.ip,
-        userAgent: req.get('User-Agent')
+        userAgent: req.get('User-Agent'),
       });
 
       // مراقبة استجابة الطلب
       res.on('finish', () => {
         const endTime = process.hrtime.bigint();
         const endMemory = process.memoryUsage();
-        
+
         const duration = Number(endTime - startTime) / 1000000; // تحويل إلى ميلي ثانية
-        
+
         const metric: PerformanceMetrics = {
           method: req.method,
           url: req.url,
@@ -60,7 +61,7 @@ export class PerformanceMonitor {
           memoryUsage: endMemory,
           timestamp: new Date(),
           userAgent: req.get('User-Agent'),
-          ip: req.ip
+          ip: req.ip,
         };
 
         this.recordMetric(metric);
@@ -89,7 +90,7 @@ export class PerformanceMonitor {
         url: metric.url,
         duration: `${metric.duration.toFixed(2)}ms`,
         statusCode: metric.statusCode,
-        memoryUsage: this.formatMemoryUsage(metric.memoryUsage)
+        memoryUsage: this.formatMemoryUsage(metric.memoryUsage),
       });
     }
 
@@ -100,7 +101,7 @@ export class PerformanceMonitor {
         url: metric.url,
         duration: `${metric.duration.toFixed(2)}ms`,
         statusCode: metric.statusCode,
-        memoryUsed: this.formatMemoryUsage(metric.memoryUsage)
+        memoryUsed: this.formatMemoryUsage(metric.memoryUsage),
       });
     }
   }
@@ -114,7 +115,7 @@ export class PerformanceMonitor {
       logger.warn('High memory usage detected', {
         method: metric.method,
         url: metric.url,
-        memoryUsage: this.formatMemoryUsage(metric.memoryUsage)
+        memoryUsage: this.formatMemoryUsage(metric.memoryUsage),
       });
     }
 
@@ -124,7 +125,7 @@ export class PerformanceMonitor {
         method: metric.method,
         url: metric.url,
         duration: `${metric.duration.toFixed(2)}ms`,
-        threshold: `${this.SLOW_REQUEST_THRESHOLD}ms`
+        threshold: `${this.SLOW_REQUEST_THRESHOLD}ms`,
       });
     }
   }
@@ -132,16 +133,16 @@ export class PerformanceMonitor {
   /**
    * تنسيق استخدام الذاكرة
    */
-  private static formatMemoryUsage(memory: NodeJS.MemoryUsage): string {
-    const formatBytes = (bytes: number): string => {
-      if (bytes === 0) return '0 Bytes';
-      const k = 1024;
-      const sizes = ['Bytes', 'KB', 'MB', 'GB'];
-      const i = Math.floor(Math.log(bytes) / Math.log(k));
-      return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
-    };
+  private static formatMemoryUsage(memory: ProcessMemoryUsage): string {
+    return `Heap: ${this.formatBytes(memory.heapUsed)}/${this.formatBytes(memory.heapTotal)}, RSS: ${this.formatBytes(memory.rss)}`;
+  }
 
-    return `Heap: ${formatBytes(memory.heapUsed)}/${formatBytes(memory.heapTotal)}, RSS: ${formatBytes(memory.rss)}`;
+  private static formatBytes(bytes: number): string {
+    if (bytes === 0) return '0 Bytes';
+    const k = 1024;
+    const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+    const i = Math.floor(Math.log(bytes) / Math.log(k));
+    return `${parseFloat((bytes / Math.pow(k, i)).toFixed(2))} ${sizes[i]}`;
   }
 
   /**
@@ -156,18 +157,19 @@ export class PerformanceMonitor {
         fastestRequest: null,
         errorRate: 0,
         memoryPeak: 0,
-        requestsPerMinute: 0
+        requestsPerMinute: 0,
       };
     }
 
     const totalRequests = this.metrics.length;
-    const averageResponseTime = this.metrics.reduce((sum, m) => sum + m.duration, 0) / totalRequests;
-    
-    const slowestRequest = this.metrics.reduce((slowest, current) => 
+    const averageResponseTime =
+      this.metrics.reduce((sum, m) => sum + m.duration, 0) / totalRequests;
+
+    const slowestRequest = this.metrics.reduce((slowest, current) =>
       current.duration > slowest.duration ? current : slowest
     );
-    
-    const fastestRequest = this.metrics.reduce((fastest, current) => 
+
+    const fastestRequest = this.metrics.reduce((fastest, current) =>
       current.duration < fastest.duration ? current : fastest
     );
 
@@ -188,7 +190,7 @@ export class PerformanceMonitor {
       fastestRequest,
       errorRate,
       memoryPeak,
-      requestsPerMinute
+      requestsPerMinute,
     };
   }
 
@@ -196,9 +198,7 @@ export class PerformanceMonitor {
    * تحليل الطلبات البطيئة
    */
   static getSlowRequests(threshold: number = this.SLOW_REQUEST_THRESHOLD): PerformanceMetrics[] {
-    return this.metrics
-      .filter(m => m.duration > threshold)
-      .sort((a, b) => b.duration - a.duration);
+    return this.metrics.filter(m => m.duration > threshold).sort((a, b) => b.duration - a.duration);
   }
 
   /**
@@ -215,7 +215,7 @@ export class PerformanceMonitor {
       } else {
         urlMap.set(metric.url, {
           count: 1,
-          totalDuration: metric.duration
+          totalDuration: metric.duration,
         });
       }
     });
@@ -224,7 +224,7 @@ export class PerformanceMonitor {
       .map(([url, data]) => ({
         url,
         count: data.count,
-        avgDuration: data.totalDuration / data.count
+        avgDuration: data.totalDuration / data.count,
       }))
       .sort((a, b) => b.count - a.count);
   }
@@ -233,24 +233,25 @@ export class PerformanceMonitor {
    * تحليل استخدام الذاكرة
    */
   static getMemoryAnalysis(): {
-    current: NodeJS.MemoryUsage;
+    current: ProcessMemoryUsage;
     peak: number;
     average: number;
     trend: 'increasing' | 'decreasing' | 'stable';
   } {
     const current = process.memoryUsage();
     const peak = Math.max(...this.metrics.map(m => m.memoryUsage.heapUsed));
-    const average = this.metrics.reduce((sum, m) => sum + m.memoryUsage.heapUsed, 0) / this.metrics.length;
+    const average =
+      this.metrics.reduce((sum, m) => sum + m.memoryUsage.heapUsed, 0) / this.metrics.length;
 
     // تحليل الاتجاه
     const recent = this.metrics.slice(-10);
     const older = this.metrics.slice(-20, -10);
-    
+
     let trend: 'increasing' | 'decreasing' | 'stable' = 'stable';
     if (recent.length > 0 && older.length > 0) {
       const recentAvg = recent.reduce((sum, m) => sum + m.memoryUsage.heapUsed, 0) / recent.length;
       const olderAvg = older.reduce((sum, m) => sum + m.memoryUsage.heapUsed, 0) / older.length;
-      
+
       const diff = (recentAvg - olderAvg) / olderAvg;
       if (diff > 0.1) trend = 'increasing';
       else if (diff < -0.1) trend = 'decreasing';
@@ -260,7 +261,7 @@ export class PerformanceMonitor {
       current,
       peak,
       average,
-      trend
+      trend,
     };
   }
 
@@ -282,12 +283,12 @@ export class PerformanceMonitor {
     const memoryAnalysis = this.getMemoryAnalysis();
 
     let report = '=== Performance Report ===\n\n';
-    
+
     report += `Total Requests: ${stats.totalRequests}\n`;
     report += `Average Response Time: ${stats.averageResponseTime.toFixed(2)}ms\n`;
     report += `Error Rate: ${stats.errorRate.toFixed(2)}%\n`;
     report += `Requests Per Minute: ${stats.requestsPerMinute}\n`;
-    report += `Memory Peak: ${this.formatMemoryUsage({ heapUsed: stats.memoryPeak } as NodeJS.MemoryUsage)}\n`;
+    report += `Memory Peak: ${this.formatBytes(stats.memoryPeak)}\n`;
     report += `Memory Trend: ${memoryAnalysis.trend}\n\n`;
 
     if (slowRequests.length > 0) {
@@ -318,7 +319,7 @@ export class PerformanceMonitor {
       res.set('X-Content-Type-Options', 'nosniff');
       res.set('X-Frame-Options', 'DENY');
       res.set('X-XSS-Protection', '1; mode=block');
-      
+
       // تحسين التخزين المؤقت
       if (req.method === 'GET' && this.isCacheable(req.url)) {
         res.set('Cache-Control', 'public, max-age=3600');
@@ -359,4 +360,3 @@ export class PerformanceMonitor {
     return `"${timestamp}-${urlHash}"`;
   }
 }
-

@@ -2,7 +2,6 @@ import { BaseStation, type StationConfig } from '../../core/pipeline/base-statio
 import { GeminiService, GeminiModel } from '../../services/ai/gemini-service';
 import { EfficiencyAnalyzer, EfficiencyMetrics } from '../../analysis_modules/efficiency-metrics';
 import { Station3Output } from '../station3/station3-network-builder';
-import type { ConflictNetwork } from '../../core/models/base-entities';
 
 export interface Station4Input {
   station3Output: Station3Output;
@@ -25,27 +24,21 @@ export interface Station4Output {
 export class Station4EfficiencyMetrics extends BaseStation<Station4Input, Station4Output> {
   private efficiencyAnalyzer: EfficiencyAnalyzer;
 
-  constructor(
-    config: StationConfig<Station4Input, Station4Output>,
-    geminiService: GeminiService
-  ) {
+  constructor(config: StationConfig<Station4Input, Station4Output>, geminiService: GeminiService) {
     super(config, geminiService);
     this.efficiencyAnalyzer = new EfficiencyAnalyzer();
   }
 
   protected async process(input: Station4Input): Promise<Station4Output> {
     const startTime = Date.now();
-    
+
     // حساب مقاييس الكفاءة
     const efficiencyMetrics = this.efficiencyAnalyzer.calculateEfficiencyMetrics(
       input.station3Output.conflictNetwork
     );
 
     // توليد التوصيات بناءً على النتائج
-    const recommendations = await this.generateRecommendations(
-      efficiencyMetrics,
-      input.station3Output.conflictNetwork
-    );
+    const recommendations = await this.generateRecommendations(efficiencyMetrics);
 
     const analysisTime = Date.now() - startTime;
 
@@ -55,28 +48,16 @@ export class Station4EfficiencyMetrics extends BaseStation<Station4Input, Statio
       metadata: {
         analysisTimestamp: new Date(),
         status: 'Success',
-        analysisTime
-      }
+        analysisTime,
+      },
     };
   }
 
-  private async generateRecommendations(
-    metrics: EfficiencyMetrics,
-    _network: ConflictNetwork
-  ): Promise<{
+  private async generateRecommendations(metrics: EfficiencyMetrics): Promise<{
     priorityActions: string[];
     quickFixes: string[];
     structuralRevisions: string[];
   }> {
-    const context = {
-      overallScore: metrics.overallEfficiencyScore,
-      rating: metrics.overallRating,
-      conflictCohesion: metrics.conflictCohesion,
-      dramaticBalance: metrics.dramaticBalance.balanceScore,
-      narrativeEfficiency: metrics.narrativeEfficiency,
-      redundancy: metrics.redundancyMetrics
-    };
-
     const prompt = `
 بناءً على تحليل كفاءة الشبكة الدرامية التالي:
 
@@ -113,13 +94,13 @@ export class Station4EfficiencyMetrics extends BaseStation<Station4Input, Statio
     }>({
       prompt,
       model: GeminiModel.PRO,
-      temperature: 0.7
+      temperature: 0.7,
     });
 
     return {
       priorityActions: result.content.priority_actions ?? [],
       quickFixes: result.content.quick_fixes ?? [],
-      structuralRevisions: result.content.structural_revisions ?? []
+      structuralRevisions: result.content.structural_revisions ?? [],
     };
   }
 
@@ -127,7 +108,7 @@ export class Station4EfficiencyMetrics extends BaseStation<Station4Input, Statio
     return {
       charactersCount: input.station3Output.networkSummary.charactersCount,
       relationshipsCount: input.station3Output.networkSummary.relationshipsCount,
-      conflictsCount: input.station3Output.networkSummary.conflictsCount
+      conflictsCount: input.station3Output.networkSummary.conflictsCount,
     };
   }
 
@@ -139,30 +120,30 @@ export class Station4EfficiencyMetrics extends BaseStation<Station4Input, Statio
         conflictCohesion: 0,
         dramaticBalance: {
           balanceScore: 0,
-          characterInvolvementGini: 1
+          characterInvolvementGini: 1,
         },
         narrativeEfficiency: {
           characterEfficiency: 0,
           relationshipEfficiency: 0,
-          conflictEfficiency: 0
+          conflictEfficiency: 0,
         },
         narrativeDensity: 0,
         redundancyMetrics: {
           characterRedundancy: 0,
           relationshipRedundancy: 0,
-          conflictRedundancy: 0
-        }
+          conflictRedundancy: 0,
+        },
       },
       recommendations: {
         priorityActions: ['خطأ في التحليل'],
         quickFixes: ['خطأ في التحليل'],
-        structuralRevisions: ['خطأ في التحليل']
+        structuralRevisions: ['خطأ في التحليل'],
       },
       metadata: {
         analysisTimestamp: new Date(),
         status: 'Failed',
-        analysisTime: 0
-      }
+        analysisTime: 0,
+      },
     };
   }
 }

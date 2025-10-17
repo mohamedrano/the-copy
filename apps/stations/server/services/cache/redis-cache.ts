@@ -24,7 +24,7 @@ export class RedisCacheService {
     misses: 0,
     sets: 0,
     deletes: 0,
-    errors: 0
+    errors: 0,
   };
 
   constructor() {
@@ -34,7 +34,7 @@ export class RedisCacheService {
   private async initializeClient(): Promise<void> {
     try {
       const config = environment.getRedisConfig();
-      
+
       if (!config.url && !config.host) {
         logger.warn('Redis not configured, cache will be disabled');
         return;
@@ -42,21 +42,20 @@ export class RedisCacheService {
 
       this.client = createClient({
         url: config.url || `redis://${config.host}:${config.port}`,
-        password: config.password,
+        ...(config.password ? { password: config.password } : {}),
         socket: {
           connectTimeout: 5000,
-          lazyConnect: true,
-          reconnectStrategy: (retries) => {
+          reconnectStrategy: retries => {
             if (retries > 10) {
               logger.error('Redis connection failed after 10 retries');
               return new Error('Redis connection failed');
             }
             return Math.min(retries * 100, 3000);
-          }
-        }
+          },
+        },
       });
 
-      this.client.on('error', (error) => {
+      this.client.on('error', error => {
         logger.error('Redis client error', { error: error.message });
         this.stats.errors++;
         this.isConnected = false;
@@ -94,18 +93,18 @@ export class RedisCacheService {
     try {
       const fullKey = this.generateKey(key, options.prefix);
       const value = await this.client.get(fullKey);
-      
+
       if (value === null) {
         this.stats.misses++;
         return null;
       }
 
       this.stats.hits++;
-      
+
       if (options.serialize !== false) {
         return JSON.parse(value) as T;
       }
-      
+
       return value as T;
     } catch (error) {
       logger.error('Cache get error', { key, error });
@@ -123,7 +122,7 @@ export class RedisCacheService {
     try {
       const fullKey = this.generateKey(key, options.prefix);
       const ttl = options.ttl || environment.getCacheConfig().ttlSeconds;
-      
+
       let serializedValue: string;
       if (options.serialize !== false) {
         serializedValue = JSON.stringify(value);
@@ -133,7 +132,7 @@ export class RedisCacheService {
 
       await this.client.setEx(fullKey, ttl, serializedValue);
       this.stats.sets++;
-      
+
       logger.debug('Cache set', { key: fullKey, ttl });
       return true;
     } catch (error) {
@@ -152,7 +151,7 @@ export class RedisCacheService {
       const fullKey = this.generateKey(key, options.prefix);
       const result = await this.client.del(fullKey);
       this.stats.deletes++;
-      
+
       logger.debug('Cache delete', { key: fullKey, deleted: result > 0 });
       return result > 0;
     } catch (error) {
@@ -186,14 +185,14 @@ export class RedisCacheService {
     try {
       const fullPattern = this.generateKey(pattern, options.prefix);
       const keys = await this.client.keys(fullPattern);
-      
+
       if (keys.length === 0) {
         return 0;
       }
 
       const result = await this.client.del(keys);
       this.stats.deletes += result;
-      
+
       logger.info('Cache cleared', { pattern: fullPattern, deleted: result });
       return result;
     } catch (error) {
@@ -213,7 +212,7 @@ export class RedisCacheService {
       misses: 0,
       sets: 0,
       deletes: 0,
-      errors: 0
+      errors: 0,
     };
   }
 
@@ -241,19 +240,16 @@ export class RedisCacheService {
 
   // دوال مساعدة للتخزين المؤقت المتخصص
   async cacheAnalysisResult<T>(
-    textHash: string, 
-    stationNumber: number, 
-    result: T, 
+    textHash: string,
+    stationNumber: number,
+    result: T,
     ttl: number = 3600
   ): Promise<boolean> {
     const key = `analysis:${textHash}:station${stationNumber}`;
     return this.set(key, result, { ttl, prefix: 'stations' });
   }
 
-  async getAnalysisResult<T>(
-    textHash: string, 
-    stationNumber: number
-  ): Promise<T | null> {
+  async getAnalysisResult<T>(textHash: string, stationNumber: number): Promise<T | null> {
     const key = `analysis:${textHash}:station${stationNumber}`;
     return this.get<T>(key, { prefix: 'stations' });
   }
@@ -263,18 +259,14 @@ export class RedisCacheService {
     return this.clear(pattern, { prefix: 'stations' });
   }
 
-  async cacheUserSession(
-    sessionId: string, 
-    data: any, 
-    ttl: number = 86400
-  ): Promise<boolean> {
+  async cacheUserSession<T>(sessionId: string, data: T, ttl: number = 86400): Promise<boolean> {
     const key = `session:${sessionId}`;
     return this.set(key, data, { ttl, prefix: 'sessions' });
   }
 
-  async getSessionData(sessionId: string): Promise<any | null> {
+  async getSessionData<T>(sessionId: string): Promise<T | null> {
     const key = `session:${sessionId}`;
-    return this.get(key, { prefix: 'sessions' });
+    return this.get<T>(key, { prefix: 'sessions' });
   }
 
   async deleteSession(sessionId: string): Promise<boolean> {
@@ -285,4 +277,3 @@ export class RedisCacheService {
 
 // إنشاء instance واحد للاستخدام في التطبيق
 export const cacheService = new RedisCacheService();
-

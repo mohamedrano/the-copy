@@ -6,7 +6,7 @@ export interface QueryMetrics {
   executionTime: number;
   rowsReturned: number;
   timestamp: Date;
-  parameters?: any[];
+  parameters?: ReadonlyArray<unknown>;
 }
 
 export interface DatabaseStats {
@@ -24,7 +24,7 @@ export class QueryOptimizer {
     averageExecutionTime: 0,
     slowQueries: 0,
     cacheHits: 0,
-    cacheMisses: 0
+    cacheMisses: 0,
   };
 
   private static readonly SLOW_QUERY_THRESHOLD = 1000; // 1 second
@@ -34,17 +34,17 @@ export class QueryOptimizer {
    * تسجيل استعلام مع المقاييس
    */
   static logQuery(
-    query: string, 
-    executionTime: number, 
-    rowsReturned: number, 
-    parameters?: any[]
+    query: string,
+    executionTime: number,
+    rowsReturned: number,
+    parameters?: ReadonlyArray<unknown>
   ): void {
     const metric: QueryMetrics = {
       query: this.sanitizeQuery(query),
       executionTime,
       rowsReturned,
       timestamp: new Date(),
-      parameters
+      ...(parameters ? { parameters } : {}),
     };
 
     this.metrics.push(metric);
@@ -61,7 +61,7 @@ export class QueryOptimizer {
         query: metric.query,
         executionTime,
         rowsReturned,
-        parameters
+        parameters,
       });
     }
 
@@ -71,7 +71,7 @@ export class QueryOptimizer {
         query: metric.query,
         executionTime: `${executionTime}ms`,
         rowsReturned,
-        parameters
+        parameters,
       });
     }
   }
@@ -81,11 +81,12 @@ export class QueryOptimizer {
    */
   private static updateStats(metric: QueryMetrics): void {
     this.stats.totalQueries++;
-    
+
     // حساب متوسط وقت التنفيذ
-    const totalTime = this.stats.averageExecutionTime * (this.stats.totalQueries - 1) + metric.executionTime;
+    const totalTime =
+      this.stats.averageExecutionTime * (this.stats.totalQueries - 1) + metric.executionTime;
     this.stats.averageExecutionTime = totalTime / this.stats.totalQueries;
-    
+
     // حساب الاستعلامات البطيئة
     if (metric.executionTime > this.SLOW_QUERY_THRESHOLD) {
       this.stats.slowQueries++;
@@ -126,7 +127,7 @@ export class QueryOptimizer {
       } else {
         queryMap.set(metric.query, {
           count: 1,
-          totalTime: metric.executionTime
+          totalTime: metric.executionTime,
         });
       }
     });
@@ -135,7 +136,7 @@ export class QueryOptimizer {
       .map(([query, data]) => ({
         query,
         count: data.count,
-        avgTime: data.totalTime / data.count
+        avgTime: data.totalTime / data.count,
       }))
       .sort((a, b) => b.count - a.count);
   }
@@ -157,7 +158,7 @@ export class QueryOptimizer {
       averageExecutionTime: 0,
       slowQueries: 0,
       cacheHits: 0,
-      cacheMisses: 0
+      cacheMisses: 0,
     };
   }
 
@@ -180,7 +181,7 @@ export class QueryOptimizer {
         WHERE c.id = ANY($1)
         ORDER BY c.id, r.strength DESC
       `,
-      
+
       // استعلام محسن للحصول على الشخصيات النشطة فقط
       getActiveCharacters: `
         SELECT c.*
@@ -192,7 +193,7 @@ export class QueryOptimizer {
         )
         AND c.metadata->>'isActive' = 'true'
       `,
-      
+
       // استعلام محسن لإحصائيات الشخصيات
       getCharacterStats: `
         SELECT 
@@ -206,7 +207,7 @@ export class QueryOptimizer {
         LEFT JOIN conflict_participants cf ON c.id = cf.character_id
         GROUP BY c.id, c.name
         ORDER BY relationship_count DESC
-      `
+      `,
     };
   }
 
@@ -228,7 +229,7 @@ export class QueryOptimizer {
         WHERE c.id = ANY($1)
         ORDER BY c.id, cp.role
       `,
-      
+
       // استعلام محسن للصراعات النشطة
       getActiveConflicts: `
         SELECT c.*
@@ -237,7 +238,7 @@ export class QueryOptimizer {
         AND c.updated_at > NOW() - INTERVAL '7 days'
         ORDER BY c.updated_at DESC
       `,
-      
+
       // استعلام محسن لإحصائيات الصراعات
       getConflictStats: `
         SELECT 
@@ -248,7 +249,7 @@ export class QueryOptimizer {
         FROM conflicts c
         GROUP BY c.current_stage
         ORDER BY count DESC
-      `
+      `,
     };
   }
 
@@ -298,7 +299,7 @@ export class QueryOptimizer {
         LEFT JOIN conflict_network cn ON cr.character_id = cn.character_id
         ORDER BY cr.character_id, cr.relationship_id
       `,
-      
+
       // استعلام محسن لحساب مقاييس الشبكة
       getNetworkMetrics: `
         WITH network_stats AS (
@@ -327,7 +328,7 @@ export class QueryOptimizer {
             ELSE 0 
           END as negative_ratio
         FROM network_stats
-      `
+      `,
     };
   }
 
@@ -348,7 +349,7 @@ export class QueryOptimizer {
         ORDER BY rank DESC
         LIMIT $2
       `,
-      
+
       // استعلام محسن للبحث في العلاقات
       searchRelationships: `
         SELECT 
@@ -363,7 +364,7 @@ export class QueryOptimizer {
         OR ct.name ILIKE $1
         ORDER BY r.strength DESC
         LIMIT $2
-      `
+      `,
     };
   }
 
@@ -376,7 +377,7 @@ export class QueryOptimizer {
     const stats = this.getStats();
 
     let report = '=== Database Performance Report ===\n\n';
-    
+
     report += `Total Queries: ${stats.totalQueries}\n`;
     report += `Average Execution Time: ${stats.averageExecutionTime.toFixed(2)}ms\n`;
     report += `Slow Queries: ${stats.slowQueries}\n`;
@@ -401,4 +402,3 @@ export class QueryOptimizer {
     return report;
   }
 }
-

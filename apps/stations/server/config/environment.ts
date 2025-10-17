@@ -15,9 +15,9 @@ const environmentSchema = z.object({
   GEMINI_API_KEY: z.string().min(1, 'GEMINI_API_KEY is required'),
 
   // إعدادات الأمان
-  VALID_API_KEYS: z.string().transform((val) => val.split(',').filter(Boolean)),
+  VALID_API_KEYS: z.string().transform(val => val.split(',').filter(Boolean)),
   SESSION_SECRET: z.string().min(32, 'SESSION_SECRET must be at least 32 characters'),
-  ALLOWED_ORIGINS: z.string().transform((val) => val.split(',').filter(Boolean)),
+  ALLOWED_ORIGINS: z.string().transform(val => val.split(',').filter(Boolean)),
 
   // إعدادات Redis (اختياري)
   REDIS_HOST: z.string().default('localhost'),
@@ -37,7 +37,10 @@ const environmentSchema = z.object({
 
   // إعدادات التخزين المؤقت
   CACHE_TTL_SECONDS: z.string().transform(Number).default('3600'),
-  ENABLE_CACHE: z.string().transform((val) => val === 'true').default('false'),
+  ENABLE_CACHE: z
+    .string()
+    .transform(val => val === 'true')
+    .default('false'),
 
   // إعدادات قاعدة البيانات المتقدمة
   DB_POOL_MIN: z.string().transform(Number).default('2'),
@@ -48,18 +51,36 @@ const environmentSchema = z.object({
   // إعدادات الأمان المتقدمة
   JWT_EXPIRES_IN: z.string().transform(Number).default('86400'),
   SESSION_MAX_AGE: z.string().transform(Number).default('86400000'),
-  FORCE_HTTPS: z.string().transform((val) => val === 'true').default('false'),
+  FORCE_HTTPS: z
+    .string()
+    .transform(val => val === 'true')
+    .default('false'),
 
   // إعدادات التطوير
-  DEBUG: z.string().transform((val) => val === 'true').default('false'),
-  VERBOSE_LOGGING: z.string().transform((val) => val === 'true').default('false'),
+  DEBUG: z
+    .string()
+    .transform(val => val === 'true')
+    .default('false'),
+  VERBOSE_LOGGING: z
+    .string()
+    .transform(val => val === 'true')
+    .default('false'),
 
   // إعدادات الإنتاج
-  ENABLE_COMPRESSION: z.string().transform((val) => val === 'true').default('true'),
-  ENABLE_PERFORMANCE_OPTIMIZATIONS: z.string().transform((val) => val === 'true').default('true'),
+  ENABLE_COMPRESSION: z
+    .string()
+    .transform(val => val === 'true')
+    .default('true'),
+  ENABLE_PERFORMANCE_OPTIMIZATIONS: z
+    .string()
+    .transform(val => val === 'true')
+    .default('true'),
 
   // إعدادات النسخ الاحتياطي
-  BACKUP_ENABLED: z.string().transform((val) => val === 'true').default('false'),
+  BACKUP_ENABLED: z
+    .string()
+    .transform(val => val === 'true')
+    .default('false'),
   BACKUP_SCHEDULE: z.string().default('0 2 * * *'),
   BACKUP_RETENTION_DAYS: z.string().transform(Number).default('30'),
 });
@@ -78,13 +99,13 @@ class EnvironmentManager {
     try {
       const config = environmentSchema.parse(process.env);
       this.isInitialized = true;
-      
+
       logger.info('Environment configuration loaded successfully', {
         nodeEnv: config.NODE_ENV,
         port: config.PORT,
         apiBaseUrl: config.API_BASE_URL,
         cacheEnabled: config.ENABLE_CACHE,
-        debugMode: config.DEBUG
+        debugMode: config.DEBUG,
       });
 
       return config;
@@ -101,13 +122,13 @@ class EnvironmentManager {
         logger.error('Environment configuration validation failed', {
           missingVariables: missingVars,
           invalidVariables: invalidVars,
-          totalErrors: error.errors.length
+          totalErrors: error.errors.length,
         });
 
         throw new Error(
           `Environment configuration failed:\n` +
-          `Missing variables: ${missingVars.join(', ')}\n` +
-          `Invalid variables: ${invalidVars.join(', ')}`
+            `Missing variables: ${missingVars.join(', ')}\n` +
+            `Invalid variables: ${invalidVars.join(', ')}`
         );
       }
 
@@ -143,7 +164,7 @@ class EnvironmentManager {
         max: this.config.DB_POOL_MAX,
         idleTimeoutMillis: this.config.DB_POOL_IDLE_TIMEOUT_MS,
         acquireTimeoutMillis: this.config.DB_POOL_ACQUIRE_TIMEOUT_MS,
-      }
+      },
     };
   }
 
@@ -227,7 +248,7 @@ class EnvironmentManager {
     }
 
     // التحقق من إعدادات Redis في الإنتاج
-    if (config.isProduction && config.ENABLE_CACHE && !config.REDIS_URL) {
+    if (this.isProduction() && config.ENABLE_CACHE && !config.REDIS_URL) {
       logger.warn('Cache is enabled but REDIS_URL is not configured');
     }
 
@@ -243,4 +264,3 @@ export const getConfig = () => environment.getConfig();
 export const isDevelopment = () => environment.isDevelopment();
 export const isProduction = () => environment.isProduction();
 export const isTest = () => environment.isTest();
-

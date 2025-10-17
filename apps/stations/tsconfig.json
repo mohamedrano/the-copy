@@ -25,7 +25,7 @@
     "noUncheckedIndexedAccess": true,
     "exactOptionalPropertyTypes": true,
     "paths": {
-      "@/*": ["./src/*"],
+      "@/*": ["./shared/src/*", "./src/*"],
       "@shared/*": ["./shared/*"],
       "@server/*": ["./server/*"]
     }

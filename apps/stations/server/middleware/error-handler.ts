@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { ZodError } from 'zod';
+import { ZodError, type ZodSchema } from 'zod';
 import { environment } from '../config/environment';
 import logger from '../utils/logger';
 
@@ -7,18 +7,18 @@ import logger from '../utils/logger';
 export class AppError extends Error {
   public readonly statusCode: number;
   public readonly isOperational: boolean;
-  public readonly code?: string;
-  public readonly details?: any;
+  public readonly code: string | undefined;
+  public readonly details: unknown;
 
   constructor(
-    message: string, 
-    statusCode: number = 500, 
+    message: string,
+    statusCode: number = 500,
     isOperational: boolean = true,
     code?: string,
-    details?: any
+    details?: unknown
   ) {
     super(message);
-    
+
     this.name = this.constructor.name;
     this.statusCode = statusCode;
     this.isOperational = isOperational;
@@ -31,7 +31,7 @@ export class AppError extends Error {
 }
 
 export class ValidationError extends AppError {
-  constructor(message: string, details?: any) {
+  constructor(message: string, details?: unknown) {
     super(message, 400, true, 'VALIDATION_ERROR', details);
   }
 }
@@ -67,13 +67,19 @@ export class RateLimitError extends AppError {
 }
 
 export class ExternalServiceError extends AppError {
-  constructor(service: string, message: string, details?: any) {
-    super(`External service error: ${service} - ${message}`, 502, true, 'EXTERNAL_SERVICE_ERROR', details);
+  constructor(service: string, message: string, details?: unknown) {
+    super(
+      `External service error: ${service} - ${message}`,
+      502,
+      true,
+      'EXTERNAL_SERVICE_ERROR',
+      details
+    );
   }
 }
 
 export class DatabaseError extends AppError {
-  constructor(message: string, details?: any) {
+  constructor(message: string, details?: unknown) {
     super(`Database error: ${message}`, 500, true, 'DATABASE_ERROR', details);
   }
 }
@@ -83,12 +89,13 @@ export const errorHandler = (
   error: Error,
   req: Request,
   res: Response,
-  next: NextFunction
+  _next: NextFunction
 ): void => {
+  void _next;
   let statusCode = 500;
   let message = 'Internal Server Error';
   let code = 'INTERNAL_ERROR';
-  let details: any = undefined;
+  let details: unknown;
 
   // معالجة أنواع الأخطاء المختلفة
   if (error instanceof AppError) {
@@ -104,8 +111,8 @@ export const errorHandler = (
       issues: error.errors.map(err => ({
         path: err.path.join('.'),
         message: err.message,
-        code: err.code
-      }))
+        code: err.code,
+      })),
     };
   } else if (error.name === 'CastError') {
     statusCode = 400;
@@ -136,7 +143,7 @@ export const errorHandler = (
       message: error.message,
       stack: error.stack,
       code,
-      statusCode
+      statusCode,
     },
     request: {
       method: req.method,
@@ -146,9 +153,9 @@ export const errorHandler = (
       headers: req.headers,
       body: req.body,
       query: req.query,
-      params: req.params
+      params: req.params,
     },
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   };
 
   // تسجيل مختلف حسب مستوى الخطأ
@@ -161,21 +168,35 @@ export const errorHandler = (
   }
 
   // إرسال الاستجابة
-  const response: any = {
+  interface ErrorResponse {
+    success: false;
+    error: string;
+    code: string;
+    timestamp: string;
+    path: string;
+    method: string;
+    details?: unknown;
+    stack?: string;
+    retryAfter?: number;
+  }
+
+  const response: ErrorResponse = {
     success: false,
     error: message,
     code,
     timestamp: new Date().toISOString(),
     path: req.url,
-    method: req.method
+    method: req.method,
   };
 
   // إضافة التفاصيل في وضع التطوير أو للأخطاء التشغيلية
   if (environment.isDevelopment() || (error instanceof AppError && error.isOperational)) {
     response.details = details;
     if (environment.isDevelopment()) {
+    if (error.stack !== undefined) {
       response.stack = error.stack;
     }
+  }
   }
 
   // إضافة معلومات إضافية للأخطاء المحددة
@@ -206,12 +227,7 @@ export const methodNotAllowedHandler = (req: Request, res: Response, next: NextF
 // معالج للطلبات المتوقفة
 export const gracefulShutdownHandler = (req: Request, res: Response, next: NextFunction): void => {
   if (process.env.GRACEFUL_SHUTDOWN === 'true') {
-    const error = new AppError(
-      'Server is shutting down',
-      503,
-      true,
-      'SERVICE_UNAVAILABLE'
-    );
+    const error = new AppError('Server is shutting down', 503, true, 'SERVICE_UNAVAILABLE');
     next(error);
   } else {
     next();
@@ -219,19 +235,25 @@ export const gracefulShutdownHandler = (req: Request, res: Response, next: NextF
 };
 
 // معالج للتحقق من صحة البيانات
-export const validateRequest = (schema: any) => {
+export const validateRequest = (
+  schema: ZodSchema<{
+    body: Record<string, unknown>;
+    query: Request['query'];
+    params: Request['params'];
+  }>
+) => {
   return (req: Request, res: Response, next: NextFunction): void => {
     try {
       const validated = schema.parse({
         body: req.body,
         query: req.query,
-        params: req.params
+        params: req.params,
       });
-      
-      req.body = validated.body;
-      req.query = validated.query;
-      req.params = validated.params;
-      
+
+      req.body = validated.body as typeof req.body;
+      req.query = validated.query as typeof req.query;
+      req.params = validated.params as typeof req.params;
+
       next();
     } catch (error) {
       if (error instanceof ZodError) {
@@ -252,10 +274,9 @@ export const requireFields = (fields: string[]) => {
     });
 
     if (missingFields.length > 0) {
-      const error = new ValidationError(
-        `Missing required fields: ${missingFields.join(', ')}`,
-        { missingFields }
-      );
+      const error = new ValidationError(`Missing required fields: ${missingFields.join(', ')}`, {
+        missingFields,
+      });
       next(error);
     } else {
       next();
@@ -270,8 +291,11 @@ export const validateFileUpload = (options: {
   required?: boolean;
 }) => {
   return (req: Request, res: Response, next: NextFunction): void => {
-    const file = req.file;
-    
+    const requestWithFile = req as Request & {
+      file?: { size: number; mimetype: string };
+    };
+    const file = requestWithFile.file;
+
     if (options.required && !file) {
       const error = new ValidationError('File is required');
       next(error);
@@ -307,7 +331,7 @@ export const createError = (
   message: string,
   statusCode: number = 500,
   code?: string,
-  details?: any
+  details?: unknown
 ): AppError => {
   return new AppError(message, statusCode, true, code, details);
 };
@@ -324,20 +348,23 @@ export const isOperationalError = (error: Error): boolean => {
 process.on('uncaughtException', (error: Error) => {
   logger.error('Uncaught Exception', {
     error: error.message,
-    stack: error.stack
+    stack: error.stack,
   });
-  
+
   // إغلاق التطبيق بأمان
   process.exit(1);
 });
 
-process.on('unhandledRejection', (reason: any, promise: Promise<any>) => {
+process.on('unhandledRejection', (reason: unknown, promise: Promise<unknown>) => {
+  const reasonMessage = reason instanceof Error ? reason.message : String(reason);
+  const reasonStack = reason instanceof Error ? reason.stack : undefined;
+
   logger.error('Unhandled Rejection', {
-    reason: reason?.message || reason,
-    stack: reason?.stack,
-    promise: promise.toString()
+    reason: reasonMessage,
+    stack: reasonStack,
+    promise: promise.toString(),
   });
-  
+
   // إغلاق التطبيق بأمان
   process.exit(1);
 });
@@ -352,4 +379,3 @@ process.on('SIGINT', () => {
   logger.info('SIGINT received, shutting down gracefully');
   process.exit(0);
 });
-
