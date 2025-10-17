@@ -712,11 +712,12 @@ class EpisodicIntegrationEngine {
     }
     
     // حساب متوسط الفجوات لتقييم جودة التوقيت
-    const _avgGap = gaps.reduce((sum, gap) => sum + gap, 0) / gaps.length;
+    const averageGap = gaps.reduce((sum, gap) => sum + gap, 0) / gaps.length;
     const variance = this.calculateVariance(gaps);
-    
-    const quality = 1 / (1 + variance);
-    
+    const gapConsistency = 1 / (1 + Math.abs(averageGap - 1));
+    const varianceStability = 1 / (1 + variance);
+    const quality = (gapConsistency + varianceStability) / 2;
+
     return Math.max(0, Math.min(1, quality));
   }
   

@@ -72,6 +72,15 @@ export interface RedundancyIssue {
   consolidationSuggestion: string;
 }
 
+type DiagnosticIssueSummary = {
+  structuralIssues: StructuralIssue[];
+  isolatedCharacters: DiagnosticReport['isolatedCharacters'];
+  abandonedConflicts: DiagnosticReport['abandonedConflicts'];
+  overloadedCharacters: DiagnosticReport['overloadedCharacters'];
+  weakConnections: DiagnosticReport['weakConnections'];
+  redundancies: DiagnosticReport['redundancies'];
+};
+
 export class NetworkDiagnostics {
   private network: ConflictNetwork;
 
@@ -511,7 +520,7 @@ export class NetworkDiagnostics {
     return chars1.some(char => chars2.includes(char));
   }
 
-  private calculateOverallHealth(issues: any): number {
+  private calculateOverallHealth(issues: DiagnosticIssueSummary): number {
     let score = 100;
     
     // Deduct points for each type of issue

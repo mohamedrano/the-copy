@@ -67,16 +67,20 @@ export class Station4EfficiencyMetrics extends BaseStation<Station4Input, Statio
     structuralRevisions: string[];
   }> {
     // استخدام المقاييس لتوليد التوصيات - سيتم استخدامها في المستقبل
-    const _score = metrics.overallEfficiencyScore;
-    const _redundancy = metrics.redundancyMetrics.totalRedundant;
+    const overallScore = metrics.overallEfficiencyScore;
+    const redundancyTotal = metrics.redundancyMetrics.totalRedundant;
+    const formattedOverallScore = overallScore.toFixed(1);
+    const formattedCohesion = metrics.conflictCohesion.toFixed(2);
+    const formattedBalanceScore = metrics.dramaticBalance.balanceScore.toFixed(2);
 
     const prompt = `
 بناءً على تحليل كفاءة الشبكة الدرامية التالي:
 
-النتيجة الإجمالية: ${metrics.overallEfficiencyScore.toFixed(1)}/100
+النتيجة الإجمالية: ${formattedOverallScore}/100
 التصنيف: ${metrics.overallRating}
-تماسك الصراع: ${metrics.conflictCohesion.toFixed(2)}
-التوازن الدرامي: ${metrics.dramaticBalance.balanceScore.toFixed(2)}
+تماسك الصراع: ${formattedCohesion}
+التوازن الدرامي: ${formattedBalanceScore}
+إجمالي العناصر المتكررة: ${redundancyTotal}
 
 اقترح توصيات محددة وعملية لتحسين الشبكة:
 

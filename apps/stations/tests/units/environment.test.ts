@@ -1,5 +1,16 @@
-/* eslint-disable @typescript-eslint/no-require-imports */
+import { createRequire } from 'node:module';
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
+
+const nodeRequire = createRequire(import.meta.url);
+const environmentModulePath = '../../server/config/environment';
+
+type EnvironmentModule = typeof import('../../server/config/environment');
+
+const loadEnvironmentModule = (): EnvironmentModule => {
+  const moduleId = nodeRequire.resolve(environmentModulePath);
+  delete nodeRequire.cache[moduleId];
+  return nodeRequire(environmentModulePath) as EnvironmentModule;
+};
 
 // حفظ متغيرات البيئة الأصلية
 const originalEnv = process.env;
@@ -21,8 +32,7 @@ describe('Environment Configuration', () => {
       
       expect(() => {
         // إعادة تحميل الوحدة لاختبار التحقق
-        delete (require as any).cache[(require as any).resolve('../../server/config/environment')];
-        (require as any)('../../server/config/environment');
+        loadEnvironmentModule();
       }).toThrow();
     });
 
@@ -31,8 +41,7 @@ describe('Environment Configuration', () => {
       delete process.env.DATABASE_URL;
       
       expect(() => {
-        delete (require as any).cache[(require as any).resolve('../../server/config/environment')];
-        (require as any)('../../server/config/environment');
+        loadEnvironmentModule();
       }).toThrow();
     });
 
@@ -42,8 +51,7 @@ describe('Environment Configuration', () => {
       process.env.SESSION_SECRET = 'short';
       
       expect(() => {
-        delete (require as any).cache[(require as any).resolve('../../server/config/environment')];
-        (require as any)('../../server/config/environment');
+        loadEnvironmentModule();
       }).toThrow();
     });
   });
@@ -60,24 +68,21 @@ describe('Environment Configuration', () => {
     });
 
     it('should parse VALID_API_KEYS correctly', () => {
-      delete require.cache[require.resolve('../../server/config/environment')];
-      const { environment } = require('../../server/config/environment');
+      const { environment } = loadEnvironmentModule();
       
       const config = environment.getConfig();
       expect(config.VALID_API_KEYS).toEqual(['key1', 'key2', 'key3']);
     });
 
     it('should parse ALLOWED_ORIGINS correctly', () => {
-      delete require.cache[require.resolve('../../server/config/environment')];
-      const { environment } = require('../../server/config/environment');
+      const { environment } = loadEnvironmentModule();
       
       const config = environment.getConfig();
       expect(config.ALLOWED_ORIGINS).toEqual(['http://localhost:3000', 'https://example.com']);
     });
 
     it('should set default values for optional variables', () => {
-      delete require.cache[require.resolve('../../server/config/environment')];
-      const { environment } = require('../../server/config/environment');
+      const { environment } = loadEnvironmentModule();
       
       const config = environment.getConfig();
       expect(config.PORT).toBe(5000);
@@ -89,8 +94,7 @@ describe('Environment Configuration', () => {
       process.env.PORT = '3000';
       process.env.RATE_LIMIT_MAX_REQUESTS = '50';
       
-      delete require.cache[require.resolve('../../server/config/environment')];
-      const { environment } = require('../../server/config/environment');
+      const { environment } = loadEnvironmentModule();
       
       const config = environment.getConfig();
       expect(config.PORT).toBe(3000);
@@ -101,8 +105,7 @@ describe('Environment Configuration', () => {
       process.env.ENABLE_CACHE = 'true';
       process.env.DEBUG = 'false';
       
-      delete require.cache[require.resolve('../../server/config/environment')];
-      const { environment } = require('../../server/config/environment');
+      const { environment } = loadEnvironmentModule();
       
       const config = environment.getConfig();
       expect(config.ENABLE_CACHE).toBe(true);
@@ -123,8 +126,7 @@ describe('Environment Configuration', () => {
     it('should correctly identify development environment', () => {
       process.env.NODE_ENV = 'development';
       
-      delete require.cache[require.resolve('../../server/config/environment')];
-      const { environment } = require('../../server/config/environment');
+      const { environment } = loadEnvironmentModule();
       
       expect(environment.isDevelopment()).toBe(true);
       expect(environment.isProduction()).toBe(false);
@@ -133,10 +135,9 @@ describe('Environment Configuration', () => {
 
     it('should correctly identify production environment', () => {
       process.env.NODE_ENV = 'production';
-      
-      delete require.cache[require.resolve('../../server/config/environment')];
-      const { environment } = require('../../server/config/environment');
-      
+
+      const { environment } = loadEnvironmentModule();
+
       expect(environment.isDevelopment()).toBe(false);
       expect(environment.isProduction()).toBe(true);
       expect(environment.isTest()).toBe(false);
@@ -144,10 +145,9 @@ describe('Environment Configuration', () => {
 
     it('should correctly identify test environment', () => {
       process.env.NODE_ENV = 'test';
-      
-      delete require.cache[require.resolve('../../server/config/environment')];
-      const { environment } = require('../../server/config/environment');
-      
+
+      const { environment } = loadEnvironmentModule();
+
       expect(environment.isDevelopment()).toBe(false);
       expect(environment.isProduction()).toBe(false);
       expect(environment.isTest()).toBe(true);
@@ -167,9 +167,8 @@ describe('Environment Configuration', () => {
     });
 
     it('should return database configuration', () => {
-      delete require.cache[require.resolve('../../server/config/environment')];
-      const { environment } = require('../../server/config/environment');
-      
+      const { environment } = loadEnvironmentModule();
+
       const dbConfig = environment.getDatabaseConfig();
       expect(dbConfig.url).toBe('postgresql://test:test@localhost:5432/test');
       expect(dbConfig.pool).toHaveProperty('min');
@@ -177,18 +176,16 @@ describe('Environment Configuration', () => {
     });
 
     it('should return Redis configuration', () => {
-      delete require.cache[require.resolve('../../server/config/environment')];
-      const { environment } = require('../../server/config/environment');
-      
+      const { environment } = loadEnvironmentModule();
+
       const redisConfig = environment.getRedisConfig();
       expect(redisConfig.host).toBe('localhost');
       expect(redisConfig.port).toBe(6379);
     });
 
     it('should return security configuration', () => {
-      delete require.cache[require.resolve('../../server/config/environment')];
-      const { environment } = require('../../server/config/environment');
-      
+      const { environment } = loadEnvironmentModule();
+
       const securityConfig = environment.getSecurityConfig();
       expect(securityConfig.validApiKeys).toEqual(['key1', 'key2']);
       expect(securityConfig.allowedOrigins).toEqual(['http://localhost:3000']);
