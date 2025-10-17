@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import { describe, it, expect, beforeEach, afterEach } from 'vitest';
 
 // حفظ متغيرات البيئة الأصلية
