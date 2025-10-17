@@ -1,0 +1,741 @@
+
+> rest-express@1.0.0 lint
+> eslint . --ext .ts,.tsx
+
+
+D:\stations.thecopy\cleanup\_backup\AnalysisCard_20251003_113041.tsx
+  6:5  error  Parsing error: Unexpected token <
+
+D:\stations.thecopy\cleanup\_backup\AnalysisCard_20251003_113054.tsx
+  6:5  error  Parsing error: Unexpected token <
+
+D:\stations.thecopy\cleanup\_backup\AnalysisCard_20251003_113106.tsx
+  6:5  error  Parsing error: Unexpected token <
+
+D:\stations.thecopy\cleanup\_backup\CharacterNode_20251003_113041.tsx
+  5:5  error  Parsing error: Unexpected token <
+
+D:\stations.thecopy\cleanup\_backup\CharacterNode_20251003_113054.tsx
+  5:5  error  Parsing error: Unexpected token <
+
+D:\stations.thecopy\cleanup\_backup\CharacterNode_20251003_113106.tsx
+  5:5  error  Parsing error: Unexpected token <
+
+D:\stations.thecopy\cleanup\_backup\ConflictNetwork_20251003_113041.tsx
+  12:42  error  Parsing error: Unexpected token as
+
+D:\stations.thecopy\cleanup\_backup\ConflictNetwork_20251003_113054.tsx
+  12:42  error  Parsing error: Unexpected token as
+
+D:\stations.thecopy\cleanup\_backup\ConflictNetwork_20251003_113106.tsx
+  12:42  error  Parsing error: Unexpected token as
+
+D:\stations.thecopy\cleanup\_backup\DiagnosticPanel_20251003_113041.tsx
+  7:24  error  Parsing error: Unexpected token as
+
+D:\stations.thecopy\cleanup\_backup\DiagnosticPanel_20251003_113054.tsx
+  7:24  error  Parsing error: Unexpected token as
+
+D:\stations.thecopy\cleanup\_backup\DiagnosticPanel_20251003_113106.tsx
+  7:24  error  Parsing error: Unexpected token as
+
+D:\stations.thecopy\cleanup\_backup\Header_20251003_113041.tsx
+  7:5  error  Parsing error: Unexpected token <
+
+D:\stations.thecopy\cleanup\_backup\Header_20251003_113054.tsx
+  7:5  error  Parsing error: Unexpected token <
+
+D:\stations.thecopy\cleanup\_backup\Header_20251003_113106.tsx
+  7:5  error  Parsing error: Unexpected token <
+
+D:\stations.thecopy\cleanup\_backup\HeroSection_20251003_113041.tsx
+  6:5  error  Parsing error: Unexpected token <
+
+D:\stations.thecopy\cleanup\_backup\HeroSection_20251003_113054.tsx
+  6:5  error  Parsing error: Unexpected token <
+
+D:\stations.thecopy\cleanup\_backup\HeroSection_20251003_113106.tsx
+  6:5  error  Parsing error: Unexpected token <
+
+D:\stations.thecopy\cleanup\_backup\MetricCard_20251003_113041.tsx
+  6:5  error  Parsing error: Unexpected token <
+
+D:\stations.thecopy\cleanup\_backup\MetricCard_20251003_113054.tsx
+  6:5  error  Parsing error: Unexpected token <
+
+D:\stations.thecopy\cleanup\_backup\MetricCard_20251003_113106.tsx
+  6:5  error  Parsing error: Unexpected token <
+
+D:\stations.thecopy\cleanup\_backup\StationProgress_20251003_113041.tsx
+  6:81  error  Parsing error: Unexpected token as
+
+D:\stations.thecopy\cleanup\_backup\StationProgress_20251003_113054.tsx
+  6:81  error  Parsing error: Unexpected token as
+
+D:\stations.thecopy\cleanup\_backup\StationProgress_20251003_113106.tsx
+  6:81  error  Parsing error: Unexpected token as
+
+D:\stations.thecopy\cleanup\_backup\TextInput_20251003_113041.tsx
+  9:5  error  Parsing error: Unexpected token <
+
+D:\stations.thecopy\cleanup\_backup\TextInput_20251003_113054.tsx
+  9:5  error  Parsing error: Unexpected token <
+
+D:\stations.thecopy\cleanup\_backup\TextInput_20251003_113106.tsx
+  9:5  error  Parsing error: Unexpected token <
+
+D:\stations.thecopy\cleanup\_backup\auth_20251003_113041.ts
+  4:8  error  Parsing error: Unexpected token interface
+
+D:\stations.thecopy\cleanup\_backup\auth_20251003_113054.ts
+  4:8  error  Parsing error: Unexpected token interface
+
+D:\stations.thecopy\cleanup\_backup\auth_20251003_113106.ts
+  4:8  error  Parsing error: Unexpected token interface
+
+D:\stations.thecopy\cleanup\_backup\rate-limit_20251003_113041.ts
+  14:9  error  'process' is not defined  no-undef
+
+D:\stations.thecopy\cleanup\_backup\rate-limit_20251003_113054.ts
+  14:9  error  'process' is not defined  no-undef
+
+D:\stations.thecopy\cleanup\_backup\rate-limit_20251003_113106.ts
+  14:9  error  'process' is not defined  no-undef
+
+D:\stations.thecopy\cleanup\_backup\result-selector_20251003_113041.ts
+  3:8  error  Parsing error: Unexpected token interface
+
+D:\stations.thecopy\cleanup\_backup\result-selector_20251003_113054.ts
+  3:8  error  Parsing error: Unexpected token interface
+
+D:\stations.thecopy\cleanup\_backup\result-selector_20251003_113106.ts
+  3:8  error  Parsing error: Unexpected token interface
+
+D:\stations.thecopy\cleanup\_backup\sanitize_20251003_113041.ts
+  3:34  error  Parsing error: Unexpected token :
+
+D:\stations.thecopy\cleanup\_backup\sanitize_20251003_113054.ts
+  3:34  error  Parsing error: Unexpected token :
+
+D:\stations.thecopy\cleanup\_backup\sanitize_20251003_113106.ts
+  3:34  error  Parsing error: Unexpected token :
+
+D:\stations.thecopy\cleanup\_backup\storage_20251003_113041.ts
+  1:15  error  Parsing error: Unexpected token User
+
+D:\stations.thecopy\cleanup\_backup\storage_20251003_113054.ts
+  1:15  error  Parsing error: Unexpected token User
+
+D:\stations.thecopy\cleanup\_backup\storage_20251003_113106.ts
+  1:15  error  Parsing error: Unexpected token User
+
+D:\stations.thecopy\cleanup\_backup\vite_20251003_113041.ts
+  1:24  error  Parsing error: Unexpected token Express
+
+D:\stations.thecopy\cleanup\_backup\vite_20251003_113054.ts
+  1:24  error  Parsing error: Unexpected token Express
+
+D:\stations.thecopy\cleanup\_backup\vite_20251003_113106.ts
+  1:24  error  Parsing error: Unexpected token Express
+
+D:\stations.thecopy\cleanup\analyze_dependencies.js
+  68:1   error  'console' is not defined  no-undef
+  69:1   error  'console' is not defined  no-undef
+  70:29  error  'console' is not defined  no-undef
+  82:1   error  'console' is not defined  no-undef
+
+D:\stations.thecopy\dist\index.js
+    13:26  error  Unexpected control character(s) in regular expression: \x00, \x1f          no-control-regex
+    62:5   error  'station1ResponseSchema' is assigned a value but never used                no-unused-vars
+    85:25  error  'process' is not defined                                                   no-undef
+   101:10  error  'process' is not defined                                                   no-undef
+  1487:42  error  '_network' is defined but never used                                       no-unused-vars
+  1488:11  error  'context' is assigned a value but never used                               no-unused-vars
+  1650:36  error  'timeline' is defined but never used                                       no-unused-vars
+  1915:11  error  'avgGap' is assigned a value but never used                                no-unused-vars
+  2803:59  error  'process' is not defined                                                   no-undef
+  2921:25  error  'process' is not defined                                                   no-undef
+  2943:27  error  'process' is not defined                                                   no-undef
+  2964:9   error  'process' is not defined                                                   no-undef
+  3001:13  error  Do not access Object.prototype method 'hasOwnProperty' from target object  no-prototype-builtins
+  3035:13  error  'process' is not defined                                                   no-undef
+  3041:33  error  'process' is not defined                                                   no-undef
+  3046:33  error  'process' is not defined                                                   no-undef
+  3050:12  error  'error' is defined but never used                                          no-unused-vars
+  3070:22  error  'process' is not defined                                                   no-undef
+  3249:8   error  'process' is not defined                                                   no-undef
+  3249:49  error  'process' is not defined                                                   no-undef
+  3294:9   error  'process' is not defined                                                   no-undef
+  3340:11  error  'process' is not defined                                                   no-undef
+  3372:28  error  '_next' is defined but never used                                          no-unused-vars
+  3387:25  error  'process' is not defined                                                   no-undef
+
+D:\stations.thecopy\dist\public\assets\index-DxUHVdOX.js
+    1:817    error  'document' is not defined                                                  no-undef
+    1:924    error  'document' is not defined                                                  no-undef
+    1:988    error  'MutationObserver' is not defined                                          no-undef
+    1:1138   error  'document' is not defined                                                  no-undef
+    1:1486   error  'fetch' is not defined                                                     no-undef
+    9:1588   error  Do not access Object.prototype method 'hasOwnProperty' from target object  no-prototype-builtins
+    9:4646   error  Do not access Object.prototype method 'hasOwnProperty' from target object  no-prototype-builtins
+   17:376    error  Do not access Object.prototype method 'hasOwnProperty' from target object  no-prototype-builtins
+   25:599    error  'performance' is not defined                                               no-undef
+   25:634    error  'performance' is not defined                                               no-undef
+   25:834    error  'setTimeout' is not defined                                                no-undef
+   25:884    error  'clearTimeout' is not defined                                              no-undef
+   25:928    error  'setImmediate' is not defined                                              no-undef
+   25:968    error  'navigator' is not defined                                                 no-undef
+   25:999    error  'navigator' is not defined                                                 no-undef
+   25:1045   error  'navigator' is not defined                                                 no-undef
+   25:1086   error  'navigator' is not defined                                                 no-undef
+   25:2065   error  'MessageChannel' is not defined                                            no-undef
+   25:2590   error  'console' is not defined                                                   no-undef
+   33:495    error  'window' is not defined                                                    no-undef
+   33:523    error  'window' is not defined                                                    no-undef
+   33:909    error  Unexpected combined character in character class                           no-misleading-character-class
+   33:3023   error  Unnecessary escape character: \-                                           no-useless-escape
+   33:4912   error  Do not access Object.prototype method 'hasOwnProperty' from target object  no-prototype-builtins
+   37:202    error  Expected a conditional expression and instead saw an assignment            no-cond-assign
+   37:1216   error  Empty block statement                                                      no-empty
+   37:2389   error  Do not access Object.prototype method 'hasOwnProperty' from target object  no-prototype-builtins
+   37:3070   error  'document' is not defined                                                  no-undef
+   37:3869   error  Do not access Object.prototype method 'hasOwnProperty' from target object  no-prototype-builtins
+   37:3910   error  Do not access Object.prototype method 'hasOwnProperty' from target object  no-prototype-builtins
+   37:4077   error  Do not access Object.prototype method 'hasOwnProperty' from target object  no-prototype-builtins
+   37:4104   error  Do not access Object.prototype method 'hasOwnProperty' from target object  no-prototype-builtins
+   37:4695   error  Do not access Object.prototype method 'hasOwnProperty' from target object  no-prototype-builtins
+   37:6032   error  'MSApp' is not defined                                                     no-undef
+   37:6080   error  'MSApp' is not defined                                                     no-undef
+   37:6255   error  'document' is not defined                                                  no-undef
+   37:7460   error  Do not access Object.prototype method 'hasOwnProperty' from target object  no-prototype-builtins
+   37:7553   error  Do not access Object.prototype method 'hasOwnProperty' from target object  no-prototype-builtins
+   37:8496   error  'window' is not defined                                                    no-undef
+   37:8636   error  Expected a conditional expression and instead saw an assignment            no-cond-assign
+   37:9657   error  Expected to return a value in method 'get'                                 getter-return
+   37:9681   error  'window' is not defined                                                    no-undef
+   37:9719   error  'window' is not defined                                                    no-undef
+   37:9790   error  'r' is defined but never used                                              no-unused-vars
+   37:9792   error  'o' is defined but never used                                              no-unused-vars
+   37:9794   error  'i' is defined but never used                                              no-unused-vars
+   37:9796   error  's' is defined but never used                                              no-unused-vars
+   37:9798   error  'l' is defined but never used                                              no-unused-vars
+   37:9800   error  'a' is defined but never used                                              no-unused-vars
+   37:9973   error  'e' is defined but never used                                              no-unused-vars
+   37:9975   error  't' is defined but never used                                              no-unused-vars
+   37:9977   error  'n' is defined but never used                                              no-unused-vars
+   37:9979   error  'r' is defined but never used                                              no-unused-vars
+   37:9981   error  'o' is defined but never used                                              no-unused-vars
+   37:9983   error  'i' is defined but never used                                              no-unused-vars
+   37:9985   error  's' is defined but never used                                              no-unused-vars
+   37:9987   error  'l' is defined but never used                                              no-unused-vars
+   37:9989   error  'a' is defined but never used                                              no-unused-vars
+   37:10041  error  'e' is defined but never used                                              no-unused-vars
+   37:10043  error  't' is defined but never used                                              no-unused-vars
+   37:10045  error  'n' is defined but never used                                              no-unused-vars
+   37:10047  error  'r' is defined but never used                                              no-unused-vars
+   37:10049  error  'o' is defined but never used                                              no-unused-vars
+   37:10051  error  'i' is defined but never used                                              no-unused-vars
+   37:10053  error  's' is defined but never used                                              no-unused-vars
+   37:10055  error  'l' is defined but never used                                              no-unused-vars
+   37:10057  error  'a' is defined but never used                                              no-unused-vars
+   37:11890  error  Empty block statement                                                      no-empty
+   37:19770  error  Do not access Object.prototype method 'hasOwnProperty' from target object  no-prototype-builtins
+   37:20113  error  Invalid typeof comparison value                                            valid-typeof
+   37:20287  error  Invalid typeof comparison value                                            valid-typeof
+   37:21323  error  'window' is not defined                                                    no-undef
+   37:22159  error  Expected a conditional expression and instead saw an assignment            no-cond-assign
+   37:23409  error  'window' is not defined                                                    no-undef
+   37:23445  error  'document' is not defined                                                  no-undef
+   37:23459  error  'document' is not defined                                                  no-undef
+   37:23507  error  'window' is not defined                                                    no-undef
+   37:24977  error  'document' is not defined                                                  no-undef
+   37:25001  error  'document' is not defined                                                  no-undef
+   37:25127  error  'document' is not defined                                                  no-undef
+   37:25152  error  'document' is not defined                                                  no-undef
+   37:26504  error  'window' is not defined                                                    no-undef
+   37:27202  error  'document' is not defined                                                  no-undef
+   37:27228  error  'window' is not defined                                                    no-undef
+   37:27704  error  Expected a conditional expression and instead saw an assignment            no-cond-assign
+   37:27941  error  'document' is not defined                                                  no-undef
+   37:27955  error  'document' is not defined                                                  no-undef
+   37:28245  error  'window' is not defined                                                    no-undef
+   37:28848  error  'document' is not defined                                                  no-undef
+   37:28903  error  'window' is not defined                                                    no-undef
+   37:29040  error  'window' is not defined                                                    no-undef
+   37:29170  error  Do not access Object.prototype method 'hasOwnProperty' from target object  no-prototype-builtins
+   37:33270  error  Expected a 'break' statement before 'case'                                 no-fallthrough
+   37:33457  error  Expected a 'break' statement before 'case'                                 no-fallthrough
+   37:34574  error  Expected a conditional expression and instead saw an assignment            no-cond-assign
+   37:34623  error  'window' is not defined                                                    no-undef
+   37:35370  error  'window' is not defined                                                    no-undef
+   37:35767  error  'window' is not defined                                                    no-undef
+   37:36019  error  Expected a 'break' statement before 'case'                                 no-fallthrough
+   37:37449  error  Unexpected control character(s) in regular expression: \x00                no-control-regex
+   38:385    error  'setTimeout' is not defined                                                no-undef
+   38:438    error  'clearTimeout' is not defined                                              no-undef
+   38:540    error  'queueMicrotask' is not defined                                            no-undef
+   38:642    error  'setTimeout' is not defined                                                no-undef
+   38:1506   error  Expected a conditional expression and instead saw an assignment            no-cond-assign
+   38:1606   error  Expected a conditional expression and instead saw an assignment            no-cond-assign
+   38:14656  error  Expected a 'break' statement before 'case'                                 no-fallthrough
+   38:15113  error  Unexpected constant condition                                              no-constant-condition
+   38:15704  error  Expected a conditional expression and instead saw an assignment            no-cond-assign
+   38:22270  error  Empty block statement                                                      no-empty
+   38:22279  error  Empty block statement                                                      no-empty
+   38:25655  error  Expected a conditional expression and instead saw an assignment            no-cond-assign
+   38:26518  error  Expected a conditional expression and instead saw an assignment            no-cond-assign
+   40:153    error  'console' is not defined                                                   no-undef
+   40:185    error  'setTimeout' is not defined                                                no-undef
+   40:3964   error  Expected a conditional expression and instead saw an assignment            no-cond-assign
+   40:5086   error  Expected a conditional expression and instead saw an assignment            no-cond-assign
+   40:12863  error  Do not access Object.prototype method 'hasOwnProperty' from target object  no-prototype-builtins
+   40:12884  error  Do not access Object.prototype method 'hasOwnProperty' from target object  no-prototype-builtins
+   40:12954  error  Do not access Object.prototype method 'hasOwnProperty' from target object  no-prototype-builtins
+   40:13136  error  Do not access Object.prototype method 'hasOwnProperty' from target object  no-prototype-builtins
+   40:13238  error  Do not access Object.prototype method 'hasOwnProperty' from target object  no-prototype-builtins
+   40:13318  error  Do not access Object.prototype method 'hasOwnProperty' from target object  no-prototype-builtins
+   40:13342  error  Do not access Object.prototype method 'hasOwnProperty' from target object  no-prototype-builtins
+   40:13394  error  Do not access Object.prototype method 'hasOwnProperty' from target object  no-prototype-builtins
+   40:13749  error  Do not access Object.prototype method 'hasOwnProperty' from target object  no-prototype-builtins
+   40:15934  error  Do not access Object.prototype method 'hasOwnProperty' from target object  no-prototype-builtins
+   40:16213  error  Do not access Object.prototype method 'hasOwnProperty' from target object  no-prototype-builtins
+   40:16659  error  Unnecessary escape character: \/                                           no-useless-escape
+   40:17530  error  Do not access Object.prototype method 'hasOwnProperty' from target object  no-prototype-builtins
+   40:17839  error  Do not access Object.prototype method 'hasOwnProperty' from target object  no-prototype-builtins
+   40:22554  error  'window' is not defined                                                    no-undef
+   40:25859  error  Empty block statement                                                      no-empty
+   40:25894  error  Expected a 'break' statement before 'case'                                 no-fallthrough
+   40:29972  error  Do not access Object.prototype method 'hasOwnProperty' from target object  no-prototype-builtins
+   40:30952  error  't' is defined but never used                                              no-unused-vars
+   40:30954  error  'n' is defined but never used                                              no-unused-vars
+   40:30981  error  't' is defined but never used                                              no-unused-vars
+   40:30983  error  'n' is defined but never used                                              no-unused-vars
+   40:33650  error  'window' is not defined                                                    no-undef
+   40:34673  error  Unexpected constant condition                                              no-constant-condition
+   40:39187  error  Unexpected constant condition                                              no-constant-condition
+   40:39477  error  Unexpected constant condition                                              no-constant-condition
+   40:42468  error  Empty block statement                                                      no-empty
+   40:51807  error  'reportError' is not defined                                               no-undef
+   40:51831  error  'console' is not defined                                                   no-undef
+   40:52887  error  Expected a conditional expression and instead saw an assignment            no-cond-assign
+   40:54288  error  '_f' is a function                                                         no-func-assign
+   40:54294  error  'Of' is a function                                                         no-func-assign
+   40:55212  error  '__REACT_DEVTOOLS_GLOBAL_HOOK__' is not defined                            no-undef
+   40:55311  error  Empty block statement                                                      no-empty
+   40:57344  error  '__REACT_DEVTOOLS_GLOBAL_HOOK__' is not defined                            no-undef
+   40:57401  error  '__REACT_DEVTOOLS_GLOBAL_HOOK__' is not defined                            no-undef
+   40:57454  error  'console' is not defined                                                   no-undef
+   40:57693  error  Expected a conditional expression and instead saw an assignment            no-cond-assign
+   48:597    error  'window' is not defined                                                    no-undef
+   48:625    error  'window' is not defined                                                    no-undef
+   48:841    error  'window' is not defined                                                    no-undef
+   48:869    error  'window' is not defined                                                    no-undef
+   48:1140   error  'addEventListener' is not defined                                          no-undef
+   48:1191   error  'removeEventListener' is not defined                                       no-undef
+   48:1267   error  'location' is not defined                                                  no-undef
+   48:1329   error  'location' is not defined                                                  no-undef
+   48:1425   error  'history' is not defined                                                   no-undef
+   48:1529   error  'window' is not defined                                                    no-undef
+   48:1576   error  'history' is not defined                                                   no-undef
+   48:1587   error  'history' is not defined                                                   no-undef
+   48:1647   error  'Event' is not defined                                                     no-undef
+   48:1685   error  'dispatchEvent' is not defined                                             no-undef
+   48:1727   error  'window' is not defined                                                    no-undef
+   48:3531   error  'f' is assigned a value but never used                                     no-unused-vars
+   48:3539   error  'm' is assigned a value but never used                                     no-unused-vars
+   48:6395   error  Do not access Object.prototype method 'hasOwnProperty' from target object  no-prototype-builtins
+   48:6587   error  'setTimeout' is not defined                                                no-undef
+   48:7198   error  'window' is not defined                                                    no-undef
+   48:7246   error  'window' is not defined                                                    no-undef
+   48:7300   error  'window' is not defined                                                    no-undef
+   48:8097   error  'window' is not defined                                                    no-undef
+   48:8159   error  'window' is not defined                                                    no-undef
+   48:8198   error  'window' is not defined                                                    no-undef
+   48:8243   error  'window' is not defined                                                    no-undef
+   48:8282   error  'window' is not defined                                                    no-undef
+   48:10490  error  'setTimeout' is not defined                                                no-undef
+   48:10967  error  'setTimeout' is not defined                                                no-undef
+   48:11124  error  'clearTimeout' is not defined                                              no-undef
+   48:14084  error  'AbortController' is not defined                                           no-undef
+   48:16350  error  Unexpected lexical declaration in case block                               no-case-declarations
+   48:31944  error  'e' is defined but never used                                              no-unused-vars
+   48:32270  error  't' is defined but never used                                              no-unused-vars
+   48:32798  error  'fetch' is not defined                                                     no-undef
+   48:33000  error  'fetch' is not defined                                                     no-undef
+   48:33415  error  'setTimeout' is not defined                                                no-undef
+   48:38864  error  'window' is not defined                                                    no-undef
+   48:41015  error  'document' is not defined                                                  no-undef
+   48:41051  error  'document' is not defined                                                  no-undef
+   48:42068  error  'window' is not defined                                                    no-undef
+   48:42142  error  'window' is not defined                                                    no-undef
+   48:42661  error  'CustomEvent' is not defined                                               no-undef
+   48:42677  error  'document' is not defined                                                  no-undef
+   48:42772  error  'CustomEvent' is not defined                                               no-undef
+   48:44160  error  'window' is not defined                                                    no-undef
+   48:44880  error  'getComputedStyle' is not defined                                          no-undef
+   48:45985  error  'qC' is assigned a value but never used                                    no-unused-vars
+   48:46236  error  'console' is not defined                                                   no-undef
+   48:47146  error  'document' is not defined                                                  no-undef
+   48:47189  error  'document' is not defined                                                  no-undef
+   48:47353  error  'CustomEvent' is not defined                                               no-undef
+   48:47470  error  'CustomEvent' is not defined                                               no-undef
+   48:47596  error  'document' is not defined                                                  no-undef
+   48:47771  error  'window' is not defined                                                    no-undef
+   48:47805  error  'window' is not defined                                                    no-undef
+   48:47995  error  'window' is not defined                                                    no-undef
+   48:48032  error  'window' is not defined                                                    no-undef
+   48:48428  error  'document' is not defined                                                  no-undef
+   48:51460  error  'document' is not defined                                                  no-undef
+   48:51560  error  'window' is not defined                                                    no-undef
+   48:51632  error  'window' is not defined                                                    no-undef
+   48:51812  error  'window' is not defined                                                    no-undef
+   48:54106  error  'window' is not defined                                                    no-undef
+   48:54149  error  'window' is not defined                                                    no-undef
+   48:54351  error  'n' is assigned a value but never used                                     no-unused-vars
+   48:54484  error  'n' is assigned a value but never used                                     no-unused-vars
+   48:54699  error  'console' is not defined                                                   no-undef
+   48:55086  error  'n' is assigned a value but never used                                     no-unused-vars
+   48:55634  error  'CustomEvent' is not defined                                               no-undef
+   48:55926  error  'window' is not defined                                                    no-undef
+   48:55961  error  'window' is not defined                                                    no-undef
+   48:55999  error  'window' is not defined                                                    no-undef
+   48:56030  error  'window' is not defined                                                    no-undef
+   48:56146  error  'document' is not defined                                                  no-undef
+   48:56174  error  'NodeFilter' is not defined                                                no-undef
+   48:56292  error  'NodeFilter' is not defined                                                no-undef
+   48:56329  error  'NodeFilter' is not defined                                                no-undef
+   48:56354  error  'NodeFilter' is not defined                                                no-undef
+   48:56453  error  'document' is not defined                                                  no-undef
+   48:56513  error  'document' is not defined                                                  no-undef
+  173:33076  error  'window' is not defined                                                    no-undef
+  173:33149  error  'window' is not defined                                                    no-undef
+  173:33237  error  'Node' is not defined                                                      no-undef
+  173:33310  error  'Element' is not defined                                                   no-undef
+  173:33389  error  'HTMLElement' is not defined                                               no-undef
+  173:33502  error  'ShadowRoot' is not defined                                                no-undef
+  173:34466  error  'CSS' is not defined                                                       no-undef
+  173:34482  error  'CSS' is not defined                                                       no-undef
+  173:40691  error  'clearTimeout' is not defined                                              no-undef
+  173:41136  error  'setTimeout' is not defined                                                no-undef
+  173:41229  error  'IntersectionObserver' is not defined                                      no-undef
+  173:41293  error  'IntersectionObserver' is not defined                                      no-undef
+  173:41752  error  'ResizeObserver' is not defined                                            no-undef
+  173:41816  error  'cancelAnimationFrame' is not defined                                      no-undef
+  173:41842  error  'requestAnimationFrame' is not defined                                     no-undef
+  173:42022  error  'requestAnimationFrame' is not defined                                     no-undef
+  173:42210  error  'cancelAnimationFrame' is not defined                                      no-undef
+  173:43039  error  'window' is not defined                                                    no-undef
+  173:45781  error  'ResizeObserver' is not defined                                            no-undef
+  173:46138  error  'XC' is assigned a value but never used                                    no-unused-vars
+  173:48117  error  'window' is not defined                                                    no-undef
+  173:50132  error  'ZC' is assigned a value but never used                                    no-unused-vars
+  173:50436  error  'window' is not defined                                                    no-undef
+  173:50543  error  'window' is not defined                                                    no-undef
+  173:50619  error  'window' is not defined                                                    no-undef
+  173:50660  error  'window' is not defined                                                    no-undef
+  173:50864  error  'JC' is assigned a value but never used                                    no-unused-vars
+  173:51122  error  'document' is not defined                                                  no-undef
+  173:51595  error  'document' is not defined                                                  no-undef
+  173:51805  error  'eE' is assigned a value but never used                                    no-unused-vars
+  173:53005  error  'document' is not defined                                                  no-undef
+  173:53052  error  'document' is not defined                                                  no-undef
+  173:53370  error  'document' is not defined                                                  no-undef
+  173:53406  error  'document' is not defined                                                  no-undef
+  173:53551  error  'window' is not defined                                                    no-undef
+  173:53604  error  'window' is not defined                                                    no-undef
+  173:56776  error  'document' is not defined                                                  no-undef
+  173:57235  error  'document' is not defined                                                  no-undef
+  173:57282  error  'document' is not defined                                                  no-undef
+  173:63909  error  'a' is defined but never used                                              no-unused-vars
+  177:2595   error  'tE' is assigned a value but never used                                    no-unused-vars
+  177:3301   error  'window' is not defined                                                    no-undef
+  177:3342   error  'window' is not defined                                                    no-undef
+  177:3683   error  'window' is not defined                                                    no-undef
+  179:2812   error  'nE' is assigned a value but never used                                    no-unused-vars
+  179:2952   error  'console' is not defined                                                   no-undef
+  179:3028   error  'console' is not defined                                                   no-undef
+  184:4078   error  'CustomEvent' is not defined                                               no-undef
+  184:5334   error  'setTimeout' is not defined                                                no-undef
+  184:5809   error  'document' is not defined                                                  no-undef
+  184:5887   error  'document' is not defined                                                  no-undef
+  184:6008   error  'rE' is assigned a value but never used                                    no-unused-vars
+  184:7622   error  'requestAnimationFrame' is not defined                                     no-undef
+  184:7672   error  'cancelAnimationFrame' is not defined                                      no-undef
+  184:22574  error  'document' is not defined                                                  no-undef
+
+D:\stations.thecopy\drizzle.config.ts
+   3:6   error  'process' is not defined  no-undef
+  12:10  error  'process' is not defined  no-undef
+
+D:\stations.thecopy\server\analysis_modules\network-diagnostics.ts
+    1:27  warning  'Character' is defined but never used     @typescript-eslint/no-unused-vars
+  408:38  warning  'characterId' is defined but never used   @typescript-eslint/no-unused-vars
+  428:34  warning  'conflict' is defined but never used      @typescript-eslint/no-unused-vars
+  437:35  warning  'characterId' is defined but never used   @typescript-eslint/no-unused-vars
+  511:42  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\stations.thecopy\server\core\models\base-entities.ts
+   10:28  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   46:28  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   92:28  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  108:28  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  118:28  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\stations.thecopy\server\index.ts
+  12:11  error    'process' is not defined                  no-undef
+  23:44  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  53:56  warning  '_next' is defined but never used         @typescript-eslint/no-unused-vars
+  83:25  error    'process' is not defined                  no-undef
+
+D:\stations.thecopy\server\middleware\auth.ts
+  20:25  error  'process' is not defined  no-undef
+  47:27  error  'process' is not defined  no-undef
+
+D:\stations.thecopy\server\middleware\rate-limit.ts
+  14:9  error  'process' is not defined  no-undef
+
+D:\stations.thecopy\server\middleware\sanitize.ts
+  10:30  warning  Unexpected any. Specify a different type                                   @typescript-eslint/no-explicit-any
+  12:13  error    Do not access Object.prototype method 'hasOwnProperty' from target object  no-prototype-builtins
+
+D:\stations.thecopy\server\routes.ts
+  17:24  error  'process' is not defined  no-undef
+
+D:\stations.thecopy\server\routes\health.ts
+  11:13  error    'process' is not defined           no-undef
+  19:33  error    'process' is not defined           no-undef
+  25:32  error    'process' is not defined           no-undef
+  29:12  warning  'error' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\stations.thecopy\server\run-all-stations.ts
+  71:58  error  'process' is not defined  no-undef
+
+D:\stations.thecopy\server\services\ai\result-selector.ts
+   5:33  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+   6:28  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  51:29  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\stations.thecopy\server\stations\station3\station3-network-builder.ts
+   92:31  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  105:48  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  268:27  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  281:44  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\stations.thecopy\server\stations\station4\station4-efficiency-metrics.ts
+  65:5   warning  '_network' is defined but never used          @typescript-eslint/no-unused-vars
+  71:11  warning  'context' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\stations.thecopy\server\stations\station5\station5-dynamic-symbolic-stylistic.ts
+    2:37  warning  'Character' is defined but never used        @typescript-eslint/no-unused-vars
+    2:48  warning  'Relationship' is defined but never used     @typescript-eslint/no-unused-vars
+    5:13  warning  'fs' is defined but never used               @typescript-eslint/no-unused-vars
+    6:13  warning  'path' is defined but never used             @typescript-eslint/no-unused-vars
+  314:5   warning  'timeline' is defined but never used         @typescript-eslint/no-unused-vars
+  706:11  warning  'avgGap' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+D:\stations.thecopy\server\stations\station7\station7-finalization.ts
+    2:27  warning  'Character' is defined but never used     @typescript-eslint/no-unused-vars
+    2:38  warning  'Relationship' is defined but never used  @typescript-eslint/no-unused-vars
+    2:52  warning  'Conflict' is defined but never used      @typescript-eslint/no-unused-vars
+  123:33  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  177:73  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  191:88  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  215:81  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\stations.thecopy\server\types\contexts.ts
+  16:34  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+  17:21  warning  Unexpected any. Specify a different type  @typescript-eslint/no-explicit-any
+
+D:\stations.thecopy\server\utils\logger.ts
+   8:27  error  'process' is not defined  no-undef
+  28:10  error  'process' is not defined  no-undef
+
+D:\stations.thecopy\server\vite.ts
+  19:3  error  'console' is not defined  no-undef
+  36:9  error  'process' is not defined  no-undef
+
+D:\stations.thecopy\shared\schema.ts
+  4:28  error  Unexpected control character(s) in regular expression: \x00, \x1f  no-control-regex
+
+D:\stations.thecopy\src\components\AnalysisCard.tsx
+  8:13  error  'React' is not defined  no-undef
+
+D:\stations.thecopy\src\components\StationProgress.tsx
+  68:33  warning  'index' is defined but never used  @typescript-eslint/no-unused-vars
+
+D:\stations.thecopy\src\components\ui\alert-dialog.tsx
+  49:25  error  'HTMLDivElement' is not defined  no-undef
+  63:25  error  'HTMLDivElement' is not defined  no-undef
+
+D:\stations.thecopy\src\components\ui\alert.tsx
+  23:3   error  'HTMLDivElement' is not defined        no-undef
+  24:24  error  'HTMLDivElement' is not defined        no-undef
+  36:3   error  'HTMLParagraphElement' is not defined  no-undef
+  37:24  error  'HTMLHeadingElement' is not defined    no-undef
+  48:3   error  'HTMLParagraphElement' is not defined  no-undef
+  49:24  error  'HTMLParagraphElement' is not defined  no-undef
+
+D:\stations.thecopy\src\components\ui\badge.tsx
+  29:32  error  'HTMLDivElement' is not defined  no-undef
+
+D:\stations.thecopy\src\components\ui\breadcrumb.tsx
+   8:3  error  'HTMLElement' is not defined        no-undef
+  16:3  error  'HTMLOListElement' is not defined   no-undef
+  31:3  error  'HTMLLIElement' is not defined      no-undef
+  43:3  error  'HTMLAnchorElement' is not defined  no-undef
+  61:3  error  'HTMLSpanElement' is not defined    no-undef
+
+D:\stations.thecopy\src\components\ui\button.tsx
+  43:38  error  'HTMLButtonElement' is not defined  no-undef
+  48:33  error  'HTMLButtonElement' is not defined  no-undef
+
+D:\stations.thecopy\src\components\ui\card.tsx
+   6:3   error  'HTMLDivElement' is not defined  no-undef
+   7:24  error  'HTMLDivElement' is not defined  no-undef
+  21:3   error  'HTMLDivElement' is not defined  no-undef
+  22:24  error  'HTMLDivElement' is not defined  no-undef
+  33:3   error  'HTMLDivElement' is not defined  no-undef
+  34:24  error  'HTMLDivElement' is not defined  no-undef
+  48:3   error  'HTMLDivElement' is not defined  no-undef
+  49:24  error  'HTMLDivElement' is not defined  no-undef
+  60:3   error  'HTMLDivElement' is not defined  no-undef
+  61:24  error  'HTMLDivElement' is not defined  no-undef
+  68:3   error  'HTMLDivElement' is not defined  no-undef
+  69:24  error  'HTMLDivElement' is not defined  no-undef
+
+D:\stations.thecopy\src\components\ui\carousel.tsx
+   44:3   error  'HTMLDivElement' is not defined     no-undef
+   45:24  error  'HTMLDivElement' is not defined     no-undef
+   87:35  error  'HTMLDivElement' is not defined     no-undef
+  152:3   error  'HTMLDivElement' is not defined     no-undef
+  153:24  error  'HTMLDivElement' is not defined     no-undef
+  174:3   error  'HTMLDivElement' is not defined     no-undef
+  175:24  error  'HTMLDivElement' is not defined     no-undef
+  196:3   error  'HTMLButtonElement' is not defined  no-undef
+  225:3   error  'HTMLButtonElement' is not defined  no-undef
+
+D:\stations.thecopy\src\components\ui\chart.tsx
+   38:3  error  'HTMLDivElement' is not defined  no-undef
+  106:3  error  'HTMLDivElement' is not defined  no-undef
+  262:3  error  'HTMLDivElement' is not defined  no-undef
+
+D:\stations.thecopy\src\components\ui\command.tsx
+  128:25  error  'HTMLSpanElement' is not defined  no-undef
+
+D:\stations.thecopy\src\components\ui\context-menu.tsx
+  169:25  error  'HTMLSpanElement' is not defined  no-undef
+
+D:\stations.thecopy\src\components\ui\dialog.tsx
+  59:25  error  'HTMLDivElement' is not defined  no-undef
+  73:25  error  'HTMLDivElement' is not defined  no-undef
+
+D:\stations.thecopy\src\components\ui\drawer.tsx
+  61:25  error  'HTMLDivElement' is not defined  no-undef
+  72:25  error  'HTMLDivElement' is not defined  no-undef
+
+D:\stations.thecopy\src\components\ui\dropdown-menu.tsx
+  172:25  error  'HTMLSpanElement' is not defined  no-undef
+
+D:\stations.thecopy\src\components\ui\form.tsx
+   76:3   error  'HTMLDivElement' is not defined        no-undef
+   77:24  error  'HTMLDivElement' is not defined        no-undef
+  129:3   error  'HTMLParagraphElement' is not defined  no-undef
+  130:24  error  'HTMLParagraphElement' is not defined  no-undef
+  146:3   error  'HTMLParagraphElement' is not defined  no-undef
+  147:24  error  'HTMLParagraphElement' is not defined  no-undef
+
+D:\stations.thecopy\src\components\ui\input.tsx
+  5:32  error  'HTMLInputElement' is not defined  no-undef
+
+D:\stations.thecopy\src\components\ui\menubar.tsx
+  226:25  error  'HTMLSpanElement' is not defined  no-undef
+
+D:\stations.thecopy\src\components\ui\pagination.tsx
+  18:3  error  'HTMLUListElement' is not defined  no-undef
+  30:3  error  'HTMLLIElement' is not defined     no-undef
+
+D:\stations.thecopy\src\components\ui\resizable.tsx
+  11:4  error  'React' is not defined  no-undef
+  27:4  error  'React' is not defined  no-undef
+
+D:\stations.thecopy\src\components\ui\sheet.tsx
+  80:25  error  'HTMLDivElement' is not defined  no-undef
+  94:25  error  'HTMLDivElement' is not defined  no-undef
+
+D:\stations.thecopy\src\components\ui\sidebar.tsx
+   86:7   error  'document' is not defined       no-undef
+   98:35  error  'KeyboardEvent' is not defined  no-undef
+  108:5   error  'window' is not defined         no-undef
+  109:18  error  'window' is not defined         no-undef
+
+D:\stations.thecopy\src\components\ui\skeleton.tsx
+  6:4   error  'React' is not defined           no-undef
+  6:25  error  'HTMLDivElement' is not defined  no-undef
+
+D:\stations.thecopy\src\components\ui\table.tsx
+   6:3   error  'HTMLTableElement' is not defined         no-undef
+   7:24  error  'HTMLTableElement' is not defined         no-undef
+  20:3   error  'HTMLTableSectionElement' is not defined  no-undef
+  21:24  error  'HTMLTableSectionElement' is not defined  no-undef
+  28:3   error  'HTMLTableSectionElement' is not defined  no-undef
+  29:24  error  'HTMLTableSectionElement' is not defined  no-undef
+  40:3   error  'HTMLTableSectionElement' is not defined  no-undef
+  41:24  error  'HTMLTableSectionElement' is not defined  no-undef
+  55:3   error  'HTMLTableRowElement' is not defined      no-undef
+  56:24  error  'HTMLTableRowElement' is not defined      no-undef
+  70:3   error  'HTMLTableCellElement' is not defined     no-undef
+  71:26  error  'HTMLTableCellElement' is not defined     no-undef
+  85:3   error  'HTMLTableCellElement' is not defined     no-undef
+  86:26  error  'HTMLTableCellElement' is not defined     no-undef
+  97:3   error  'HTMLTableCaptionElement' is not defined  no-undef
+  98:24  error  'HTMLTableCaptionElement' is not defined  no-undef
+
+D:\stations.thecopy\src\components\ui\textarea.tsx
+  6:3  error  'HTMLTextAreaElement' is not defined  no-undef
+
+D:\stations.thecopy\src\contexts\LanguageContext.tsx
+  11:60  error  'React' is not defined     no-undef
+  16:5   error  'document' is not defined  no-undef
+  17:5   error  'document' is not defined  no-undef
+
+D:\stations.thecopy\src\contexts\ThemeContext.tsx
+  10:57  error  'React' is not defined     no-undef
+  14:18  error  'document' is not defined  no-undef
+
+D:\stations.thecopy\src\hooks\use-mobile.tsx
+   9:17  error  'window' is not defined  no-undef
+  11:19  error  'window' is not defined  no-undef
+  14:17  error  'window' is not defined  no-undef
+
+D:\stations.thecopy\src\hooks\use-toast.ts
+  18:7   warning  'actionTypes' is assigned a value but only used as a type  @typescript-eslint/no-unused-vars
+  56:57  error    'setTimeout' is not defined                                no-undef
+  63:19  error    'setTimeout' is not defined                                no-undef
+
+D:\stations.thecopy\src\lib\queryClient.ts
+   3:37  error  'Response' is not defined  no-undef
+  14:12  error  'Response' is not defined  no-undef
+  15:21  error  'fetch' is not defined     no-undef
+  32:23  error  'fetch' is not defined     no-undef
+
+D:\stations.thecopy\src\main.tsx
+  5:12  error  'document' is not defined  no-undef
+
+D:\stations.thecopy\src\pages\HomePage.tsx
+   16:15  warning  'Station1Response' is defined but never used  @typescript-eslint/no-unused-vars
+   23:56  warning  Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+   80:22  warning  Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+  107:22  warning  Unexpected any. Specify a different type      @typescript-eslint/no-explicit-any
+
+D:\stations.thecopy\tailwind.config.ts
+  106:13  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  106:13  error  'require' is not defined                 no-undef
+  106:45  error  A `require()` style import is forbidden  @typescript-eslint/no-require-imports
+  106:45  error  'require' is not defined                 no-undef
+
+D:\stations.thecopy\vite.config.ts
+  10:9  error  'process' is not defined  no-undef
+  11:5  error  'process' is not defined  no-undef
+
+Γ£û 532 problems (488 errors, 44 warnings)
+

@@ -1,0 +1,216 @@
+# P0-003: إنشاء Prisma migrations
+
+## Changes
+
+### Created jules-backend/prisma/migrations directory
+- Created directory for database migrations
+
+### Created jules-backend/prisma/migrations/20251003131500_init/migration.sql
+```sql
+-- CreateTable
+CREATE TABLE "users" (
+    "id" TEXT NOT NULL,
+    "email" TEXT NOT NULL,
+    "hashedPassword" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "users_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "api_keys" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "keyName" TEXT NOT NULL,
+    "encryptedKey" TEXT NOT NULL,
+    "isActive" BOOLEAN NOT NULL DEFAULT true,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "lastUsedAt" TIMESTAMP(3),
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "api_keys_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "sessions" (
+    "id" TEXT NOT NULL,
+    "userId" TEXT NOT NULL,
+    "status" TEXT NOT NULL DEFAULT 'initializing',
+    "currentPhase" TEXT NOT NULL DEFAULT 'brief',
+    "progress" INTEGER NOT NULL DEFAULT 0,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "sessions_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "creative_briefs" (
+    "id" TEXT NOT NULL,
+    "sessionId" TEXT NOT NULL,
+    "coreIdea" TEXT NOT NULL,
+    "genre" TEXT NOT NULL,
+    "targetAudience" TEXT NOT NULL,
+    "themes" TEXT[],
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "creative_briefs_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "agents" (
+    "id" TEXT NOT NULL,
+    "sessionId" TEXT NOT NULL,
+    "agentType" TEXT NOT NULL,
+    "agentName" TEXT NOT NULL,
+    "isActive" BOOLEAN NOT NULL DEFAULT true,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "agents_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "ideas" (
+    "id" TEXT NOT NULL,
+    "sessionId" TEXT NOT NULL,
+    "ideaNumber" INTEGER NOT NULL,
+    "title" TEXT NOT NULL,
+    "logline" TEXT NOT NULL,
+    "synopsis" TEXT NOT NULL,
+    "threeActStructure" JSONB NOT NULL,
+    "characters" JSONB NOT NULL,
+    "keyScenes" JSONB NOT NULL,
+    "themes" TEXT[],
+    "genre" TEXT NOT NULL,
+    "tone" TEXT NOT NULL,
+    "targetAudience" TEXT NOT NULL,
+    "status" TEXT NOT NULL DEFAULT 'draft',
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "ideas_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "reviews" (
+    "id" TEXT NOT NULL,
+    "sessionId" TEXT NOT NULL,
+    "agentId" TEXT NOT NULL,
+    "ideaId" TEXT NOT NULL,
+    "qualityScore" INTEGER NOT NULL,
+    "noveltyScore" INTEGER NOT NULL,
+    "impactScore" INTEGER NOT NULL,
+    "reasoning" TEXT NOT NULL,
+    "suggestions" TEXT[],
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "reviews_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "tournaments" (
+    "id" TEXT NOT NULL,
+    "sessionId" TEXT NOT NULL,
+    "status" TEXT NOT NULL DEFAULT 'not_started',
+    "totalTurns" INTEGER NOT NULL DEFAULT 8,
+    "currentTurn" INTEGER NOT NULL DEFAULT 0,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "tournaments_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "tournament_turns" (
+    "id" TEXT NOT NULL,
+    "tournamentId" TEXT NOT NULL,
+    "turnNumber" INTEGER NOT NULL,
+    "participants" TEXT[],
+    "arguments" JSONB NOT NULL,
+    "summary" TEXT NOT NULL,
+    "momentumShift" JSONB,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "tournament_turns_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "final_decisions" (
+    "id" TEXT NOT NULL,
+    "sessionId" TEXT NOT NULL,
+    "winningIdeaId" TEXT NOT NULL,
+    "decisionRationale" TEXT NOT NULL,
+    "keyStrengths" TEXT[],
+    "recommendations" TEXT[],
+    "voteBreakdown" JSONB NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "final_decisions_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateIndex
+CREATE UNIQUE INDEX "users_email_key" ON "users"("email");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "creative_briefs_sessionId_key" ON "creative_briefs"("sessionId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "tournaments_sessionId_key" ON "tournaments"("sessionId");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "final_decisions_sessionId_key" ON "final_decisions"("sessionId");
+
+-- AddForeignKey
+ALTER TABLE "api_keys" ADD CONSTRAINT "api_keys_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "sessions" ADD CONSTRAINT "sessions_userId_fkey" FOREIGN KEY ("userId") REFERENCES "users"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "creative_briefs" ADD CONSTRAINT "creative_briefs_sessionId_fkey" FOREIGN KEY ("sessionId") REFERENCES "sessions"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "agents" ADD CONSTRAINT "agents_sessionId_fkey" FOREIGN KEY ("sessionId") REFERENCES "sessions"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "ideas" ADD CONSTRAINT "ideas_sessionId_fkey" FOREIGN KEY ("sessionId") REFERENCES "sessions"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "reviews" ADD CONSTRAINT "reviews_sessionId_fkey" FOREIGN KEY ("sessionId") REFERENCES "sessions"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "reviews" ADD CONSTRAINT "reviews_agentId_fkey" FOREIGN KEY ("agentId") REFERENCES "agents"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "reviews" ADD CONSTRAINT "reviews_ideaId_fkey" FOREIGN KEY ("ideaId") REFERENCES "ideas"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "tournaments" ADD CONSTRAINT "tournaments_sessionId_fkey" FOREIGN KEY ("sessionId") REFERENCES "sessions"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "tournament_turns" ADD CONSTRAINT "tournament_turns_tournamentId_fkey" FOREIGN KEY ("tournamentId") REFERENCES "tournaments"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "final_decisions" ADD CONSTRAINT "final_decisions_sessionId_fkey" FOREIGN KEY ("sessionId") REFERENCES "sessions"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+```
+
+### Created jules-backend/prisma/migrations/migration_lock.toml
+```toml
+# DO NOT EDIT THIS FILE!
+# This file is automatically generated by Prisma Migrate.
+# You should not edit this file manually.
+# If you need to reset the migration history, delete this file.
+
+provider = "postgresql"
+```
+
+### Key improvements:
+1. Created complete database schema with all required tables
+2. Added proper foreign key constraints
+3. Added unique indexes where needed
+4. Set up proper default values and data types

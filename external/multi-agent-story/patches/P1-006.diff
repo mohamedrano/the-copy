@@ -1,0 +1,90 @@
+# P1-006: Structured Logging
+
+## Changes
+
+### Enhanced jules-backend/src/utils/logger.ts
+Improved logging implementation with proper structured logging for production:
+
+```typescript
+import winston from "winston";
+
+const logFormat = winston.format.combine(
+  winston.format.timestamp({
+    format: "YYYY-MM-DD HH:mm:ss",
+  }),
+  winston.format.errors({ stack: true }),
+  winston.format.json(),
+);
+
+const consoleFormat = winston.format.combine(
+  winston.format.colorize(),
+  winston.format.timestamp({
+    format: "YYYY-MM-DD HH:mm:ss",
+  }),
+  winston.format.printf(({ timestamp, level, message, service, ...meta }) => {
+    const metaStr = Object.keys(meta).length > 0 ? JSON.stringify(meta) : "";
+    return `${timestamp} [${level}] ${service || ""}: ${message} ${metaStr}`;
+  }),
+);
+
+const logger = winston.createLogger({
+  level: process.env["LOG_LEVEL"] || "info",
+  format: logFormat,
+  defaultMeta: {
+    service: "jules-backend",
+  },
+  transports: [
+    new winston.transports.Console({
+      format: process.env["NODE_ENV"] === "production" ? logFormat : consoleFormat,
+    }),
+  ],
+});
+
+// Add file transport in production
+if (process.env["NODE_ENV"] === "production") {
+  logger.add(
+    new winston.transports.File({
+      filename: "logs/error.log",
+      level: "error",
+      maxsize: 5242880, // 5MB
+      maxFiles: 5,
+    }),
+  );
+
+  logger.add(
+    new winston.transports.File({
+      filename: "logs/combined.log",
+      maxsize: 5242880, // 5MB
+      maxFiles: 5,
+    }),
+  );
+}
+
+export { logger };
+```
+
+### Key improvements:
+1. ✅ JSON formatted logs in production environment
+2. ✅ Human-readable logs in development environment
+3. ✅ Proper timestamp formatting
+4. ✅ Error stack trace inclusion
+5. ✅ Service metadata for log identification
+6. ✅ File rotation for production logs
+7. ✅ Colorized output in development
+
+### Log Format Examples:
+**Development:**
+```
+2025-10-03 12:00:00 [info] jules-backend: Server started successfully
+```
+
+**Production (JSON):**
+```json
+{
+  "timestamp": "2025-10-03 12:00:00",
+  "level": "info",
+  "message": "Server started successfully",
+  "service": "jules-backend",
+  "port": 8000
+}
+```

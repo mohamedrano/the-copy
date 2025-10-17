@@ -1,0 +1,12 @@
+--- a/ui/components/ErrorBoundary.tsx
++++ b/ui/components/ErrorBoundary.tsx
+@@ -9,6 +9,8 @@ interface State {
+ }
+ 
+ export class ErrorBoundary extends Component<Props, State> {
++  public readonly props: Props;
++  
+   public state: State = {
+     hasError: false,
+     error: null
+

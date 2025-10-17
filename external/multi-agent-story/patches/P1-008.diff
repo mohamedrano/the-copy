@@ -1,0 +1,104 @@
+# P1-008: Health Checks محسّنة
+
+## Changes
+
+### Updated jules-backend/src/app.ts
+Enhanced health check endpoints with database connectivity verification and readiness check:
+
+```typescript
+// Health check endpoint
+app.get("/health", async () => {
+  // Test database connectivity
+  let databaseStatus = "unknown";
+  try {
+    await prisma.$queryRaw`SELECT 1`;
+    databaseStatus = "connected";
+  } catch (error) {
+    databaseStatus = "disconnected";
+  }
+
+  return {
+    status: "ok",
+    timestamp: new Date().toISOString(),
+    environment: config.environment,
+    version: config.appVersion,
+    database: databaseStatus,
+  };
+});
+
+// Readiness check endpoint
+app.get("/health/ready", async () => {
+  // Check if all services are ready
+  const checks = {
+    database: "unknown",
+  };
+
+  try {
+    await prisma.$queryRaw`SELECT 1`;
+    checks.database = "ok";
+  } catch (error) {
+    checks.database = "error";
+  }
+
+  const isReady = Object.values(checks).every((status) => status === "ok");
+
+  return {
+    status: isReady ? "ok" : "not-ready",
+    timestamp: new Date().toISOString(),
+    checks,
+  };
+});
+```
+
+### Key improvements:
+1. ✅ Enhanced `/health` endpoint with actual database connectivity test
+2. ✅ Added `/health/ready` endpoint for readiness probing
+3. ✅ Proper error handling for database connectivity checks
+4. ✅ Detailed status reporting for each service
+5. ✅ Kubernetes-compatible health check endpoints
+
+### Endpoints available:
+- **Liveness probe**: `GET /health` - Basic health status
+- **Readiness probe**: `GET /health/ready` - Service readiness status
+
+### Usage examples:
+```bash
+# Liveness check
+curl http://localhost:8000/health
+# Response:
+{
+  "status": "ok",
+  "timestamp": "2025-10-03T12:00:00.000Z",
+  "environment": "development",
+  "version": "1.0.0",
+  "database": "connected"
+}
+
+# Readiness check
+curl http://localhost:8000/health/ready
+# Response:
+{
+  "status": "ok",
+  "timestamp": "2025-10-03T12:00:00.000Z",
+  "checks": {
+    "database": "ok"
+  }
+}
+```
+
+### Kubernetes deployment example:
+```yaml
+livenessProbe:
+  httpGet:
+    path: /health
+    port: 8000
+  initialDelaySeconds: 30
+  periodSeconds: 10
+
+readinessProbe:
+  httpGet:
+    path: /health/ready
+    port: 8000
+  initialDelaySeconds: 5
+  periodSeconds: 5
+```

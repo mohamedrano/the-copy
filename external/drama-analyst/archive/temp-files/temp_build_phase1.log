@@ -1,0 +1,17 @@
+
+> drama-analytica-&-creative-emissary@0.0.0 build
+> vite build
+
+[36mvite v6.3.6 [32mbuilding for production...[36m[39m
+transforming...
+[32mΓ£ô[39m 485 modules transformed.
+rendering chunks...
+computing gzip size...
+[2mdist/[22m[32mindex.html                [39m[1m[2m    2.86 kB[22m[1m[22m[2m Γöé gzip:   1.24 kB[22m
+[2mdist/[22m[36massets/index-BdotBRbO.js  [39m[1m[33m1,177.43 kB[39m[22m[2m Γöé gzip: 303.23 kB[22m
+
+(!) Some chunks are larger than 500 kB after minification. Consider:
+- Using dynamic import() to code-split the application
+- Use build.rollupOptions.output.manualChunks to improve chunking: https://rollupjs.org/configuration-options/#output-manualchunks
+- Adjust chunk size limit for this warning via build.chunkSizeWarningLimit.
+[32mΓ£ô built in 7.27s[39m

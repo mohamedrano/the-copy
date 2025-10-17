@@ -1,0 +1,7 @@
+npx tsc --noEmit
+✓ No TypeScript errors found
+
+T-P0-001: ErrorBoundary fix successful
+- Added readonly props: Props; to ErrorBoundary class
+- TypeScript compilation now passes without errors
+

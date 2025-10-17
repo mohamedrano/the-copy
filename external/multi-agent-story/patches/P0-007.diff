@@ -1,0 +1,221 @@
+# P0-007: إضافة اختبارات للخدمات الحرجة
+
+## Changes
+
+### Created jules-backend/src/services/__tests__ directory
+- Created directory for test files
+
+### Created jules-backend/src/services/__tests__/session.service.test.ts
+```typescript
+import { describe, it, expect, beforeEach, afterEach } from '@jest/globals'
+import { PrismaClient } from '@prisma/client'
+import { SessionService } from '../session.service'
+
+describe('SessionService', () => {
+  let prisma: PrismaClient
+  let sessionService: SessionService
+  let testSessionId: string
+
+  beforeEach(async () => {
+    prisma = new PrismaClient()
+    sessionService = new SessionService(prisma)
+
+    // Create test session
+    const session = await prisma.session.create({
+      data: {
+        userId: 'test-user-id',
+        status: 'initializing',
+        currentPhase: 'brief'
+      }
+    })
+    testSessionId = session.id
+  })
+
+  afterEach(async () => {
+    // Cleanup
+    if (testSessionId) {
+      await prisma.session.delete({ where: { id: testSessionId } })
+    }
+    await prisma.$disconnect()
+  })
+
+  describe('createSession', () => {
+    it('should create a new session', async () => {
+      const session = await sessionService.createSession('test-user-id-2')
+      
+      expect(session).toHaveProperty('id')
+      expect(session.userId).toBe('test-user-id-2')
+      expect(session.status).toBe('initializing')
+      expect(session.currentPhase).toBe('brief')
+      
+      // Cleanup
+      await prisma.session.delete({ where: { id: session.id } })
+    })
+  })
+
+  describe('getSessionById', () => {
+    it('should return a session by id', async () => {
+      const session = await sessionService.getSessionById(testSessionId)
+      
+      expect(session).toBeDefined()
+      expect(session?.id).toBe(testSessionId)
+      expect(session?.userId).toBe('test-user-id')
+    })
+
+    it('should return null for non-existent session', async () => {
+      const session = await sessionService.getSessionById('non-existent-id')
+      
+      expect(session).toBeNull()
+    })
+  })
+
+  describe('updateSessionStatus', () => {
+    it('should update session status', async () => {
+      const updatedSession = await sessionService.updateSessionStatus(testSessionId, 'active')
+      
+      expect(updatedSession).toBeDefined()
+      expect(updatedSession?.status).toBe('active')
+    })
+  })
+
+  describe('updateSessionPhase', () => {
+    it('should update session phase', async () => {
+      const updatedSession = await sessionService.updateSessionPhase(testSessionId, 'character_development')
+      
+      expect(updatedSession).toBeDefined()
+      expect(updatedSession?.currentPhase).toBe('character_development')
+    })
+  })
+
+  describe('getUserSessions', () => {
+    it('should return sessions for a user', async () => {
+      // Create another session for the same user
+      await prisma.session.create({
+        data: {
+          userId: 'test-user-id',
+          status: 'active',
+          currentPhase: 'character_development'
+        }
+      })
+
+      const sessions = await sessionService.getUserSessions('test-user-id')
+      
+      expect(sessions).toHaveLength(2)
+      expect(sessions[0].userId).toBe('test-user-id')
+      expect(sessions[1].userId).toBe('test-user-id')
+    })
+  })
+})
+```
+
+### Created jules-backend/src/services/__tests__/api-key.service.test.ts
+```typescript
+import { describe, it, expect, beforeEach, afterEach } from '@jest/globals'
+import { PrismaClient } from '@prisma/client'
+import { ApiKeyService } from '../api-key.service'
+
+describe('ApiKeyService', () => {
+  let prisma: PrismaClient
+  let apiKeyService: ApiKeyService
+  let testUserId: string
+  let testApiKey: string
+
+  beforeEach(async () => {
+    prisma = new PrismaClient()
+    apiKeyService = new ApiKeyService(prisma)
+    testUserId = 'test-user-id'
+    testApiKey = 'test-api-key-12345'
+  })
+
+  afterEach(async () => {
+    // Cleanup all api keys for the test user
+    await prisma.apiKey.deleteMany({ where: { userId: testUserId } })
+    await prisma.$disconnect()
+  })
+
+  describe('createApiKey', () => {
+    it('should create a new API key', async () => {
+      const apiKey = await apiKeyService.createApiKey(testUserId, testApiKey, 'Test Key')
+      
+      expect(apiKey).toHaveProperty('id')
+      expect(apiKey.userId).toBe(testUserId)
+      expect(apiKey.keyName).toBe('Test Key')
+      expect(apiKey.isActive).toBe(true)
+      expect(apiKey.encryptedKey).toBeDefined()
+    })
+  })
+
+  describe('getUserApiKeys', () => {
+    it('should return API keys for a user', async () => {
+      // Create test API key
+      await apiKeyService.createApiKey(testUserId, testApiKey, 'Test Key')
+      
+      const apiKeys = await apiKeyService.getUserApiKeys(testUserId)
+      
+      expect(apiKeys).toHaveLength(1)
+      expect(apiKeys[0].keyName).toBe('Test Key')
+    })
+
+    it('should return empty array for user with no API keys', async () => {
+      const apiKeys = await apiKeyService.getUserApiKeys('non-existent-user')
+      
+      expect(apiKeys).toHaveLength(0)
+    })
+  })
+
+  describe('getActiveApiKey', () => {
+    it('should return decrypted active API key', async () => {
+      // Create test API key
+      await apiKeyService.createApiKey(testUserId, testApiKey, 'Test Key')
+      
+      const decryptedKey = await apiKeyService.getActiveApiKey(testUserId)
+      
+      expect(decryptedKey).toBe(testApiKey)
+    })
+
+    it('should return null for user with no active API keys', async () => {
+      const decryptedKey = await apiKeyService.getActiveApiKey('non-existent-user')
+      
+      expect(decryptedKey).toBeNull()
+    })
+  })
+
+  describe('deleteApiKey', () => {
+    it('should delete an API key', async () => {
+      // Create test API key
+      const apiKey = await apiKeyService.createApiKey(testUserId, testApiKey, 'Test Key')
+      
+      // Delete the API key
+      await apiKeyService.deleteApiKey(apiKey.id, testUserId)
+      
+      // Try to get the API key
+      const apiKeys = await apiKeyService.getUserApiKeys(testUserId)
+      
+      expect(apiKeys).toHaveLength(0)
+    })
+  })
+
+  describe('validateApiKey', () => {
+    it('should return true for user with active API key', async () => {
+      // Create test API key
+      await apiKeyService.createApiKey(testUserId, testApiKey, 'Test Key')
+      
+      const isValid = await apiKeyService.validateApiKey(testUserId)
+      
+      expect(isValid).toBe(true)
+    })
+
+    it('should return false for user with no active API keys', async () => {
+      const isValid = await apiKeyService.validateApiKey('non-existent-user')
+      
+      expect(isValid).toBe(false)
+    })
+  })
+})
+```
+
+### Key improvements:
+1. Added comprehensive tests for SessionService and ApiKeyService
+2. Tests cover all major functionality including creation, retrieval, updates, and deletion
+3. Proper cleanup of test data
+4. Test encryption/decryption functionality

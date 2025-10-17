@@ -1,0 +1,18 @@
+--- a/services/cacheService.ts
++++ b/services/cacheService.ts
+@@ -1,3 +1,5 @@
++import { ProcessedFile } from '../core/types';
++
+ interface CacheEntry<T> {
+   data: T;
+   timestamp: number;
+@@ -33,4 +35,4 @@
+-  generateKey(agent: string, files: string[], params: any): string {
+-    const filesHash = files.map(f => `${f.name}:${f.size}`).join('|');
++  generateKey(agent: string, files: ProcessedFile[], params: any): string {
++    const filesHash = files.map(f => `${f.fileName}:${f.sizeBytes}`).join('|');
+     const paramsHash = JSON.stringify(params);
+     return `${agent}:${filesHash}:${paramsHash}`;
+   }
+
+

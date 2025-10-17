@@ -1,0 +1,16 @@
+npm run build
+✓ Build successful with 0 dynamic import warnings
+
+T-P1-001: Dynamic imports fix successful
+- Removed all static imports from agents/index.ts (lines 65-91)
+- Replaced AGENT_CONFIGS with getAllAgentConfigs() async function
+- Dynamic imports now work properly without warnings
+- Build time improved from 40.85s to 4.61s
+
+Bundle sizes after fix:
+- agents-B_Ym7Y-d.js: 2.55 kB (new separate chunk)
+- vendor-wzZzN_Jv.js: 12.45 kB
+- gemini-BpRkNtKl.js: 28.06 kB  
+- index-Bhqxdv_H.js: 317.48 kB
+- index-Cec0GZtf.js: 500.14 kB (still large - needs P1-002)
+

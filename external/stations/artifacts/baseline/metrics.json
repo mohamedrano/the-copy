@@ -1,0 +1,11 @@
+{
+  "typescript_errors": 136,
+  "eslint_issues": 532,
+  "tests_passing": 5,
+  "build_successful": true,
+  "bundle_size_js": "309.02 kB",
+  "bundle_size_css": "11.53 kB",
+  "build_time": "8.90s",
+  "test_coverage": "N/A"
+}
+

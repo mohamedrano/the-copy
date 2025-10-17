@@ -1,0 +1,183 @@
+diff --git a/src/components/editor/CleanIntegratedScreenplayEditor.tsx b/src/components/editor/CleanIntegratedScreenplayEditor.tsx
+index ae0aef8..79d0e1b 100644
+--- a/src/components/editor/CleanIntegratedScreenplayEditor.tsx
++++ b/src/components/editor/CleanIntegratedScreenplayEditor.tsx
+@@ -15,7 +15,7 @@ import {
+   Brain
+ } from 'lucide-react';
+ import AdvancedAgentsPopup from './AdvancedAgentsPopup';
+-import { applyRegexReplacementToTextNodes } from './textReplacement';
++import { applyRegexReplacementToTextNodes } from '../../modules/text/domTextReplacement';
+ 
+ // ==================== PRODUCTION-READY SYSTEM CLASSES ====================
+ 
+diff --git a/src/components/editor/textReplacement.ts b/src/components/editor/textReplacement.ts
+index 1909038..efbd0cb 100644
+--- a/src/components/editor/textReplacement.ts
++++ b/src/components/editor/textReplacement.ts
+@@ -1,80 +1,5 @@
+ /**
+- * Applies regex-based replacements across all text nodes within the provided root element.
+- *
+- * This utility preserves the existing DOM structure by restricting replacements to text nodes,
+- * preventing the destructive flattening that occurs when rewriting `innerText` for complex
+- * screenplay documents that rely on semantic block wrappers.
+- *
+- * @param {HTMLElement} root - The root element containing screenplay markup.
+- * @param {string} patternSource - The regex source string to apply.
+- * @param {string} patternFlags - The regex flags to honour when building matchers.
+- * @param {string} replacement - The replacement string to inject for each match.
+- * @param {boolean} replaceAll - Whether replacements should continue after the first match.
+- * @returns {number} The total number of replacements applied across all text nodes.
++ * @deprecated تم نقل المنفعة إلى وحدة النصوص الجديدة ضمن المسار
++ * `src/modules/text/domTextReplacement`. استخدم الاستيراد من هناك مباشرةً.
+  */
+-export function applyRegexReplacementToTextNodes(
+-  root: HTMLElement,
+-  patternSource: string,
+-  patternFlags: string,
+-  replacement: string,
+-  replaceAll: boolean
+-): number {
+-  const combinedFlags = Array.from(new Set((patternFlags + 'g').split(''))).join('');
+-  const maxReplacements = replaceAll ? Number.POSITIVE_INFINITY : 1;
+-  const TEXT_NODE = 3;
+-
+-  let remaining = maxReplacements;
+-  let replacementsApplied = 0;
+-
+-  const traverse = (node: any) => {
+-    if (!node || remaining === 0) return;
+-
+-    if (typeof node.nodeType === 'number' && node.nodeType === TEXT_NODE) {
+-      const originalText = node.nodeValue ?? node.textContent ?? '';
+-      if (!originalText) {
+-        return;
+-      }
+-
+-      const regex = new RegExp(patternSource, combinedFlags);
+-      let nodeChanged = false;
+-
+-      const updatedText = originalText.replace(regex, (match: string) => {
+-        if (remaining === 0) {
+-          return match;
+-        }
+-
+-        nodeChanged = true;
+-        replacementsApplied += 1;
+-
+-        if (remaining !== Number.POSITIVE_INFINITY) {
+-          remaining -= 1;
+-        }
+-
+-        return replacement;
+-      });
+-
+-      if (nodeChanged) {
+-        if ('nodeValue' in node) {
+-          node.nodeValue = updatedText;
+-        } else if ('textContent' in node) {
+-          node.textContent = updatedText;
+-        }
+-      }
+-
+-      return;
+-    }
+-
+-    const children: any[] = Array.isArray(node?.childNodes)
+-      ? node.childNodes
+-      : Array.from(node?.childNodes ?? []);
+-
+-    for (const child of children) {
+-      if (remaining === 0) break;
+-      traverse(child);
+-    }
+-  };
+-
+-  traverse(root);
+-
+-  return replacementsApplied;
+-}
++export { applyRegexReplacementToTextNodes } from '../../modules/text/domTextReplacement';
+
+diff --git a/src/modules/text/domTextReplacement.ts b/src/modules/text/domTextReplacement.ts
+new file mode 100644
+index 0000000..42fc087
+--- /dev/null
++++ b/src/modules/text/domTextReplacement.ts
+@@ -0,0 +1,75 @@
++/**
++ * Core DOM-based text replacement utilities for the screenplay editor.
++ *
++ * The functions in this module are intentionally isolated from React so
++ * they can be shared between the legacy `src/components/editor` bridge and
++ * any future Node or worker hosts. Keeping these helpers pure and DOM-only
++ * increases their reusability across editor surfaces (web, desktop, or
++ * collaborative clients).
++ */
++export function applyRegexReplacementToTextNodes(
++  root: HTMLElement,
++  patternSource: string,
++  patternFlags: string,
++  replacement: string,
++  replaceAll: boolean
++): number {
++  const combinedFlags = Array.from(new Set((patternFlags + 'g').split(''))).join('');
++  const maxReplacements = replaceAll ? Number.POSITIVE_INFINITY : 1;
++  const TEXT_NODE = 3;
++
++  let remaining = maxReplacements;
++  let replacementsApplied = 0;
++
++  const traverse = (node: any) => {
++    if (!node || remaining === 0) return;
++
++    if (typeof node.nodeType === 'number' && node.nodeType === TEXT_NODE) {
++      const originalText = node.nodeValue ?? node.textContent ?? '';
++      if (!originalText) {
++        return;
++      }
++
++      const regex = new RegExp(patternSource, combinedFlags);
++      let nodeChanged = false;
++
++      const updatedText = originalText.replace(regex, (match: string) => {
++        if (remaining === 0) {
++          return match;
++        }
++
++        nodeChanged = true;
++        replacementsApplied += 1;
++
++        if (remaining !== Number.POSITIVE_INFINITY) {
++          remaining -= 1;
++        }
++
++        return replacement;
++      });
++
++      if (nodeChanged) {
++        if ('nodeValue' in node) {
++          node.nodeValue = updatedText;
++        } else if ('textContent' in node) {
++          node.textContent = updatedText;
++        }
++      }
++
++      return;
++    }
++
++    const children: any[] = Array.isArray(node?.childNodes)
++      ? node.childNodes
++      : Array.from(node?.childNodes ?? []);
++
++    for (const child of children) {
++      if (remaining === 0) break;
++      traverse(child);
++    }
++  };
++
++  traverse(root);
++
++  return replacementsApplied;
++}

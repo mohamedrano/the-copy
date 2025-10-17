@@ -1,0 +1,19 @@
+--- a/ui/App.tsx
++++ b/ui/App.tsx
+@@ -227,7 +227,7 @@
+         } else if (!TASKS_REQUIRING_COMPLETION_SCOPE.includes(selectedTask)){
+            setPreviousCompletionContext(null);
+            setUsePreviousContextForCompletion(false);
+         }
+-      } else {
+-        const errorResult = result;
+-        setSubmissionError(errorResult.error.message);
+-        if (errorResult.error.message.toLowerCase().includes("api_key") || errorResult.error.message.includes("مفتاح")) {
++      } else if ('error' in result) {
++        setSubmissionError(result.error.message);
++        if (result.error.message.toLowerCase().includes("api_key") || result.error.message.includes("مفتاح")) {
+             setApiKeyPresent(false);
+         }
+       }
+
+

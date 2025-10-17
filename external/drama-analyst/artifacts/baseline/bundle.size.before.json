@@ -1,0 +1,18 @@
+{
+  "timestamp": "2024-01-XX",
+  "chunks": {
+    "index.html": "3.09 kB",
+    "vendor": "12.45 kB",
+    "gemini": "28.06 kB", 
+    "agents": "90.59 kB",
+    "index-CIIAU2rJ": "317.49 kB",
+    "index-Cec0GZtf": "500.14 kB"
+  },
+  "total_size": "951.82 kB",
+  "largest_chunk": "500.14 kB",
+  "warnings": {
+    "dynamic_imports": 29,
+    "chunk_size_limit": true
+  }
+}
+

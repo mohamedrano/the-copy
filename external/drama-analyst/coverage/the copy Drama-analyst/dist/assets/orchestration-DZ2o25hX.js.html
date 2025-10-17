@@ -1,0 +1,88 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Code coverage report for the copy Drama-analyst/dist/assets/orchestration-DZ2o25hX.js</title>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="../../../prettify.css" />
+    <link rel="stylesheet" href="../../../base.css" />
+    <link rel="shortcut icon" type="image/x-icon" href="../../../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <style type='text/css'>
+        .coverage-summary .sorter {
+            background-image: url(../../../sort-arrow-sprite.png);
+        }
+    </style>
+</head>
+    
+<body>
+<div class='wrapper'>
+    <div class='pad1'>
+        <h1><a href="../../../index.html">All files</a> / <a href="index.html">the copy Drama-analyst/dist/assets</a> orchestration-DZ2o25hX.js</h1>
+        <div class='clearfix'>
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Statements</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">0% </span>
+                <span class="quiet">Lines</span>
+                <span class='fraction'>0/1</span>
+            </div>
+        
+            
+        </div>
+        <p class="quiet">
+            Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
+        </p>
+        <template id="filterTemplate">
+            <div class="quiet">
+                Filter:
+                <input type="search" id="fileSearch">
+            </div>
+        </template>
+    </div>
+    <div class='status-line low'></div>
+    <pre><table class="coverage">
+<tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
+<a name='L2'></a><a href='#L2'>2</a></td><td class="line-coverage quiet"><span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-0 cbranch-no" title="branch not covered" >import{g as e,A as t}from"./agents-advanced-7S30vjsx.js";import{r as s}from"./services-misc-BtmXPpl3.js";import{c as i}from"./services-core-CAr_CprC.js";import{l as a}from"./services-utils-Cedeozs-.js";function n(t){const s=e(t.agent),i=t.files?.map(e=&gt;`• ${e.fileName} (${e.sizeBytes} bytes)`).join("\n")??"",a=t.params?`\n[PARAMS]\n${JSON.stringify(t.params,null,2)}`:"";return`${s}\n\n[USER PROMPT]\n${t.prompt}\n\n[FILES]\n${i}${a}`}const r=async e=&gt;{if(a.info(`📂 Processing ${e.files.length} file(s)...`,null,"Executor"),0===e.files.length)return{ok:!1,error:{code:"NO_FILES",message:"لم يتم رفع أي ملفات",cause:null}};const t=e.files.filter(e=&gt;e.size&gt;20971520);return t.length&gt;0?{ok:!1,error:{code:"FILE_TOO_LARGE",message:`الملفات التالية تتجاوز الحد الأقصى (20MB): ${t.map(e=&gt;e.name).join(", ")}`,cause:{oversizedFiles:t.map(e=&gt;e.name)}}}:s(e.files)},o=async e=&gt;(a.info(`🚀 Submitting task with agent: ${e.agent}`,null,"Executor"),e.files&amp;&amp;0!==e.files.length?i(e):{ok:!1,error:{code:"NO_FILES",message:"يجب رفع ملف واحد على الأقل",cause:null}});class c{constructor(){this.agents=new Map,this.collaborationGraph=new Map,this.performanceMetrics=new Map,this.episodicMemory=new Map,this.semanticMemory=new Map,this.proceduralMemory=new Map,this.initializeAgentOrchestra(),this.buildCollaborationGraph(),this.initializeMetaLearning()}static getInstance(){return c.instance||(c.instance=new c),c.instance}initializeAgentOrchestra(){t.forEach(e=&gt;{this.agents.set(e.id,e)})}buildCollaborationGraph(){this.agents.forEach((e,t)=&gt;{const s=new Set;e.collaboratesWith.forEach(e=&gt;{s.add(e)}),e.dependsOn.forEach(e=&gt;{s.add(e)}),e.enhances.forEach(e=&gt;{s.add(e)}),this.collaborationGraph.set(t,s)})}initializeMetaLearning(){this.agents.forEach((e,t)=&gt;{this.performanceMetrics.set(t,{successRate:e.capabilities.accuracyLevel,averageExecutionTime:0,resourceUsage:e.capabilities.resourceIntensity,userSatisfactionScore:.85,adaptationRate:e.capabilities.adaptiveLearning?.1:0})})}getEnhancedDescription(e){const t=this.agents.get(e);return t?t.description:`وصف غير متوفر للمهمة: ${e}`}getAgentCapabilities(e){const t=this.agents.get(e);return t?t.capabilities:null}getCollaborationSuggestions(e){const t=this.collaborationGraph.get(e);return t?Array.from(t):[]}optimizeExecutionOrder(e){const t=new Set,s=[],i=e=&gt;{if(t.has(e))return;t.add(e);const a=this.agents.get(e);a&amp;&amp;(a.dependsOn.forEach(e=&gt;i(e)),s.push(e))};return e.forEach(e=&gt;i(e)),s}getPerformanceMetrics(e){return this.performanceMetrics.get(e)}updatePerformance(e,t,s,i){const a=this.performanceMetrics.get(e);a&amp;&amp;(a.averageExecutionTime=.8*a.averageExecutionTime+.2*t,a.successRate=.9*a.successRate+.1*(s?1:0),void 0!==i&amp;&amp;(a.userSatisfactionScore=.8*a.userSatisfactionScore+.2*i),this.performanceMetrics.set(e,a))}getAllAgents(){return new Map(this.agents)}storeEpisode(e,t){const s=this.episodicMemory.get(e)||[];s.push(t),s.length&gt;100&amp;&amp;s.splice(0,s.length-100),this.episodicMemory.set(e,s)}getRelevantEpisodes(e,t=10){return(this.episodicMemory.get(e)||[]).slice(-t)}}const l=c.getInstance(),g=Object.freeze(Object.fromEntries(Array.from(l.getAllAgents().entries()).map(([e,t])=&gt;[e,t.description])));export{g as E,n as b,r as p,o as s};</span></span></span>
+&nbsp;</pre></td></tr></table></pre>
+
+                <div class='push'></div><!-- for sticky footer -->
+            </div><!-- /wrapper -->
+            <div class='footer quiet pad2 space-top1 center small'>
+                Code coverage generated by
+                <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
+                at 2025-10-10T09:51:34.129Z
+            </div>
+        <script src="../../../prettify.js"></script>
+        <script>
+            window.onload = function () {
+                prettyPrint();
+            };
+        </script>
+        <script src="../../../sorter.js"></script>
+        <script src="../../../block-navigation.js"></script>
+    </body>
+</html>
+    

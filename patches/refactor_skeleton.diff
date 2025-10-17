@@ -1,0 +1,78 @@
+diff --git a/src/App.tsx b/src/App.tsx
+index abc123..def456 100644
+--- a/src/App.tsx
++++ b/src/App.tsx
+@@ -1,11 +1,11 @@
+ import type { JSX } from 'react';
+-import NaqidDashboard from './components/naqid/NaqidDashboard';
++import AnalysisDashboard from './components/analysis/AnalysisDashboard';
+
+ /**
+  * Renders the root application shell that hosts the screenplay editor experience.
+  *
+  * @returns {JSX.Element} The fully configured screenplay editor component.
+  */
+ export default function App(): JSX.Element {
+-  return <NaqidDashboard />;
++  return <AnalysisDashboard />;
+ }
+
+diff --git a/src/components/naqid/NaqidDashboard.tsx b/src/components/analysis/AnalysisDashboard.tsx
+similarity index 95%
+rename from src/components/naqid/NaqidDashboard.tsx
+rename to src/components/analysis/AnalysisDashboard.tsx
+index abc123..def456 100644
+--- a/src/components/naqid/NaqidDashboard.tsx
++++ b/src/components/analysis/AnalysisDashboard.tsx
+@@ -6,7 +6,7 @@ import { AIWritingAssistant, ScreenplayClassifier } from '../editor/CleanIntegr
+
+ const formatRatio = (value: number): string => value.toFixed(2);
+
+-const NaqidDashboard: React.FC = () => {
++const AnalysisDashboard: React.FC = () => {
+   const [scriptText, setScriptText] = useState('');
+   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
+   const [isAnalyzing, setIsAnalyzing] = useState(false);
+@@ -140,4 +140,4 @@ const NaqidDashboard: React.FC = () => {
+   );
+ };
+
+-export default NaqidDashboard;
++export default AnalysisDashboard;
+
+diff --git a/tsconfig.json b/tsconfig.json
+index abc123..def456 100644
+--- a/tsconfig.json
++++ b/tsconfig.json
+@@ -27,8 +27,9 @@
+   "exclude": [
+     "node_modules",
+     "dist",
++    "archive",
+     "src/components/legacy/**/*",
+-    "src/agents/**/*",
+-    "src/config/**/*"
++    "archive/agents-excluded/**/*",
++    "archive/config-excluded/**/*"
+   ]
+ }
+
+diff --git a/.gitignore b/.gitignore
+index abc123..def456 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -22,4 +22,8 @@ dist-ssr
+ *.njsproj
+ *.sln
+ *.sw?
++
++# Analysis outputs (keep source analysis files)
++analysis/evidence/
++analysis/temp/
+
+ # ملاحظة: هذا patch هيكلي يوضح التغييرات الأساسية
+ # التطبيق الفعلي يتطلب:
+ # 1. نقل الملفات فعلياً
+ # 2. تحديث جميع الاستيرادات
+ # 3. اختبار شامل للتأكد من عدم كسر الوظائف
+ # 4. تشغيل npm run build للتحقق من التكوين

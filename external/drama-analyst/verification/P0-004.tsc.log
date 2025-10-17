@@ -1,0 +1,6 @@
+services/fileReaderService.ts(122,42): error TS2339: Property 'convertToPlainText' does not exist on type 'Mammoth'.
+ui/App.tsx(100,40): error TS2339: Property 'error' does not exist on type 'Result<ProcessedFile[]>'.
+  Property 'error' does not exist on type '{ ok: true; value: ProcessedFile[]; }'.
+ui/App.tsx(113,50): error TS2339: Property 'error' does not exist on type 'Result<ProcessedFile[]>'.
+  Property 'error' does not exist on type '{ ok: true; value: ProcessedFile[]; }'.
+ui/components/ErrorBoundary.tsx(53,17): error TS2339: Property 'props' does not exist on type 'ErrorBoundary'.
