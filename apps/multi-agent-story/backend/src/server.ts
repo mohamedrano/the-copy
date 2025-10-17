@@ -94,6 +94,11 @@ server.get('/health', async (request, reply) => {
   return { status: 'ok', timestamp: new Date().toISOString() };
 });
 
+// Cloud Run healthcheck endpoint
+server.get('/healthz', async (request, reply) => {
+  reply.code(200).send('ok');
+});
+
 // Register routes
 server.register(authRoutes, { prefix: '/api/auth' });
 server.register(sessionRoutes, { prefix: '/api/sessions' });

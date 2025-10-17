@@ -1,653 +1,526 @@
-# 📊 تقرير جاهزية الإنتاج - The Copy Platform
-## تقرير شامل ومحدّث لحالة المشروع
-
-**التاريخ**: 2025-10-17
-**الإصدار**: 1.0.0
-**الحالة**: جاهز للإنتاج بعد إكمال المتطلبات الحرجة
 
 ---
 
-## 🎯 الملخص التنفيذي
+# خيار A — Firebase Hosting + Cloud Run (Docker) للخدمات الخلفية
 
-**The Copy** هي منصة متكاملة لتطوير السيناريو العربي تجمع 4 تطبيقات مستقلة في نظام موحد باستخدام معمارية Monorepo. المشروع في حالة متقدمة جداً ويحتاج فقط لإكمال بعض المتطلبات الأساسية قبل النشر.
+## 0) معايير النجاح
 
-### النتيجة السريعة:
-- **الجاهزية الإجمالية**: 85%
-- **الكود**: 95% جاهز ✅
-- **البنية التحتية**: 90% جاهزة ✅
-- **الإعدادات**: 60% جاهزة ⚠️
-- **الأمان**: 70% جاهز ⚠️
-- **التوثيق**: 95% جاهز ✅
+* بناء وتشغيل: `pnpm run build:all` و`pnpm run verify:all` دون أخطاء.
+* أربع واجهات تعمل على نطاق Firebase تحت:
 
+  * `/basic-editor`, `/drama-analyst`, `/stations`, `/multi-agent-story`
+* توجيه API:
 
-
----
-
-## 🏗️ البنية المعمارية
-
-### التطبيقات الأربعة
-
-#### 1. المحرر الأساسي (Basic Editor) ✅
-- **الحجم**: 212 KB (ممتاز)
-- **الحالة**: ✅ جاهز 100%
-- **التكامل**: مدمج مباشرة في التطبيق الرئيسي
-- **المميزات**: محرر سيناريو عربي مع تنسيق تلقائي
-- **Build Output**: `/public/basic-editor/`
-
-#### 2. محلل الدراما (Drama Analyst) ✅
-- **الحجم**: 980 KB
-- **الحالة**: ✅ جاهز 100%
-- **المميزات**:
-  - 29 وكيل AI متخصص
-  - PWA support
-  - Sentry integration
-  - Code splitting محسّن
-- **Build Output**: `/public/drama-analyst/`
-- **اختبارات**: 66 ملف اختبار ✅
-
-#### 3. المحطات (Stations) ✅
-- **الحجم**: 512 KB
-- **الحالة**: ✅ جاهز 100%
-- **المميزات**:
-  - React + Express backend
-  - Drizzle ORM + PostgreSQL
-  - WebSocket support
-- **Build Output**: `/public/stations/`
-
-#### 4. قصة متعددة الوكلاء (Jules) ✅ **محدّث**
-- **الحجم**: 232 KB (ممتاز)
-- **الحالة**: ✅ جاهز 100% (تم الإصلاح)
-- **المميزات**:
-  - 11 وكيل AI
-  - Fastify + Prisma + PostgreSQL
-  - WebSocket real-time
-  - BullMQ queue system
-- **Build Output**: `/public/multi-agent-story/`
-- **الإصلاحات الأخيرة**:
-  - ✅ حل تعارض متغير agents
-  - ✅ إضافة Gemini Service
-  - ✅ ملفات .env كاملة
-  - ✅ توثيق شامل (SETUP.md)
-
-### الحجم الإجمالي للتطبيقات
-```
-Total Build Size: ~1.9 MB
-├── drama-analyst:     980 KB (51%)
-├── stations:          512 KB (27%)
-├── multi-agent-story: 232 KB (12%)
-└── basic-editor:      212 KB (10%)
-```
-
-**تقييم الأداء**: ممتاز - جميع التطبيقات محسّنة
+  * `/api/stations/**` → خدمة Cloud Run: `stations-api`
+  * `/api/jules/**` → خدمة Cloud Run: `jules-api`
+* أسرار الإنتاج عبر **Secret Manager**، وCORS مضبوط، وRate Limiting مفعل.
+* Health checks، Sentry، وسجلات منظمة (Pino/Winston).
+* وثائق تشغيل ونشر وRollback.
 
 ---
 
-## ✅ ما هو جاهز ومكتمل
+## 1) Assemble — التحضير
 
-### 1. البنية التقنية (95% ✅)
+### 1.1 تثبيت الأدوات
 
-#### Frontend
-- ✅ React 19.2.0 (أحدث إصدار)
-- ✅ TypeScript 5.3+ (strict mode)
-- ✅ Vite 5-7 (سرعة فائقة)
-- ✅ Tailwind CSS
-- ✅ Code splitting متقدم
-- ✅ Tree shaking مفعّل
-- ✅ RTL support كامل
-
-#### Backend
-- ✅ Fastify (Jules backend)
-- ✅ Express (Stations backend)
-- ✅ Prisma ORM
-- ✅ Drizzle ORM
-- ✅ WebSocket support
-- ✅ BullMQ queue system
-- ✅ JWT authentication
-
-#### AI Integration
-- ✅ Google Gemini API (29 agents في Drama Analyst)
-- ✅ Google Gemini API (11 agents في Jules)
-- ✅ Gemini Service احترافي (Jules)
-- ✅ Agent orchestration system
-
-### 2. البنية التحتية (90% ✅)
-
-#### Docker & Deployment
-- ✅ Dockerfile متعدد المراحل
-- ✅ Docker Compose configurations
-- ✅ Nginx configuration محسّن
-- ✅ Security headers
-- ✅ Gzip compression
-- ✅ Rate limiting
-- ✅ Health check endpoints
-
-#### CI/CD
-- ✅ GitHub Actions workflow كامل
-  - Quality gates (type-check, lint, test)
-  - Build external projects
-  - Docker build & push
-  - Lighthouse audit
-- ✅ Deployment scripts جاهزة
-
-### 3. الأمان (70% ✅)
-
-#### Security Headers (موجودة في nginx.conf)
-- ✅ X-Frame-Options
-- ✅ X-Content-Type-Options
-- ✅ X-XSS-Protection
-- ✅ Referrer-Policy
-- ✅ Permissions-Policy
-- ✅ Content-Security-Policy
-
-#### ما ينقص:
-- ⚠️ SSL/HTTPS certificates
-- ⚠️ Secrets management (vault/AWS Secrets)
-- ⚠️ CORS production config
-- ⚠️ API rate limiting للإنتاج
-
-### 4. الاختبارات (80% ✅)
-
-- ✅ 66 ملف اختبار (Drama Analyst)
-- ✅ Vitest configuration
-- ✅ Playwright E2E tests (Drama Analyst)
-- ✅ Testing libraries configured
-- ⚠️ Coverage غير كامل (يحتاج تحسين)
-
-### 5. التوثيق (95% ✅)
-
-#### موجود:
-- ✅ CLAUDE.md (دليل المشروع الرئيسي)
-- ✅ README.md شامل
-- ✅ ARCHITECTURE.md
-- ✅ MONOREPO_README.md
-- ✅ BUILD_GUIDE.md
-- ✅ Jules/SETUP.md (جديد)
-- ✅ Jules/FIXES_SUMMARY.md (جديد)
-- ✅ Drama Analyst ADRs
-
-#### ما ينقص:
-- ⚠️ API Documentation (Swagger/OpenAPI)
-- ⚠️ User Manual للمستخدم النهائي
-- ⚠️ Troubleshooting Guide مفصّل
-
----
-
-## ❌ المتطلبات الحرجة (يجب إكمالها)
-
-### 1. البيئة والإعدادات (Priority: CRITICAL)
-
-#### ملفات .env المطلوبة:
-
-**التطبيق الرئيسي** (⚠️ مفقود):
 ```bash
-# /home/user/the-copy/.env (يجب إنشاؤه)
-VITE_GEMINI_API_KEY=your_actual_gemini_api_key
-VITE_SENTRY_DSN=your_sentry_dsn
+corepack enable
+corepack prepare pnpm@10.18.3 --activate
+pnpm --version
+npm i -g firebase-tools
+```
+
+### 1.2 إعداد ملفات البيئة (للتطوير فقط؛ الإنتاج عبر Secret Manager)
+
+* `./.env` (جذر):
+
+```
+VITE_GEMINI_API_KEY=...
+VITE_SENTRY_DSN=...
 VITE_APP_ENV=production
 VITE_ENABLE_ADVANCED_AGENTS=true
 VITE_ENABLE_EXTERNAL_PROJECTS=true
 ```
 
-**Drama Analyst** (⚠️ مفقود):
-```bash
-# apps/drama-analyst/.env
-API_KEY=your_gemini_api_key
-VITE_SENTRY_DSN=your_sentry_dsn
-VITE_SENTRY_AUTH_TOKEN=your_auth_token
+* `apps/drama-analyst/.env`:
+
+```
+API_KEY=...
+VITE_SENTRY_DSN=...
+VITE_SENTRY_AUTH_TOKEN=...
 VITE_APP_VERSION=1.0.0
 ```
 
-**Stations** (⚠️ مفقود):
-```bash
-# apps/stations/.env
-DATABASE_URL=postgresql://user:password@host:5432/stations_db
-SESSION_SECRET=random_secret_32_chars_min
-REDIS_URL=redis://localhost:6379
-GOOGLE_GEMINI_API_KEY=your_key
+* `apps/stations/.env`:
+
+```
+DATABASE_URL=postgresql://user:pass@host:5432/stations_db
+SESSION_SECRET=change_me_min_32_chars
+REDIS_URL=redis://...
+GOOGLE_GEMINI_API_KEY=...
 NODE_ENV=production
 ```
 
-**Jules** (✅ موجود):
+* `apps/multi-agent-story/backend/.env` (موجود—حدّث القيم).
+
+### 1.3 إعداد GCP
+
 ```bash
-# apps/multi-agent-story/.env ✅
-# apps/multi-agent-story/backend/.env ✅
-# تم إنشاؤهم - يحتاجون فقط تحديث المفاتيح
+gcloud auth login
+gcloud config set project <PROJECT_ID>
+gcloud services enable run.googleapis.com secretmanager.googleapis.com sqladmin.googleapis.com artifactregistry.googleapis.com
+gcloud artifacts repositories create the-copy-repo --repository-format=docker --location=europe-west1
 ```
 
-### 2. قواعد البيانات (Priority: HIGH)
+### 1.4 أسرار الإنتاج (Secret Manager)
 
-#### Stations App:
+أنشئ الأسرار التالية (أسماء واضحة لتعيينها لاحقًا في Cloud Run):
+
+```
+STATIONS_DATABASE_URL
+STATIONS_SESSION_SECRET
+STATIONS_REDIS_URL
+STATIONS_GEMINI_API_KEY
+JULES_DATABASE_URL
+JULES_JWT_SECRET
+JULES_GEMINI_API_KEY
+SENTRY_DSN
+```
+
+أمثلة:
+
 ```bash
-# PostgreSQL setup
-createdb stations_db
+printf 'postgresql://...' | gcloud secrets create STATIONS_DATABASE_URL --data-file=-
+printf 'change_me_32_chars_min' | gcloud secrets create STATIONS_SESSION_SECRET --data-file=-
+# وهكذا لباقي الأسرار...
+```
+
+### 1.5 قواعد البيانات
+
+* استخدم **Cloud SQL (PostgreSQL)** أو موفر خارجي.
+* ترحيل المخططات:
+
+```bash
+# Stations (Drizzle)
 cd apps/stations
 pnpm db:push
-```
 
-#### Jules App:
-```bash
-# PostgreSQL setup
-createdb jules_db
-cd apps/multi-agent-story/backend
+# Jules (Prisma)
+cd ../multi-agent-story/backend
 npx prisma generate
 npx prisma migrate deploy
 ```
 
-#### Redis (Optional but Recommended):
+* **Redis**: استخدم Memorystore أو Upstash، وحدّث `REDIS_URL`.
+
+---
+
+## 2) Grade — الجودة والاختبارات
+
 ```bash
-# For Jules queue system and Stations caching
-docker run -d -p 6379:6379 redis:alpine
+pnpm install --frozen-lockfile
+pnpm run type-check
+pnpm run lint
+pnpm run test
 ```
 
-### 3. pnpm Installation (Priority: CRITICAL)
+* حدّث الاختبارات الحرجة وفعّل تغطية ≥ 75% كحد أدنى.
 
-**المشكلة الحالية**:
-```bash
-bash: pnpm: command not found
+---
+
+## 3) Mix — إعداد الحاويات (Docker) للخدمات الخلفية
+
+### 3.1 Dockerfile — Stations (Express + Drizzle)
+
+ضع الملف في: `apps/stations/Dockerfile`
+
+```Dockerfile
+# -------- Base Deps --------
+FROM node:20-slim AS deps
+WORKDIR /app
+RUN apt-get update && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
+RUN corepack enable && corepack prepare pnpm@10.18.3 --activate
+
+# نسخ ملفات التعاريف فقط أولاً لتسريع الـ cache
+COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
+COPY apps/stations/package.json apps/stations/
+COPY packages/*/package.json packages/*/
+
+RUN pnpm install --frozen-lockfile
+
+# -------- Build --------
+FROM deps AS build
+COPY . .
+RUN pnpm -w --filter ./apps/stations build
+
+# تصدير حزمة معتمدة للإطلاق (pruned)
+FROM deps AS deploy
+RUN pnpm -w --filter ./apps/stations deploy --prod /out
+
+# -------- Runtime --------
+FROM node:20-slim
+WORKDIR /srv
+ENV NODE_ENV=production PORT=8080
+# متغيّرات ستُحقن من Cloud Run عبر Secret Manager
+# DATABASE_URL, SESSION_SECRET, REDIS_URL, GOOGLE_GEMINI_API_KEY, SENTRY_DSN, ...
+COPY --from=deploy /out .
+EXPOSE 8080
+HEALTHCHECK --interval=30s --timeout=3s --start-period=20s CMD node -e "fetch('http://127.0.0.1:8080/healthz').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"
+CMD ["node","dist/server.js"]
 ```
 
-**الحل**:
-```bash
-# Option 1: npm
-npm install -g pnpm@10.18.3
+### 3.2 Dockerfile — Jules (Fastify + Prisma + BullMQ)
 
-# Option 2: corepack (recommended)
+ضع الملف في: `apps/multi-agent-story/backend/Dockerfile`
+
+```Dockerfile
+# -------- Base Deps --------
+FROM node:20-slim AS deps
+WORKDIR /app
+RUN apt-get update && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
+RUN corepack enable && corepack prepare pnpm@10.18.3 --activate
+
+COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
+COPY apps/multi-agent-story/backend/package.json apps/multi-agent-story/backend/
+COPY packages/*/package.json packages/*/
+
+RUN pnpm install --frozen-lockfile
+
+# -------- Build --------
+FROM deps AS build
+COPY . .
+# Prisma generate قبل البناء
+WORKDIR /app/apps/multi-agent-story/backend
+RUN npx prisma generate
+WORKDIR /app
+RUN pnpm -w --filter ./apps/multi-agent-story/backend build
+
+# -------- Deploy Pack --------
+FROM deps AS deploy
+RUN pnpm -w --filter ./apps/multi-agent-story/backend deploy --prod /out
+
+# -------- Runtime --------
+FROM node:20-slim
+WORKDIR /srv
+ENV NODE_ENV=production PORT=8080
+# JULES_DATABASE_URL, JULES_JWT_SECRET, JULES_GEMINI_API_KEY, SENTRY_DSN, REDIS_URL ...
+COPY --from=deploy /out .
+EXPOSE 8080
+HEALTHCHECK --interval=30s --timeout=3s --start-period=20s CMD node -e "fetch('http://127.0.0.1:8080/healthz').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"
+CMD ["node","dist/server.js"]
+```
+
+### 3.3 CORS وRate Limiting (مقتطفات)
+
+* **Express/Stations**:
+
+```ts
+// apps/stations/src/server.ts
+import rateLimit from "express-rate-limit";
+import cors from "cors";
+
+const app = express();
+app.use(cors({ origin: process.env.ALLOWED_ORIGIN?.split(",") ?? [], credentials: true }));
+app.use(rateLimit({ windowMs: 60_000, max: 600 })); // 10 rps تقريبًا
+app.get("/healthz", (_,res)=>res.status(200).send("ok"));
+```
+
+* **Fastify/Jules**:
+
+```ts
+// apps/multi-agent-story/backend/src/server.ts
+import cors from "@fastify/cors";
+import fastifyRateLimit from "@fastify/rate-limit";
+
+await app.register(cors, { origin: process.env.ALLOWED_ORIGIN?.split(",") ?? [] });
+await app.register(fastifyRateLimit, { max: 600, timeWindow: "1 minute" });
+app.get("/healthz", async ()=> "ok");
+```
+
+---
+
+## 4) Render — التجميع، إعادة كتابة المسارات، والنشر
+
+### 4.1 تجميع الواجهات الأربع في مجلد واحد للنشر
+
+أنشئ سكربت تجميع بسيط (Node) في `tools/assemble-web.mjs`:
+
+```js
+import { cpSync, rmSync, mkdirSync } from "fs";
+import { join } from "path";
+
+const root = process.cwd();
+const out = join(root, "web");
+rmSync(out, { recursive: true, force: true });
+mkdirSync(out, { recursive: true });
+
+const apps = [
+  ["apps/basic-editor/dist", "basic-editor"],
+  ["apps/drama-analyst/dist", "drama-analyst"],
+  ["apps/stations/dist", "stations"],
+  ["apps/multi-agent-story/dist", "multi-agent-story"]
+];
+
+for (const [src, name] of apps) {
+  cpSync(join(root, src), join(out, name), { recursive: true });
+}
+console.log("Assembled web/ with 4 apps.");
+```
+
+أضف إلى `package.json` (الجذر):
+
+```json
+{
+  "scripts": {
+    "build:all": "pnpm -r build",
+    "web:assemble": "node tools/assemble-web.mjs",
+    "web:dist": "pnpm run build:all && pnpm run web:assemble"
+  }
+}
+```
+
+### 4.2 إعداد Firebase Hosting لإيواء المجلد الموحّد ومسارات الـ API
+
+* `.firebaserc`:
+
+```json
+{
+  "projects": {
+    "default": "<YOUR_PROJECT_ID>"
+  }
+}
+```
+
+* `firebase.json` (موقع واحد، “public”: "web"):
+
+```json
+{
+  "hosting": {
+    "public": "web",
+    "ignore": ["**/.*", "**/node_modules/**"],
+    "headers": [
+      {
+        "source": "**",
+        "headers": [
+          { "key": "X-Content-Type-Options", "value": "nosniff" },
+          { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" }
+        ]
+      },
+      {
+        "source": "**/*.@(js|css)",
+        "headers": [{ "key": "Cache-Control", "value": "public,max-age=31536000,immutable" }]
+      }
+    ],
+    "rewrites": [
+      { "source": "/api/stations/**", "run": { "serviceId": "stations-api", "region": "europe-west1" } },
+      { "source": "/api/jules/**", "run": { "serviceId": "jules-api", "region": "europe-west1" } },
+      { "source": "/basic-editor/**", "destination": "/basic-editor/index.html" },
+      { "source": "/drama-analyst/**", "destination": "/drama-analyst/index.html" },
+      { "source": "/stations/**", "destination": "/stations/index.html" },
+      { "source": "/multi-agent-story/**", "destination": "/multi-agent-story/index.html" }
+    ]
+  }
+}
+```
+
+> المبدأ: نبني كل واجهة إلى `dist/` خاصتها ثم نجمعها في `web/<app>`، ونستخدم **rewrites** لتوجيه `/api/*` نحو Cloud Run.
+
+### 4.3 نشر الواجهات
+
+```bash
+pnpm run web:dist
+firebase login
+firebase use <YOUR_PROJECT_ID>
+firebase deploy --only hosting
+```
+
+---
+
+## 5) Export — نشر Cloud Run والربط بالأسرار
+
+### 5.1 بناء ودفع صور Docker إلى Artifact Registry
+
+```bash
+# من جذر المستودع
+# Stations
+docker build -f apps/stations/Dockerfile -t europe-west1-docker.pkg.dev/<PROJECT_ID>/the-copy-repo/stations-api:$(git rev-parse --short HEAD) .
+docker push europe-west1-docker.pkg.dev/<PROJECT_ID>/the-copy-repo/stations-api:$(git rev-parse --short HEAD)
+
+# Jules
+docker build -f apps/multi-agent-story/backend/Dockerfile -t europe-west1-docker.pkg.dev/<PROJECT_ID>/the-copy-repo/jules-api:$(git rev-parse --short HEAD) .
+docker push europe-west1-docker.pkg.dev/<PROJECT_ID>/the-copy-repo/jules-api:$(git rev-parse --short HEAD)
+```
+
+### 5.2 نشر إلى Cloud Run مع ربط الأسرار
+
+```bash
+# Stations
+gcloud run deploy stations-api \
+  --image=europe-west1-docker.pkg.dev/<PROJECT_ID>/the-copy-repo/stations-api:$(git rev-parse --short HEAD) \
+  --platform=managed --region=europe-west1 --allow-unauthenticated \
+  --cpu=1 --memory=512Mi --max-instances=20 --min-instances=0 \
+  --set-env-vars=NODE_ENV=production,PORT=8080 \
+  --set-env-vars=ALLOWED_ORIGIN=https://<YOUR_FIREBASE_HOSTING_DOMAIN> \
+  --set-secrets=DATABASE_URL=STATIONS_DATABASE_URL:latest,SESSION_SECRET=STATIONS_SESSION_SECRET:latest,REDIS_URL=STATIONS_REDIS_URL:latest,GOOGLE_GEMINI_API_KEY=STATIONS_GEMINI_API_KEY:latest,SENTRY_DSN=SENTRY_DSN:latest
+
+# Jules
+gcloud run deploy jules-api \
+  --image=europe-west1-docker.pkg.dev/<PROJECT_ID>/the-copy-repo/jules-api:$(git rev-parse --short HEAD) \
+  --platform=managed --region=europe-west1 --allow-unauthenticated \
+  --cpu=1 --memory=512Mi --max-instances=20 --min-instances=0 \
+  --set-env-vars=NODE_ENV=production,PORT=8080 \
+  --set-env-vars=ALLOWED_ORIGIN=https://<YOUR_FIREBASE_HOSTING_DOMAIN> \
+  --set-secrets=DATABASE_URL=JULES_DATABASE_URL:latest,JWТ_SECRET=JULES_JWT_SECRET:latest,REDIS_URL=STATIONS_REDIS_URL:latest,JULES_GEMINI_API_KEY=JULES_GEMINI_API_KEY:latest,SENTRY_DSN=SENTRY_DSN:latest
+```
+
+> ملاحظة: استخدم نفس Redis إن رغبت (أعدل اسم السر)، أو أنشئ سراً منفصلاً لـ Jules.
+
+### 5.3 التحقق السريع
+
+```bash
+curl -I https://<cloud-run-domain>/healthz
+curl -I https://<your-firebase-domain>/api/stations/healthz
+curl -I https://<your-firebase-domain>/api/jules/healthz
+```
+
+---
+
+## 6) CI/CD — GitHub Actions (بناء + نشر تلقائي)
+
+أنشئ `.github/workflows/deploy.yml`:
+
+```yaml
+name: Deploy (Cloud Run + Firebase)
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+      REGION: europe-west1
+      REPO: the-copy-repo
+      SHA: ${{ github.sha }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node & pnpm
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: corepack enable && corepack prepare pnpm@10.18.3 --activate
+
+      - name: Install deps
+        run: pnpm install --frozen-lockfile
+
+      - name: Type-check + Lint + Test
+        run: |
+          pnpm run type-check
+          pnpm run lint
+          pnpm run test
+
+      - name: Build frontends
+        run: pnpm run web:dist
+
+      - name: Set up gcloud
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ env.PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+
+      - name: Configure Docker auth
+        run: gcloud auth configure-docker europe-west1-docker.pkg.dev --quiet
+
+      - name: Build & Push Stations image
+        run: |
+          docker build -f apps/stations/Dockerfile -t europe-west1-docker.pkg.dev/${PROJECT_ID}/${REPO}/stations-api:${SHA::7} .
+          docker push europe-west1-docker.pkg.dev/${PROJECT_ID}/${REPO}/stations-api:${SHA::7}
+
+      - name: Build & Push Jules image
+        run: |
+          docker build -f apps/multi-agent-story/backend/Dockerfile -t europe-west1-docker.pkg.dev/${PROJECT_ID}/${REPO}/jules-api:${SHA::7} .
+          docker push europe-west1-docker.pkg.dev/${PROJECT_ID}/${REPO}/jules-api:${SHA::7}
+
+      - name: Deploy Stations to Cloud Run
+        run: |
+          gcloud run deploy stations-api \
+            --image=europe-west1-docker.pkg.dev/${PROJECT_ID}/${REPO}/stations-api:${SHA::7} \
+            --platform=managed --region=${{ env.REGION }} --allow-unauthenticated \
+            --set-env-vars=NODE_ENV=production,PORT=8080,ALLOWED_ORIGIN=https://$HOSTING_DOMAIN \
+            --set-secrets=DATABASE_URL=STATIONS_DATABASE_URL:latest,SESSION_SECRET=STATIONS_SESSION_SECRET:latest,REDIS_URL=STATIONS_REDIS_URL:latest,GOOGLE_GEMINI_API_KEY=STATIONS_GEMINI_API_KEY:latest,SENTRY_DSN=SENTRY_DSN:latest
+        env:
+          HOSTING_DOMAIN: ${{ secrets.FIREBASE_HOSTING_DOMAIN }}
+
+      - name: Deploy Jules to Cloud Run
+        run: |
+          gcloud run deploy jules-api \
+            --image=europe-west1-docker.pkg.dev/${PROJECT_ID}/${REPO}/jules-api:${SHA::7} \
+            --platform=managed --region=${{ env.REGION }} --allow-unauthenticated \
+            --set-env-vars=NODE_ENV=production,PORT=8080,ALLOWED_ORIGIN=https://$HOSTING_DOMAIN \
+            --set-secrets=DATABASE_URL=JULES_DATABASE_URL:latest,JWТ_SECRET=JULES_JWT_SECRET:latest,REDIS_URL=STATIONS_REDIS_URL:latest,JULES_GEMINI_API_KEY=JULES_GEMINI_API_KEY:latest,SENTRY_DSN=SENTRY_DSN:latest
+        env:
+          HOSTING_DOMAIN: ${{ secrets.FIREBASE_HOSTING_DOMAIN }}
+
+      - name: Deploy Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.GCP_SA_KEY }}'
+          projectId: '${{ env.PROJECT_ID }}'
+          channelId: live
+```
+
+> أسرار لازمة في GitHub:
+> `GCP_PROJECT_ID`, `GCP_SA_KEY` (JSON لخدمة الحساب بصلاحيات Artifact Registry, Cloud Run Admin, Secret Manager Access, Firebase Admin), و`FIREBASE_HOSTING_DOMAIN`.
+
+---
+
+## 7) الأمن والمراقبة
+
+* **HTTPS**: تلقائيًا عبر Firebase Hosting وCloud Run. فعّل HSTS عبر رؤوس Hosting.
+* **CSP**: أضِف سياسة محافظة في `firebase.json` إن لزم.
+* **Sentry**: فعّل DSN في الواجهات والخلفيات.
+* **Logs**: استخدم Pino (Jules) وWinston (Stations) بمستويات `info/error`، وتصديرها إلى Cloud Logging.
+* **Healthz**: نقاط `/healthz` مُفعّلة في الخدمتين.
+* **Backups**: فعّل نسخًا احتياطيًا يوميًا لـ Cloud SQL (PITR إن أمكن)، ووثّق إجراء الاستعادة.
+
+---
+
+## 8) تسلسل التنفيذ السريع (يدوي)
+
+```bash
+# A) إعداد
 corepack enable
 corepack prepare pnpm@10.18.3 --activate
-
-# Verify
-pnpm --version
-```
-
-### 4. Build Test (Priority: HIGH)
-
-يجب التأكد من نجاح البناء الكامل:
-```bash
-# After installing pnpm
 pnpm install --frozen-lockfile
-pnpm run build:all
-pnpm run verify:all  # type-check + lint + test
+
+# B) قواعد البيانات
+cd apps/stations && pnpm db:push
+cd ../multi-agent-story/backend && npx prisma generate && npx prisma migrate deploy
+
+# C) بناء وتجميع الواجهات
+cd ../../..
+pnpm run web:dist
+
+# D) بناء ودفع الحاويات
+docker build -f apps/stations/Dockerfile -t europe-west1-docker.pkg.dev/<PROJECT_ID>/the-copy-repo/stations-api:$(git rev-parse --short HEAD) .
+docker push  europe-west1-docker.pkg.dev/<PROJECT_ID>/the-copy-repo/stations-api:$(git rev-parse --short HEAD)
+
+docker build -f apps/multi-agent-story/backend/Dockerfile -t europe-west1-docker.pkg.dev/<PROJECT_ID>/the-copy-repo/jules-api:$(git rev-parse --short HEAD) .
+docker push  europe-west1-docker.pkg.dev/<PROJECT_ID>/the-copy-repo/jules-api:$(git rev-parse --short HEAD)
+
+# E) نشر Cloud Run (مع ربط الأسرار)
+# (الأوامر مذكورة في قسم 5.2)
+
+# F) نشر Firebase Hosting
+firebase login
+firebase use <PROJECT_ID>
+firebase deploy --only hosting
 ```
 
 ---
-
-## 🔒 متطلبات الأمان للإنتاج
-
-### 1. SSL/HTTPS (CRITICAL)
-- [ ] الحصول على SSL certificates (Let's Encrypt)
-- [ ] تكوين Nginx للـ HTTPS
-- [ ] إعادة توجيه HTTP → HTTPS
-- [ ] HSTS headers
-
-### 2. Secrets Management (CRITICAL)
-- [ ] نقل جميع المفاتيح من .env إلى vault
-- [ ] استخدام AWS Secrets Manager أو HashiCorp Vault
-- [ ] تشفير database passwords
-- [ ] JWT secrets rotation strategy
-
-### 3. CORS Configuration (HIGH)
-```nginx
-# nginx.conf - تحديث للإنتاج
-add_header Access-Control-Allow-Origin "https://yourdomain.com";
-```
-
-### 4. Rate Limiting (HIGH)
-- [ ] API rate limiting (حالياً 10 req/s - يحتاج مراجعة)
-- [ ] Per-user rate limiting
-- [ ] DDoS protection (Cloudflare)
-
-### 5. Input Validation (MEDIUM)
-- [ ] XSS protection (موجود جزئياً)
-- [ ] SQL injection prevention (Prisma/Drizzle يحميان)
-- [ ] File upload validation
-- [ ] Request size limits
-
----
-
-## 📈 متطلبات الأداء
-
-### 1. CDN Integration (HIGH)
-- [ ] تكوين CDN للأصول الثابتة
-- [ ] Cloudflare أو AWS CloudFront
-- [ ] Cache strategy للـ assets
-- [ ] Image optimization
-
-### 2. Bundle Optimization (MEDIUM)
-**الحالة الحالية**:
-- Drama Analyst: 980 KB (يمكن تحسينه)
-- Stations: 512 KB ✅
-- Jules: 232 KB ✅
-- Basic Editor: 212 KB ✅
-
-**التحسينات المقترحة**:
-- [ ] تقليل حجم Drama Analyst (هدف: < 700 KB)
-- [ ] Lazy loading للمكونات الثقيلة
-- [ ] Dynamic imports
-
-### 3. Database Optimization (MEDIUM)
-- [ ] Connection pooling
-- [ ] Query optimization
-- [ ] Indexes على الـ queries الشائعة
-- [ ] Database backups strategy
-
----
-
-## 📊 متطلبات المراقبة
-
-### 1. Error Tracking (HIGH)
-- [ ] تفعيل Sentry في الإنتاج
-- [ ] Error boundaries في كل تطبيق
-- [ ] Source maps للـ production debugging
-
-### 2. Logging (HIGH)
-```javascript
-// Winston متوفر في Stations - يحتاج تكوين
-// Pino متوفر في Jules backend - يحتاج تكوين
-```
-- [ ] Centralized logging (ELK Stack أو Datadog)
-- [ ] Log levels configuration
-- [ ] Log rotation
-
-### 3. Performance Monitoring (MEDIUM)
-- [ ] Lighthouse CI (موجود في workflow)
-- [ ] Web Vitals tracking
-- [ ] API response time monitoring
-- [ ] Database query performance
-
-### 4. Analytics (LOW)
-- [ ] Google Analytics أو Plausible
-- [ ] User behavior tracking
-- [ ] Feature usage analytics
-
----
-
-## 💾 متطلبات النسخ الاحتياطي
-
-### 1. Database Backups (CRITICAL)
-- [ ] Daily automated backups
-- [ ] Point-in-time recovery
-- [ ] Backup testing strategy
-- [ ] Off-site backup storage
-
-### 2. File Storage Backups (MEDIUM)
-- [ ] User-uploaded files backup
-- [ ] Static assets backup
-- [ ] Disaster recovery plan
-
-### 3. Code Backups (LOW)
-- ✅ Git repository (موجود)
-- [ ] Mirror repository (GitLab/Bitbucket)
-
----
-
-## 🚀 خطة العمل للإنتاج
-
-### المرحلة 1: الإعداد الأساسي **الأولوية: CRITICAL**
-
-- [ ] تثبيت pnpm globally
-- [ ] إنشاء جميع ملفات .env
-  - [ ] التطبيق الرئيسي
-  - [ ] Drama Analyst
-  - [ ] Stations
-  - [ ] تحديث Jules (المفاتيح فقط)
-- [ ] إعداد PostgreSQL databases
-  - [ ] stations_db
-  - [ ] jules_db
-- [ ] إعداد Redis (optional)
-- [ ] اختبار البناء الكامل
-  ```bash
-  pnpm install --frozen-lockfile
-  pnpm run build:all
-  pnpm run verify:all
-  ```
-
-
----
-
-### المرحلة 2: الأمان والبنية التحتية 
-**الأولوية: HIGH**
-
-- [ ] الحصول على SSL certificates
-- [ ] تكوين HTTPS في Nginx
-- [ ] إعداد secrets management (AWS Secrets Manager)
-- [ ] تحديث CORS configuration
-- [ ] مراجعة وتحديث security headers
-- [ ] تكوين rate limiting للإنتاج
-- [ ] اختبار أمان (OWASP)
-
-
----
-
-### المرحلة 3: المراقبة والتوثيق ( )
-**الأولوية: HIGH**
-
-- [ ] تفعيل Sentry للإنتاج
-- [ ] تكوين logging systems
-  - [ ] Winston (Stations)
-  - [ ] Pino (Jules)
-- [ ] إعداد health checks
-- [ ] تكوين monitoring dashboard
-- [ ] كتابة API documentation (Swagger)
-- [ ] إكمال user manual
-- [ ] Troubleshooting guide
-
-
----
-
-### المرحلة 4: الأداء والتحسين 4)
-**الأولوية: MEDIUM**
-
-- [ ] تكوين CDN (Cloudflare)
-- [ ] تحسين bundle size (Drama Analyst)
-- [ ] Lazy loading implementation
-- [ ] Database optimization
-  - [ ] Indexes
-  - [ ] Connection pooling
-- [ ] Image optimization
-- [ ] Load testing (k6 أو Artillery)
-
-
----
-
-### المرحلة 5: النسخ الاحتياطي والنشر 
-**الأولوية: HIGH**
-
-- [ ] إعداد database backups
-  - [ ] Automated daily backups
-  - [ ] Test restore procedure
-- [ ] File storage backups strategy
-- [ ] اختبار Disaster recovery
-- [ ] Staging environment setup
-- [ ] Final testing
-  - [ ] Security audit
-  - [ ] Performance testing
-  - [ ] User acceptance testing
-- [ ] Production deployment
-- [ ] Post-deployment verification
-
-
----
-
-## 📋 Checklist الجاهزية للإنتاج
-
-### الأساسيات
-- [ ] pnpm installed and working
-- [ ] All .env files created and configured
-- [ ] All databases setup and migrated
-- [ ] Build successful: `pnpm run build:all`
-- [ ] All tests passing: `pnpm run verify:all`
-- [ ] Docker image builds successfully
-
-### الأمان
-- [ ] SSL/HTTPS configured
-- [ ] Secrets in vault (not in .env)
-- [ ] CORS properly configured
-- [ ] Security headers verified
-- [ ] Rate limiting active
-- [ ] Input validation implemented
-- [ ] SQL injection prevention verified
-- [ ] XSS protection active
-
-### الأداء
-- [ ] Lighthouse score > 90
-- [ ] Bundle sizes optimized
-- [ ] CDN configured
-- [ ] Caching strategy implemented
-- [ ] Database optimized
-- [ ] Load testing completed
-
-### المراقبة
-- [ ] Sentry integrated and active
-- [ ] Logging system configured
-- [ ] Health checks working
-- [ ] Monitoring dashboard setup
-- [ ] Alerts configured
-
-### التوثيق
-- [ ] API documentation complete
-- [ ] User manual ready
-- [ ] Deployment guide updated
-- [ ] Troubleshooting guide complete
-- [ ] Runbook for incidents
-
-### النسخ الاحتياطي
-- [ ] Database backups automated
-- [ ] Backup testing done
-- [ ] Disaster recovery plan ready
-- [ ] Off-site backups configured
-
-### النشر
-- [ ] Staging environment ready
-- [ ] Production environment ready
-- [ ] DNS configured
-- [ ] Deployment scripts tested
-- [ ] Rollback procedure ready
-- [ ] Support system ready
-
----
-
-
-## 🌟 نقاط القوة
-
-1. **معمارية احترافية**: Monorepo محسّن مع pnpm
-2. **تطبيقات متنوعة**: 4 تطبيقات متكاملة بمميزات AI
-3. **تقنيات حديثة**: React 19، TypeScript، Vite
-4. **CI/CD جاهز**: GitHub Actions مُعد مسبقاً
-5. **Docker Support**: Containerization كامل
-6. **اختبارات موجودة**: 66+ ملف اختبار
-7. **توثيق ممتاز**: CLAUDE.md شامل + documentation إضافية
-8. **Jules مُصلح**: التطبيق الرابع الآن جاهز 100%
-
----
-
-## ⚠️ نقاط الضعف والمخاطر
-
-### مخاطر تقنية:
-1. **متغيرات البيئة**: غير مكونة (يحتاج يوم واحد)
-2. **قواعد البيانات**: غير مُعدة (يحتاج 4-6 ساعات)
-3. **pnpm**: غير مُثبت (يحتاج 5 دقائق)
-4. **SSL**: غير مُكون (يحتاج 2-4 ساعات)
-
-### مخاطر أمنية:
-1. **Secrets**: في ملفات .env (يحتاج vault)
-2. **HTTPS**: غير مفعّل
-3. **Rate limiting**: يحتاج مراجعة للإنتاج
-
-### مخاطر تشغيلية:
-1. **Monitoring**: غير مفعّل بالكامل
-2. **Backups**: غير مكونة
-3. **Disaster Recovery**: لا يوجد خطة
-
----
-
-## 📊 التقييم النهائي
-
-### الحالة العامة: **جيد جداً** (8.5/10)
-
-| المعيار | النسبة | التقييم |
-|---------|--------|---------|
-| الكود والبنية | 95% | ممتاز ✅ |
-| البنية التحتية | 90% | ممتاز ✅ |
-| الأمان | 70% | جيد ⚠️ |
-| الأداء | 85% | جيد جداً ✅ |
-| المراقبة | 60% | مقبول ⚠️ |
-| التوثيق | 95% | ممتاز ✅ |
-| الاختبارات | 80% | جيد جداً ✅ |
-
-### التوصية النهائية:
-
-**المشروع في حالة ممتازة ويحتاج فقط لـ:**
-1. ✅ إكمال الإعدادات (يوم 1)
-2. ✅ تأمين النظام (يوم 2-3)
-3. ✅ إعداد المراقبة (يوم 4)
-4. ✅ النشر والاختبار (يوم 5)
-
-**النتيجة**: المشروع جاهز للإنتاج بعد **3-5 أيام عمل فقط!**
-
----
-
-## 📞 الخطوات التالية المباشرة
-
-### الأولويات الفورية (اليوم الأول):
-
-1. **تثبيت pnpm** (5 دقائق)
-   ```bash
-   npm install -g pnpm@10.18.3
-   ```
-
-2. **إنشاء ملفات .env** (30 دقيقة)
-   - التطبيق الرئيسي
-   - Drama Analyst
-   - Stations
-   - تحديث Jules
-
-3. **إعداد Databases** (2 ساعات)
-   ```bash
-   # PostgreSQL via Docker
-   docker-compose -f docker-compose.db.yml up -d
-   # Migrations
-   cd apps/stations && pnpm db:push
-   cd ../multi-agent-story/backend && npx prisma migrate deploy
-   ```
-
-4. **اختبار البناء** (30 دقيقة)
-   ```bash
-   pnpm install --frozen-lockfile
-   pnpm run build:all
-   pnpm run verify:all
-   ```
-
-5. **إعداد SSL** (2 ساعات)
-   ```bash
-   certbot --nginx -d yourdomain.com
-   ```
-
----
-
-## 🎉 الخلاصة
-
-**The Copy Platform** هو مشروع **احترافي ومتقدم جداً** تم بناؤه بأفضل الممارسات والتقنيات الحديثة.
-
-### ✅ الإنجازات:
-- 4 تطبيقات كاملة ومتكاملة
-- ~2 MB حجم إجمالي محسّن
-- 40+ وكيل AI (29 + 11)
-- معمارية Monorepo احترافية
-- Docker + CI/CD جاهزين
-- 66+ ملف اختبار
-- توثيق شامل
-
-### 📈 المتطلبات المتبقية:
-- إعدادات البيئة (سهلة)
-- قواعد البيانات (بسيطة)
-- الأمان والمراقبة (مباشرة)
-
-**الوقت للإنتاج**: 3-5 أيام عمل فقط!
-
-**التقييم النهائي**: 🌟🌟🌟🌟 (4/5 نجوم)
-
----
-
-**تم إعداد هذا التقرير بواسطة**: Claude Code
-**التاريخ**: 2025-10-17
-**الإصدار**: 1.0.0

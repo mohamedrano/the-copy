@@ -13,8 +13,9 @@ const envSchema = z.object({
   // CORS Origins
   CORS_ORIGINS: z.string().optional().default('http://localhost:5181'),
   
-  // Gemini AI API
-  GEMINI_API_KEY: z.string().min(1, 'GEMINI_API_KEY is required'),
+  // Gemini AI API (supports both JULES_GEMINI_API_KEY and GEMINI_API_KEY for backward compatibility)
+  GEMINI_API_KEY: z.string().min(1, 'GEMINI_API_KEY is required').optional(),
+  JULES_GEMINI_API_KEY: z.string().min(1, 'JULES_GEMINI_API_KEY is required').optional(),
   
   // Server Configuration
   PORT: z.string().transform(Number).pipe(z.number().min(1).max(65535)).default('8000'),
@@ -30,7 +31,22 @@ export type Env = z.infer<typeof envSchema>;
 
 export function validateEnv(): Env {
   try {
-    return envSchema.parse(process.env);
+    const parsed = envSchema.parse(process.env);
+
+    // Ensure at least one Gemini API key is provided
+    if (!parsed.GEMINI_API_KEY && !parsed.JULES_GEMINI_API_KEY) {
+      console.error('❌ Environment validation failed:');
+      console.error('  - Either GEMINI_API_KEY or JULES_GEMINI_API_KEY must be provided');
+      console.error('\n💡 Please check your .env file and ensure at least one Gemini API key is set.');
+      process.exit(1);
+    }
+
+    // Use JULES_GEMINI_API_KEY if available, otherwise fall back to GEMINI_API_KEY
+    if (parsed.JULES_GEMINI_API_KEY) {
+      parsed.GEMINI_API_KEY = parsed.JULES_GEMINI_API_KEY;
+    }
+
+    return parsed;
   } catch (error) {
     if (error instanceof z.ZodError) {
       console.error('❌ Environment validation failed:');

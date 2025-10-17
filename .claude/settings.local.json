@@ -4,7 +4,21 @@
       "Bash(git add:*)",
       "Bash(git commit -m \"$(cat <<''EOF''\nتنظيف شامل للمستودع: حذف الملفات القديمة والمكررة\n\n- حذف ملفات backup (CLAUDE.md.backup, package.json.backup)\n- حذف المجلدات القديمة (محرر، نظام جديد) \n- نقل التقارير إلى مجلد reports/\n- حذف ملفات تكوين IDE المكررة (.claude, .cursor, .kilocode, إلخ)\n- حذف ملفات التقارير القديمة (paths.txt, RepoTree.json, إلخ)\n- حذف ملفات التكوين الزائدة (.kilocodemodes, .qoderignore, .gitignore.monorepo)\n- حذف سكريبتات قديمة (fix_remaining_instructions.sh, requirements.txt)\n\nالتوفير المتوقع: ~1MB + تنظيف git history\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
       "Bash(pnpm build:*)",
-      "Bash(cat:*)"
+      "Bash(cat:*)",
+      "Bash(corepack enable:*)",
+      "Bash(corepack prepare:*)",
+      "Bash(pnpm --version:*)",
+      "Bash(node --version:*)",
+      "Bash(npm:*)",
+      "Bash(test:*)",
+      "Bash(firebase projects:list:*)",
+      "Bash(firebase use:*)",
+      "Bash(firebase deploy:*)",
+      "Bash(firebase projects:create:*)",
+      "Bash(export PATH=\"/home/user/.global_modules/bin:$PATH\")",
+      "Bash(chmod:*)",
+      "Bash(pnpm run web:dist:*)",
+      "Bash(pnpm install:*)"
     ],
     "deny": [],
     "ask": []

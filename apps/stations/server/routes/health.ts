@@ -49,4 +49,9 @@ router.get('/live', (req: Request, res: Response) => {
   });
 });
 
+// Cloud Run healthcheck endpoint
+router.get('/healthz', (req: Request, res: Response) => {
+  res.status(200).send('ok');
+});
+
 export default router;

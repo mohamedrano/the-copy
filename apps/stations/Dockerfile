@@ -1,38 +1,37 @@
-FROM node:20-alpine AS builder
-
+# -------- Base Deps --------
+FROM node:20-slim AS deps
 WORKDIR /app
+RUN apt-get update && apt-get install -y openssl && rm -rf /var/lib/apt/lists/*
+RUN corepack enable && corepack prepare pnpm@10.18.3 --activate
 
-COPY package*.json ./
-RUN npm ci --only=production && npm cache clean --force
+# نسخ ملفات التعاريف فقط أولاً لتسريع الـ cache
+COPY pnpm-lock.yaml pnpm-workspace.yaml package.json ./
+COPY apps/stations/package.json apps/stations/
+COPY packages/*/package.json packages/*/
 
+RUN pnpm install --frozen-lockfile
+
+# -------- Build --------
+FROM deps AS build
 COPY . .
-RUN npm run build
+RUN pnpm -w --filter ./apps/stations build
 
-FROM node:20-alpine AS production
+# تصدير حزمة معتمدة للإطلاق (pruned)
+FROM deps AS deploy
+COPY --from=build /app .
+RUN pnpm -w --filter ./apps/stations deploy --prod /out
 
-WORKDIR /app
+# -------- Runtime --------
+FROM node:20-slim
+WORKDIR /srv
+ENV NODE_ENV=production PORT=8080
+# متغيّرات ستُحقن من Cloud Run عبر Secret Manager
+# DATABASE_URL, SESSION_SECRET, REDIS_URL, GOOGLE_GEMINI_API_KEY, SENTRY_DSN, ...
+COPY --from=deploy /out .
 
-RUN apk add --no-cache dumb-init
+# إنشاء مجلدات الـ logs والتحليل
+RUN mkdir -p /srv/logs /srv/analysis_output
 
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -S nodejs -u 1001
-
-COPY --from=builder --chown=nodejs:nodejs /app/dist ./dist
-COPY --from=builder --chown=nodejs:nodejs /app/node_modules ./node_modules
-COPY --from=builder --chown=nodejs:nodejs /app/package*.json ./
-
-RUN mkdir -p /app/logs /app/analysis_output && \
-    chown -R nodejs:nodejs /app/logs /app/analysis_output
-
-USER nodejs
-
-EXPOSE 5000
-
-ENV NODE_ENV=production \
-    PORT=5000
-
-HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
-  CMD node -e "require('http').get('http://localhost:5000/health', (res) => { process.exit(res.statusCode === 200 ? 0 : 1); });"
-
-ENTRYPOINT ["dumb-init", "--"]
-CMD ["node", "dist/index.js"]
+EXPOSE 8080
+HEALTHCHECK --interval=30s --timeout=3s --start-period=20s CMD node -e "fetch('http://127.0.0.1:8080/healthz').then(r=>{if(!r.ok)process.exit(1)}).catch(()=>process.exit(1))"
+CMD ["node", "dist/server.js"]

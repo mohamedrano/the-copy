@@ -1,0 +1,106 @@
+name: Deploy (Cloud Run + Firebase)
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    env:
+      PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+      REGION: europe-west1
+      REPO: the-copy-repo
+      SHA: ${{ github.sha }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node & pnpm
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Enable Corepack
+        run: corepack enable && corepack prepare pnpm@10.18.3 --activate
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Type-check
+        run: pnpm run type-check
+
+      - name: Lint
+        run: pnpm run lint
+
+      - name: Test
+        run: pnpm run test
+
+      - name: Build frontends
+        run: pnpm run web:dist
+
+      - name: Set up gcloud
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ env.PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+
+      - name: Configure Docker auth
+        run: gcloud auth configure-docker europe-west1-docker.pkg.dev --quiet
+
+      - name: Build & Push Stations image
+        run: |
+          SHORT_SHA=${GITHUB_SHA::7}
+          docker build -f apps/stations/Dockerfile -t europe-west1-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO }}/stations-api:${SHORT_SHA} .
+          docker push europe-west1-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO }}/stations-api:${SHORT_SHA}
+          docker tag europe-west1-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO }}/stations-api:${SHORT_SHA} europe-west1-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO }}/stations-api:latest
+          docker push europe-west1-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO }}/stations-api:latest
+
+      - name: Build & Push Jules image
+        run: |
+          SHORT_SHA=${GITHUB_SHA::7}
+          docker build -f apps/multi-agent-story/backend/Dockerfile -t europe-west1-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO }}/jules-api:${SHORT_SHA} .
+          docker push europe-west1-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO }}/jules-api:${SHORT_SHA}
+          docker tag europe-west1-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO }}/jules-api:${SHORT_SHA} europe-west1-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO }}/jules-api:latest
+          docker push europe-west1-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO }}/jules-api:latest
+
+      - name: Deploy Stations to Cloud Run
+        run: |
+          SHORT_SHA=${GITHUB_SHA::7}
+          gcloud run deploy stations-api \
+            --image=europe-west1-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO }}/stations-api:${SHORT_SHA} \
+            --platform=managed \
+            --region=${{ env.REGION }} \
+            --allow-unauthenticated \
+            --cpu=1 \
+            --memory=512Mi \
+            --max-instances=20 \
+            --min-instances=0 \
+            --set-env-vars=NODE_ENV=production,PORT=8080,ALLOWED_ORIGIN=https://${{ secrets.FIREBASE_HOSTING_DOMAIN }} \
+            --set-secrets=DATABASE_URL=STATIONS_DATABASE_URL:latest,SESSION_SECRET=STATIONS_SESSION_SECRET:latest,REDIS_URL=STATIONS_REDIS_URL:latest,GOOGLE_GEMINI_API_KEY=STATIONS_GEMINI_API_KEY:latest,SENTRY_DSN=SENTRY_DSN:latest
+
+      - name: Deploy Jules to Cloud Run
+        run: |
+          SHORT_SHA=${GITHUB_SHA::7}
+          gcloud run deploy jules-api \
+            --image=europe-west1-docker.pkg.dev/${{ env.PROJECT_ID }}/${{ env.REPO }}/jules-api:${SHORT_SHA} \
+            --platform=managed \
+            --region=${{ env.REGION }} \
+            --allow-unauthenticated \
+            --cpu=1 \
+            --memory=512Mi \
+            --max-instances=20 \
+            --min-instances=0 \
+            --set-env-vars=NODE_ENV=production,PORT=8080,ALLOWED_ORIGIN=https://${{ secrets.FIREBASE_HOSTING_DOMAIN }} \
+            --set-secrets=DATABASE_URL=JULES_DATABASE_URL:latest,JWT_SECRET=JULES_JWT_SECRET:latest,REDIS_URL=STATIONS_REDIS_URL:latest,JULES_GEMINI_API_KEY=JULES_GEMINI_API_KEY:latest,SENTRY_DSN=SENTRY_DSN:latest
+
+      - name: Deploy Firebase Hosting
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.GCP_SA_KEY }}'
+          projectId: '${{ env.PROJECT_ID }}'
+          channelId: live

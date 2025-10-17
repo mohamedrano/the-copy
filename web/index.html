@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Copy - قيد الإعداد</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+        .container {
+            text-align: center;
+            padding: 2rem;
+            max-width: 600px;
+        }
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            animation: fadeIn 1s ease-in;
+        }
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        .status {
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+        .checkmark {
+            font-size: 4rem;
+            animation: bounce 2s infinite;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        ul {
+            list-style: none;
+            text-align: right;
+        }
+        li {
+            padding: 0.5rem;
+            margin: 0.5rem 0;
+            background: rgba(255,255,255,0.1);
+            border-radius: 5px;
+        }
+        .next-steps {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(255,255,255,0.15);
+            border-radius: 10px;
+            text-align: right;
+        }
+        .next-steps h3 {
+            margin-bottom: 1rem;
+        }
+        code {
+            background: rgba(0,0,0,0.3);
+            padding: 0.2rem 0.5rem;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="checkmark">✅</div>
+        <h1>The Copy</h1>
+        <p>منصة تطوير السيناريو العربي</p>
+
+        <div class="status">
+            <h2>🚀 البنية التحتية جاهزة!</h2>
+            <p style="font-size: 1rem; margin-top: 1rem;">
+                تم نشر التكوين الأساسي بنجاح
+            </p>
+        </div>
+
+        <ul>
+            <li>✅ Firebase Hosting مُفعّل</li>
+            <li>✅ Cloud Run جاهز للنشر</li>
+            <li>✅ CI/CD مُهيّأ</li>
+            <li>✅ Docker containers جاهزة</li>
+            <li>⏳ الواجهات قيد البناء</li>
+        </ul>
+
+        <div class="next-steps">
+            <h3>📋 الخطوة التالية:</h3>
+            <p style="font-size: 0.95rem; margin: 0.5rem 0;">
+                قم ببناء الواجهات الأربعة بتشغيل:
+            </p>
+            <code>pnpm run web:dist</code>
+            <p style="font-size: 0.85rem; margin-top: 1rem; opacity: 0.8;">
+                ثم أعد النشر: <code>firebase deploy --only hosting</code>
+            </p>
+        </div>
+
+        <p style="margin-top: 2rem; font-size: 0.9rem; opacity: 0.7;">
+            النشر التلقائي: v1.0.0 | التاريخ: 2025-10-17<br>
+            Project: adam-468522
+        </p>
+    </div>
+</body>
+</html>
