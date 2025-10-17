@@ -1,12 +1,13 @@
 import * as React from 'react';
 import { useState, useEffect, useRef } from 'react';
-import { 
-  Sparkles, X, Loader2, Sun, Moon, FileText, Bold, Italic, Underline, 
-  MoveVertical, Type, Search, Replace, Save, FolderOpen, 
-  Printer, Settings, Download, FilePlus, 
-  Undo, Redo, Scissors, Film, Camera, Feather, UserSquare, Parentheses, MessageCircle, 
+import {
+  Sparkles, X, Loader2, Sun, Moon, FileText, Bold, Italic, Underline,
+  MoveVertical, Type, Search, Replace, Save, FolderOpen,
+  Printer, Settings, Download, FilePlus,
+  Undo, Redo, Scissors, Film, Camera, Feather, UserSquare, Parentheses, MessageCircle,
   FastForward, ChevronDown, BookHeart
 } from 'lucide-react';
+import AdvancedAgentsPopup from './AdvancedAgentsPopup';
 
 // ScreenplayClassifier class
 class ScreenplayClassifier {
@@ -286,6 +287,10 @@ export default function ScreenplayEditor({ onBack }: ScreenplayEditorProps) {
   const [isReviewing, setIsReviewing] = useState(false);
   const [reviewResult, setReviewResult] = useState('');
 
+  // Advanced Agents Popup states
+  const [showAdvancedAgentsPopup, setShowAdvancedAgentsPopup] = useState(false);
+  const [selectedText, setSelectedText] = useState('');
+
   // View states
   const [showRulers, setShowRulers] = useState(true);
 
@@ -320,6 +325,21 @@ export default function ScreenplayEditor({ onBack }: ScreenplayEditorProps) {
     if (formatType === 'scene-header-2') return { ...baseStyles, fontStyle: 'italic', margin: '0' };
   
     return finalStyles;
+  };
+
+  // Handle double click to open Advanced Agents Popup
+  const handleDoubleClick = () => {
+    if (editorRef.current) {
+      const selection = window.getSelection();
+      if (selection && selection.toString().trim()) {
+        setSelectedText(selection.toString());
+        setShowAdvancedAgentsPopup(true);
+      } else {
+        // If no text is selected, use all editor content
+        setSelectedText(editorRef.current.innerText || '');
+        setShowAdvancedAgentsPopup(true);
+      }
+    }
   };
 
   // Update cursor position
@@ -1184,11 +1204,11 @@ export default function ScreenplayEditor({ onBack }: ScreenplayEditorProps) {
           )}
           
           {/* Editor */}
-          <div 
+          <div
             ref={editorRef}
             contentEditable
             className="min-h-screen p-8 outline-none flex-1"
-            style={{ 
+            style={{
               direction: 'rtl',
               fontFamily: `${selectedFont}, Amiri, Cairo, Noto Sans Arabic, Arial, sans-serif`,
               fontSize: selectedSize,
@@ -1206,6 +1226,7 @@ export default function ScreenplayEditor({ onBack }: ScreenplayEditorProps) {
             onPaste={handlePaste}
             onClick={updateCursorPosition}
             onKeyUp={updateCursorPosition}
+            onDoubleClick={handleDoubleClick}
           >
             <div 
               className="action" 
@@ -1428,7 +1449,7 @@ export default function ScreenplayEditor({ onBack }: ScreenplayEditorProps) {
                 <X size={20} />
               </button>
             </div>
-            
+
             {isReviewing ? (
               <div className="flex flex-col items-center justify-center py-8">
                 <Loader2 className="animate-spin" size={32} />
@@ -1448,16 +1469,16 @@ export default function ScreenplayEditor({ onBack }: ScreenplayEditorProps) {
                 </p>
               </div>
             )}
-            
+
             <div className="flex justify-end space-x-2">
-              <button 
+              <button
                 onClick={() => setShowReviewerDialog(false)}
                 className="px-4 py-2 bg-gray-200 dark:bg-gray-600 rounded"
               >
                 إغلاق
               </button>
               {!isReviewing && !reviewResult && (
-                <button 
+                <button
                   onClick={handleReviewContext}
                   className="px-4 py-2 bg-blue-500 text-white rounded flex items-center"
                 >
@@ -1469,6 +1490,13 @@ export default function ScreenplayEditor({ onBack }: ScreenplayEditorProps) {
           </div>
         </div>
       )}
+
+      {/* Advanced Agents Popup */}
+      <AdvancedAgentsPopup
+        isOpen={showAdvancedAgentsPopup}
+        onClose={() => setShowAdvancedAgentsPopup(false)}
+        content={selectedText}
+      />
     </div>
   );
 }

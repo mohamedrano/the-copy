@@ -18,7 +18,18 @@
       "Bash(export PATH=\"/home/user/.global_modules/bin:$PATH\")",
       "Bash(chmod:*)",
       "Bash(pnpm run web:dist:*)",
-      "Bash(pnpm install:*)"
+      "Bash(pnpm install:*)",
+      "Bash(pnpm dev:main:*)",
+      "Bash(lsof:*)",
+      "Bash(pnpm run build:main:*)",
+      "Bash(/home/user/.global_modules/bin/pnpm run build:all:*)",
+      "Bash(npx vite:*)",
+      "Bash(node_modules/.bin/vite build:*)",
+      "Bash(npx:*)",
+      "Bash(echo:*)",
+      "Bash(/home/user/.global_modules/bin/pnpm run dev:shell)",
+      "Bash(/home/user/.global_modules/bin/pnpm run dev)",
+      "Bash(xargs kill:*)"
     ],
     "deny": [],
     "ask": []
