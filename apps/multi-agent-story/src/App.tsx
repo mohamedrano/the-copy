@@ -151,7 +151,8 @@ function App() {
     }
   ];
 
-  const agents = [
+  // Agent UI definitions for display
+  const agentDefinitions = [
     { name: 'مهندس القصة', role: 'البناء الهيكلي', icon: <Layers /> },
     { name: 'ناقد الواقعية', role: 'التحقق من المنطق', icon: <Shield /> },
     { name: 'مطور الشخصيات', role: 'عمق الشخصيات', icon: <Users /> },
@@ -164,6 +165,20 @@ function App() {
     { name: 'محلل المواضيع', role: 'العمق الموضوعي', icon: <Cpu /> },
     { name: 'المنسق الرئيسي', role: 'التنسيق والقرار', icon: <Rocket /> }
   ];
+
+  // Merge backend agents with UI definitions
+  const displayAgents = agents.length > 0
+    ? agents.map((agent) => ({
+        ...agent,
+        icon: agentDefinitions.find(def => def.name === agent.name)?.icon || <Brain />
+      }))
+    : agentDefinitions.map((def, idx) => ({
+        id: `agent-${idx}`,
+        name: def.name,
+        role: def.role,
+        status: 'idle' as const,
+        icon: def.icon
+      }));
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 text-white">
@@ -260,9 +275,9 @@ function App() {
               فريق الوكلاء
             </h2>
             <div className="space-y-3 max-h-96 overflow-y-auto">
-              {agents.length > 0 ? agents.map((agent) => (
+              {displayAgents.map((agent, index) => (
                 <div
-                  key={agent.id}
+                  key={agent.id || `agent-${index}`}
                   className="flex items-center gap-3 p-3 bg-white/5 rounded-lg hover:bg-white/10 transition-colors"
                 >
                   <div className="text-cyan-400">{agent.icon}</div>
@@ -280,9 +295,7 @@ function App() {
                     'bg-gray-500'
                   }`} />
                 </div>
-              )) : (
-                <p className="text-gray-400 text-sm">جاري تحميل الوكلاء...</p>
-              )}
+              ))}
             </div>
           </div>
         </div>
