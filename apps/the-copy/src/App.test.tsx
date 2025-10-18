@@ -1,20 +1,21 @@
-import type { JSX } from 'react'
-import { render, screen, waitFor } from '@testing-library/react'
-import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import App from './App'
+import type { JSX } from 'react';
+import { render, screen, waitFor } from '@testing-library/react';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
+import App from './App';
+import RemoteAppStub, { type RemoteAppStubProps } from '@/test/stubs/remote-app-stub';
 
-const mockRemoteModule = (moduleId: string, testId: string) => {
-  ;(vi.mock as unknown as (id: string, factory: () => { default: () => JSX.Element }, options?: { virtual?: boolean }) => void)(
-    moduleId,
-    () => ({ default: () => <div data-testid={testId} /> }),
-    { virtual: true },
-  )
+type RemoteModuleFactory = () => { default: (props?: RemoteAppStubProps) => JSX.Element };
+
+function createRemoteMock(testId: string): RemoteModuleFactory {
+  return () => ({
+    default: (props?: RemoteAppStubProps) => <RemoteAppStub {...props} data-testid={testId} />,
+  });
 }
 
-mockRemoteModule('basicEditor/App', 'remote-basic-editor')
-mockRemoteModule('dramaAnalyst/App', 'remote-drama-analyst')
-mockRemoteModule('multiAgentStory/App', 'remote-multi-agent')
-mockRemoteModule('stations/App', 'remote-stations')
+vi.mock('basicEditor/App', createRemoteMock('remote-basic-editor'), { virtual: true });
+vi.mock('dramaAnalyst/App', createRemoteMock('remote-drama-analyst'), { virtual: true });
+vi.mock('multiAgentStory/App', createRemoteMock('remote-multi-agent'), { virtual: true });
+vi.mock('stations/App', createRemoteMock('remote-stations'), { virtual: true });
 
 describe('The Copy unified shell', () => {
   const mockResponse = {
@@ -22,30 +23,30 @@ describe('The Copy unified shell', () => {
     status: 200,
     json: async () => ({}),
     text: async () => '',
-  }
+  } satisfies Response;
 
   beforeEach(() => {
-    vi.spyOn(globalThis, 'fetch').mockResolvedValue(mockResponse as never)
-  })
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue(mockResponse as never);
+  });
 
   afterEach(() => {
-    vi.restoreAllMocks()
-  })
+    vi.restoreAllMocks();
+  });
 
   it('renders four live panes with successful health checks', async () => {
-    render(<App />)
+    render(<App />);
 
     await waitFor(() => {
-      const summaries = screen.getAllByTestId('pane-summary')
-      expect(summaries).toHaveLength(4)
-      summaries.forEach(summary => {
-        expect(summary).toHaveTextContent('جاهز')
-      })
-    })
+      const summaries = screen.getAllByTestId('pane-summary');
+      expect(summaries).toHaveLength(4);
+      summaries.forEach((summary) => {
+        expect(summary).toHaveTextContent('جاهز');
+      });
+    });
 
-    expect(screen.getAllByTestId('pane-card')).toHaveLength(4)
-    expect(screen.getAllByRole('link', { name: 'فتح التطبيق' })).toHaveLength(4)
-    expect(screen.getAllByRole('link', { name: 'فتح في نافذة جديدة' })).toHaveLength(4)
-    expect(globalThis.fetch).toHaveBeenCalledTimes(4)
-  })
-})
+    expect(screen.getAllByTestId('pane-card')).toHaveLength(4);
+    expect(screen.getAllByRole('link', { name: 'فتح التطبيق' })).toHaveLength(4);
+    expect(screen.getAllByRole('link', { name: 'فتح في نافذة جديدة' })).toHaveLength(4);
+    expect(globalThis.fetch).toHaveBeenCalledTimes(4);
+  });
+});
