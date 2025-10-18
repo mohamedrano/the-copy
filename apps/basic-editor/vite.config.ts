@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react';
 import federation from '@originjs/vite-plugin-federation';
 
 export default defineConfig({
+  base: '/basic-editor/',
   plugins: [
     react(),
     federation({
@@ -25,9 +26,11 @@ export default defineConfig({
     },
   },
   build: {
+    outDir: path.resolve(__dirname, '../../public/basic-editor'),
     target: 'esnext',
     cssCodeSplit: false,
     minify: false,
+    emptyOutDir: true,
   },
   server: {
     port: 5178,
