@@ -20,6 +20,7 @@
     "build:drama": "pnpm --filter drama-analyst run build",
     "build:stations": "pnpm --filter stations run build",
     "build:story": "pnpm --filter multi-agent-story run build",
+    "build:remotes": "pnpm run build:basic && pnpm run build:drama && pnpm run build:stations && pnpm run build:story",
     "web:assemble": "node tools/assemble-web.mjs",
     "web:dist": "pnpm run build:all && pnpm run web:assemble",
     "clean": "pnpm -r run clean && rm -rf node_modules",

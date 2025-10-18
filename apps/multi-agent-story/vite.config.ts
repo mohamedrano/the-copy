@@ -1,29 +1,34 @@
+import path from 'path';
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import path from 'path';
+import federation from '@originjs/vite-plugin-federation';
 
 export default defineConfig(({ mode }) => ({
-  base: '/multi-agent-story/',
-  plugins: [react()],
+  plugins: [
+    react(),
+    federation({
+      name: 'multiAgentStory',
+      filename: 'remoteEntry.js',
+      exposes: {
+        './App': './src/App.tsx',
+      },
+      shared: {
+        react: { singleton: true, requiredVersion: '19.2.0' },
+        'react-dom': { singleton: true, requiredVersion: '19.2.0' },
+        'react-router-dom': { singleton: true, requiredVersion: '^6.22.3' },
+      },
+    }),
+  ],
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
     },
   },
   build: {
-    outDir: '../../public/multi-agent-story',
-    emptyOutDir: true,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          'react-vendor': ['react', 'react-dom'],
-          'ui-vendor': ['lucide-react'],
-        },
-      },
-    },
+    target: 'esnext',
+    cssCodeSplit: false,
+    minify: false,
     chunkSizeWarningLimit: 500,
-    target: 'es2022',
-    minify: 'terser',
     sourcemap: mode === 'development',
   },
   server: {

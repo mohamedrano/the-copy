@@ -4,7 +4,8 @@
     "baseUrl": ".",
     "types": [
       "vite/client",
-      "node"
+      "node",
+      "./src/types/remotes"
     ],
     "paths": {
       "@/*": [
@@ -42,10 +43,23 @@
     "src/main.tsx",
     "src/components/common/**/*.ts",
     "src/components/common/**/*.tsx",
+    "src/components/AppErrorFallback.tsx",
+    "src/components/ErrorBoundary.tsx",
+    "src/components/LoadingFallback.tsx",
+    "src/components/layout/**/*.ts",
+    "src/components/layout/**/*.tsx",
     "src/config/environment.ts",
     "src/config/index.ts",
+    "src/pages/**/*.ts",
+    "src/pages/**/*.tsx",
+    "src/routes/**/*.ts",
+    "src/routes/**/*.tsx",
     "src/test/**/*.ts",
-    "src/test/**/*.tsx"
+    "src/test/**/*.tsx",
+    "src/types/**/*.d.ts"
+  ],
+  "files": [
+    "src/types/remotes.d.ts"
   ],
   "exclude": [
     "node_modules",
