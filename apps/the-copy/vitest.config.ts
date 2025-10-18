@@ -30,6 +30,10 @@ export default defineConfig({
       '@services': path.resolve(__dirname, './src/services'),
       '@lib': path.resolve(__dirname, './src/lib'),
       '@types': path.resolve(__dirname, './src/types'),
+      'basicEditor/App': path.resolve(__dirname, './src/test/stubs/remote-app-stub.tsx'),
+      'dramaAnalyst/App': path.resolve(__dirname, './src/test/stubs/remote-app-stub.tsx'),
+      'multiAgentStory/App': path.resolve(__dirname, './src/test/stubs/remote-app-stub.tsx'),
+      'stations/App': path.resolve(__dirname, './src/test/stubs/remote-app-stub.tsx'),
     },
   },
 });

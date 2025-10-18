@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 5179",
-    "build": "tsc && vite build --outDir ../../public/drama-analyst",
+    "build": "tsc && vite build",
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
@@ -36,11 +36,13 @@
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-dropzone": "^14.3.8",
+    "react-router-dom": "^6.22.3",
     "@the-copy/shared-types": "workspace:*",
     "@the-copy/shared-utils": "workspace:*"
   },
   "devDependencies": {
     "@playwright/test": "^1.56.0",
+    "@originjs/vite-plugin-federation": "^1.4.1",
     "@sentry/vite-plugin": "^2.20.1",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.0",
