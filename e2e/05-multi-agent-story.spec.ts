@@ -1,55 +1,53 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Multi-Agent Story Application', () => {
-  test('should load multi-agent story page', async ({ page }) => {
-    await page.goto('/multi-agent-story/');
+test('Multi-Agent Story Application - should load multi-agent story page', async ({ page }) => {
+  await page.goto('/multi-agent-story/');
 
-    // انتظار التحميل
-    await page.waitForLoadState('networkidle', { timeout: 15000 });
+  // انتظار التحميل
+  await page.waitForLoadState('networkidle', { timeout: 15000 });
 
-    // التحقق من أن الصفحة ليست Shell
-    const shellElement = page.locator('[data-testid="the-copy-shell"]');
-    await expect(shellElement).not.toBeVisible();
+  // التحقق من أن الصفحة ليست Shell
+  const shellElement = page.locator('[data-testid="the-copy-shell"]');
+  await expect(shellElement).not.toBeVisible();
 
-    // التحقق من العنوان
-    const title = await page.title();
-    expect(title.toLowerCase()).not.toContain('unified workspace');
+  // التحقق من العنوان
+  const title = await page.title();
+  expect(title.toLowerCase()).not.toContain('unified workspace');
 
-    // التحقق من المحتوى
-    const content = await page.content();
-    expect(content.toLowerCase()).toMatch(/agent|story|عصف/);
+  // التحقق من المحتوى
+  const content = await page.content();
+  expect(content.toLowerCase()).toMatch(/agent|story|عصف/);
+});
+
+test('Multi-Agent Story Application - should have unique page signature', async ({ page }) => {
+  await page.goto('/multi-agent-story/');
+  await page.waitForLoadState('networkidle', { timeout: 15000 });
+
+  const content = await page.content();
+
+  // يجب ألا يحتوي على توقيعات Shell
+  expect(content).not.toContain('data-testid="the-copy-shell"');
+  expect(content).not.toContain('data-testid="pane-card"');
+});
+
+test('Multi-Agent Story Application - should render without critical errors', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('console', (msg) => {
+    if (msg.type() === 'error') {
+      errors.push(msg.text());
+    }
   });
 
-  test('should have unique page signature', async ({ page }) => {
-    await page.goto('/multi-agent-story/');
-    await page.waitForLoadState('networkidle', { timeout: 15000 });
+  await page.goto('/multi-agent-story/');
+  await page.waitForLoadState('networkidle', { timeout: 15000 });
 
-    const content = await page.content();
+  // السماح بأخطاء غير حرجة (favicon, API keys, etc.)
+  const criticalErrors = errors.filter(e =>
+    !e.includes('404') &&
+    !e.includes('favicon') &&
+    !e.includes('GEMINI_API_KEY') &&
+    !e.includes('API_KEY')
+  );
 
-    // يجب ألا يحتوي على توقيعات Shell
-    expect(content).not.toContain('data-testid="the-copy-shell"');
-    expect(content).not.toContain('data-testid="pane-card"');
-  });
-
-  test('should render without critical errors', async ({ page }) => {
-    const errors: string[] = [];
-    page.on('console', (msg) => {
-      if (msg.type() === 'error') {
-        errors.push(msg.text());
-      }
-    });
-
-    await page.goto('/multi-agent-story/');
-    await page.waitForLoadState('networkidle', { timeout: 15000 });
-
-    // السماح بأخطاء غير حرجة (favicon, API keys, etc.)
-    const criticalErrors = errors.filter(e =>
-      !e.includes('404') &&
-      !e.includes('favicon') &&
-      !e.includes('GEMINI_API_KEY') &&
-      !e.includes('API_KEY')
-    );
-
-    expect(criticalErrors.length).toBe(0);
-  });
+  expect(criticalErrors.length).toBe(0);
 });
