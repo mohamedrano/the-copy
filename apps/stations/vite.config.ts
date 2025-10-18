@@ -4,40 +4,18 @@ import react from "@vitejs/plugin-react";
 import federation from "@originjs/vite-plugin-federation";
 import * as path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
-
-const ensureTrailingSlash = (value: string): string => {
-  if (value === '/' || value === './') {
-    return value;
-  }
-
-  return value.endsWith('/') ? value : `${value}/`;
-};
-
-const resolveBasePath = (mode: string, env: Record<string, string>): string => {
-  const candidateKeyOrder = [
-    'VITE_STATIONS_BASE_PATH',
-    'VITE_REMOTE_BASE_PATH',
-    'VITE_BASE_PATH',
-  ];
-
-  const explicitBase = candidateKeyOrder
-    .map((key) => env[key])
-    .find((value) => value && value.trim().length > 0);
-
-  if (explicitBase) {
-    return ensureTrailingSlash(explicitBase.trim());
-  }
-
-  if (mode === 'development') {
-    return '/';
-  }
-
-  return ensureTrailingSlash('/stations');
-};
+import { resolveFederatedBasePath } from "../vite-base-path";
 
 export default defineConfig(async ({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
-  const base = resolveBasePath(mode, env);
+  const base = resolveFederatedBasePath(mode, env, {
+    explicitEnvKeys: [
+      'VITE_STATIONS_BASE_PATH',
+      'VITE_REMOTE_BASE_PATH',
+      'VITE_BASE_PATH',
+    ],
+    productionFallback: '/stations',
+  });
 
   const optionalPlugins: PluginOption[] = [];
 

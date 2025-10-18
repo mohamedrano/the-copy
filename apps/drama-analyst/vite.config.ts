@@ -4,42 +4,20 @@ import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 import { sentryVitePlugin } from '@sentry/vite-plugin';
 import federation from '@originjs/vite-plugin-federation';
-
-const ensureTrailingSlash = (value: string): string => {
-  if (value === '/' || value === './') {
-    return value;
-  }
-
-  return value.endsWith('/') ? value : `${value}/`;
-};
-
-const resolveBasePath = (mode: string, env: Record<string, string>): string => {
-  const candidateKeyOrder = [
-    'VITE_DRAMA_ANALYST_BASE_PATH',
-    'VITE_DRAMA_BASE_PATH',
-    'VITE_REMOTE_BASE_PATH',
-    'VITE_BASE_PATH',
-  ];
-
-  const explicitBase = candidateKeyOrder
-    .map((key) => env[key])
-    .find((value) => value && value.trim().length > 0);
-
-  if (explicitBase) {
-    return ensureTrailingSlash(explicitBase.trim());
-  }
-
-  if (mode === 'development') {
-    return '/';
-  }
-
-  return ensureTrailingSlash('/drama-analyst');
-};
+import { resolveFederatedBasePath } from '../vite-base-path';
 
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     const isProduction = mode === 'production';
-    const base = resolveBasePath(mode, env);
+    const base = resolveFederatedBasePath(mode, env, {
+      explicitEnvKeys: [
+        'VITE_DRAMA_ANALYST_BASE_PATH',
+        'VITE_DRAMA_BASE_PATH',
+        'VITE_REMOTE_BASE_PATH',
+        'VITE_BASE_PATH',
+      ],
+      productionFallback: '/drama-analyst',
+    });
 
     return {
       base,
