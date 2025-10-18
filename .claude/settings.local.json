@@ -29,7 +29,21 @@
       "Bash(echo:*)",
       "Bash(/home/user/.global_modules/bin/pnpm run dev:shell)",
       "Bash(/home/user/.global_modules/bin/pnpm run dev)",
-      "Bash(xargs kill:*)"
+      "Bash(xargs kill:*)",
+      "Bash(pnpm run dev:shell:*)",
+      "Bash(curl:*)",
+      "Bash(pnpm -v)",
+      "Bash(pnpm config set allow-scripts auto)",
+      "Bash(pnpm approve-builds)",
+      "Bash(pnpm -w add nanoid)",
+      "Bash(pnpm -w add npm-run-all -D)",
+      "Bash(pnpm -w add -D playwright @playwright/test wait-on)",
+      "Bash(node tools/derive-page-signatures.mjs)",
+      "Bash(bash scripts/run-all-tests.sh)",
+      "Bash(pnpm run dev:basic)",
+      "Bash(pnpm run dev:drama)",
+      "Bash(pnpm run dev:stations)",
+      "Bash(pnpm run dev:story)"
     ],
     "deny": [],
     "ask": []

@@ -1,60 +1,60 @@
-# دليل المساهمة في الاختبارات
+# Contributing Tests
 
-## المبادئ العامة
+This document outlines the guidelines and best practices for contributing tests to the project. The goal is to ensure high-quality, reliable, and maintainable tests that increase confidence in our codebase.
 
-1. **الحفاظ على الجودة قبل الأرقام** – الهدف من الاختبارات هو رفع الثقة في المنظومة، وليس الوصول إلى نسب شكلية.
-2. **بوابات التغطية إلزامية** – أي PR يجب أن يجتاز العتبات لكل حزمة (Core/Domain 90/85، Services 85/80، UI 80/75) بالإضافة إلى حد الملفات المعدّلة (90/85). يتم التحقق من ذلك عبر `npm run coverage:enforce`.【F:scripts/enforce-coverage.js†L12-L137】
-3. **تنفيذ الأوامر القياسية** – استخدم الأوامر التالية قبل رفع PR:
-   - `npm run test`
-   - `npm run coverage`
-   - `npm run coverage:diff`
-   - `npm run coverage:enforce`
-   كل الأوامر موثقة في `package.json`.【F:package.json†L7-L46】
+## General Rules
 
-## كتابة الاختبارات
+*   **Readability**: Use clear and descriptive Arabic names for test suites and individual tests. Employ Given/When/Then comments when necessary to improve clarity.
+*   **Independence**: Tests should not have interdependencies. Use local fixtures to set up test data.
+*   **Speed**: Avoid actual network or disk operations. Use in-memory alternatives or mocks for external dependencies.
+*   **Stability**: Ensure tests are stable by fixing time and randomness. Avoid un-mocked `Date.now()`.
+*   **Value**: Each test should cover a logical branch or a clear business risk. Avoid trivial tests.
+*   **UI Tests**: Test behavior (Role/Label/Text) rather than fragile DOM details. Use semantic selectors from Testing Library.
 
-- اتبع نمط **Arrange → Act → Assert** مع أسماء عربية صريحة تُعبّر عن السلوك المراد التحقق منه.
-- تجنّب اختبارات اللقطات Snapshots للمسارات المنطقية المعقدة؛ اختبر السلوك والرسائل بدلاً من ذلك.
-- **حالات السعادة + حالات الفشل**: لكل مسار نجاح يجب أن يقابله مسار فشل مغطى، خصوصاً في الخدمات والطبقة الأمنية.
-- ثبّت الوقت والعشوائية عبر Mocks محلية؛ لا تستخدم `Date.now()` مباشرة داخل الاختبارات.
-- مكونات الواجهة يجب أن تُختبر عبر Selectors دلالية (Role/Label/Text) من Testing Library.
-- لا تعتمد الاختبارات على الشبكات أو نظام الملفات؛ استخدم محاكاة In-Memory أو Mocks.
+## Examples
 
-## تنظيم المجلدات
+### Good Example (TypeScript)
 
-- ضع ملفات الاختبار بجانب الوحدة المستهدفة تحت `__tests__`، مع تسمية `${الملف}.test.ts`.
-- استخدم Fixtures محلية داخل الاختبار نفسه، أو أنشئ ملف `test-utils.ts` في حال تكرارها.
-- حافظ على استقلالية الاختبارات؛ يمنع مشاركة الحالة عبر متغيرات عامة أو أمر `beforeAll` غير مبرر.
+```ts
+import { describe, it, expect } from 'vitest';
+import { calculateDiscount } from '../../src/pricing/calculateDiscount'; // Adjust path as needed
 
-## التغطية التفصيلية
+describe('calculateDiscount', () => {
+  it('يحسِب 20% للمستخدم المميّز', () => {
+    expect(calculateDiscount(100, 'premium', 5)).toBe(20);
+  });
 
-- استخدم `npm run coverage` لإنتاج تقارير LCOV وJSON داخل `reports/coverage/latest`. هذه التقارير تُستخدم لتوليد تقرير `docs/testing/coverage-report.md` وشارات README.【F:reports/coverage/latest/coverage-summary.json†L1】
-- الفرق بين اللقطة الحالية والسابقة يجب أن يُوثق في التقرير، مع شرح لأي انخفاض مبرر.
-- في حال تعديل ملفات حساسة (Core/Domain/Services/UI)، تأكد من تحديث مصفوفة الاختبارات في التقرير بإضافة السيناريوهات الجديدة.
+  it('يعيد 0 للسعر غير الصالح', () => {
+    expect(calculateDiscount(-50, 'premium', 5)).toBe(0);
+  });
 
-## اختبارات الطفرات (Mutation Testing)
+  it('يضع حدّاً أقصى 50%', () => {
+    expect(calculateDiscount(100, 'premium', 20)).toBe(50);
+  });
 
-- يتم تشغيلها عبر `npm run mutate` (عند تفعيل Stryker). الهدف الأولي ≥ ‎60%‎ مع خطة رفع تدريجي إلى ‎75%‎.
-- لا تقبل PR يخفض معدل الطفرات تحت العتبة المحددة دون استثناء موثق في التذكرة.
-
-## خطوات PR الإلزامية
-
-1. تحديث `docs/testing/coverage-report.md` عند إضافة اختبارات تغطي مسارات عالية الخطورة.
-2. التأكد من أن `reports/coverage/changed-files-*.json` محدث وأن جميع الملفات المتغيرة تتجاوز حدود 90/85.
-3. ملء قسم «أثر الاختبار» في نموذج الـ PR (انظر أدناه) مع ذكر الأوامر المنفذة ونتائجها.
-
-### نموذج قسم أثر الاختبار
-
-```
-## أثر الاختبار
-- [ ] لم يتم تعديل منطق يحتاج إلى اختبارات
-- [ ] أُضيفت اختبارات جديدة (أذكر الملفات)
-- [ ] تم تحديث تقرير التغطية في docs/testing/coverage-report.md
-- نتائج الأوامر:
-  - npm run test
-  - npm run coverage
-  - npm run coverage:diff
-  - npm run coverage:enforce
+  it('يتعامل مع نوع مستخدم غير معروف', () => {
+    expect(calculateDiscount(100, 'unknown', 5)).toBe(0);
+  });
+});
 ```
 
-الالتزام بهذه القواعد يضمن ثبات جودة الاختبارات واستمرارية الثقة في المنصة.
+### Bad Example (Avoid)
+
+*   **Manipulating code to pass tests**: Do not alter production code solely to make tests pass without a documented engineering justification.
+*   **Blind snapshot tests for complex logic**: Snapshot tests are useful for UI components but can be brittle for complex business logic.
+*   **Testing internal implementation details**: Focus on the observable behavior of the code, not its internal workings.
+
+## Prohibitions
+
+*   **No PRs that reduce coverage**: Any Pull Request that decreases the coverage of any package below its defined thresholds, or reduces the coverage of changed files below the higher threshold, will be automatically rejected.
+*   **No undocumented code changes for tests**: Modifying production code to pass a test without a documented engineering justification (e.g., an Issue or a clear commit message) is forbidden.
+*   **No important Happy Paths without Negative Paths**: For every important "happy path" (successful scenario), corresponding "negative path" (failure/error scenario) tests are required.
+*   **No unaddressed flaky tests**: Any "flaky" test (a test that intermittently fails) must be quarantined and have an open ticket with a clear plan and timeline for resolution.
+
+## Best Practices
+
+*   **Prioritize**: Focus on critical business logic, security, and data transformations (P0), followed by shared services and utility libraries (P1).
+*   **Edge Cases**: Thoroughly test edge cases, including `null`, `undefined`, `NaN`, empty values, and boundary conditions (min/max).
+*   **Asynchronous Logic**: Pay special attention to testing asynchronous code, promises, timeouts, and race conditions.
+*   **Property-Based Testing**: Consider using `fast-check` for property-based testing of pure functions to ensure adherence to contractual rules.
+*   **Dependency Isolation**: Isolate I/O operations (network, database) using mocks or in-memory adapters.

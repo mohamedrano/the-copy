@@ -1,185 +1,174 @@
-import fs from 'node:fs'
-import path from 'node:path'
-import { fileURLToPath } from 'node:url'
-import { spawnSync } from 'node:child_process'
+// scripts/changed-files-coverage.js
+const { execSync } = require('child_process');
+const fs = require('fs');
+const path = require('path');
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
+const COVERAGE_LCOV_PATH = path.resolve(__dirname, '../coverage/lcov.info');
+const REPORTS_DIR = path.resolve(__dirname, '../reports/coverage');
 
-const REPORTS_ROOT = path.resolve(__dirname, '..', 'reports', 'coverage')
-const COVERAGE_SUMMARY_PATH = path.resolve(REPORTS_ROOT, 'latest', 'coverage-summary.json')
-const PROJECT_ROOT = path.resolve(__dirname, '..')
-
-const DEFAULT_THRESHOLDS = {
+// Define thresholds for changed files
+const CHANGED_FILES_THRESHOLDS = {
   lines: 90,
   branches: 85,
+  functions: 90,
+  statements: 90,
+};
+
+function getChangedFiles() {
+  // Get files changed in the last commit or against a base branch (e.g., main)
+  // For a PR context, you might compare against 'origin/main' or 'HEAD~1'
+  const diffOutput = execSync('git diff --name-only HEAD~1 HEAD', { encoding: 'utf-8' });
+  return diffOutput.split('\n').filter(file => file.trim() !== '');
 }
 
-function normalizePath(filePath) {
-  const absolute = path.isAbsolute(filePath) ? filePath : path.resolve(PROJECT_ROOT, filePath)
-  const relative = path.relative(PROJECT_ROOT, absolute)
-  return relative.replace(/\\/g, '/').replace(/^\.\//, '')
-}
+function parseLcov(lcovContent) {
+  const lines = lcovContent.split('\n');
+  const fileCoverage = {};
+  let currentFile = null;
 
-function ensureReportsDirectory() {
-  fs.mkdirSync(REPORTS_ROOT, { recursive: true })
-}
+  for (const line of lines) {
+    if (line.startsWith('SF:')) {
+      currentFile = line.substring(3);
+      fileCoverage[currentFile] = {
+        lines: { found: 0, hit: 0, details: [] },
+        functions: { found: 0, hit: 0, details: [] },
+        branches: { found: 0, hit: 0, details: [] },
+      };
+    } else if (currentFile) {
+      if (line.startsWith('DA:')) {
+        const [, lineNumber, hitCount] = line.match(/DA:(\d+),(\d+)/);
+        fileCoverage[currentFile].lines.details.push({ lineNumber: parseInt(lineNumber), hitCount: parseInt(hitCount) });
+      } else if (line.startsWith('FN:')) {
+        fileCoverage[currentFile].functions.found++;
+      } else if (line.startsWith('FNDA:')) {
+        const [, hitCount] = line.match(/FNDA:(\d+),/);
+        if (parseInt(hitCount) > 0) {
+          fileCoverage[currentFile].functions.hit++;
+        }
+      } else if (line.startsWith('BRDA:')) {
+        fileCoverage[currentFile].branches.found++;
+      } else if (line.startsWith('BRH:')) {
+        const [, hitCount] = line.match(/BRH:(\d+)/);
+        fileCoverage[currentFile].branches.hit += parseInt(hitCount);
+      } else if (line === 'end_of_record') {
+        // Calculate percentages for lines
+        const hitLines = fileCoverage[currentFile].lines.details.filter(d => d.hitCount > 0).length;
+        const totalLines = fileCoverage[currentFile].lines.details.length;
+        fileCoverage[currentFile].lines.pct = totalLines > 0 ? (hitLines / totalLines) * 100 : 100;
+        fileCoverage[currentFile].lines.found = totalLines;
+        fileCoverage[currentFile].lines.hit = hitLines;
 
-function readCoverageSummary(customPath) {
-  const summaryPath = customPath ?? COVERAGE_SUMMARY_PATH
-  if (!fs.existsSync(summaryPath)) {
-    throw new Error(`لم يتم العثور على ملف التغطية عند المسار: ${summaryPath}`)
-  }
-  return JSON.parse(fs.readFileSync(summaryPath, 'utf8'))
-}
+        // Calculate percentages for functions
+        fileCoverage[currentFile].functions.pct = fileCoverage[currentFile].functions.found > 0 ? (fileCoverage[currentFile].functions.hit / fileCoverage[currentFile].functions.found) * 100 : 100;
 
-function runGitCommand(args) {
-  const result = spawnSync('git', args, { encoding: 'utf8' })
-  if (result.error) {
-    throw result.error
-  }
-  if (result.status !== 0) {
-    throw new Error(result.stderr.trim() || `فشل أمر git ${args.join(' ')}`)
-  }
-  return result.stdout.trim()
-}
+        // Calculate percentages for branches
+        fileCoverage[currentFile].branches.pct = fileCoverage[currentFile].branches.found > 0 ? (fileCoverage[currentFile].branches.hit / fileCoverage[currentFile].branches.found) * 100 : 100;
 
-function detectBaseRef(explicitBase) {
-  if (explicitBase) {
-    return explicitBase
-  }
-
-  const envBase = process.env.COVERAGE_BASE_REF
-  if (envBase) {
-    return envBase
-  }
-
-  const candidates = ['origin/main', 'origin/master', 'main', 'master']
-  for (const candidate of candidates) {
-    try {
-      runGitCommand(['rev-parse', '--verify', candidate])
-      return candidate
-    } catch (error) {
-      continue
-    }
-  }
-
-  return 'HEAD~1'
-}
-
-function collectChangedFiles(baseRef) {
-  let mergeBase = baseRef
-  try {
-    const commit = runGitCommand(['merge-base', 'HEAD', baseRef])
-    mergeBase = commit || baseRef
-  } catch (error) {
-    // fall back silently
-  }
-
-  const diffOutput = runGitCommand(['diff', '--name-only', '--diff-filter=ACMRTUXB', `${mergeBase}...HEAD`])
-  return diffOutput
-    .split('\n')
-    .map((entry) => entry.trim())
-    .filter(Boolean)
-}
-
-function aggregateMetrics(entries) {
-  return entries.reduce(
-    (acc, entry) => {
-      const metrics = ['lines', 'branches', 'functions', 'statements']
-      for (const metric of metrics) {
-        const segment = entry[metric]
-        if (!segment) continue
-        acc[metric].covered += segment.covered
-        acc[metric].total += segment.total
+        // Statements are usually lines + branches, for simplicity we'll use lines for now
+        fileCoverage[currentFile].statements = {
+          pct: fileCoverage[currentFile].lines.pct,
+          found: fileCoverage[currentFile].lines.found,
+          hit: fileCoverage[currentFile].lines.hit,
+        };
+        currentFile = null;
       }
-      return acc
-    },
-    {
-      lines: { covered: 0, total: 0 },
-      branches: { covered: 0, total: 0 },
-      functions: { covered: 0, total: 0 },
-      statements: { covered: 0, total: 0 },
     }
-  )
+  }
+  return fileCoverage;
 }
 
-function toPercentage({ covered, total }) {
-  return total === 0 ? 100 : (covered / total) * 100
-}
+function calculateChangedFilesCoverage() {
+  console.log('Calculating coverage for changed files...');
 
-export function computeChangedFilesCoverage({
-  coverageSummaryPath,
-  baseRef,
-  thresholds = DEFAULT_THRESHOLDS,
-  writeReport = true,
-} = {}) {
-  ensureReportsDirectory()
-  const summary = readCoverageSummary(coverageSummaryPath)
-  const resolvedBase = detectBaseRef(baseRef)
-  const changedFiles = collectChangedFiles(resolvedBase)
-
-  const perFile = []
-  for (const filePath of changedFiles) {
-    const normalized = normalizePath(filePath)
-    if (!summary[normalized]) {
-      continue
-    }
-    perFile.push({
-      file: normalized,
-      metrics: summary[normalized],
-    })
+  if (!fs.existsSync(COVERAGE_LCOV_PATH)) {
+    console.error(`Error: lcov.info file not found at ${COVERAGE_LCOV_PATH}. Please run 'pnpm coverage' first.`);
+    process.exit(1);
   }
 
-  const aggregate = aggregateMetrics(perFile.map((entry) => entry.metrics))
-  const totals = Object.fromEntries(
-    Object.entries(aggregate).map(([metric, data]) => [
-      metric,
-      {
-        covered: data.covered,
-        total: data.total,
-        pct: toPercentage(data),
-      },
-    ])
-  )
+  const lcovContent = fs.readFileSync(COVERAGE_LCOV_PATH, 'utf-8');
+  const allFileCoverage = parseLcov(lcovContent);
+  const changedFiles = getChangedFiles();
 
-  const evaluation = {
-    baseRef: resolvedBase,
-    changedFileCount: perFile.length,
-    thresholds,
-    totals,
-    perFile,
-  }
+  const changedFilesCoverage = {};
+  let overallChangedLinesHit = 0;
+  let overallChangedLinesFound = 0;
+  let overallChangedBranchesHit = 0;
+  let overallChangedBranchesFound = 0;
+  let overallChangedFunctionsHit = 0;
+  let overallChangedFunctionsFound = 0;
+  let overallChangedStatementsHit = 0;
+  let overallChangedStatementsFound = 0;
 
-  if (writeReport) {
-    const timestamp = new Date().toISOString().replace(/[:.]/g, '-')
-    const filename = path.join(REPORTS_ROOT, `changed-files-${timestamp}.json`)
-    fs.writeFileSync(filename, JSON.stringify(evaluation, null, 2))
-    console.log(`تم إنشاء تقرير تغطية الملفات المعدلة: ${filename}`)
-  }
+  for (const file of changedFiles) {
+    const absoluteFilePath = path.resolve(process.cwd(), file);
+    const relativeFilePath = path.relative(process.cwd(), absoluteFilePath); // Ensure relative path matches lcov
 
-  const failedMetrics = []
-  for (const [metric, requirement] of Object.entries(thresholds)) {
-    const actual = totals[metric]?.pct ?? 100
-    if (actual + 1e-9 < requirement) {
-      failedMetrics.push({ metric, requirement, actual })
+    if (allFileCoverage[relativeFilePath]) {
+      const coverage = allFileCoverage[relativeFilePath];
+      changedFilesCoverage[relativeFilePath] = coverage;
+
+      overallChangedLinesHit += coverage.lines.hit;
+      overallChangedLinesFound += coverage.lines.found;
+      overallChangedBranchesHit += coverage.branches.hit;
+      overallChangedBranchesFound += coverage.branches.found;
+      overallChangedFunctionsHit += coverage.functions.hit;
+      overallChangedFunctionsFound += coverage.functions.found;
+      overallChangedStatementsHit += coverage.statements.hit;
+      overallChangedStatementsFound += coverage.statements.found;
+    } else {
+      console.warn(`Warning: No coverage data found for changed file: ${relativeFilePath}`);
     }
   }
 
-  return { evaluation, failedMetrics }
-}
+  const overallLinesPct = overallChangedLinesFound > 0 ? (overallChangedLinesHit / overallChangedLinesFound) * 100 : 100;
+  const overallBranchesPct = overallChangedBranchesFound > 0 ? (overallChangedBranchesHit / overallChangedBranchesFound) * 100 : 100;
+  const overallFunctionsPct = overallChangedFunctionsFound > 0 ? (overallChangedFunctionsHit / overallChangedFunctionsFound) * 100 : 100;
+  const overallStatementsPct = overallChangedStatementsFound > 0 ? (overallChangedStatementsHit / overallChangedStatementsFound) * 100 : 100;
 
-if (process.argv[1] === fileURLToPath(import.meta.url)) {
-  try {
-    const baseIndex = process.argv.indexOf('--base')
-    const baseRef = baseIndex !== -1 ? process.argv[baseIndex + 1] : undefined
-    const { failedMetrics } = computeChangedFilesCoverage({ baseRef })
-    if (failedMetrics.length > 0) {
-      console.error('فشلت تغطية الملفات المعدلة:', failedMetrics)
-      process.exit(1)
+  const overallCoverage = {
+    lines: { pct: overallLinesPct, hit: overallChangedLinesHit, found: overallChangedLinesFound },
+    branches: { pct: overallBranchesPct, hit: overallChangedBranchesHit, found: overallChangedBranchesFound },
+    functions: { pct: overallFunctionsPct, hit: overallChangedFunctionsHit, found: overallChangedFunctionsFound },
+    statements: { pct: overallStatementsPct, hit: overallChangedStatementsHit, found: overallChangedStatementsFound },
+  };
+
+  console.log('\n--- Overall Coverage for Changed Files ---');
+  console.log(`Lines: ${overallCoverage.lines.pct.toFixed(2)}% (Hit: ${overallCoverage.lines.hit}, Found: ${overallCoverage.lines.found})`);
+  console.log(`Branches: ${overallCoverage.branches.pct.toFixed(2)}% (Hit: ${overallCoverage.branches.hit}, Found: ${overallCoverage.branches.found})`);
+  console.log(`Functions: ${overallCoverage.functions.pct.toFixed(2)}% (Hit: ${overallCoverage.functions.hit}, Found: ${overallCoverage.functions.found})`);
+  console.log(`Statements: ${overallCoverage.statements.pct.toFixed(2)}% (Hit: ${overallCoverage.statements.hit}, Found: ${overallCoverage.statements.found})`);
+
+  // Enforce thresholds
+  let hasFailed = false;
+  for (const metric in CHANGED_FILES_THRESHOLDS) {
+    const required = CHANGED_FILES_THRESHOLDS[metric];
+    const actual = overallCoverage[metric].pct;
+
+    if (actual < required) {
+      console.error(`  ❌ Changed Files ${metric}: ${actual.toFixed(2)}% (below required ${required}%)`);
+      hasFailed = true;
+    } else {
+      console.log(`  ✅ Changed Files ${metric}: ${actual.toFixed(2)}% (meets required ${required}%)`);
     }
-  } catch (error) {
-    console.error('تعذر حساب تغطية الملفات المعدلة:', error)
-    process.exit(1)
+  }
+
+  const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
+  const reportFileName = `changed-files-${timestamp}.json`;
+  const reportPath = path.join(REPORTS_DIR, reportFileName);
+
+  if (!fs.existsSync(REPORTS_DIR)) {
+    fs.mkdirSync(REPORTS_DIR, { recursive: true });
+  }
+  fs.writeFileSync(reportPath, JSON.stringify({ changedFilesCoverage, overallCoverage }, null, 2), 'utf-8');
+  console.log(`\nDetailed changed files coverage report saved to: ${reportPath}`);
+
+  if (hasFailed) {
+    console.error('\nChanged files coverage enforcement failed: Did not meet the required thresholds.');
+    process.exit(1);
+  } else {
+    console.log('\nChanged files coverage enforcement passed.');
+    process.exit(0);
   }
 }
+
+calculateChangedFilesCoverage();

@@ -1,0 +1,63 @@
+{
+  "timestamp": "2025-10-18T11:07:56.550Z",
+  "baseUrl": "http://localhost:5173",
+  "duration": 0.04,
+  "summary": {
+    "total": 5,
+    "passed": 0,
+    "failed": 5,
+    "successRate": "0.0%"
+  },
+  "results": {
+    "shell": {
+      "name": "shell",
+      "url": "http://localhost:5173/",
+      "passed": false,
+      "statusCode": 0,
+      "errors": [
+        "connect ECONNREFUSED 127.0.0.1:5173"
+      ],
+      "warnings": []
+    },
+    "basicEditor": {
+      "name": "basicEditor",
+      "url": "http://localhost:5173/basic-editor/",
+      "passed": false,
+      "statusCode": 0,
+      "errors": [
+        "connect ECONNREFUSED 127.0.0.1:5173"
+      ],
+      "warnings": []
+    },
+    "dramaAnalyst": {
+      "name": "dramaAnalyst",
+      "url": "http://localhost:5173/drama-analyst/",
+      "passed": false,
+      "statusCode": 0,
+      "errors": [
+        "connect ECONNREFUSED 127.0.0.1:5173"
+      ],
+      "warnings": []
+    },
+    "multiAgentStory": {
+      "name": "multiAgentStory",
+      "url": "http://localhost:5173/multi-agent-story/",
+      "passed": false,
+      "statusCode": 0,
+      "errors": [
+        "connect ECONNREFUSED 127.0.0.1:5173"
+      ],
+      "warnings": []
+    },
+    "stations": {
+      "name": "stations",
+      "url": "http://localhost:5173/stations/",
+      "passed": false,
+      "statusCode": 0,
+      "errors": [
+        "connect ECONNREFUSED 127.0.0.1:5173"
+      ],
+      "warnings": []
+    }
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "timestamp": "2025-10-18T11:07:56.405Z",
+  "signatures": {
+    "Shell": {
+      "title": "the copy",
+      "rootId": "root",
+      "testId": null,
+      "keywords": [],
+      "exists": true,
+      "path": "apps/the-copy/index.html",
+      "expectedBase": "/"
+    },
+    "Basic Editor": {
+      "title": "المحرر الأساسي - The Copy",
+      "rootId": "root",
+      "testId": null,
+      "keywords": [
+        "محرر"
+      ],
+      "exists": true,
+      "path": "apps/basic-editor/index.html",
+      "expectedBase": "/basic-editor/"
+    },
+    "Drama Analyst": {
+      "title": "المحلل الدرامي والمبدع المحاكي",
+      "rootId": "root",
+      "testId": null,
+      "keywords": [
+        "محلل"
+      ],
+      "exists": true,
+      "path": "apps/drama-analyst/index.html",
+      "expectedBase": "/drama-analyst/"
+    },
+    "Multi-Agent Story": {
+      "title": "قصة متعددة الوكلاء - Jules",
+      "rootId": "root",
+      "testId": null,
+      "keywords": [],
+      "exists": true,
+      "path": "apps/multi-agent-story/index.html",
+      "expectedBase": "/multi-agent-story/"
+    },
+    "Stations": {
+      "title": "تحليل النصوص الدرامية - Dramatic Text Analysis",
+      "rootId": "root",
+      "testId": null,
+      "keywords": [
+        "محطات"
+      ],
+      "exists": true,
+      "path": "apps/stations/index.html",
+      "expectedBase": "/stations/"
+    }
+  }
+}

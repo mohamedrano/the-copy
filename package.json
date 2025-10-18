@@ -27,12 +27,15 @@
     "type-check": "pnpm -r run type-check",
     "lint": "pnpm -r run lint",
     "lint:fix": "pnpm -r run lint:fix",
-    "test": "pnpm -r run test",
-    "test:coverage": "pnpm --filter \"./apps/*\" test -- --coverage",
-    "coverage": "pnpm -r run coverage",
+    "test": "cd apps/the-copy && vitest",
+    "test:changed": "cd apps/the-copy && vitest --changed --watch=false",
+    "coverage": "cd apps/the-copy && vitest run --coverage.enabled --coverage.provider=v8 --coverage.reporter=lcov --coverage.reporter=json-summary --coverage.reporter=text",
+    "coverage:diff": "node scripts/changed-files-coverage.js",
+    "coverage:enforce": "node scripts/enforce-coverage.js",
     "preview": "pnpm --filter @the-copy/the-copy run preview",
     "verify:all": "pnpm run type-check && pnpm run lint && pnpm run test",
     "dev:shell": "pnpm --filter @the-copy/the-copy run dev",
+    "dev:all": "run-p dev:shell dev:basic dev:drama dev:stations dev:story",
     "build:shell": "pnpm --filter @the-copy/the-copy run build",
     "type-check:shell": "pnpm --filter @the-copy/the-copy run type-check",
     "test:shell": "pnpm --filter @the-copy/the-copy run test",
@@ -41,6 +44,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^8.57.1",
+    "@playwright/test": "^1.56.0",
     "@types/node": "^20.0.0",
     "@typescript-eslint/eslint-plugin": "^7.2.0",
     "@typescript-eslint/parser": "^7.2.0",
@@ -50,11 +54,15 @@
     "eslint-plugin-react-refresh": "^0.4.6",
     "eslint-plugin-tsdoc": "^0.2.17",
     "globals": "^13.24.0",
-    "typescript": "^5.3.3"
+    "npm-run-all": "^4.1.5",
+    "playwright": "^1.56.1",
+    "typescript": "^5.3.3",
+    "wait-on": "^9.0.1"
   },
   "packageManager": "pnpm@10.18.3",
   "dependencies": {
-    "@anthropic-ai/claude-agent-sdk": "^0.1.15"
+    "@anthropic-ai/claude-agent-sdk": "^0.1.15",
+    "nanoid": "^5.1.6"
   },
   "pnpm": {
     "overrides": {

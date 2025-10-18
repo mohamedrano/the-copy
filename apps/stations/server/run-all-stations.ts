@@ -57,16 +57,24 @@ export class AnalysisPipeline {
 
   constructor(config: AnalysisPipelineConfig) {
     if (!config.apiKey) {
-      throw new Error('GEMINI_API_KEY is required to initialise the analysis pipeline.');
+      logger.warn('[AnalysisPipeline] GEMINI_API_KEY not set. AI analysis endpoints will respond with 503.');
+      // Create a dummy service that will fail gracefully
+      this.geminiService = config.geminiService ?? new GeminiService({
+        apiKey: 'dummy-key-ai-disabled',
+        defaultModel: GeminiModel.FLASH,
+        fallbackModel: GeminiModel.FLASH,
+        maxRetries: 0,
+        timeout: 1000,
+      });
+    } else {
+      this.geminiService = config.geminiService ?? new GeminiService({
+        apiKey: config.apiKey,
+        defaultModel: GeminiModel.PRO,
+        fallbackModel: GeminiModel.FLASH,
+        maxRetries: 3,
+        timeout: 60_000,
+      });
     }
-
-    this.geminiService = config.geminiService ?? new GeminiService({
-      apiKey: config.apiKey,
-      defaultModel: GeminiModel.PRO,
-      fallbackModel: GeminiModel.FLASH,
-      maxRetries: 3,
-      timeout: 60_000,
-    });
 
      
     this.outputDirectory = config.outputDir ?? path.join(process.cwd(), 'analysis_output');

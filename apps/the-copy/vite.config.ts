@@ -29,6 +29,29 @@ export default defineConfig({
     hmr: {
       host: 'localhost',
       port: 5173
+    },
+    proxy: {
+      // يمرر الطلبات إلى التطبيقات الفرعية بدل أن يبتلعها fallback
+      '/basic-editor': {
+        target: 'http://localhost:5178',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/basic-editor/, ''),
+      },
+      '/drama-analyst': {
+        target: 'http://localhost:5001',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/drama-analyst/, ''),
+      },
+      '/multi-agent-story': {
+        target: 'http://localhost:5181',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/multi-agent-story/, ''),
+      },
+      '/stations': {
+        target: 'http://localhost:5002',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/stations/, ''),
+      },
     }
   }
 })
