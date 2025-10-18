@@ -5,7 +5,7 @@ import * as path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
 export default defineConfig({
-  base: '/',
+  base: '/stations/',
   plugins: [
     react(),
     federation({
@@ -44,7 +44,7 @@ export default defineConfig({
   },
   root: path.resolve(__dirname),
   build: {
-    outDir: path.resolve(__dirname, "dist"),
+    outDir: path.resolve(__dirname, "../../public/stations"),
     emptyOutDir: true,
     rollupOptions: {
       output: {

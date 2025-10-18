@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => {
     const isProduction = mode === 'production';
     
     return {
-      base: '/',
+      base: '/drama-analyst/',
       plugins: [
         react(),
         federation({
@@ -32,7 +32,7 @@ export default defineConfig(({ mode }) => {
             project: 'drama-analyst',
             authToken: env.VITE_SENTRY_AUTH_TOKEN,
             sourcemaps: {
-              assets: './dist/**',
+              assets: '../../public/drama-analyst/**',
               ignore: ['node_modules/**']
             },
             release: {
@@ -54,8 +54,8 @@ export default defineConfig(({ mode }) => {
             background_color: '#0f172a',
             display: 'standalone',
             orientation: 'portrait-primary',
-            scope: '/',
-            start_url: '/',
+            scope: '/drama-analyst/',
+            start_url: '/drama-analyst/',
             icons: [
               {
                 src: 'icon-192x192.png',
@@ -147,7 +147,7 @@ export default defineConfig(({ mode }) => {
         }
       },
       build: {
-        outDir: 'dist',
+        outDir: path.resolve(__dirname, '../../public/drama-analyst'),
         emptyOutDir: true,
         rollupOptions: {
           output: {

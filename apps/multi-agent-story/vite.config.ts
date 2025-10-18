@@ -4,6 +4,7 @@ import react from '@vitejs/plugin-react';
 import federation from '@originjs/vite-plugin-federation';
 
 export default defineConfig(({ mode }) => ({
+  base: '/multi-agent-story/',
   plugins: [
     react(),
     federation({
@@ -25,11 +26,13 @@ export default defineConfig(({ mode }) => ({
     },
   },
   build: {
+    outDir: path.resolve(__dirname, '../../public/multi-agent-story'),
     target: 'esnext',
     cssCodeSplit: false,
     minify: false,
     chunkSizeWarningLimit: 500,
     sourcemap: mode === 'development',
+    emptyOutDir: true,
   },
   server: {
     port: 5181,
