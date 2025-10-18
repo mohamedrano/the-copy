@@ -4,7 +4,7 @@ export interface PaneDefinition {
   id: PaneId
   title: string
   description: string
-  mountPath: string
+  routePath: string
   url: string
   healthEndpoint: string
 }
@@ -51,13 +51,13 @@ const createPaneDefinition = (config: {
   fallback: string
   title: string
   description: string
-  mountPath: string
+  routePath: string
   healthEndpoint?: string
 }): PaneDefinition => ({
   id: config.id,
   title: config.title,
   description: config.description,
-  mountPath: config.mountPath,
+  routePath: config.routePath,
   url: resolvePaneUrl(config.envKey, config.fallback),
   healthEndpoint: config.healthEndpoint ?? '/',
 })
@@ -72,7 +72,7 @@ export const environment: EnvironmentConfig = {
       fallback: '/basic-editor',
       title: 'المحرر الأساسي',
       description: 'تحرير النصوص السينمائية مع دعم اللغة العربية بالكامل.',
-      mountPath: '/editor',
+      routePath: '/basic-editor',
       healthEndpoint: '/',
     }),
     'drama-analyst': createPaneDefinition({
@@ -81,7 +81,7 @@ export const environment: EnvironmentConfig = {
       fallback: '/drama-analyst',
       title: 'محلل الدراما',
       description: 'تحليلات درامية متقدمة تعمل عبر شبكة من الوكلاء.',
-      mountPath: '/drama',
+      routePath: '/drama-analyst',
       healthEndpoint: '/',
     }),
     stations: createPaneDefinition({
@@ -90,7 +90,7 @@ export const environment: EnvironmentConfig = {
       fallback: '/stations',
       title: 'المحطات التحليلية',
       description: 'سبع محطات لتحليل الشبكات الدرامية والصراع.',
-      mountPath: '/stations',
+      routePath: '/stations',
       healthEndpoint: '/',
     }),
     'multi-agent-story': createPaneDefinition({
@@ -99,7 +99,7 @@ export const environment: EnvironmentConfig = {
       fallback: '/multi-agent-story',
       title: 'العصف الذهني متعدد الوكلاء',
       description: 'تجربة توليد القصص وإدارتها بالتعاون مع الوكلاء.',
-      mountPath: '/agents',
+      routePath: '/multi-agent-story',
       healthEndpoint: '/',
     }),
   },

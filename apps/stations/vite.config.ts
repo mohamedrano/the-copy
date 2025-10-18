@@ -1,14 +1,27 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import federation from "@originjs/vite-plugin-federation";
 import * as path from "path";
 import runtimeErrorOverlay from "@replit/vite-plugin-runtime-error-modal";
 
 export default defineConfig({
-  base: '/stations/',
+  base: '/',
   plugins: [
     react(),
+    federation({
+      name: "stations",
+      filename: "remoteEntry.js",
+      exposes: {
+        "./App": "./shared/src/App.tsx",
+      },
+      shared: {
+        react: { singleton: true, requiredVersion: "19.2.0" },
+        "react-dom": { singleton: true, requiredVersion: "19.2.0" },
+        "react-router-dom": { singleton: true, requiredVersion: "^6.22.3" },
+      },
+    }),
     runtimeErrorOverlay(),
-     
+
     ...(process.env.NODE_ENV !== "production" &&
      
     process.env.REPL_ID !== undefined
@@ -31,7 +44,7 @@ export default defineConfig({
   },
   root: path.resolve(__dirname),
   build: {
-    outDir: path.resolve(__dirname, "../../public/stations"),
+    outDir: path.resolve(__dirname, "dist"),
     emptyOutDir: true,
     rollupOptions: {
       output: {
@@ -76,26 +89,16 @@ export default defineConfig({
       }
     },
     // تحسينات الأداء
-    minify: 'terser',
-    terserOptions: {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-        pure_funcs: ['console.log', 'console.info', 'console.debug']
-      },
-      mangle: {
-        safari10: true
-      }
-    },
+    minify: false,
     // تحسين حجم الحزمة
     chunkSizeWarningLimit: 1000,
     // تحسين التحميل
     target: 'esnext',
-    cssCodeSplit: true,
+    cssCodeSplit: false,
     sourcemap: process.env.NODE_ENV === 'development'
   },
   server: {
-    port: 5002,
+    port: 5182,
     host: true,
     strictPort: true,
     fs: {

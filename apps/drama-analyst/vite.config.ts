@@ -3,15 +3,28 @@ import { defineConfig, loadEnv } from 'vite';
 import react from '@vitejs/plugin-react';
 import { VitePWA } from 'vite-plugin-pwa';
 import { sentryVitePlugin } from '@sentry/vite-plugin';
+import federation from '@originjs/vite-plugin-federation';
 
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     const isProduction = mode === 'production';
     
     return {
-      base: '/drama-analyst/',
+      base: '/',
       plugins: [
         react(),
+        federation({
+          name: 'dramaAnalyst',
+          filename: 'remoteEntry.js',
+          exposes: {
+            './App': './ui/App.tsx',
+          },
+          shared: {
+            react: { singleton: true, requiredVersion: '19.2.0' },
+            'react-dom': { singleton: true, requiredVersion: '19.2.0' },
+            'react-router-dom': { singleton: true, requiredVersion: '^6.22.3' },
+          },
+        }),
         // Sentry plugin for source maps and release tracking
         ...(isProduction && env.VITE_SENTRY_AUTH_TOKEN ? [
           sentryVitePlugin({
@@ -134,7 +147,7 @@ export default defineConfig(({ mode }) => {
         }
       },
       build: {
-        outDir: '../../public/drama-analyst',
+        outDir: 'dist',
         emptyOutDir: true,
         rollupOptions: {
           output: {
@@ -226,26 +239,12 @@ export default defineConfig(({ mode }) => {
           }
         },
         chunkSizeWarningLimit: 300,
-        target: 'es2022',
-        minify: 'terser',
-        terserOptions: {
-          compress: {
-            drop_console: process.env.NODE_ENV === 'production',
-            drop_debugger: process.env.NODE_ENV === 'production',
-            pure_funcs: process.env.NODE_ENV === 'production' ? ['console.log', 'console.info', 'console.debug'] : [],
-            passes: 2
-          },
-          mangle: {
-            safari10: true
-          },
-          format: {
-            comments: false
-          }
-        },
+        target: 'esnext',
+        minify: false,
         // Enable source maps for production debugging (optional)
         sourcemap: mode === 'development',
         // Optimize CSS
-        cssCodeSplit: true,
+        cssCodeSplit: false,
         // Enable asset inlining for small files
         assetsInlineLimit: 4096,
         // Report compressed sizes
@@ -258,7 +257,7 @@ export default defineConfig(({ mode }) => {
         }
       },
       server: {
-        port: 5001,
+        port: 5179,
         host: true,
         strictPort: true
       }

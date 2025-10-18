@@ -6,7 +6,7 @@
   "description": "Jules - Multi-Agent Storytelling Development Platform",
   "scripts": {
     "dev": "vite --port 5181",
-    "build": "vite build --outDir ../../public/multi-agent-story",
+    "build": "vite build",
     "preview": "vite preview",
     "type-check": "tsc --noEmit",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
@@ -24,6 +24,7 @@
   "dependencies": {
     "react": "19.2.0",
     "react-dom": "19.2.0",
+    "react-router-dom": "^6.22.3",
     "lucide-react": "^0.545.0",
     "@google/generative-ai": "^0.24.1",
     "axios": "^1.7.7",
@@ -32,6 +33,7 @@
   "devDependencies": {
     "@types/react": "^19.1.13",
     "@types/react-dom": "^19.1.9",
+    "@originjs/vite-plugin-federation": "^1.4.1",
     "@vitejs/plugin-react": "^4.2.1",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.0",
