@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "types": ["vitest/globals", "node"],
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@core/*": ["./src/lib/drama-analyst/*"],
+      "@services/*": ["./src/lib/drama-analyst/services/*"],
+      "@orchestration/*": ["./src/lib/drama-analyst/orchestration/*"],
+      "@ui/*": ["./src/lib/drama-analyst/ui/*"],
+      "@agents/*": ["./src/lib/drama-analyst/agents/*"]
+    }
+  },
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "exclude": ["node_modules", "jest.setup.ts", "vitest.config.ts", "**/*.test.ts", "**/*.test.tsx", "tests/**"]
+}

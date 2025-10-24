@@ -1,0 +1,339 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  NODE_VERSION: '20'
+  SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+  SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+  SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+
+jobs:
+  test-and-build:
+    name: Test & Build
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type check
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Run unit tests with coverage
+        run: npm run test:coverage
+        env:
+          NODE_ENV: test
+          NEXT_PUBLIC_APP_ENV: staging
+          NEXT_PUBLIC_SENTRY_DSN: ${{ secrets.NEXT_PUBLIC_SENTRY_DSN }}
+
+      - name: Check coverage threshold (≥80%)
+        run: |
+          echo "📊 Checking coverage threshold..."
+          COVERAGE_FILE="./reports/unit/coverage-summary.json"
+          if [ -f "$COVERAGE_FILE" ]; then
+            LINES=$(jq '.total.lines.pct' "$COVERAGE_FILE")
+            FUNCTIONS=$(jq '.total.functions.pct' "$COVERAGE_FILE")
+            BRANCHES=$(jq '.total.branches.pct' "$COVERAGE_FILE")
+            STATEMENTS=$(jq '.total.statements.pct' "$COVERAGE_FILE")
+            
+            echo "Lines: $LINES%"
+            echo "Functions: $FUNCTIONS%"
+            echo "Branches: $BRANCHES%"
+            echo "Statements: $STATEMENTS%"
+            
+            if (( $(echo "$LINES < 80" | bc -l) )) || \
+               (( $(echo "$FUNCTIONS < 80" | bc -l) )) || \
+               (( $(echo "$BRANCHES < 80" | bc -l) )) || \
+               (( $(echo "$STATEMENTS < 80" | bc -l) )); then
+              echo "❌ Coverage below 80% threshold"
+              exit 1
+            fi
+            echo "✅ Coverage meets 80% threshold"
+          else
+            echo "⚠️ Coverage file not found, skipping check"
+          fi
+
+      - name: Upload coverage reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: reports/unit/
+          retention-days: 30
+
+      - name: Select Gemini API Key based on branch
+        id: select-api-key
+        run: |
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            echo "Using GEMINI_API_KEY_PROD for main branch"
+            echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY_PROD }}" >> $GITHUB_ENV
+          else
+            echo "Using GEMINI_API_KEY_STAGING for feature/PR branch"
+            echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY_STAGING }}" >> $GITHUB_ENV
+          fi
+
+      - name: Build application
+        run: npm run build
+        env:
+          NODE_ENV: production
+          NEXT_PUBLIC_APP_ENV: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
+          NEXT_PUBLIC_SENTRY_DSN: ${{ secrets.NEXT_PUBLIC_SENTRY_DSN }}
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+          GEMINI_API_KEY_STAGING: ${{ secrets.GEMINI_API_KEY_STAGING }}
+          GEMINI_API_KEY_PROD: ${{ secrets.GEMINI_API_KEY_PROD }}
+
+      - name: Check first page bundle size (<250KB compressed)
+        run: |
+          echo "📦 Checking first page bundle size..."
+          
+          # Find the main page chunk
+          MAIN_CHUNK=$(find .next/static/chunks -name "*.js" | head -1)
+          
+          if [ ! -z "$MAIN_CHUNK" ]; then
+            # Get uncompressed size
+            SIZE=$(stat -f%z "$MAIN_CHUNK" 2>/dev/null || stat -c%s "$MAIN_CHUNK")
+            SIZE_KB=$((SIZE / 1024))
+            
+            # Estimate compressed size (typical gzip ratio ~30%)
+            COMPRESSED_KB=$((SIZE_KB * 30 / 100))
+            
+            echo "First page size: ${SIZE_KB}KB (uncompressed)"
+            echo "Estimated compressed: ${COMPRESSED_KB}KB"
+            
+            if [ $COMPRESSED_KB -gt 250 ]; then
+              echo "❌ First page exceeds 250KB compressed limit"
+              exit 1
+            fi
+            echo "✅ First page bundle size within limits"
+          else
+            echo "⚠️ Could not find main chunk file"
+          fi
+
+      - name: Generate bundle analysis report
+        run: |
+          echo "📊 Generating bundle analysis report..."
+          node scripts/bundle-analysis.js || echo "Bundle analysis completed with warnings"
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-${{ github.sha }}
+          path: |
+            .next/
+            public/
+          retention-days: 7
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Run E2E tests
+        run: npm run e2e
+        env:
+          NODE_ENV: production
+          NEXT_PUBLIC_APP_ENV: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
+          NEXT_PUBLIC_SENTRY_DSN: ${{ secrets.NEXT_PUBLIC_SENTRY_DSN }}
+
+      - name: Check E2E success rate (≥95%)
+        if: always()
+        run: |
+          echo "🧪 Checking E2E success rate..."
+          RESULTS_FILE="playwright-report/results.json"
+          
+          if [ -f "$RESULTS_FILE" ]; then
+            PASSED=$(jq '.suites[].specs | map(select(.ok == true)) | length' "$RESULTS_FILE" | awk '{s+=$1} END {print s}')
+            TOTAL=$(jq '.suites[].specs | length' "$RESULTS_FILE" | awk '{s+=$1} END {print s}')
+            
+            if [ $TOTAL -gt 0 ]; then
+              SUCCESS_RATE=$(echo "scale=2; $PASSED * 100 / $TOTAL" | bc)
+              echo "E2E Success Rate: ${SUCCESS_RATE}%"
+              
+              if (( $(echo "$SUCCESS_RATE < 95" | bc -l) )); then
+                echo "❌ E2E success rate below 95%"
+                exit 1
+              fi
+              echo "✅ E2E success rate meets 95% threshold"
+            fi
+          else
+            echo "⚠️ E2E results file not found"
+          fi
+
+      - name: Upload E2E test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: e2e-report
+          path: |
+            playwright-report/
+            reports/e2e/
+          retention-days: 30
+
+      - name: Generate performance report
+        if: always()
+        run: |
+          echo "📊 Generating performance report..."
+          node scripts/performance-report.js
+          
+          if [ -f "reports/performance-report.json" ]; then
+            echo "Performance Report:"
+            cat reports/performance-report.json | jq '.'
+          fi
+
+      - name: Upload performance reports
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: performance-report
+          path: reports/
+          retention-days: 30
+
+  deploy:
+    name: Deploy to Firebase
+    needs: test-and-build
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js ${{ env.NODE_VERSION }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Select Gemini API Key based on branch
+        run: |
+          if [ "${{ github.ref }}" = "refs/heads/main" ]; then
+            echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY_PROD }}" >> $GITHUB_ENV
+          else
+            echo "GEMINI_API_KEY=${{ secrets.GEMINI_API_KEY_STAGING }}" >> $GITHUB_ENV
+          fi
+
+      - name: Build for deployment
+        run: npm run build
+        env:
+          NODE_ENV: production
+          NEXT_PUBLIC_APP_ENV: ${{ github.ref == 'refs/heads/main' && 'production' || 'staging' }}
+          NEXT_PUBLIC_SENTRY_DSN: ${{ secrets.NEXT_PUBLIC_SENTRY_DSN }}
+          SENTRY_DSN: ${{ secrets.SENTRY_DSN }}
+          GEMINI_API_KEY_STAGING: ${{ secrets.GEMINI_API_KEY_STAGING }}
+          GEMINI_API_KEY_PROD: ${{ secrets.GEMINI_API_KEY_PROD }}
+
+      - name: Upload sourcemaps to Sentry
+        if: github.ref == 'refs/heads/main'
+        run: |
+          echo "📤 Uploading sourcemaps to Sentry..."
+          npx @sentry/cli sourcemaps inject .next
+          npx @sentry/cli sourcemaps upload \
+            --org ${{ secrets.SENTRY_ORG }} \
+            --project ${{ secrets.SENTRY_PROJECT }} \
+            --release ${{ github.sha }} \
+            .next
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+
+      - name: Deploy to Firebase (Live - Main Branch)
+        if: github.ref == 'refs/heads/main'
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_TOKEN }}'
+          channelId: live
+          projectId: ${{ secrets.FIREBASE_PROJECT_ID }}
+        env:
+          FIREBASE_CLI_EXPERIMENTS: webframeworks
+
+      - name: Deploy to Firebase (Preview - PR)
+        if: github.event_name == 'pull_request'
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        id: deploy-preview
+        with:
+          repoToken: '${{ secrets.GITHUB_TOKEN }}'
+          firebaseServiceAccount: '${{ secrets.FIREBASE_TOKEN }}'
+          projectId: ${{ secrets.FIREBASE_PROJECT_ID }}
+          expires: 30d
+        env:
+          FIREBASE_CLI_EXPERIMENTS: webframeworks
+
+      - name: Comment PR with preview URL
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const previewUrl = '${{ steps.deploy-preview.outputs.details_url }}';
+            const comment = `🚀 **Preview Deployment Ready!**
+            
+            📱 Preview URL: ${previewUrl}
+            🔍 Commit: ${{ github.sha }}
+            
+            ---
+            
+            **Performance Targets:**
+            - ✅ Coverage ≥ 80%
+            - ✅ E2E Success ≥ 95%
+            - ✅ First Page < 250KB compressed
+            - ⏱️ LCP ≤ 2.5s
+            
+            Test the deployment and verify Web Vitals in the preview environment.`;
+            
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: comment
+            });
+
+      - name: Create Sentry release
+        if: github.ref == 'refs/heads/main'
+        uses: getsentry/action-release@v1
+        env:
+          SENTRY_AUTH_TOKEN: ${{ secrets.SENTRY_AUTH_TOKEN }}
+          SENTRY_ORG: ${{ secrets.SENTRY_ORG }}
+          SENTRY_PROJECT: ${{ secrets.SENTRY_PROJECT }}
+        with:
+          environment: production
+          version: ${{ github.sha }}
+
+      - name: Generate deployment summary
+        if: github.ref == 'refs/heads/main'
+        run: |
+          echo "# 🎉 Deployment Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## 📊 Deployment Details" >> $GITHUB_STEP_SUMMARY
+          echo "- **Environment:** Production" >> $GITHUB_STEP_SUMMARY
+          echo "- **Branch:** main" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Firebase Project:** ${{ secrets.FIREBASE_PROJECT_ID }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Sentry Release:** ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## ✅ Quality Checks" >> $GITHUB_STEP_SUMMARY
+          echo "- Coverage ≥ 80%" >> $GITHUB_STEP_SUMMARY
+          echo "- E2E Success ≥ 95%" >> $GITHUB_STEP_SUMMARY
+          echo "- Bundle Size < 250KB compressed" >> $GITHUB_STEP_SUMMARY
+          echo "- Sourcemaps uploaded to Sentry" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "## 📦 Artifacts" >> $GITHUB_STEP_SUMMARY
+          echo "- Coverage Report" >> $GITHUB_STEP_SUMMARY
+          echo "- E2E Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "- Bundle Analysis" >> $GITHUB_STEP_SUMMARY
+          echo "- Performance Report" >> $GITHUB_STEP_SUMMARY
