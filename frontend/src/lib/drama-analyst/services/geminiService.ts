@@ -1,4 +1,4 @@
-import { GoogleGenerativeAI, GenerativeModel } from '@google/generative-ai';
+import { GoogleGenAI } from '@google/genai';
 import { AIRequest, AIResponse, Result } from '../core/types';
 import { buildPrompt } from '../orchestration/promptBuilder';
 import { config } from '../config/environment';
@@ -19,8 +19,7 @@ interface GeminiConfig {
 
 class GeminiService {
   private config: GeminiConfig;
-  private genAI: GoogleGenerativeAI | null = null;
-  private model: GenerativeModel | null = null;
+  private ai: GoogleGenAI | null = null;
 
   constructor() {
     this.config = {
@@ -38,16 +37,7 @@ class GeminiService {
 
   private initialize(): void {
     try {
-      this.genAI = new GoogleGenerativeAI(this.config.apiKey);
-      this.model = this.genAI.getGenerativeModel({
-        model: this.config.model,
-        generationConfig: {
-          temperature: 0.9,
-          topK: 40,
-          topP: 0.95,
-          maxOutputTokens: 8192,
-        },
-      });
+      this.ai = new GoogleGenAI({ apiKey: this.config.apiKey });
       log.info('✅ Gemini API initialized successfully', null, 'GeminiService');
     } catch (error) {
       log.error('❌ Failed to initialize Gemini', error, 'GeminiService');
@@ -56,7 +46,7 @@ class GeminiService {
   }
 
   async generateContent(prompt: string): Promise<string> {
-    if (!this.model) {
+    if (!this.ai) {
       throw new Error('Gemini model not initialized. Please check your API key.');
     }
 
@@ -70,11 +60,17 @@ class GeminiService {
           setTimeout(() => reject(new Error('Request timeout')), this.config.timeout);
         });
 
-        const generatePromise = this.model.generateContent(prompt);
+        const generatePromise = this.ai.models.generateContent({
+          model: this.config.model,
+          contents: prompt,
+          config: {
+            temperature: 0.9,
+            maxOutputTokens: 8192,
+          }
+        });
 
         const result = await Promise.race([generatePromise, timeoutPromise]);
-        const response = await result.response;
-        const text = response.text();
+        const text = result.text;
 
         if (!text) {
           throw new Error('Empty response from Gemini');

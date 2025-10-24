@@ -151,28 +151,17 @@ export class Station2ConceptualAnalysis extends BaseStation<
 
 السياق: ${JSON.stringify(context, null, 2)}
 
-أعد الإجابة **حصرياً** بتنسيق JSON:
-{
-  "story_statement_alternatives": [
-    "بيان القصة الأول (4 جمل)...",
-    "بيان القصة الثاني (4 جمل)...",
-    "بيان القصة الثالث (4 جمل)..."
-  ]
-}
+أعد الإجابة كنص عادي، كل بيان في فقرة منفصلة:
     `;
 
-    const result = await this.geminiService.generate<{
-      story_statement_alternatives: string[];
-    }>({
+    const result = await this.geminiService.generate<string>({
       prompt,
       context: context.fullText?.substring(0, 25000) ?? "",
-      model: GeminiModel.PRO,
+      model: GeminiModel.FLASH,
       temperature: 0.8,
     });
 
-    return (
-      result.content.story_statement_alternatives || ["فشل توليد بيان القصة"]
-    );
+    return result.content ? [result.content] : ["فشل توليد بيان القصة"];
   }
 
   private async generate3DMap(
@@ -181,58 +170,48 @@ export class Station2ConceptualAnalysis extends BaseStation<
     const prompt = `
 بناءً على السياق: ${JSON.stringify(context, null, 2)}
 
-قم بإنشاء **"خريطة ثلاثية الأبعاد" (3D Map)** للقصة:
+قم بإنشاء **"خريطة ثلاثية الأبعاد" (3D Map)** للقصة كنص عادي:
 
-أعد النتائج بتنسيق JSON:
-{
-  "horizontal_events_axis": [
-    {"event": "حدث مختصر", "scene_ref": "رقم المشهد"},
-    ...
-  ],
-  "vertical_meaning_axis": [
-    {"event_ref": "وصف الحدث", "symbolic_layer": "الطبقة الرمزية"},
-    ...
-  ],
-  "temporal_development_axis": {
-    "past_influence": "تأثير الماضي...",
-    "present_choices": "خيارات الحاضر...",
-    "future_expectations": "توقعات المستقبل...",
-    "hero_arc_connection": "ارتباط بقوس البطل..."
-  }
-}
+1. محور الأحداث الأفقي:
+2. محور المعنى العمودي:
+3. محور التطور الزمني:
+
+اكتب التحليل كنص مفصل وواضح.
     `;
 
-    const result = await this.geminiService.generate<ThreeDMapResult>({
+    const result = await this.geminiService.generate<string>({
       prompt,
       context: context.fullText?.substring(0, 25000) ?? "",
-      model: GeminiModel.PRO,
+      model: GeminiModel.FLASH,
       temperature: 0.7,
     });
 
-    return result.content || this.getDefault3DMap();
+    return {
+      horizontalEventsAxis: [],
+      verticalMeaningAxis: [],
+      temporalDevelopmentAxis: {
+        pastInfluence: result.content || "فشل التحليل",
+        presentChoices: "",
+        futureExpectations: "",
+        heroArcConnection: "",
+      },
+    };
   }
 
   private async generateElevatorPitch(storyStatement: string): Promise<string> {
     const prompt = `
 بناءً على بيان القصة: "${storyStatement}"
 
-صغ "Elevator Pitch" جذاب وموجز (لا يتجاوز 40 كلمة).
-
-أعد الإجابة بتنسيق JSON:
-{
-  "elevator_pitch": "النص هنا..."
-}
+صغ "Elevator Pitch" جذاب وموجز (لا يتجاوز 40 كلمة) كنص عادي.
     `;
 
-    const result = await this.geminiService.generate<{
-      elevator_pitch: string;
-    }>({
+    const result = await this.geminiService.generate<string>({
       prompt,
-      model: GeminiModel.PRO,
+      model: GeminiModel.FLASH,
       temperature: 0.9,
     });
 
-    return result.content.elevator_pitch || "فشل توليد العرض المختصر";
+    return result.content || "فشل توليد العرض المختصر";
   }
 
   private async generateHybridGenre(
@@ -244,26 +223,17 @@ export class Station2ConceptualAnalysis extends BaseStation<
 
 السياق: ${JSON.stringify(context, null, 2)}
 
-أعد الإجابة بتنسيق JSON:
-{
-  "hybrid_genre_alternatives": [
-    "النوع الهجين الأول مع الشرح...",
-    "النوع الهجين الثاني مع الشرح...",
-    ...
-  ]
-}
+اكتب البدائل كنص عادي، كل بديل في سطر منفصل.
     `;
 
-    const result = await this.geminiService.generate<{
-      hybrid_genre_alternatives: string[];
-    }>({
+    const result = await this.geminiService.generate<string>({
       prompt,
       context: context.fullText?.substring(0, 20000) ?? "",
-      model: GeminiModel.PRO,
+      model: GeminiModel.FLASH,
       temperature: 0.8,
     });
 
-    return result.content.hybrid_genre_alternatives || ["Drama-Thriller"];
+    return result.content ? [result.content] : ["Drama-Thriller"];
   }
 
   private async generateGenreMatrix(
@@ -273,32 +243,23 @@ export class Station2ConceptualAnalysis extends BaseStation<
     const prompt = `
 بناءً على النوع الهجين المعتمد: "${hybridGenre}"
 
-أنشئ **"مصفوفة مساهمة النوع"** توضح كيف يُثري كل نوع أساسي:
-
-أعد النتائج بتنسيق JSON:
-{
-  "genre_contribution_matrix": {
-    "النوع الأول": {
-      "conflict_contribution": "...",
-      "pacing_contribution": "...",
-      "visual_composition_contribution": "...",
-      "sound_music_contribution": "...",
-      "characters_contribution": "..."
-    }
-  }
-}
+أنشئ **"مصفوفة مساهمة النوع"** توضح كيف يُثري كل نوع أساسي كنص مفصل.
     `;
 
-    const result = await this.geminiService.generate<{
-      genre_contribution_matrix: GenreMatrixResult;
-    }>({
+    const result = await this.geminiService.generate<string>({
       prompt,
       context: context.fullText?.substring(0, 15000) ?? "",
-      model: GeminiModel.PRO,
+      model: GeminiModel.FLASH,
       temperature: 0.7,
     });
 
-    return result.content.genre_contribution_matrix || {};
+    return { "تحليل النوع": { 
+      conflict_contribution: result.content || "فشل التحليل",
+      pacing_contribution: "",
+      visual_composition_contribution: "",
+      sound_music_contribution: "",
+      characters_contribution: ""
+    }};
   }
 
   private async generateDynamicTone(

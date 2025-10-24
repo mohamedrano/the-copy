@@ -113,21 +113,16 @@ export class Station1TextAnalysis extends BaseStation<Station1Input, Station1Out
     const prompt = `
 بناءً على النص السردي الكامل المرفق، قم بتحليل النص وتحديد الشخصيات التي تبدو **الأكثر مركزية وأهمية** للحبكة وتطور الأحداث. 
 ركز على الشخصيات التي لها أدوار فاعلة، دوافع واضحة، وتظهر بشكل متكرر ومؤثر.
-أعد قائمة تتضمن **ما بين 3 إلى 7 شخصيات** تعتبرها الأكثر أهمية.
-
-أعد الإجابة **حصرياً** بتنسيق JSON صالح:
-{
-  "major_characters": ["اسم الشخصية 1", "اسم الشخصية 2", ...]
-}
+اكتب قائمة بأسماء الشخصيات الرئيسية (ما بين 3 إلى 7 شخصيات)، كل اسم في سطر منفصل.
     `;
 
-    const result = await this.geminiService.generate<MajorCharactersResponse>({
+    const result = await this.geminiService.generate<string>({
       prompt,
       context: fullText.substring(0, 30000),
-      model: GeminiModel.PRO
+      model: GeminiModel.FLASH
     });
 
-    return result.content.major_characters ?? [];
+    return result.content ? result.content.split('\n').filter(line => line.trim()) : [];
   }
 
   private async analyzeCharactersInDepth(
@@ -157,37 +152,28 @@ export class Station1TextAnalysis extends BaseStation<Station1Input, Station1Out
     characterName: string
   ): Promise<CharacterAnalysisResult> {
     const prompt = `
-بناءً على النص السردي الكامل المرفق، قم بإجراء تحليل **شامل ومعمق** للشخصية المحددة التالية: **${characterName}**.
+بناءً على النص السردي الكامل المرفق، قم بإجراء تحليل **شامل ومعمق** للشخصية: **${characterName}**.
 
-المطلوب تحليل الجوانب التالية لهذه الشخصية:
-1. السمات الشخصية البارزة (إيجابية وسلبية)
-2. الدوافع الأساسية والأهداف (الظاهرة والخفية)
-3. وصف موجز لأهم علاقاتها مع شخصيات أخرى
-4. الدور أو الوظيفة الرئيسية في القصة
-5. ملاحظات أولية حول قوس التطور المحتمل
-
-أعد الإجابة **حصرياً** بتنسيق JSON صالح:
-{
-  "personality_traits": "...",
-  "motivations_goals": "...",
-  "key_relationships_brief": "...",
-  "narrative_function": "...",
-  "potential_arc_observation": "..."
-}
+اكتب تحليلاً مفصلاً يغطي:
+1. السمات الشخصية البارزة
+2. الدوافع والأهداف
+3. العلاقات الرئيسية
+4. الدور في القصة
+5. قوس التطور
     `;
 
-    const result = await this.geminiService.generate<CharacterAnalysisResponse>({
+    const result = await this.geminiService.generate<string>({
       prompt,
       context: fullText.substring(0, 30000),
-      model: GeminiModel.PRO
+      model: GeminiModel.FLASH
     });
 
     return {
-      personalityTraits: result.content.personality_traits ?? 'N/A',
-      motivationsGoals: result.content.motivations_goals ?? 'N/A',
-      keyRelationshipsBrief: result.content.key_relationships_brief ?? 'N/A',
-      narrativeFunction: result.content.narrative_function ?? 'N/A',
-      potentialArcObservation: result.content.potential_arc_observation ?? 'N/A'
+      personalityTraits: result.content || 'N/A',
+      motivationsGoals: '',
+      keyRelationshipsBrief: '',
+      narrativeFunction: '',
+      potentialArcObservation: ''
     };
   }
 
@@ -198,30 +184,21 @@ export class Station1TextAnalysis extends BaseStation<Station1Input, Station1Out
 بناءً على النص السردي الكامل المرفق، قم بتحليل وتحديد **العلاقات الرئيسية** بين الشخصيات.
 ركز على العلاقات التي لها تأثير واضح على الحبكة وتطور الأحداث.
 
-أعد الإجابة **حصرياً** بتنسيق JSON صالح:
-{
-  "key_relationships": [
-    {
-      "characters": ["الشخصية 1", "الشخصية 2"],
-      "dynamic": "وصف ديناميكية العلاقة",
-      "narrative_importance": "أهمية العلاقة في السرد"
-    }
-  ]
-}
+اكتب تحليلاً مفصلاً للعلاقات الرئيسية.
     `;
 
-    const result = await this.geminiService.generate<RelationshipAnalysisResponse>({
+    const result = await this.geminiService.generate<string>({
       prompt,
       context: fullText.substring(0, 30000),
-      model: GeminiModel.PRO
+      model: GeminiModel.FLASH
     });
 
     return {
-      keyRelationships: (result.content.key_relationships ?? []).map((rel) => ({
-        characters: rel?.characters ?? ['غير معروف', 'غير معروف'],
-        dynamic: rel?.dynamic ?? 'N/A',
-        narrativeImportance: rel?.narrative_importance ?? 'N/A'
-      }))
+      keyRelationships: [{
+        characters: ['غير محدد', 'غير محدد'],
+        dynamic: result.content || 'N/A',
+        narrativeImportance: 'N/A'
+      }]
     };
   }
 
@@ -231,29 +208,22 @@ export class Station1TextAnalysis extends BaseStation<Station1Input, Station1Out
     const prompt = `
 بناءً على النص السردي الكامل المرفق، قم بتحليل **الأسلوب السردي** للنص.
 
-المطلوب تحليل:
-1. النغمة الإجمالية للنص (درامي، كوميدي، تراجيدي، إلخ)
-2. تحليل وتيرة السرد (سريع، بطيء، متنوع، إلخ)
-3. أسلوب اللغة المستخدمة (رسمي، عامي، شاعري، إلخ)
-
-أعد الإجابة **حصرياً** بتنسيق JSON صالح:
-{
-  "overall_tone": "...",
-  "pacing_analysis": "...",
-  "language_style": "..."
-}
+اكتب تحليلاً مفصلاً يغطي:
+1. النغمة الإجمالية للنص
+2. تحليل وتيرة السرد
+3. أسلوب اللغة المستخدمة
     `;
 
-    const result = await this.geminiService.generate<NarrativeStyleResponse>({
+    const result = await this.geminiService.generate<string>({
       prompt,
       context: fullText.substring(0, 30000),
-      model: GeminiModel.PRO
+      model: GeminiModel.FLASH
     });
 
     return {
-      overallTone: result.content.overall_tone ?? 'N/A',
-      pacingAnalysis: result.content.pacing_analysis ?? 'N/A',
-      languageStyle: result.content.language_style ?? 'N/A'
+      overallTone: result.content || 'N/A',
+      pacingAnalysis: '',
+      languageStyle: ''
     };
   }
 

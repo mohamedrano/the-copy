@@ -1,0 +1,16 @@
+{
+  "executiveSummary": "Executive summary not yet implemented.",
+  "strengthsAnalysis": [],
+  "weaknessesIdentified": [],
+  "opportunitiesForImprovement": [],
+  "threatsToCohesion": [],
+  "overallAssessment": {
+    "narrativeQualityScore": 0,
+    "structuralIntegrityScore": 0,
+    "characterDevelopmentScore": 0,
+    "conflictEffectivenessScore": 0,
+    "overallScore": 0,
+    "rating": "Fair"
+  },
+  "detailedFindings": {}
+}

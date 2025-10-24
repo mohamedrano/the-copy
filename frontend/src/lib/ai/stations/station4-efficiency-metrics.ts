@@ -81,41 +81,19 @@ export class Station4EfficiencyMetrics extends BaseStation<Station4Input, Statio
 التوازن الدرامي: ${formattedBalanceScore}
 إجمالي العناصر المتكررة: ${redundancyTotal}
 
-اقترح توصيات محددة وعملية لتحسين الشبكة:
-
-أعد الإجابة بتنسيق JSON:
-{
-  "priority_actions": [
-    "إجراء عالي الأولوية 1",
-    "إجراء عالي الأولوية 2",
-    "إجراء عالي الأولوية 3"
-  ],
-  "quick_fixes": [
-    "إصلاح سريع 1",
-    "إصلاح سريع 2",
-    "إصلاح سريع 3"
-  ],
-  "structural_revisions": [
-    "مراجعة هيكلية 1",
-    "مراجعة هيكلية 2"
-  ]
-}
+اقترح توصيات محددة وعملية لتحسين الشبكة كنص مفصل.
     `;
 
-    const result = await this.geminiService.generate<{
-      priority_actions?: string[];
-      quick_fixes?: string[];
-      structural_revisions?: string[];
-    }>({
+    const result = await this.geminiService.generate<string>({
       prompt,
-      model: GeminiModel.PRO,
+      model: GeminiModel.FLASH,
       temperature: 0.7
     });
 
     return {
-      priorityActions: result.content.priority_actions ?? [],
-      quickFixes: result.content.quick_fixes ?? [],
-      structuralRevisions: result.content.structural_revisions ?? []
+      priorityActions: [result.content || "فشل توليد التوصيات"],
+      quickFixes: [],
+      structuralRevisions: []
     };
   }
 

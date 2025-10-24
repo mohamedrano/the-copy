@@ -1,9 +1,10 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenAI } from '@google/genai';
 import logger from '../utils/logger';
 
 export enum GeminiModel {
   PRO = 'gemini-2.5-pro',
-  FLASH = 'gemini-2.0-flash-lite',
+  FLASH = 'gemini-2.0-flash-001',
+  FLASH_LITE = 'gemini-2.0-flash-lite',
 }
 
 export interface GeminiConfig {
@@ -21,25 +22,8 @@ export interface GeminiRequest<T> {
   systemInstruction?: string;
   temperature?: number;
   maxTokens?: number;
-  /**
-   * Optional type guard that validates the structured payload before it is cast
-   * to the expected generic type. When provided, the response must satisfy the
-   * guard or the request will be treated as failed unless {@link allowPartial}
-   * is also enabled.
-   */
   validator?: (value: unknown) => value is T;
-  /**
-   * Allows callers to accept partially valid payloads when the validator fails
-   * or when the JSON returned by Gemini is truncated. When enabled we attempt
-   * to sanitise the parsed payload and pass it to {@link onPartialFallback} if
-   * provided.
-   */
   allowPartial?: boolean;
-  /**
-   * Optional transformer that can map a partially valid payload into the
-   * expected type when {@link allowPartial} is true. This gives callers full
-   * control over how to recover from incomplete responses.
-   */
   onPartialFallback?: (value: unknown) => T;
 }
 
@@ -58,12 +42,12 @@ export interface GeminiResponse<T> {
 }
 
 export class GeminiService {
-  private genAI: GoogleGenerativeAI;
+  private ai: GoogleGenAI;
   private config: GeminiConfig;
 
   constructor(config: GeminiConfig) {
     this.config = config;
-    this.genAI = new GoogleGenerativeAI(config.apiKey);
+    this.ai = new GoogleGenAI({ apiKey: config.apiKey });
     this.validateModels();
   }
 
@@ -111,13 +95,19 @@ export class GeminiService {
   private async performRequest<T>(request: GeminiRequest<T>): Promise<GeminiResponse<T>> {
     const startTime = Date.now();
     const modelName = request.model ?? this.config.defaultModel;
-    const model = this.genAI.getGenerativeModel({ model: modelName });
-
+    
     const fullPrompt = `${request.systemInstruction || ''}\n\nContext: ${request.context || 'N/A'}\n\nPrompt: ${request.prompt}`;
 
-    const result = await model.generateContent(fullPrompt);
-    const response = result.response;
-    const text = response.text();
+    const result = await this.ai.models.generateContent({
+      model: modelName,
+      contents: fullPrompt,
+      config: {
+        maxOutputTokens: request.maxTokens || 8192,
+        temperature: request.temperature || 0.7,
+      }
+    });
+
+    const text = result.text;
 
     const usage = {
       promptTokens: fullPrompt.length / 4,

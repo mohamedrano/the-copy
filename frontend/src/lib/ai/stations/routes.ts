@@ -37,7 +37,7 @@ if (!GEMINI_API_KEY) {
 
 const geminiService = new GeminiService({
   apiKey: GEMINI_API_KEY,
-  defaultModel: GeminiModel.PRO,
+  defaultModel: GeminiModel.FLASH,
   fallbackModel: GeminiModel.FLASH,
   maxRetries: 3,
   timeout: 60_000,

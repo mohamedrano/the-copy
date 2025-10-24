@@ -302,31 +302,45 @@ export class Station7Finalization extends BaseStation<Station7Input, Station7Out
         visualizationResults: VisualizationResults
     ): Promise<void> {
         try {
-            const reportPath = path.join(this.outputDir, 'final-report.json');
-            await fsPromises.writeFile(
-                reportPath,
-                JSON.stringify(finalReport, null, 2),
-                'utf-8'
-            );
+            // Save final report as text
+            const reportPath = path.join(this.outputDir, 'final-report.txt');
+            const reportText = `تقرير التحليل النهائي
+${'='.repeat(50)}
+
+الملخص التنفيذي:
+${finalReport.executiveSummary}
+
+نقاط القوة:
+${finalReport.strengthsAnalysis.map(s => `- ${s}`).join('\n')}
+
+نقاط الضعف:
+${finalReport.weaknessesIdentified.map(w => `- ${w}`).join('\n')}
+
+فرص التحسين:
+${finalReport.opportunitiesForImprovement.map(o => `- ${o}`).join('\n')}
+
+التقييم العام:
+- جودة السرد: ${finalReport.overallAssessment.narrativeQualityScore}/100
+- سلامة البنية: ${finalReport.overallAssessment.structuralIntegrityScore}/100
+- تطوير الشخصيات: ${finalReport.overallAssessment.characterDevelopmentScore}/100
+- فعالية الصراع: ${finalReport.overallAssessment.conflictEffectivenessScore}/100
+- الدرجة الإجمالية: ${finalReport.overallAssessment.overallScore}/100
+- التقدير: ${finalReport.overallAssessment.rating}
+`;
+            await fsPromises.writeFile(reportPath, reportText, 'utf-8');
             logger.info(`S7: Saved final report to ${reportPath}`);
 
-            const visualizationPayload = {
-                networkGraphs: Array.from(visualizationResults.networkGraphs.entries()),
-                timelineVisualizations: Array.from(
-                    visualizationResults.timelineVisualizations.entries()
-                ),
-                statisticalCharts: Array.from(
-                    visualizationResults.statisticalCharts.entries()
-                ),
-                interactiveElements: visualizationResults.interactiveElements,
-            };
+            // Save visualization summary as text
+            const visualizationPath = path.join(this.outputDir, 'visualizations.txt');
+            const visualizationText = `ملخص التصورات
+${'='.repeat(30)}
 
-            const visualizationPath = path.join(this.outputDir, 'visualizations.json');
-            await fsPromises.writeFile(
-                visualizationPath,
-                JSON.stringify(visualizationPayload, null, 2),
-                'utf-8'
-            );
+رسوم الشبكة: ${visualizationResults.networkGraphs.size} رسم
+تصورات زمنية: ${visualizationResults.timelineVisualizations.size} تصور
+رسوم إحصائية: ${visualizationResults.statisticalCharts.size} رسم
+عناصر تفاعلية: ${visualizationResults.interactiveElements.length} عنصر
+`;
+            await fsPromises.writeFile(visualizationPath, visualizationText, 'utf-8');
             logger.info(`S7: Saved visualizations to ${visualizationPath}`);
         } catch (error) {
             logger.error(

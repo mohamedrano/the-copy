@@ -95,8 +95,8 @@ export class AnalysisPipeline {
         config.geminiService ??
         new GeminiService({
           apiKey: config.apiKey,
-          defaultModel: GeminiModel.PRO,
-          fallbackModel: GeminiModel.FLASH,
+          defaultModel: GeminiModel.FLASH,
+          fallbackModel: GeminiModel.FLASH_LITE,
           maxRetries: 3,
           timeout: 60_000,
         });
@@ -192,32 +192,38 @@ export class AnalysisPipeline {
       ...((data as any)?.proseFilePath ? { proseFilePath: (data as any).proseFilePath as string } : {}),
     };
     const station1Output = await runStation(1, this.station1, station1Input);
+    await new Promise(resolve => setTimeout(resolve, 6000));
 
     const station2Output = await runStation(2, this.station2, {
       station1Output,
       fullText: station1Input.fullText,
     });
+    await new Promise(resolve => setTimeout(resolve, 6000));
 
     const station3Output = await runStation(3, this.station3, {
       station1Output,
       station2Output,
       fullText: station1Input.fullText,
     });
+    await new Promise(resolve => setTimeout(resolve, 6000));
 
     const station4Output = await runStation(4, this.station4, {
       station3Output,
     });
+    await new Promise(resolve => setTimeout(resolve, 6000));
 
     const station5Output = await runStation(5, this.station5, {
       conflictNetwork: station3Output.conflictNetwork,
       station4Output,
       fullText: station1Input.fullText,
     });
+    await new Promise(resolve => setTimeout(resolve, 6000));
 
     const station6Output = await runStation(6, this.station6, {
       conflictNetwork: station3Output.conflictNetwork,
       station5Output,
     });
+    await new Promise(resolve => setTimeout(resolve, 6000));
 
     const station7Output = await runStation(7, this.station7, {
       conflictNetwork: station3Output.conflictNetwork,

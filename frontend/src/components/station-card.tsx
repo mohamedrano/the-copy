@@ -63,7 +63,7 @@ const StationCard = ({ station, status, results, isActive }: StationCardProps) =
         return (
           <div className="space-y-2">
             <p className="text-sm"><strong>بيان القصة:</strong> {data.storyStatement}</p>
-            <p className="text-sm"><strong>النوع:</strong> {data.hybridGenre}</p>
+            <p className="text-sm"><strong>النوع:</strong> {typeof data.hybridGenre === 'object' ? data.hybridGenre?.genre || JSON.stringify(data.hybridGenre) : data.hybridGenre}</p>
           </div>
         );
       case 3:

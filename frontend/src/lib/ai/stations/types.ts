@@ -112,26 +112,18 @@ export function normalizePipelineInput(input: unknown): unknown {
   const body = input as Record<string, unknown>;
 
   return {
-    // دعم أسماء بديلة للنص
-    fullText:
-      body.fullText ?? body.screenplayText ?? body.text ?? body.script ?? "",
-
-    // اسم المشروع
-    projectName: body.projectName ?? body.project ?? "untitled-project",
-
-    // مسار النثر
-    proseFilePath: body.proseFilePath,
+    // دعم أسماء بديلة للنص - map to screenplayText for new schema
+    screenplayText:
+      body.screenplayText ?? body.fullText ?? body.text ?? body.script ?? "",
 
     // اللغة
     language: body.language ?? "ar",
 
     // السياق
     context: {
-      title: body.title,
+      title: body.title ?? body.projectName ?? body.project,
       author: body.author,
       sceneHints: body.sceneHints,
-      genre: body.genre,
-      description: body.description,
       ...(typeof body.context === "object" && body.context !== null
         ? body.context
         : {}),
@@ -141,8 +133,6 @@ export function normalizePipelineInput(input: unknown): unknown {
     flags: {
       runStations: body.runStations ?? true,
       fastMode: body.fastMode ?? false,
-      skipValidation: body.skipValidation ?? false,
-      verboseLogging: body.verboseLogging ?? false,
       ...(typeof body.flags === "object" && body.flags !== null
         ? body.flags
         : {}),
@@ -151,9 +141,7 @@ export function normalizePipelineInput(input: unknown): unknown {
     // خيارات الوكلاء
     agents: {
       set: body.agentSet ?? body.agents,
-      temperature: body.temperature,
-      maxTokens: body.maxTokens,
-      model: body.model,
+      temperature: body.temperature ?? 0.2,
       ...(typeof body.agents === "object" &&
       body.agents !== null &&
       !Array.isArray(body.agents)

@@ -18,7 +18,7 @@ export async function runFullPipeline(
   input: unknown
 ): Promise<PipelineRunResult> {
   // التحقق من وجود مفتاح API
-  const apiKey = process.env.GEMINI_API_KEY;
+  const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
   if (!apiKey) {
     throw new Error("GEMINI_API_KEY غير موجود في متغيرات البيئة");
   }
@@ -41,10 +41,32 @@ export async function runFullPipeline(
   try {
     const result = await pipeline.runFullAnalysis(validatedInput);
 
-    return {
-      stationOutputs: result.stationOutputs,
+    // تحويل Maps إلى objects عادية للتسلسل
+    const serializedResult = {
+      stationOutputs: {
+        ...result.stationOutputs,
+        station3: result.stationOutputs.station3 ? {
+          ...result.stationOutputs.station3,
+          conflictNetwork: {
+            ...result.stationOutputs.station3.conflictNetwork,
+            characters: Object.fromEntries(result.stationOutputs.station3.conflictNetwork.characters),
+            relationships: Object.fromEntries(result.stationOutputs.station3.conflictNetwork.relationships),
+            conflicts: Object.fromEntries(result.stationOutputs.station3.conflictNetwork.conflicts),
+            snapshots: result.stationOutputs.station3.conflictNetwork.snapshots.map((snapshot: any) => ({
+              ...snapshot,
+              networkState: {
+                characters: Object.fromEntries(snapshot.networkState.characters),
+                relationships: Object.fromEntries(snapshot.networkState.relationships),
+                conflicts: Object.fromEntries(snapshot.networkState.conflicts),
+              }
+            }))
+          }
+        } : result.stationOutputs.station3
+      },
       pipelineMetadata: result.pipelineMetadata,
     };
+
+    return serializedResult;
   } catch (error) {
     throw new Error(
       `فشل تشغيل التحليل: ${error instanceof Error ? error.message : "خطأ غير معروف"}`
