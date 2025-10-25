@@ -210,8 +210,9 @@ function createStationConfig<TInput, TOutput>(
   stationName: string
 ): StationConfig<TInput, TOutput> {
   return {
-    stationNumber,
-    stationName,
+    stationId: `station${stationNumber}`,
+    name: stationName,
+    description: stationName,
     cacheEnabled: false,
     performanceTracking: true,
     inputValidation: (input: TInput) => input !== undefined && input !== null,

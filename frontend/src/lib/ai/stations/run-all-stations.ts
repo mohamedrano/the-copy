@@ -257,8 +257,9 @@ export class AnalysisPipeline {
     stationName: string
   ): StationConfig<any, TOutput> {
     return {
-      stationNumber,
-      stationName,
+      stationId: `station${stationNumber}`,
+      name: stationName,
+      description: stationName,
       cacheEnabled: false,
       performanceTracking: true,
       inputValidation: (input: any) => input !== undefined && input !== null,

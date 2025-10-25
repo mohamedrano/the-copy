@@ -18,9 +18,9 @@ const nextConfig: NextConfig = {
     turbo: {
       rules: {},
     },
-    allowedDevOrigins: process.env.ALLOWED_DEV_ORIGIN
-      ? [process.env.ALLOWED_DEV_ORIGIN]
-      : [],
+    ...(process.env.ALLOWED_DEV_ORIGIN && {
+      allowedDevOrigins: [process.env.ALLOWED_DEV_ORIGIN],
+    }),
     optimizePackageImports: [
       "@radix-ui/react-accordion",
       "@radix-ui/react-alert-dialog",

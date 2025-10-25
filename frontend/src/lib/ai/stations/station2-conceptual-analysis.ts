@@ -256,11 +256,11 @@ export class Station2ConceptualAnalysis extends BaseStation<
 
     return {
       "تحليل النوع": {
-        conflict_contribution: toText(result.content) || "فشل التحليل",
-        pacing_contribution: "",
-        visual_composition_contribution: "",
-        sound_music_contribution: "",
-        characters_contribution: "",
+        conflictContribution: toText(result.content) || "فشل التحليل",
+        pacingContribution: "",
+        visualCompositionContribution: "",
+        soundMusicContribution: "",
+        charactersContribution: "",
       },
     };
   }

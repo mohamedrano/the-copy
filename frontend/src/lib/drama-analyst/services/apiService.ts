@@ -1,8 +1,6 @@
-import { AIRequest, AIResponse, Result } from '@core/types';
-import { callModel as callGeminiDirect } from './geminiService';
-import { callBackendAPI, checkBackendHealth } from './backendService';
+import { AIRequest, AIResponse, Result } from '../core/types';
+import { geminiService } from './geminiService';
 import { log } from './loggerService';
-import { handleAPIError, handleNetworkError, ErrorType } from './errorHandler';
 
 // =====================================================
 // Unified API Service
@@ -37,48 +35,22 @@ class APIService {
   }
 
   async callModel(req: AIRequest): Promise<Result<AIResponse>> {
-    // Check backend health if using backend
-    if (this.config.useBackend) {
-      await this.checkBackendHealth();
+    // Always use direct Gemini API
+    log.info('🔄 Using direct Gemini API...', null, 'APIService');
+    try {
+      const geminiResponse = await geminiService.analyze(req);
+      return { ok: true, value: geminiResponse };
+    } catch (error: any) {
+      log.error('❌ Gemini API call failed', error, 'APIService');
+      return {
+        ok: false,
+        error: {
+          code: 'GEMINI_API_ERROR',
+          message: error.message || 'Gemini API call failed',
+          cause: error,
+        },
+      };
     }
-
-    // Try backend first if configured and healthy
-    if (this.config.useBackend && this.backendHealthy) {
-      log.info('🔄 Using backend API...', null, 'APIService');
-      
-      const result = await callBackendAPI(req);
-      
-      if (result.ok) {
-        log.info('✅ Backend API call successful', null, 'APIService');
-        return result;
-      } else {
-        log.warn('⚠️ Backend API failed, checking fallback options', null, 'APIService');
-        
-        // If fallback is disabled, return the error
-        if (!this.config.fallbackToDirect) {
-          return result;
-        }
-        
-        // Mark backend as unhealthy and try direct
-        this.backendHealthy = false;
-      }
-    }
-
-    // Fallback to direct Gemini API
-    if (this.config.fallbackToDirect || !this.config.useBackend) {
-      log.info('🔄 Using direct Gemini API...', null, 'APIService');
-      return callGeminiDirect(req);
-    }
-
-    // No fallback available
-    return {
-      ok: false,
-      error: {
-        code: 'NO_API_AVAILABLE',
-        message: 'لا تتوفر خدمة API متاحة حاليًا. يرجى المحاولة لاحقاً.',
-        cause: new Error('Both backend and direct API failed')
-      }
-    };
   }
 
   getConfig(): APIServiceConfig {

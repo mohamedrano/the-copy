@@ -4,7 +4,12 @@ import { AllStationsTextRunner } from './run-all-stations-text-output';
 // مثال على كيفية استخدام النظام الجديد
 export async function runTextAnalysisExample() {
   // إعداد خدمة Gemini
-  const geminiService = new GeminiService();
+  const geminiService = new GeminiService({
+    apiKey: process.env.NEXT_PUBLIC_GEMINI_API_KEY || process.env.GEMINI_API_KEY || '',
+    defaultModel: 'gemini-2.0-flash-001' as any,
+    maxRetries: 3,
+    timeout: 30000,
+  });
   
   // إنشاء مشغل المحطات
   const runner = new AllStationsTextRunner(geminiService, './output');

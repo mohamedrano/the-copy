@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenAI } from '@google/genai';
 
 export async function POST(request: NextRequest) {
   try {
@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const apiKey = process.env.GOOGLE_GENERATIVE_AI_API_KEY;
+    const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
     if (!apiKey) {
       return NextResponse.json(
         { error: 'مفتاح API غير متوفر' },
@@ -20,8 +20,7 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const genAI = new GoogleGenerativeAI(apiKey);
-    const model = genAI.getGenerativeModel({ model: 'gemini-2.0-flash-exp' });
+    const genAI = new GoogleGenAI({ apiKey });
 
     const prompt = `أنت خبير في كتابة السيناريوهات العربية. قم بمراجعة النص التالي وقدم ملاحظات على:
 1. استمرارية الحبكة
@@ -34,8 +33,15 @@ export async function POST(request: NextRequest) {
 النص:
 ${text}`;
 
-    const result = await model.generateContent(prompt);
-    const review = result.response.text();
+    const result = await genAI.models.generateContent({
+      model: 'gemini-2.0-flash-exp',
+      contents: prompt,
+      config: {
+        temperature: 0.9,
+        maxOutputTokens: 48192,
+      }
+    });
+    const review = result.text || 'فشل في الحصول على المراجعة';
 
     return NextResponse.json({ review });
   } catch (error: any) {
