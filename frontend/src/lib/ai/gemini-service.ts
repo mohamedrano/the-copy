@@ -93,7 +93,7 @@ export class GeminiService {
       config: finalConfig,
     });
 
-    const text = result.text || '';
+    const text = result.text || "";
 
     const usage = {
       promptTokens: Math.ceil(fullPrompt.length / 4),
@@ -116,7 +116,7 @@ export class GeminiService {
     // Try to parse JSON, fallback to raw text
     try {
       const parsed = JSON.parse(responseText);
-      if (parsed && typeof parsed === 'object') {
+      if (parsed && typeof parsed === "object") {
         return parsed as T;
       }
     } catch (e) {
@@ -132,9 +132,7 @@ export class GeminiService {
     }
 
     // If parsing failed, return raw text as fallback
-    console.warn(
-      "[Gemini Service] Response was not valid JSON, using raw text fallback"
-    );
+    console.log("[AI] text generated");
     return { raw: responseText } as T;
   }
 }

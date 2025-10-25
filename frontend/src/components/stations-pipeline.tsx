@@ -14,6 +14,7 @@ import {
   X,
   Loader2,
   AlertCircle,
+  Download,
 } from "lucide-react";
 
 import { runFullPipeline } from "@/app/actions";
@@ -79,7 +80,7 @@ const stations = [
 
 const StationsPipeline = () => {
   const [text, setText] = useState("");
-  const [results, setResults] = useState({});
+  const [results, setResults] = useState<Record<number, any>>({});
   const [statuses, setStatuses] = useState(
     Array(stations.length).fill("pending")
   );
@@ -90,6 +91,8 @@ const StationsPipeline = () => {
 
   const progress =
     (statuses.filter((s) => s === "completed").length / stations.length) * 100;
+
+  const allStationsCompleted = statuses.every((s) => s === "completed");
 
   const handleReset = () => {
     setText("");
@@ -138,13 +141,69 @@ const StationsPipeline = () => {
           description: "لقد عالجت جميع المحطات النص بنجاح.",
         });
       } catch (error: any) {
-        setErrorMessage(`فشل التحليل: ${error?.message || 'خطأ غير معروف'}`);
+        setErrorMessage(`فشل التحليل: ${error?.message || "خطأ غير معروف"}`);
         toast({
           title: "فشل التحليل",
-          description: error?.message || 'خطأ غير معروف',
+          description: error?.message || "خطأ غير معروف",
           variant: "destructive",
         });
       }
+    });
+  };
+
+  const handleExportFinalReport = () => {
+    if (!allStationsCompleted) {
+      toast({
+        title: "التحليل غير مكتمل",
+        description: "يرجى الانتظار حتى تكتمل جميع المحطات",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    const sections = [
+      "===========================================",
+      "التقرير النهائي الشامل - جميع المحطات",
+      "===========================================",
+      "",
+      `تاريخ التقرير: ${new Date().toLocaleDateString("ar")}`,
+      "",
+    ];
+
+    stations.forEach((station) => {
+      sections.push(`## ${station.name}`);
+      sections.push("-------------------------------------------");
+      const data = results[station.id];
+      if (data) {
+        if (typeof data === "string") {
+          sections.push(data);
+        } else {
+          sections.push(JSON.stringify(data, null, 2));
+        }
+      } else {
+        sections.push("لا توجد بيانات");
+      }
+      sections.push("");
+    });
+
+    sections.push("===========================================");
+    sections.push("نهاية التقرير");
+    sections.push("===========================================");
+
+    const fullReport = sections.join("\n");
+    const blob = new Blob([fullReport], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `final-report-${Date.now()}.txt`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+
+    toast({
+      title: "تم التصدير بنجاح",
+      description: "تم تصدير التقرير النهائي الشامل",
     });
   };
 
@@ -226,6 +285,15 @@ const StationsPipeline = () => {
           />
         ))}
       </div>
+
+      {allStationsCompleted && (
+        <div className="flex justify-center pt-4">
+          <Button onClick={handleExportFinalReport} size="lg" className="gap-2">
+            <Download className="h-5 w-5" />
+            تصدير التقرير النهائي الشامل
+          </Button>
+        </div>
+      )}
     </div>
   );
 };

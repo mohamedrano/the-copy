@@ -1,38 +1,33 @@
-'use client';
+"use client";
 
-import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import {
-  BrainCircuit,
-  Layers,
-  PenSquare,
-  Sparkles,
-} from 'lucide-react';
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { BrainCircuit, Layers, PenSquare, Sparkles } from "lucide-react";
 import {
   SidebarMenu,
   SidebarMenuItem,
   SidebarMenuButton,
-} from '@/components/ui/sidebar';
+} from "@/components/ui/sidebar";
 
 const menuItems = [
   {
-    href: '/editor',
-    label: 'محرر النصوص',
+    href: "/editor",
+    label: "كتابة",
     icon: PenSquare,
   },
   {
-    href: '/analysis/initial',
-    label: 'تحليل درامي',
+    href: "/analysis/initial",
+    label: "تطوير",
     icon: Sparkles,
   },
   {
-    href: '/analysis/deep',
-    label: 'تحليل معمق',
+    href: "/analysis/deep",
+    label: "تحليل",
     icon: Layers,
   },
   {
-    href: '/brainstorm',
-    label: 'عصف ذهني',
+    href: "/brainstorm",
+    label: "الورشة",
     icon: BrainCircuit,
   },
 ];

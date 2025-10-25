@@ -1,60 +1,59 @@
-
-import Image from 'next/image';
-import Link from 'next/link';
+import Image from "next/image";
+import Link from "next/link";
 import {
   ArrowLeft,
   BrainCircuit,
   Layers,
   PenSquare,
   Sparkles,
-} from 'lucide-react';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Button } from '@/components/ui/button';
+} from "lucide-react";
+import { PlaceHolderImages } from "@/lib/placeholder-images";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardDescription,
   CardHeader,
   CardTitle,
-} from '@/components/ui/card';
-import { Logo } from '@/components/logo';
+} from "@/components/ui/card";
+import { Logo } from "@/components/logo";
 
 const features = [
   {
     icon: PenSquare,
-    title: 'كتابة',
+    title: "كتابة",
     description:
-      'محرر متخصص لكتابة سيناريوهات الأفلام والمسلسلات باللغة العربية، مع ميزات تنسيق متقدمة.',
-    imageId: 'editor-feature',
-    link: '/editor',
+      "محرر متخصص لكتابة سيناريوهات الأفلام والمسلسلات باللغة العربية، مع ميزات تنسيق متقدمة.",
+    imageId: "editor-feature",
+    link: "/editor",
   },
   {
     icon: Sparkles,
-    title: 'تحليل',
+    title: "تطوير",
     description:
-      'احصل على تحليل درامي آلي فوري لنصك، استنادًا إلى أشهر الهياكل القصصية والنماذج الأدبية.',
-    imageId: 'analysis-feature',
-    link: '/analysis/initial',
+      "احصل على تحليل درامي آلي فوري لنصك، استنادًا إلى أشهر الهياكل القصصية والنماذج الأدبية.",
+    imageId: "analysis-feature",
+    link: "/analysis/initial",
   },
   {
     icon: Layers,
-    title: 'تطوير',
+    title: "تحليل",
     description:
-      'تحليل نصك على سبع طبقات درامية مختلفة للكشف عن نقاط القوة والضعف في البناء السردي.',
-    imageId: 'deep-analysis-feature',
-    link: '/analysis/deep',
+      "تحليل نصك على سبع طبقات درامية مختلفة للكشف عن نقاط القوة والضعف في البناء السردي.",
+    imageId: "deep-analysis-feature",
+    link: "/analysis/deep",
   },
   {
     icon: BrainCircuit,
-    title: 'الورشة',
+    title: "الورشة",
     description:
-      'فريق من وكلاء الذكاء الاصطناعي يتعاونون لتقديم وجهات نظر متنوعة وأفكار مبتكرة لتطوير كتاباتك.',
-    imageId: 'brainstorm-feature',
-    link: '/brainstorm',
+      "فريق من وكلاء الذكاء الاصطناعي يتعاونون لتقديم وجهات نظر متنوعة وأفكار مبتكرة لتطوير كتاباتك.",
+    imageId: "brainstorm-feature",
+    link: "/brainstorm",
   },
 ];
 
 export default function Home() {
-  const heroImage = PlaceHolderImages.find((img) => img.id === 'hero');
+  const heroImage = PlaceHolderImages.find((img) => img.id === "hero");
 
   return (
     <div className="flex min-h-screen flex-col">
@@ -103,7 +102,10 @@ export default function Home() {
           </div>
         </section>
 
-        <section id="features" className="container mx-auto px-4 py-20 sm:py-28">
+        <section
+          id="features"
+          className="container mx-auto px-4 py-20 sm:py-28"
+        >
           <div className="text-center">
             <h2 className="font-headline text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
               أدواتك نحو الإبداع
@@ -116,9 +118,7 @@ export default function Home() {
               );
               return (
                 <Link key={feature.title} href={feature.link} className="block">
-                  <Card
-                    className="h-full transform-gpu transition-all duration-300 hover:-translate-y-2 hover:shadow-xl"
-                  >
+                  <Card className="h-full transform-gpu transition-all duration-300 hover:-translate-y-2 hover:shadow-xl">
                     {featureImage && (
                       <div className="aspect-h-2 aspect-w-3 overflow-hidden rounded-t-lg">
                         <Image

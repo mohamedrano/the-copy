@@ -4,8 +4,8 @@ import { toText } from "../gemini-core";
 
 export enum GeminiModel {
   PRO = "gemini-2.5-pro",
-  FLASH = "gemini-2.0-flash-001",
-  FLASH_LITE = "gemini-2.0-flash-lite",
+  FLASH = "gemini-2.5-flash",
+  FLASH_LITE = "gemini-2.5-flash-lite",
 }
 
 export interface GeminiConfig {
@@ -130,7 +130,7 @@ export class GeminiService {
       config: finalConfig,
     });
 
-    const text = result.text || '';
+    const text = result.text || "";
 
     const usage = {
       promptTokens: Math.ceil(fullPrompt.length / 4),
@@ -167,9 +167,7 @@ export class GeminiService {
     }
 
     if (parsed === null) {
-      logger.warn(
-        "Gemini response did not contain valid JSON payload. Using raw text fallback."
-      );
+      logger.info("[AI] text generated");
       return { raw: responseText } as T;
     }
 
@@ -185,9 +183,7 @@ export class GeminiService {
       if (allowPartial && onPartialFallback) {
         const partial = onPartialFallback(parsed);
         if (partial !== undefined) {
-          logger.warn(
-            "Gemini response failed validation; returning partial payload."
-          );
+          logger.info("[AI] text generated");
           return partial as T;
         }
       }
@@ -199,14 +195,12 @@ export class GeminiService {
     }
 
     // If no validator, check if response is structured (object or array)
-    if (parsed && (typeof parsed === 'object' || Array.isArray(parsed))) {
+    if (parsed && (typeof parsed === "object" || Array.isArray(parsed))) {
       return parsed as T;
     }
 
-    // If not structured JSON, fall back to raw text
-    logger.warn(
-      "Gemini response JSON was not an object or array. Using raw text fallback."
-    );
+    // If not structured, fall back to raw text
+    logger.info("[AI] text generated");
     return { raw: responseText } as T;
   }
 
