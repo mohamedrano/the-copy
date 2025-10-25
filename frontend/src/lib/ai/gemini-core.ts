@@ -176,8 +176,8 @@ export async function callGeminiText(opts: CallOpts): Promise<string> {
     },
   });
 
-  // Extract text
-  const output = result?.text ?? result?.content ?? result ?? "";
+  // Extract text from result
+  const output = result?.text ?? "";
 
   // Convert to safe text and return
   return toText(output);

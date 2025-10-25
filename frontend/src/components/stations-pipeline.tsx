@@ -80,7 +80,7 @@ const stations = [
 
 const StationsPipeline = () => {
   const [text, setText] = useState("");
-  const [results, setResults] = useState({});
+  const [results, setResults] = useState<Record<number, any>>({});
   const [statuses, setStatuses] = useState(
     Array(stations.length).fill("pending")
   );
