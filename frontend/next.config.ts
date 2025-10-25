@@ -14,10 +14,11 @@ const nextConfig: NextConfig = {
     ignoreDuringBuilds: process.env.NODE_ENV === "production",
   },
 
+  turbopack: {
+    rules: {},
+  },
+
   experimental: {
-    turbo: {
-      rules: {},
-    },
     ...(process.env.ALLOWED_DEV_ORIGIN && {
       allowedDevOrigins: [process.env.ALLOWED_DEV_ORIGIN],
     }),

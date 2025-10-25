@@ -1,4 +1,4 @@
-import { GoogleGenAI as GoogleGenerativeAI } from "@google/genai";
+import { GoogleGenAI } from "@google/genai";
 import { toText } from "./gemini-core";
 
 export enum GeminiModel {
@@ -38,12 +38,12 @@ export interface GeminiResponse<T> {
 }
 
 export class GeminiService {
-  private genAI: GoogleGenerativeAI;
+  private genAI: GoogleGenAI;
   private config: GeminiConfig;
 
   constructor(config: GeminiConfig) {
     this.config = config;
-    this.genAI = new GoogleGenerativeAI({ apiKey: config.apiKey });
+    this.genAI = new GoogleGenAI({ apiKey: config.apiKey });
   }
 
   async generate<T>(request: GeminiRequest<T>): Promise<GeminiResponse<T>> {

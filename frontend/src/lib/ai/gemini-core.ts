@@ -12,7 +12,7 @@
  * - No JSON exposed to user interface
  */
 
-import { GoogleGenAI as GoogleGenerativeAI } from '@google/genai';
+import { GoogleGenAI } from '@google/genai';
 
 // =====================================================
 // Type Definitions
@@ -196,12 +196,12 @@ function delay(ms: number): Promise<void> {
 // Core API
 // =====================================================
 
-let genAI: GoogleGenerativeAI | null = null;
+let genAI: GoogleGenAI | null = null;
 
 /**
  * Initialize Google Generative AI client
  */
-function initializeClient(): GoogleGenerativeAI {
+function initializeClient(): GoogleGenAI {
   if (genAI) return genAI;
 
   const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || process.env.GEMINI_API_KEY || '';
@@ -209,7 +209,7 @@ function initializeClient(): GoogleGenerativeAI {
     throw new Error('Gemini API key not found in environment variables');
   }
 
-  genAI = new GoogleGenerativeAI({ apiKey });
+  genAI = new GoogleGenAI({ apiKey });
   return genAI;
 }
 
