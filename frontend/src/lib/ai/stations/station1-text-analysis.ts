@@ -1,5 +1,6 @@
 import { BaseStation, type StationConfig } from '../core/pipeline/base-station';
 import { GeminiService, GeminiModel } from './gemini-service';
+import { toText, safeSub, safeSplit } from '@/lib/ai/gemini-core';
 
 type MajorCharactersResponse = {
   major_characters?: string[];
@@ -118,11 +119,12 @@ export class Station1TextAnalysis extends BaseStation<Station1Input, Station1Out
 
     const result = await this.geminiService.generate<string>({
       prompt,
-      context: fullText.substring(0, 30000),
+      context: safeSub(fullText, 0, 30000),
       model: GeminiModel.FLASH
     });
 
-    return result.content ? result.content.split('\n').filter(line => line.trim()) : [];
+    const content = toText(result.content);
+    return content ? safeSplit(content, '\n').filter(line => line.trim()) : [];
   }
 
   private async analyzeCharactersInDepth(
@@ -164,12 +166,12 @@ export class Station1TextAnalysis extends BaseStation<Station1Input, Station1Out
 
     const result = await this.geminiService.generate<string>({
       prompt,
-      context: fullText.substring(0, 30000),
+      context: safeSub(fullText, 0, 30000),
       model: GeminiModel.FLASH
     });
 
     return {
-      personalityTraits: result.content || 'N/A',
+      personalityTraits: toText(result.content) || 'N/A',
       motivationsGoals: '',
       keyRelationshipsBrief: '',
       narrativeFunction: '',
@@ -189,14 +191,14 @@ export class Station1TextAnalysis extends BaseStation<Station1Input, Station1Out
 
     const result = await this.geminiService.generate<string>({
       prompt,
-      context: fullText.substring(0, 30000),
+      context: safeSub(fullText, 0, 30000),
       model: GeminiModel.FLASH
     });
 
     return {
       keyRelationships: [{
         characters: ['غير محدد', 'غير محدد'],
-        dynamic: result.content || 'N/A',
+        dynamic: toText(result.content) || 'N/A',
         narrativeImportance: 'N/A'
       }]
     };
@@ -216,12 +218,12 @@ export class Station1TextAnalysis extends BaseStation<Station1Input, Station1Out
 
     const result = await this.geminiService.generate<string>({
       prompt,
-      context: fullText.substring(0, 30000),
+      context: safeSub(fullText, 0, 30000),
       model: GeminiModel.FLASH
     });
 
     return {
-      overallTone: result.content || 'N/A',
+      overallTone: toText(result.content) || 'N/A',
       pacingAnalysis: '',
       languageStyle: ''
     };

@@ -17,6 +17,7 @@ import { Station1Output } from "./station1-text-analysis";
 import { Station2Output } from "./station2-conceptual-analysis";
 import logger from "../utils/logger";
 import { Station3Context } from "../../types/contexts";
+import { toText, safeSub } from '@/lib/ai/gemini-core';
 
 export interface Station3Input {
   station1Output: Station1Output;
@@ -63,7 +64,7 @@ class RelationshipInferenceEngine {
 
     const result = await this.geminiService.generate<string>({
       prompt,
-      context: context.fullText?.substring(0, 25000) ?? "",
+      context: safeSub(context.fullText, 0, 25000),
       model: GeminiModel.FLASH,
       temperature: 0.7,
     });
@@ -78,7 +79,7 @@ class RelationshipInferenceEngine {
         nature: RelationshipNature.NEUTRAL,
         direction: RelationshipDirection.BIDIRECTIONAL,
         strength: 5,
-        description: result.content || "علاقة رئيسية",
+        description: toText(result.content) || "علاقة رئيسية",
         triggers: [],
         metadata: {
           source: "AI_Text_Analysis",
@@ -242,7 +243,7 @@ class ConflictInferenceEngine {
 
     const result = await this.geminiService.generate<string>({
       prompt,
-      context: context.fullText?.substring(0, 25000) ?? "",
+      context: safeSub(context.fullText, 0, 25000),
       model: GeminiModel.FLASH,
       temperature: 0.7,
     });
@@ -252,7 +253,7 @@ class ConflictInferenceEngine {
       return [{
         id: `conflict_default_${Date.now()}`,
         name: "صراع رئيسي",
-        description: result.content || "صراع رئيسي في القصة",
+        description: toText(result.content) || "صراع رئيسي في القصة",
         involvedCharacters: [characters[0].id],
         subject: ConflictSubject.OTHER,
         scope: ConflictScope.PERSONAL,
@@ -395,7 +396,7 @@ export class Station3NetworkBuilder extends BaseStation<
     // إنشاء الشبكة
     const network = new ConflictNetworkImpl(
       `network_${Date.now()}`,
-      `${input.station2Output.storyStatement.substring(0, 50)}...`
+      `${safeSub(input.station2Output.storyStatement, 0, 50)}...`
     );
 
     // إنشاء الشخصيات من المحطة الأولى

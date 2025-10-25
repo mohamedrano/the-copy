@@ -1,5 +1,6 @@
 import { GoogleGenAI } from '@google/genai';
 import logger from '../utils/logger';
+import { toText } from '@/lib/ai/gemini-core';
 
 export enum GeminiModel {
   PRO = 'gemini-2.5-pro',
@@ -102,12 +103,12 @@ export class GeminiService {
       model: modelName,
       contents: fullPrompt,
       config: {
-        maxOutputTokens: request.maxTokens || 8192,
+        maxOutputTokens: request.maxTokens || 48192,
         temperature: request.temperature || 0.7,
       }
     });
 
-    const text = result.text;
+    const text = toText(result.text);
 
     const usage = {
       promptTokens: fullPrompt.length / 4,
@@ -127,13 +128,15 @@ export class GeminiService {
   }
 
   private parseResponse<T>(responseText: string, request: GeminiRequest<T>): T {
-    const parseResult = this.extractJsonPayload(responseText);
+    // Ensure responseText is always a safe string
+    const safeText = toText(responseText);
+    const parseResult = this.extractJsonPayload(safeText);
 
     if (!parseResult.success || parseResult.value === undefined) {
       logger.warn('Gemini response did not contain valid JSON payload.', {
         warnings: parseResult.warnings,
       });
-      return this.buildRawFallback<T>(responseText);
+      return this.buildRawFallback<T>(safeText);
     }
 
     const payload = parseResult.value;
@@ -166,7 +169,7 @@ export class GeminiService {
     logger.warn('Gemini response JSON was not an object or array.', {
       warnings: parseResult.warnings,
     });
-    return this.buildRawFallback<T>(responseText);
+    return this.buildRawFallback<T>(safeText);
   }
 
   private async handleError<T>(
@@ -247,6 +250,7 @@ export class GeminiService {
   }
 
   private buildRawFallback<T>(responseText: string): T {
-    return { raw: responseText } as unknown as T;
+    // Ensure we return safe text
+    return { raw: toText(responseText) } as unknown as T;
   }
 }

@@ -85,9 +85,16 @@ cp .env.example .env.local
 # ================================
 # 🧠 مفاتيح API المطلوبة
 # ================================
+NEXT_PUBLIC_GEMINI_API_KEY=your_gemini_api_key
 GOOGLE_GENAI_API_KEY=your_google_ai_key
 SENTRY_DSN=your_sentry_dsn
 FIREBASE_PROJECT_ID=your_firebase_project
+
+# ================================
+# 🌐 إعدادات بيئة التطوير
+# ================================
+# لبيئات التطوير الخارجية (AWS Cloud9, CodeSandbox, إلخ)
+ALLOWED_DEV_ORIGIN=https://your-dev-workstation-url
 
 # ================================
 # 🔒 أعلام الميزات
@@ -100,8 +107,15 @@ ENABLE_3D_PREVIEW=true
 ### تشغيل التطوير
 
 ```bash
-# تشغيل خادم التطوير
-npm run dev
+# إعداد متغيرات البيئة
+export NEXT_PUBLIC_GEMINI_API_KEY="your-api-key"
+export ALLOWED_DEV_ORIGIN="https://your-workstation-url"  # اختياري للتطوير الخارجي
+
+# تثبيت التبعيات
+pnpm install
+
+# تشغيل خادم التطوير (المنفذ 9002)
+pnpm dev -p 9002
 
 # تشغيل خادم Genkit للتطوير
 npm run genkit:dev
@@ -109,6 +123,8 @@ npm run genkit:dev
 # تشغيل Genkit مع مراقبة الملفات
 npm run genkit:watch
 ```
+
+> **ملاحظة**: إذا كنت تعمل في بيئة تطوير خارجية (مثل AWS Cloud9 أو CodeSandbox)، تأكد من ضبط `ALLOWED_DEV_ORIGIN` لتجنب تحذيرات CSP.
 
 الآن افتح [http://localhost:9002](http://localhost:9002) في متصفحك.
 

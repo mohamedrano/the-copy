@@ -4,6 +4,7 @@ import { buildPrompt } from '../orchestration/promptBuilder';
 import { config } from '../config/environment';
 import { sanitization } from './sanitizationService';
 import { log } from './loggerService';
+import { toText } from '@/lib/ai/gemini-core';
 
 // =====================================================
 // Gemini Service Configuration
@@ -65,12 +66,12 @@ class GeminiService {
           contents: prompt,
           config: {
             temperature: 0.9,
-            maxOutputTokens: 8192,
+            maxOutputTokens: 48192,
           }
         });
 
         const result = await Promise.race([generatePromise, timeoutPromise]);
-        const text = result.text;
+        const text = toText(result.text);
 
         if (!text) {
           throw new Error('Empty response from Gemini');
