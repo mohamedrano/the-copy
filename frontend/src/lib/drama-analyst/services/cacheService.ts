@@ -2,6 +2,7 @@
 // Handles cache operations, offline functionality, and background sync
 
 import { log } from './loggerService';
+import { encodeRecord, decodeRecord, unflatten } from '../../utils/kv-utils';
 
 export interface CacheConfig {
   name: string;
@@ -228,7 +229,7 @@ class CacheService {
   private async preloadCriticalResources(): Promise<void> {
     const criticalResources = [
       '/',
-      '/manifest.json',
+      '/manifest.webmanifest',
       // Add other critical resources
     ];
 
@@ -359,8 +360,13 @@ class CacheService {
   // Offline action management
   private async getPendingActions(): Promise<any[]> {
     try {
-      const actions = localStorage.getItem('pending-actions');
-      return actions ? JSON.parse(actions) : [];
+      const actionsText = localStorage.getItem('pending-actions');
+      if (!actionsText) return [];
+      const actionTexts = actionsText.split('\n\n');
+      return actionTexts.map(text => {
+        const flat = decodeRecord(text);
+        return unflatten(flat);
+      });
     } catch (error) {
       log.error('❌ Failed to get pending actions', error, 'CacheService');
       return [];
@@ -369,13 +375,15 @@ class CacheService {
 
   private async addPendingAction(action: any): Promise<void> {
     try {
-      const actions = await this.getPendingActions();
-      actions.push({
+      const actionsText = localStorage.getItem('pending-actions') || '';
+      const newAction = {
         ...action,
         id: Date.now().toString(),
         timestamp: new Date().toISOString()
-      });
-      localStorage.setItem('pending-actions', JSON.stringify(actions));
+      };
+      const newActionText = encodeRecord(newAction);
+      const updatedText = actionsText ? `${actionsText}\n\n${newActionText}` : newActionText;
+      localStorage.setItem('pending-actions', updatedText);
     } catch (error) {
       log.error('❌ Failed to add pending action', error, 'CacheService');
     }
@@ -385,7 +393,8 @@ class CacheService {
     try {
       const actions = await this.getPendingActions();
       const filteredActions = actions.filter(action => action.id !== actionId);
-      localStorage.setItem('pending-actions', JSON.stringify(filteredActions));
+      const filteredTexts = filteredActions.map(action => encodeRecord(action));
+      localStorage.setItem('pending-actions', filteredTexts.join('\n\n'));
     } catch (error) {
       log.error('❌ Failed to remove pending action', error, 'CacheService');
     }
@@ -398,7 +407,8 @@ class CacheService {
 
   // Request caching
   public async cacheRequest(url: string, options: RequestInit = {}): Promise<Response> {
-    const cacheKey = `${url}?${JSON.stringify(options)}`;
+    const optionsText = encodeRecord(options as any);
+    const cacheKey = `${url}?${optionsText}`;
     
     // Check if we're offline
     if (!this.isOnline) {

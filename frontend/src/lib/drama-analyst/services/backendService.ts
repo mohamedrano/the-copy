@@ -1,6 +1,7 @@
 import { AIRequest, AIResponse, Result } from '@core/types';
 import { sanitization } from './sanitizationService';
 import { log } from './loggerService';
+import { encodeRecord, decodeRecord, unflatten } from '../../utils/kv-utils';
 
 // =====================================================
 // Backend Service Configuration
@@ -25,36 +26,40 @@ class BackendService {
 
   private async makeRequest<T>(endpoint: string, data: any): Promise<T> {
     const url = `${this.config.baseUrl}${endpoint}`;
-    
+
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), this.config.timeout);
 
     try {
+      const dataText = encodeRecord(data);
       const response = await fetch(url, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
+          'Content-Type': 'text/plain; charset=utf-8',
         },
-        body: JSON.stringify(data),
+        body: dataText,
         signal: controller.signal,
       });
 
       clearTimeout(timeoutId);
 
       if (!response.ok) {
-        const errorData = await response.json().catch(() => ({}));
+        const errorText = await response.text();
+        const errorData = decodeRecord(errorText);
         throw new Error(errorData.message || `HTTP ${response.status}: ${response.statusText}`);
       }
 
-      return await response.json();
+      const responseText = await response.text();
+      const parsedData = decodeRecord(responseText);
+      const responseObj = unflatten(parsedData);
+      return responseObj as T;
     } catch (error: any) {
       clearTimeout(timeoutId);
-      
+
       if (error.name === 'AbortError') {
         throw new Error('Request timeout');
       }
-      
+
       throw error;
     }
   }

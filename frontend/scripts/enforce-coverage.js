@@ -3,6 +3,33 @@
 const fs = require("fs");
 const path = require("path");
 
+function decodeRecord(text) {
+  const lines = text.split('\n').filter(line => line.trim());
+  const result = {};
+  for (const line of lines) {
+    const idx = line.indexOf('=');
+    if (idx === -1) continue;
+    const key = line.slice(0, idx);
+    const value = line.slice(idx + 1).replace(/\\=/g, '=').replace(/\\n/g, '\n').replace(/\\r/g, '\r').replace(/\\\\/g, '\\');
+    result[key] = value;
+  }
+  return result;
+}
+
+function unflatten(flat) {
+  const result = {};
+  for (const [key, value] of Object.entries(flat)) {
+    const parts = key.split('.');
+    let current = result;
+    for (let i = 0; i < parts.length - 1; i++) {
+      if (!current[parts[i]]) current[parts[i]] = {};
+      current = current[parts[i]];
+    }
+    current[parts[parts.length - 1]] = value;
+  }
+  return result;
+}
+
 const ABSOLUTE_MINIMUMS = {
   global: { lines: 85, functions: 90, branches: 85, statements: 85 },
   ai: { lines: 95, functions: 100, branches: 95, statements: 95 },
@@ -12,7 +39,7 @@ const ABSOLUTE_MINIMUMS = {
 
 const summaryPath = path.join(
   process.cwd(),
-  "reports/unit/coverage-summary.json"
+  "reports/unit/coverage-summary.txt"
 );
 
 if (!fs.existsSync(summaryPath)) {
@@ -22,7 +49,9 @@ if (!fs.existsSync(summaryPath)) {
   process.exit(1);
 }
 
-const summary = JSON.parse(fs.readFileSync(summaryPath, "utf-8"));
+const summaryText = fs.readFileSync(summaryPath, "utf-8");
+const flat = decodeRecord(summaryText);
+const summary = unflatten(flat);
 const failures = [];
 const warnings = [];
 

@@ -1,6 +1,5 @@
 import { GoogleGenAI } from "@google/genai";
 import logger from "../utils/logger";
-import { toText } from "../gemini-core";
 
 export enum GeminiModel {
   PRO = "gemini-2.5-pro",
@@ -113,7 +112,6 @@ export class GeminiService {
 
     const fullPrompt = `${request.systemInstruction || ""}\n\nContext: ${request.context || "N/A"}\n\nPrompt: ${request.prompt}`;
 
-    // Generation config with reasonable defaults
     const finalConfig = {
       temperature: request.temperature ?? 0.9,
       maxOutputTokens: request.maxTokens ?? 48192,
@@ -150,40 +148,20 @@ export class GeminiService {
   }
 
   private parseResponse<T>(responseText: string, request: GeminiRequest<T>): T {
-    // Try to parse JSON
-    let parsed: any = null;
-    try {
-      parsed = JSON.parse(responseText);
-    } catch (e) {
-      // Try to extract JSON from markdown code blocks
-      const jsonMatch = responseText.match(/```json\s*\n?([\s\S]*?)\n?```/);
-      if (jsonMatch && jsonMatch[1]) {
-        try {
-          parsed = JSON.parse(jsonMatch[1]);
-        } catch (e2) {
-          // Fall through
-        }
-      }
-    }
-
-    if (parsed === null) {
-      logger.info("[AI] text generated");
-      return { raw: responseText } as T;
-    }
+    logger.info("[AI] text generated");
 
     const { validator, allowPartial, onPartialFallback } = request;
 
-    // If validator is provided, validate the response
     if (validator) {
-      if (validator(parsed)) {
-        return parsed;
+      const rawData = { raw: responseText };
+      if (validator(rawData)) {
+        return rawData;
       }
 
-      // If validation fails but partial results are allowed
       if (allowPartial && onPartialFallback) {
-        const partial = onPartialFallback(parsed);
+        const partial = onPartialFallback(rawData);
         if (partial !== undefined) {
-          logger.info("[AI] text generated");
+          logger.info("[AI] text generated with partial fallback");
           return partial as T;
         }
       }
@@ -194,13 +172,6 @@ export class GeminiService {
       throw new Error("Gemini response failed validation.");
     }
 
-    // If no validator, check if response is structured (object or array)
-    if (parsed && (typeof parsed === "object" || Array.isArray(parsed))) {
-      return parsed as T;
-    }
-
-    // If not structured, fall back to raw text
-    logger.info("[AI] text generated");
     return { raw: responseText } as T;
   }
 

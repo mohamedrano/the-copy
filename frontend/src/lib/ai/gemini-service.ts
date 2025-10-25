@@ -76,7 +76,6 @@ export class GeminiService {
 
     const fullPrompt = `${request.systemInstruction || ""}\n\nContext: ${request.context || "N/A"}\n\nPrompt: ${request.prompt}`;
 
-    // Generation config with reasonable defaults
     const finalConfig = {
       temperature: request.temperature ?? 0.9,
       maxOutputTokens: request.maxTokens ?? 48192,
@@ -113,25 +112,6 @@ export class GeminiService {
   }
 
   private parseResponse<T>(responseText: string): T {
-    // Try to parse JSON, fallback to raw text
-    try {
-      const parsed = JSON.parse(responseText);
-      if (parsed && typeof parsed === "object") {
-        return parsed as T;
-      }
-    } catch (e) {
-      // Try to extract JSON from markdown code blocks
-      const jsonMatch = responseText.match(/```json\s*\n?([\s\S]*?)\n?```/);
-      if (jsonMatch && jsonMatch[1]) {
-        try {
-          return JSON.parse(jsonMatch[1]) as T;
-        } catch (e2) {
-          // Fall through to raw text
-        }
-      }
-    }
-
-    // If parsing failed, return raw text as fallback
     console.log("[AI] text generated");
     return { raw: responseText } as T;
   }

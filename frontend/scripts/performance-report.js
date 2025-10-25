@@ -33,10 +33,12 @@ function generatePerformanceReport() {
   };
 
   // Check if coverage report exists
-  const coverageFile = path.join(reportsDir, "unit", "coverage-summary.json");
+  const coverageFile = path.join(reportsDir, "unit", "coverage-summary.txt");
   if (fs.existsSync(coverageFile)) {
     try {
-      const coverage = JSON.parse(fs.readFileSync(coverageFile, "utf8"));
+      const coverageText = fs.readFileSync(coverageFile, "utf8");
+      const flat = decodeRecord(coverageText);
+      const coverage = unflatten(flat);
       const totalCoverage = coverage.total;
 
       report.testCoverage.lines = `${totalCoverage.lines.pct}%`;
@@ -58,10 +60,12 @@ function generatePerformanceReport() {
   }
 
   // Check if E2E report exists
-  const e2eFile = path.join(reportsDir, "e2e", "results.json");
+  const e2eFile = path.join(reportsDir, "e2e", "results.txt");
   if (fs.existsSync(e2eFile)) {
     try {
-      const e2eResults = JSON.parse(fs.readFileSync(e2eFile, "utf8"));
+      const e2eText = fs.readFileSync(e2eFile, "utf8");
+      const flat = decodeRecord(e2eText);
+      const e2eResults = unflatten(flat);
       report.e2eTests.passed = e2eResults.stats?.passed || 0;
       report.e2eTests.failed = e2eResults.stats?.failed || 0;
       report.e2eTests.status =
@@ -72,10 +76,12 @@ function generatePerformanceReport() {
   }
 
   // Check Web Vitals from Sentry or other sources if available
-  const webVitalsFile = path.join(reportsDir, "web-vitals.json");
+  const webVitalsFile = path.join(reportsDir, "web-vitals.txt");
   if (fs.existsSync(webVitalsFile)) {
     try {
-      const vitals = JSON.parse(fs.readFileSync(webVitalsFile, "utf8"));
+      const vitalsText = fs.readFileSync(webVitalsFile, "utf8");
+      const flat = decodeRecord(vitalsText);
+      const vitals = unflatten(flat);
       if (vitals.lcp) {
         report.webVitals.lcp.actual = `${(vitals.lcp / 1000).toFixed(2)}s`;
         report.webVitals.lcp.status = vitals.lcp <= 2500 ? "passed" : "failed";
@@ -101,8 +107,9 @@ function generatePerformanceReport() {
     }
   }
 
-  const reportFile = path.join(reportsDir, "performance-report.json");
-  fs.writeFileSync(reportFile, JSON.stringify(report, null, 2));
+  const reportFile = path.join(reportsDir, "performance-report.txt");
+  const reportText = encodeRecord(report);
+  fs.writeFileSync(reportFile, reportText);
 
   console.log("📊 Performance Report Generated");
   console.log("==============================");

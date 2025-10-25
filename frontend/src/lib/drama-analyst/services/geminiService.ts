@@ -125,31 +125,11 @@ class GeminiService {
         "GeminiService"
       );
 
-      // Sanitize input - use prompt field from AIRequest
       const sanitized = sanitization.text(request.prompt);
-
-      // Build prompt using the AIRequest (after sanitizing the prompt field)
       const sanitizedRequest = { ...request, prompt: sanitized };
       const prompt = buildPrompt(sanitizedRequest);
 
-      // Generate content
       const rawResponse = await this.generateContent(prompt);
-
-      // Parse response with lenient JSON parsing
-      let parsed: any = null;
-      try {
-        parsed = JSON.parse(rawResponse);
-      } catch (e) {
-        // Try to extract JSON from markdown code blocks
-        const jsonMatch = rawResponse.match(/```json\s*\n?([\s\S]*?)\n?```/);
-        if (jsonMatch && jsonMatch[1]) {
-          try {
-            parsed = JSON.parse(jsonMatch[1]);
-          } catch (e2) {
-            // Fall through
-          }
-        }
-      }
 
       log.info(
         "✅ Gemini analysis completed",
@@ -159,7 +139,7 @@ class GeminiService {
 
       return {
         text: rawResponse,
-        parsed: parsed,
+        parsed: null,
         raw: rawResponse,
         agent: request.agent,
       };
