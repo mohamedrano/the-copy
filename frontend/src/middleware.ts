@@ -1,67 +1,85 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-
 /**
- * Middleware for setting Content Security Policy headers
+ * Next.js Middleware
  *
- * This middleware adds CSP headers to all responses, with special handling
- * for development environments to allow hot reloading and external resources.
+ * This middleware adds security headers including Content Security Policy (CSP)
+ * with development environment support.
  */
-export function middleware(req: NextRequest) {
-  const res = NextResponse.next();
 
-  // Get the allowed development origin from environment
-  const devOrigin = process.env.ALLOWED_DEV_ORIGIN || '';
+import { NextRequest, NextResponse } from 'next/server';
+
+export function middleware(request: NextRequest) {
+  const response = NextResponse.next();
+
+  // Development mode detection
   const isDevelopment = process.env.NODE_ENV === 'development';
+  const allowedDevOrigin = process.env.ALLOWED_DEV_ORIGIN || '';
 
   // Build CSP directives
-  const cspDirectives = [
+  const cspDirectives: string[] = [
     "default-src 'self'",
-    isDevelopment
-      ? "script-src 'self' 'unsafe-eval' 'unsafe-inline' https://apis.google.com https://www.gstatic.com https://*.googleapis.com"
-      : "script-src 'self' 'unsafe-inline' https://apis.google.com https://www.gstatic.com https://*.googleapis.com",
+    "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://apis.google.com https://www.gstatic.com https://*.googleapis.com",
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
     "font-src 'self' https://fonts.gstatic.com https://r2cdn.perplexity.ai data:",
-    "img-src 'self' data: blob: https:",
-    `connect-src 'self' https://apis.google.com https://*.googleapis.com wss: ws: ${devOrigin}`,
-    "frame-ancestors 'self'",
-    "base-uri 'self'",
-    "form-action 'self'",
-    "object-src 'none'",
+    "img-src 'self' data: blob: https: https://placehold.co https://images.unsplash.com https://picsum.photos",
   ];
 
-  const csp = cspDirectives.filter(Boolean).join('; ');
+  // Build connect-src with dev origin support
+  const connectSrcParts = [
+    "'self'",
+    'https://apis.google.com',
+    'https://*.googleapis.com',
+    'https://identitytoolkit.googleapis.com',
+    'https://securetoken.googleapis.com',
+    'wss:',
+    'ws:',
+  ];
+
+  if (isDevelopment && allowedDevOrigin) {
+    connectSrcParts.push(allowedDevOrigin);
+  }
+
+  cspDirectives.push(`connect-src ${connectSrcParts.join(' ')}`);
+
+  // Build frame-ancestors with dev origin support
+  if (isDevelopment && allowedDevOrigin) {
+    cspDirectives.push(`frame-ancestors 'self' ${allowedDevOrigin}`);
+  } else {
+    cspDirectives.push("frame-ancestors 'none'");
+  }
+
+  cspDirectives.push(
+    "frame-src 'self' https://apis.google.com https://*.googleapis.com",
+    "object-src 'none'",
+    "base-uri 'self'",
+    "form-action 'self'"
+  );
 
   // Set CSP header
-  res.headers.set('Content-Security-Policy', csp);
+  response.headers.set('Content-Security-Policy', cspDirectives.join('; '));
 
-  // Add additional security headers
+  // Additional security headers
   if (!isDevelopment) {
-    res.headers.set(
+    response.headers.set(
       'Strict-Transport-Security',
       'max-age=31536000; includeSubDomains; preload'
     );
   }
+  response.headers.set('X-Content-Type-Options', 'nosniff');
+  response.headers.set('X-Frame-Options', 'DENY');
+  response.headers.set('X-XSS-Protection', '1; mode=block');
+  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
 
-  res.headers.set('X-Content-Type-Options', 'nosniff');
-  res.headers.set('X-Frame-Options', 'DENY');
-  res.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
-
-  return res;
+  return response;
 }
 
-/**
- * Configure which paths the middleware should run on
- * Excludes Next.js internal paths and static files
- */
 export const config = {
   matcher: [
     /*
-     * Match all request paths except for the ones starting with:
+     * Match all request paths except:
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
-     * - public folder files
+     * - public files (public folder)
      */
     '/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)',
   ],

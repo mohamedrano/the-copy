@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import React, { useState, useEffect, useCallback } from "react";
 import { TaskCategory, TaskType } from "@/lib/drama-analyst/enums";
 import { useToast } from "@/hooks/use-toast";
+import { toText } from "@/lib/ai/gemini-core";
 import {
   AIResponse,
   ProcessedFile,
@@ -434,7 +435,7 @@ const DramaAnalystApp: React.FC = () => {
               <Lightbulb className="h-4 w-4" />
               <AlertTitle>التحليل الدرامي</AlertTitle>
               <AlertDescription className="prose prose-sm dark:prose-invert mt-2 whitespace-pre-wrap">
-                {aiResponse.raw || JSON.stringify(aiResponse.parsed, null, 2)}
+                {toText(aiResponse.raw)}
               </AlertDescription>
             </Alert>
           </CardContent>

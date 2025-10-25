@@ -2,6 +2,7 @@ import { BaseStation, type StationConfig } from '../core/pipeline/base-station';
 import { GeminiService, GeminiModel } from './gemini-service';
 import { EfficiencyAnalyzer, EfficiencyMetrics } from './efficiency-metrics';
 import { Station3Output } from './station3-network-builder';
+import { toText } from '@/lib/ai/gemini-core';
 
 export interface Station4Input {
   station3Output: Station3Output;
@@ -91,7 +92,7 @@ export class Station4EfficiencyMetrics extends BaseStation<Station4Input, Statio
     });
 
     return {
-      priorityActions: [result.content || "فشل توليد التوصيات"],
+      priorityActions: [toText(result.content) || "فشل توليد التوصيات"],
       quickFixes: [],
       structuralRevisions: []
     };

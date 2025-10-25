@@ -1,290 +1,318 @@
 /**
- * Unified Gemini Core Module
+ * Unified Gemini AI Core Layer
  *
- * This module provides centralized configuration, token limits, and throttling
- * for all Gemini API interactions across the application.
+ * This module provides a unified interface for all Gemini AI interactions across the application.
+ * It enforces consistent token limits (48192), per-model rate limiting, and safe text handling.
  *
- * Key Features:
- * - Unified token limit of 48,192 tokens per use
- * - Model-specific throttling (6s/10s/15s based on model)
- * - Lenient JSON parsing with fallback to raw text
- * - Text normalization utilities
+ * Features:
+ * - Unified token limit: 48192 for all models
+ * - Per-model rate limiting: Flash-Lite (6s), Flash (10s), Pro (15s)
+ * - Safe text utilities to prevent React rendering errors
+ * - Lax JSON parsing that doesn't throw errors
+ * - No JSON exposed to user interface
  */
 
-export type ModelId =
-  | "gemini-2.0-flash-lite"
-  | "gemini-2.0-flash-001"
-  | "gemini-2.5-flash"
-  | "gemini-2.5-flash-lite"
-  | "gemini-2.5-pro"
-  | "gemini-2.0-flash-exp";
+import { GoogleGenerativeAI } from '@google/generative-ai';
 
-/**
- * Unified maximum tokens per API call across all usages
- */
-export const MAX_TOKENS_PER_USE = 48192 as const;
+// =====================================================
+// Type Definitions
+// =====================================================
 
-/**
- * Model-specific delay requirements in milliseconds
- * - Flash Lite: 6 seconds between requests
- * - Flash: 10 seconds between requests
- * - Pro: 15 seconds between requests
- */
-const MODEL_DELAYS_MS: Record<string, number> = {
-  "gemini-2.5-flash-lite": 6000,
-  "gemini-2.0-flash-lite": 6000,
-  "gemini-2.5-flash": 10000,
-  "gemini-2.0-flash-001": 10000,
-  "gemini-2.0-flash-exp": 10000,
-  "gemini-2.5-pro": 15000,
-};
+export type GeminiModelType = 'flash-lite' | 'flash' | 'pro';
 
-/**
- * Tracks the last call timestamp for each model to enforce throttling
- */
-const lastCallAt: Partial<Record<string, number>> = {};
-
-/**
- * Throttles API calls by model to respect rate limits
- *
- * @param model - The model ID to throttle
- * @returns Promise that resolves after the required delay
- */
-export async function throttleByModel(model: ModelId | string): Promise<void> {
-  const now = Date.now();
-  const delay: number =
-    MODEL_DELAYS_MS[model] || MODEL_DELAYS_MS["gemini-2.0-flash-001"] || 10000;
-  const last = lastCallAt[model] ?? 0;
-  const wait = Math.max(0, delay - (now - last));
-
-  if (wait > 0) {
-    console.log(`[Gemini Core] Throttling ${model}: waiting ${wait}ms`);
-    await new Promise((resolve) => setTimeout(resolve, wait));
-  }
-
-  lastCallAt[model] = Date.now();
+export interface CallGeminiOptions {
+  model: GeminiModelType;
+  input: string;
+  maxTokens?: number;
+  temperature?: number;
+  systemInstruction?: string;
+  responseType?: 'text' | 'json-lax';
 }
 
-/**
- * Returns normalized generation configuration with unified token limits
- *
- * @returns Standard generation config object
- */
-export function normalizeGenConfig(): {
-  maxOutputTokens: number;
-  temperature: number;
-  topK: number;
-  topP: number;
-} {
-  return {
-    maxOutputTokens: MAX_TOKENS_PER_USE,
-    temperature: 0.2,
-    topK: 40,
-    topP: 0.9,
+export interface GeminiResponse {
+  text: string;
+  data?: any;
+  metadata: {
+    model: string;
+    timestamp: string;
+    tokensUsed?: number;
   };
 }
 
+// =====================================================
+// Configuration
+// =====================================================
+
+const MODEL_MAP: Record<GeminiModelType, string> = {
+  'flash-lite': 'gemini-2.5-flash-lite',
+  'flash': 'gemini-2.5-flash',
+  'pro': 'gemini-2.5-pro',
+};
+
+const MODEL_DELAYS: Record<GeminiModelType, number> = {
+  'flash-lite': 6000,  // 6 seconds
+  'flash': 10000,      // 10 seconds
+  'pro': 15000,        // 15 seconds
+};
+
+const UNIFIED_TOKEN_LIMIT = 48192;
+
+// Track last call time per model for rate limiting
+const lastCallTime: Record<GeminiModelType, number> = {
+  'flash-lite': 0,
+  'flash': 0,
+  'pro': 0,
+};
+
+// =====================================================
+// Safe Text Utilities
+// =====================================================
+
 /**
- * Attempts to extract JSON from potentially mixed-format text
- *
- * This function is for internal processing only and should NOT be used
- * to display JSON to end users.
- *
- * @param raw - Raw text that may contain JSON
- * @returns Parsed JSON object or null if parsing fails
+ * Safely converts any value to text string
+ * Returns empty string for objects, arrays, undefined, null
+ * This prevents React "Objects are not valid as a React child" errors
  */
-export function parseJsonLenient(raw: string): any | null {
-  if (!raw || typeof raw !== "string") {
-    return null;
+export function toText(value: any): string {
+  if (value === null || value === undefined) {
+    return '';
   }
 
-  // 1) Direct JSON parse attempt
+  if (typeof value === 'string') {
+    return value;
+  }
+
+  if (typeof value === 'number' || typeof value === 'boolean') {
+    return String(value);
+  }
+
+  // For objects with 'raw' property (common in AI responses)
+  if (typeof value === 'object' && value.raw !== undefined) {
+    return toText(value.raw);
+  }
+
+  // For arrays and other objects, return empty string
+  // This prevents rendering issues in React
+  if (typeof value === 'object') {
+    return '';
+  }
+
+  return String(value);
+}
+
+/**
+ * Safe substring operation - only works on strings
+ * Returns empty string if input is not a string
+ */
+export function safeSub(value: any, start: number, length?: number): string {
+  const text = toText(value);
+  if (!text) return '';
+
+  if (length !== undefined) {
+    return text.substring(start, start + length);
+  }
+  return text.substring(start);
+}
+
+/**
+ * Safe split operation - only works on strings
+ * Returns empty array if input is not a string
+ */
+export function safeSplit(value: any, separator: string | RegExp): string[] {
+  const text = toText(value);
+  if (!text) return [];
+
+  return text.split(separator);
+}
+
+// =====================================================
+// JSON Utilities
+// =====================================================
+
+/**
+ * Lax JSON parser that doesn't throw errors
+ * Attempts to parse JSON, returns raw text on failure
+ * Never exposes raw JSON to UI
+ */
+function parseJsonLax(text: string): any {
   try {
-    return JSON.parse(raw.trim());
-  } catch {
-    // Continue to next strategy
-  }
-
-  // 2) Try to extract from ```json ... ``` code blocks
-  const jsonBlockMatch = raw.match(/```json\s*([\s\S]*?)\s*```/i);
-  if (jsonBlockMatch && jsonBlockMatch[1]) {
-    try {
-      return JSON.parse(jsonBlockMatch[1].trim());
-    } catch {
-      // Continue to next strategy
+    // Try direct JSON parse
+    return JSON.parse(text);
+  } catch (e) {
+    // Try to extract JSON from markdown code blocks
+    const jsonMatch = text.match(/```json\s*\n?([\s\S]*?)\n?```/);
+    if (jsonMatch) {
+      try {
+        return JSON.parse(jsonMatch[1]);
+      } catch (e2) {
+        // Fall through
+      }
     }
-  }
 
-  // 3) Try to extract any JSON-like structure
-  const jsonMatch = raw.match(/\{[\s\S]*\}|\[[\s\S]*\]/);
-  if (jsonMatch) {
-    try {
-      return JSON.parse(jsonMatch[0]);
-    } catch {
-      // Continue to next strategy
+    // Try to find JSON object in text
+    const objectMatch = text.match(/\{[\s\S]*\}/);
+    if (objectMatch) {
+      try {
+        return JSON.parse(objectMatch[0]);
+      } catch (e3) {
+        // Fall through
+      }
     }
+
+    // Return original text if all parsing attempts fail
+    return { raw: text };
+  }
+}
+
+// =====================================================
+// Rate Limiting
+// =====================================================
+
+/**
+ * Enforces rate limiting delay before API call
+ */
+async function enforceRateLimit(modelType: GeminiModelType): Promise<void> {
+  const now = Date.now();
+  const lastCall = lastCallTime[modelType];
+  const requiredDelay = MODEL_DELAYS[modelType];
+  const timeSinceLastCall = now - lastCall;
+
+  if (timeSinceLastCall < requiredDelay) {
+    const waitTime = requiredDelay - timeSinceLastCall;
+    await delay(waitTime);
   }
 
-  // 4) Try to repair truncated JSON
-  const repairedJson = repairTruncatedJson(raw);
-  if (repairedJson) {
-    try {
-      return JSON.parse(repairedJson);
-    } catch {
-      // All strategies failed
-    }
-  }
-
-  return null;
+  lastCallTime[modelType] = Date.now();
 }
 
 /**
- * Attempts to repair truncated JSON by finding the last valid closing bracket
- *
- * @param payload - Potentially truncated JSON string
- * @returns Repaired JSON string or undefined if repair is not possible
+ * Simple delay utility
  */
-function repairTruncatedJson(payload: string): string | undefined {
-  if (!payload || typeof payload !== "string") {
-    return undefined;
+function delay(ms: number): Promise<void> {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+// =====================================================
+// Core API
+// =====================================================
+
+let genAI: GoogleGenerativeAI | null = null;
+
+/**
+ * Initialize Google Generative AI client
+ */
+function initializeClient(): GoogleGenerativeAI {
+  if (genAI) return genAI;
+
+  const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
+  if (!apiKey) {
+    throw new Error('Gemini API key not found in environment variables');
   }
 
-  const lastObject = payload.lastIndexOf("}");
-  const lastArray = payload.lastIndexOf("]");
-  const lastIndex = Math.max(lastObject, lastArray);
-
-  if (lastIndex === -1) {
-    return undefined;
-  }
-
-  return payload.slice(0, lastIndex + 1);
+  genAI = new GoogleGenerativeAI(apiKey);
+  return genAI;
 }
 
 /**
- * Safely converts any value to a string, handling objects with 'raw' property
+ * Unified Gemini API call interface
  *
- * This utility prevents "Objects are not valid as a React child" errors
- * by ensuring all values are properly converted to strings before rendering.
+ * All Gemini calls in the application should go through this function.
  *
- * @param v - Value to convert to text
- * @returns String representation of the value
+ * @param options - Configuration options
+ * @returns Response with text and optional parsed data
+ *
+ * @example
+ * const result = await callGemini({
+ *   model: 'flash',
+ *   input: 'Analyze this text...',
+ *   responseType: 'text'
+ * });
+ * console.log(result.text); // Safe to render in UI
  */
-export function toText(v: unknown): string {
-  if (typeof v === "string") {
-    return v;
+export async function callGemini(options: CallGeminiOptions): Promise<GeminiResponse> {
+  const {
+    model,
+    input,
+    maxTokens = UNIFIED_TOKEN_LIMIT,
+    temperature = 0.9,
+    systemInstruction,
+    responseType = 'text',
+  } = options;
+
+  // Enforce rate limiting
+  await enforceRateLimit(model);
+
+  // Initialize client
+  const client = initializeClient();
+
+  // Get model name
+  const modelName = MODEL_MAP[model];
+
+  // Create model instance
+  const generativeModel = client.getGenerativeModel({
+    model: modelName,
+    systemInstruction: systemInstruction,
+  });
+
+  // Generate content
+  const result = await generativeModel.generateContent({
+    contents: [{ role: 'user', parts: [{ text: input }] }],
+    generationConfig: {
+      temperature,
+      maxOutputTokens: UNIFIED_TOKEN_LIMIT, // Always use unified limit
+    },
+  });
+
+  const response = result.response;
+  const text = response.text();
+
+  // Parse response based on type
+  let data: any = undefined;
+  if (responseType === 'json-lax') {
+    data = parseJsonLax(text);
   }
 
-  if (v && typeof v === "object" && "raw" in v) {
-    const rawValue = (v as any).raw;
-    if (typeof rawValue === "string") {
-      return rawValue;
-    }
-  }
+  return {
+    text: toText(text), // Always return safe text
+    data,
+    metadata: {
+      model: modelName,
+      timestamp: new Date().toISOString(),
+      tokensUsed: response.usageMetadata?.totalTokenCount,
+    },
+  };
+}
 
-  if (v === null || v === undefined) {
-    return "";
-  }
+// =====================================================
+// Convenience Functions
+// =====================================================
 
-  return String(v);
+/**
+ * Call Gemini Flash-Lite model (6s delay)
+ */
+export async function callFlashLite(
+  input: string,
+  options?: Partial<Omit<CallGeminiOptions, 'model' | 'input'>>
+): Promise<GeminiResponse> {
+  return callGemini({ model: 'flash-lite', input, ...options });
 }
 
 /**
- * Safely performs substring operation with type checking
- *
- * @param s - Value to substring
- * @param start - Start index
- * @param end - Optional end index
- * @returns Substring or empty string if input is not a string
+ * Call Gemini Flash model (10s delay)
  */
-export function safeSub(s: unknown, start: number, end?: number): string {
-  const text = toText(s);
-  return text.substring(start, end);
+export async function callFlash(
+  input: string,
+  options?: Partial<Omit<CallGeminiOptions, 'model' | 'input'>>
+): Promise<GeminiResponse> {
+  return callGemini({ model: 'flash', input, ...options });
 }
 
 /**
- * Safely splits a string with type checking
- *
- * @param s - Value to split
- * @param separator - Separator string or regex
- * @returns Array of substrings or empty array if input is not a string
+ * Call Gemini Pro model (15s delay)
  */
-export function safeSplit(s: unknown, separator: string | RegExp): string[] {
-  const text = toText(s);
-  return text ? text.split(separator) : [];
-}
-
-/**
- * Validates if a value is structured JSON (object or array)
- *
- * @param value - Value to check
- * @returns True if value is an object or array
- */
-export function isStructuredJson(
-  value: unknown
-): value is Record<string, unknown> | unknown[] {
-  if (Array.isArray(value)) {
-    return true;
-  }
-
-  return typeof value === "object" && value !== null;
-}
-
-/**
- * Creates a fallback response with raw text when JSON parsing fails
- *
- * @param responseText - Raw response text
- * @returns Object with raw property containing the text
- */
-export function buildRawFallback<T = any>(responseText: string): T {
-  return { raw: responseText } as unknown as T;
-}
-
-/**
- * Sanitizes partial payloads by filtering out undefined/null values
- *
- * @param value - Value to sanitize
- * @returns Sanitized object/array or undefined if not structured
- */
-export function sanitizePartialPayload(
-  value: unknown
-): Record<string, unknown> | unknown[] | undefined {
-  if (Array.isArray(value)) {
-    return value.filter((item) => item !== undefined && item !== null);
-  }
-
-  if (isStructuredJson(value)) {
-    return Object.fromEntries(
-      Object.entries(value as Record<string, unknown>).filter(
-        ([, itemValue]) => itemValue !== undefined && itemValue !== null
-      )
-    );
-  }
-
-  return undefined;
-}
-
-/**
- * Gets the appropriate delay for a given model
- *
- * @param model - Model ID
- * @returns Delay in milliseconds
- */
-export function getModelDelay(model: ModelId | string): number {
-  return (
-    MODEL_DELAYS_MS[model] || MODEL_DELAYS_MS["gemini-2.0-flash-001"] || 10000
-  );
-}
-
-/**
- * Resets throttling state for a specific model or all models
- * Useful for testing or manual override scenarios
- *
- * @param model - Optional model ID. If not provided, resets all models
- */
-export function resetThrottle(model?: ModelId | string): void {
-  if (model) {
-    delete lastCallAt[model];
-  } else {
-    Object.keys(lastCallAt).forEach((key) => delete lastCallAt[key]);
-  }
+export async function callPro(
+  input: string,
+  options?: Partial<Omit<CallGeminiOptions, 'model' | 'input'>>
+): Promise<GeminiResponse> {
+  return callGemini({ model: 'pro', input, ...options });
 }

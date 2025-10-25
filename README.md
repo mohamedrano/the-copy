@@ -19,9 +19,15 @@ the-copy-/
 
 ## 🚀 البدء السريع
 
+### المتطلبات
+- **Node.js**: ≥20.19.0
+- **npm**: أحدث إصدار
+
 ### Frontend (Next.js)
 ```bash
 cd frontend
+# تأكد من إصدار Node.js
+node --version  # يجب أن يكون ≥20.19.0
 npm install
 npm run dev
 # يعمل على http://localhost:9002
