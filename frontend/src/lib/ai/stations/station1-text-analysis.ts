@@ -1,5 +1,6 @@
-import { BaseStation, type StationConfig } from '../core/pipeline/base-station';
-import { GeminiService, GeminiModel } from './gemini-service';
+import { BaseStation, type StationConfig } from "../core/pipeline/base-station";
+import { GeminiService, GeminiModel } from "./gemini-service";
+import { toText, safeSub, safeSplit } from "../gemini-core";
 
 type MajorCharactersResponse = {
   major_characters?: string[];
@@ -66,12 +67,14 @@ export interface Station1Output {
   narrativeStyleAnalysis: NarrativeStyleResult;
   metadata: {
     analysisTimestamp: Date;
-    status: 'Success' | 'Partial' | 'Failed';
+    status: "Success" | "Partial" | "Failed";
   };
 }
 
-export class Station1TextAnalysis extends BaseStation<Station1Input, Station1Output> {
-  
+export class Station1TextAnalysis extends BaseStation<
+  Station1Input,
+  Station1Output
+> {
   constructor(
     config: StationConfig<Station1Input, Station1Output>,
     geminiService: GeminiService
@@ -80,15 +83,12 @@ export class Station1TextAnalysis extends BaseStation<Station1Input, Station1Out
   }
 
   protected async process(input: Station1Input): Promise<Station1Output> {
-    const [
-      majorCharacters,
-      relationshipAnalysis,
-      narrativeStyle
-    ] = await Promise.all([
-      this.identifyMajorCharacters(input.fullText),
-      this.analyzeRelationships(input.fullText),
-      this.analyzeNarrativeStyle(input.fullText)
-    ]);
+    const [majorCharacters, relationshipAnalysis, narrativeStyle] =
+      await Promise.all([
+        this.identifyMajorCharacters(input.fullText),
+        this.analyzeRelationships(input.fullText),
+        this.analyzeNarrativeStyle(input.fullText),
+      ]);
 
     const characterAnalysis = await this.analyzeCharactersInDepth(
       input.fullText,
@@ -102,27 +102,28 @@ export class Station1TextAnalysis extends BaseStation<Station1Input, Station1Out
       narrativeStyleAnalysis: narrativeStyle,
       metadata: {
         analysisTimestamp: new Date(),
-        status: 'Success'
-      }
+        status: "Success",
+      },
     };
   }
 
-  private async identifyMajorCharacters(
-    fullText: string
-  ): Promise<string[]> {
+  private async identifyMajorCharacters(fullText: string): Promise<string[]> {
     const prompt = `
-بناءً على النص السردي الكامل المرفق، قم بتحليل النص وتحديد الشخصيات التي تبدو **الأكثر مركزية وأهمية** للحبكة وتطور الأحداث. 
+بناءً على النص السردي الكامل المرفق، قم بتحليل النص وتحديد الشخصيات التي تبدو **الأكثر مركزية وأهمية** للحبكة وتطور الأحداث.
 ركز على الشخصيات التي لها أدوار فاعلة، دوافع واضحة، وتظهر بشكل متكرر ومؤثر.
 اكتب قائمة بأسماء الشخصيات الرئيسية (ما بين 3 إلى 7 شخصيات)، كل اسم في سطر منفصل.
     `;
 
     const result = await this.geminiService.generate<string>({
       prompt,
-      context: fullText.substring(0, 30000),
-      model: GeminiModel.FLASH
+      context: safeSub(fullText, 0, 30000),
+      model: GeminiModel.FLASH,
     });
 
-    return result.content ? result.content.split('\n').filter(line => line.trim()) : [];
+    const contentText = toText(result.content);
+    return contentText
+      ? safeSplit(contentText, "\n").filter((line) => line.trim())
+      : [];
   }
 
   private async analyzeCharactersInDepth(
@@ -131,7 +132,7 @@ export class Station1TextAnalysis extends BaseStation<Station1Input, Station1Out
   ): Promise<Map<string, CharacterAnalysisResult>> {
     const analyses = new Map<string, CharacterAnalysisResult>();
 
-    const analysisPromises = characterNames.map(name =>
+    const analysisPromises = characterNames.map((name) =>
       this.analyzeCharacter(fullText, name)
     );
 
@@ -164,16 +165,16 @@ export class Station1TextAnalysis extends BaseStation<Station1Input, Station1Out
 
     const result = await this.geminiService.generate<string>({
       prompt,
-      context: fullText.substring(0, 30000),
-      model: GeminiModel.FLASH
+      context: safeSub(fullText, 0, 30000),
+      model: GeminiModel.FLASH,
     });
 
     return {
-      personalityTraits: result.content || 'N/A',
-      motivationsGoals: '',
-      keyRelationshipsBrief: '',
-      narrativeFunction: '',
-      potentialArcObservation: ''
+      personalityTraits: result.content || "N/A",
+      motivationsGoals: "",
+      keyRelationshipsBrief: "",
+      narrativeFunction: "",
+      potentialArcObservation: "",
     };
   }
 
@@ -189,16 +190,18 @@ export class Station1TextAnalysis extends BaseStation<Station1Input, Station1Out
 
     const result = await this.geminiService.generate<string>({
       prompt,
-      context: fullText.substring(0, 30000),
-      model: GeminiModel.FLASH
+      context: safeSub(fullText, 0, 30000),
+      model: GeminiModel.FLASH,
     });
 
     return {
-      keyRelationships: [{
-        characters: ['غير محدد', 'غير محدد'],
-        dynamic: result.content || 'N/A',
-        narrativeImportance: 'N/A'
-      }]
+      keyRelationships: [
+        {
+          characters: ["غير محدد", "غير محدد"],
+          dynamic: result.content || "N/A",
+          narrativeImportance: "N/A",
+        },
+      ],
     };
   }
 
@@ -216,14 +219,14 @@ export class Station1TextAnalysis extends BaseStation<Station1Input, Station1Out
 
     const result = await this.geminiService.generate<string>({
       prompt,
-      context: fullText.substring(0, 30000),
-      model: GeminiModel.FLASH
+      context: safeSub(fullText, 0, 30000),
+      model: GeminiModel.FLASH,
     });
 
     return {
-      overallTone: result.content || 'N/A',
-      pacingAnalysis: '',
-      languageStyle: ''
+      overallTone: result.content || "N/A",
+      pacingAnalysis: "",
+      languageStyle: "",
     };
   }
 
@@ -231,7 +234,7 @@ export class Station1TextAnalysis extends BaseStation<Station1Input, Station1Out
     return {
       fullTextLength: input.fullText.length,
       projectName: input.projectName,
-      hasProseFilePath: Boolean(input.proseFilePath)
+      hasProseFilePath: Boolean(input.proseFilePath),
     };
   }
 
@@ -241,14 +244,14 @@ export class Station1TextAnalysis extends BaseStation<Station1Input, Station1Out
       characterAnalysis: new Map(),
       relationshipAnalysis: { keyRelationships: [] },
       narrativeStyleAnalysis: {
-        overallTone: 'Error',
-        pacingAnalysis: 'Error',
-        languageStyle: 'Error'
+        overallTone: "Error",
+        pacingAnalysis: "Error",
+        languageStyle: "Error",
       },
       metadata: {
         analysisTimestamp: new Date(),
-        status: 'Failed'
-      }
+        status: "Failed",
+      },
     };
   }
 }

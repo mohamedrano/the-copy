@@ -2,6 +2,7 @@ import { BaseStation, type StationConfig } from "../core/pipeline/base-station";
 import { GeminiService, GeminiModel } from "./gemini-service";
 import { Station1Output } from "./station1-text-analysis";
 import { Station2Context } from "../../types/contexts";
+import { toText, safeSub } from "../gemini-core";
 
 export interface Station2Input {
   station1Output: Station1Output;
@@ -156,12 +157,12 @@ export class Station2ConceptualAnalysis extends BaseStation<
 
     const result = await this.geminiService.generate<string>({
       prompt,
-      context: context.fullText?.substring(0, 25000) ?? "",
+      context: safeSub(context.fullText, 0, 25000),
       model: GeminiModel.FLASH,
       temperature: 0.8,
     });
 
-    return result.content ? [result.content] : ["فشل توليد بيان القصة"];
+    return result.content ? [toText(result.content)] : ["فشل توليد بيان القصة"];
   }
 
   private async generate3DMap(
@@ -181,7 +182,7 @@ export class Station2ConceptualAnalysis extends BaseStation<
 
     const result = await this.geminiService.generate<string>({
       prompt,
-      context: context.fullText?.substring(0, 25000) ?? "",
+      context: safeSub(context.fullText, 0, 25000),
       model: GeminiModel.FLASH,
       temperature: 0.7,
     });
@@ -190,7 +191,7 @@ export class Station2ConceptualAnalysis extends BaseStation<
       horizontalEventsAxis: [],
       verticalMeaningAxis: [],
       temporalDevelopmentAxis: {
-        pastInfluence: result.content || "فشل التحليل",
+        pastInfluence: toText(result.content) || "فشل التحليل",
         presentChoices: "",
         futureExpectations: "",
         heroArcConnection: "",
@@ -211,7 +212,7 @@ export class Station2ConceptualAnalysis extends BaseStation<
       temperature: 0.9,
     });
 
-    return result.content || "فشل توليد العرض المختصر";
+    return toText(result.content) || "فشل توليد العرض المختصر";
   }
 
   private async generateHybridGenre(
@@ -228,12 +229,12 @@ export class Station2ConceptualAnalysis extends BaseStation<
 
     const result = await this.geminiService.generate<string>({
       prompt,
-      context: context.fullText?.substring(0, 20000) ?? "",
+      context: safeSub(context.fullText, 0, 20000),
       model: GeminiModel.FLASH,
       temperature: 0.8,
     });
 
-    return result.content ? [result.content] : ["Drama-Thriller"];
+    return result.content ? [toText(result.content)] : ["Drama-Thriller"];
   }
 
   private async generateGenreMatrix(
@@ -248,18 +249,20 @@ export class Station2ConceptualAnalysis extends BaseStation<
 
     const result = await this.geminiService.generate<string>({
       prompt,
-      context: context.fullText?.substring(0, 15000) ?? "",
+      context: safeSub(context.fullText, 0, 15000),
       model: GeminiModel.FLASH,
       temperature: 0.7,
     });
 
-    return { "تحليل النوع": { 
-      conflict_contribution: result.content || "فشل التحليل",
-      pacing_contribution: "",
-      visual_composition_contribution: "",
-      sound_music_contribution: "",
-      characters_contribution: ""
-    }};
+    return {
+      "تحليل النوع": {
+        conflict_contribution: toText(result.content) || "فشل التحليل",
+        pacing_contribution: "",
+        visual_composition_contribution: "",
+        sound_music_contribution: "",
+        characters_contribution: "",
+      },
+    };
   }
 
   private async generateDynamicTone(

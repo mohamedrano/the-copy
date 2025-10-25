@@ -7,6 +7,7 @@ import {
 } from "../core/models/base-entities";
 import { GeminiService, GeminiModel } from "./gemini-service";
 import { Station4Output } from "./station4-efficiency-metrics";
+import { toText, safeSub } from "../gemini-core";
 
 const safeGet = <T>(array: T[], index: number): T | undefined => {
   if (index < 0 || index >= array.length) {
@@ -1099,18 +1100,20 @@ export class Station5DynamicSymbolicStylistic extends BaseStation<
 
     const result = await this.geminiService.generate<string>({
       prompt,
-      context: fullText.substring(0, 30000),
+      context: safeSub(fullText, 0, 30000),
       model: GeminiModel.FLASH,
       temperature: 0.7,
     });
 
     return {
-      keySymbols: [{
-        symbol: "رمز رئيسي",
-        interpretation: result.content || "تحليل رمزي",
-        frequency: 1,
-        contextualMeanings: []
-      }],
+      keySymbols: [
+        {
+          symbol: "رمز رئيسي",
+          interpretation: result.content || "تحليل رمزي",
+          frequency: 1,
+          contextualMeanings: [],
+        },
+      ],
       recurringMotifs: [],
       centralThemesHintedBySymbols: [],
       symbolicNetworks: [],
@@ -1164,7 +1167,7 @@ export class Station5DynamicSymbolicStylistic extends BaseStation<
 
     const result = await this.geminiService.generate<string>({
       prompt,
-      context: fullText.substring(0, 30000),
+      context: safeSub(fullText, 0, 30000),
       model: GeminiModel.FLASH,
       temperature: 0.6,
     });
