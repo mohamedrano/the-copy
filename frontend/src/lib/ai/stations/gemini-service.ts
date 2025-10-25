@@ -167,9 +167,7 @@ export class GeminiService {
     }
 
     if (parsed === null) {
-      logger.warn(
-        "Gemini response did not contain valid JSON payload. Using raw text fallback."
-      );
+      logger.info("[AI] text generated");
       return { raw: responseText } as T;
     }
 
@@ -185,9 +183,7 @@ export class GeminiService {
       if (allowPartial && onPartialFallback) {
         const partial = onPartialFallback(parsed);
         if (partial !== undefined) {
-          logger.warn(
-            "Gemini response failed validation; returning partial payload."
-          );
+          logger.info("[AI] text generated");
           return partial as T;
         }
       }
@@ -203,10 +199,8 @@ export class GeminiService {
       return parsed as T;
     }
 
-    // If not structured JSON, fall back to raw text
-    logger.warn(
-      "Gemini response JSON was not an object or array. Using raw text fallback."
-    );
+    // If not structured, fall back to raw text
+    logger.info("[AI] text generated");
     return { raw: responseText } as T;
   }
 
