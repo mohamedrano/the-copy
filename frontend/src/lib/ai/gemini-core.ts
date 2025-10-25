@@ -1,68 +1,60 @@
 /**
- * Unified Gemini AI Core Layer
+ * Unified Gemini AI Core Layer - Text Only
  *
- * This module provides a unified interface for all Gemini AI interactions across the application.
- * It enforces consistent token limits (48192), per-model rate limiting, and safe text handling.
+ * This module provides a unified TEXT-ONLY interface for all Gemini AI interactions.
+ * NO JSON parsing. NO JSON output to UI. Pure text in, pure text out.
  *
  * Features:
  * - Unified token limit: 48192 for all models
- * - Per-model rate limiting: Flash-Lite (6s), Flash (10s), Pro (15s)
+ * - Per-model throttling: Flash-Lite (6s), Flash (10s), Pro (15s)
  * - Safe text utilities to prevent React rendering errors
- * - Lax JSON parsing that doesn't throw errors
- * - No JSON exposed to user interface
+ * - Text-only responses
  */
 
-import { GoogleGenAI } from '@google/genai';
+import { GoogleGenAI } from "@google/genai";
 
 // =====================================================
 // Type Definitions
 // =====================================================
 
-export type GeminiModelType = 'flash-lite' | 'flash' | 'pro';
+export type ModelId =
+  | "gemini-2.5-flash-lite"
+  | "gemini-2.5-flash"
+  | "gemini-2.5-pro";
 
-export interface CallGeminiOptions {
-  model: GeminiModelType;
-  input: string;
-  maxTokens?: number;
-  temperature?: number;
-  systemInstruction?: string;
-  responseType?: 'text' | 'json-lax';
-}
-
-export interface GeminiResponse {
-  text: string;
-  data?: any;
-  metadata: {
-    model: string;
-    timestamp: string;
-    tokensUsed?: number;
-  };
-}
+export const MAX_TOKENS = 48192 as const;
 
 // =====================================================
 // Configuration
 // =====================================================
 
-const MODEL_MAP: Record<GeminiModelType, string> = {
-  'flash-lite': 'gemini-2.5-flash-lite',
-  'flash': 'gemini-2.5-flash',
-  'pro': 'gemini-2.5-pro',
+const DELAY: Record<ModelId, number> = {
+  "gemini-2.5-flash-lite": 6000, // 6 seconds
+  "gemini-2.5-flash": 10000, // 10 seconds
+  "gemini-2.5-pro": 15000, // 15 seconds
 };
 
-const MODEL_DELAYS: Record<GeminiModelType, number> = {
-  'flash-lite': 6000,  // 6 seconds
-  'flash': 10000,      // 10 seconds
-  'pro': 15000,        // 15 seconds
-};
+// Track last call time per model for throttling
+const last: Partial<Record<ModelId, number>> = {};
 
-const UNIFIED_TOKEN_LIMIT = 48192;
+// =====================================================
+// Throttling
+// =====================================================
 
-// Track last call time per model for rate limiting
-const lastCallTime: Record<GeminiModelType, number> = {
-  'flash-lite': 0,
-  'flash': 0,
-  'pro': 0,
-};
+/**
+ * Enforces throttling delay before API call
+ */
+export async function throttle(model: ModelId): Promise<void> {
+  const now = Date.now();
+  const prev = last[model] ?? 0;
+  const wait = Math.max(0, DELAY[model] - (now - prev));
+
+  if (wait > 0) {
+    await new Promise((r) => setTimeout(r, wait));
+  }
+
+  last[model] = Date.now();
+}
 
 // =====================================================
 // Safe Text Utilities
@@ -70,130 +62,57 @@ const lastCallTime: Record<GeminiModelType, number> = {
 
 /**
  * Safely converts any value to text string
- * Returns empty string for objects, arrays, undefined, null
- * This prevents React "Objects are not valid as a React child" errors
+ * Handles objects with 'raw' property (common in AI responses)
+ * Returns empty string for null/undefined
  */
-export function toText(value: any): string {
-  if (value === null || value === undefined) {
-    return '';
+export function toText(v: unknown): string {
+  if (v === null || v === undefined) {
+    return "";
   }
 
-  if (typeof value === 'string') {
-    return value;
+  if (typeof v === "string") {
+    return v;
   }
 
-  if (typeof value === 'number' || typeof value === 'boolean') {
-    return String(value);
+  // Handle objects with 'raw' property
+  if (
+    v &&
+    typeof v === "object" &&
+    "raw" in (v as any) &&
+    typeof (v as any).raw === "string"
+  ) {
+    return (v as any).raw;
   }
 
-  // For objects with 'raw' property (common in AI responses)
-  if (typeof value === 'object' && value.raw !== undefined) {
-    return toText(value.raw);
+  // For numbers and booleans
+  if (typeof v === "number" || typeof v === "boolean") {
+    return String(v);
   }
 
   // For arrays and other objects, return empty string
-  // This prevents rendering issues in React
-  if (typeof value === 'object') {
-    return '';
-  }
-
-  return String(value);
+  return "";
 }
 
 /**
- * Safe substring operation - only works on strings
- * Returns empty string if input is not a string
+ * Safe substring - only works on strings
  */
-export function safeSub(value: any, start: number, length?: number): string {
-  const text = toText(value);
-  if (!text) return '';
-
-  if (length !== undefined) {
-    return text.substring(start, start + length);
-  }
-  return text.substring(start);
+export function safeSub(s: unknown, a: number, b?: number): string {
+  const text = toText(s);
+  if (!text) return "";
+  return b !== undefined ? text.substring(a, b) : text.substring(a);
 }
 
 /**
- * Safe split operation - only works on strings
- * Returns empty array if input is not a string
+ * Safe split - only works on strings
  */
-export function safeSplit(value: any, separator: string | RegExp): string[] {
-  const text = toText(value);
+export function safeSplit(s: unknown, sep: string | RegExp): string[] {
+  const text = toText(s);
   if (!text) return [];
-
-  return text.split(separator);
+  return text.split(sep);
 }
 
 // =====================================================
-// JSON Utilities
-// =====================================================
-
-/**
- * Lax JSON parser that doesn't throw errors
- * Attempts to parse JSON, returns raw text on failure
- * Never exposes raw JSON to UI
- */
-function parseJsonLax(text: string): any {
-  try {
-    // Try direct JSON parse
-    return JSON.parse(text);
-  } catch (e) {
-    // Try to extract JSON from markdown code blocks
-    const jsonMatch = text.match(/```json\s*\n?([\s\S]*?)\n?```/);
-    if (jsonMatch && jsonMatch[1]) {
-      try {
-        return JSON.parse(jsonMatch[1]);
-      } catch (e2) {
-        // Fall through
-      }
-    }
-
-    // Try to find JSON object in text
-    const objectMatch = text.match(/\{[\s\S]*\}/);
-    if (objectMatch && objectMatch[0]) {
-      try {
-        return JSON.parse(objectMatch[0]);
-      } catch (e3) {
-        // Fall through
-      }
-    }
-
-    // Return original text if all parsing attempts fail
-    return { raw: text };
-  }
-}
-
-// =====================================================
-// Rate Limiting
-// =====================================================
-
-/**
- * Enforces rate limiting delay before API call
- */
-async function enforceRateLimit(modelType: GeminiModelType): Promise<void> {
-  const now = Date.now();
-  const lastCall = lastCallTime[modelType];
-  const requiredDelay = MODEL_DELAYS[modelType];
-  const timeSinceLastCall = now - lastCall;
-
-  if (timeSinceLastCall < requiredDelay) {
-    const waitTime = requiredDelay - timeSinceLastCall;
-    await delay(waitTime);
-  }
-
-  lastCallTime[modelType] = Date.now();
-}
-
-/**
- * Simple delay utility
- */
-function delay(ms: number): Promise<void> {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-// =====================================================
-// Core API
+// Core API - Text Only
 // =====================================================
 
 let genAI: GoogleGenAI | null = null;
@@ -201,84 +120,67 @@ let genAI: GoogleGenAI | null = null;
 /**
  * Initialize Google Generative AI client
  */
-function initializeClient(): GoogleGenAI {
+function initClient(): GoogleGenAI {
   if (genAI) return genAI;
 
-  const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || process.env.GEMINI_API_KEY || '';
+  const apiKey =
+    process.env.NEXT_PUBLIC_GEMINI_API_KEY || process.env.GEMINI_API_KEY || "";
   if (!apiKey) {
-    throw new Error('Gemini API key not found in environment variables');
+    throw new Error("Gemini API key not found");
   }
 
   genAI = new GoogleGenAI({ apiKey });
   return genAI;
 }
 
+export type CallOpts = {
+  model: ModelId;
+  prompt: string;
+  temperature?: number;
+  systemInstruction?: string;
+};
+
 /**
- * Unified Gemini API call interface
+ * Unified Gemini TEXT-ONLY call
  *
- * All Gemini calls in the application should go through this function.
- *
- * @param options - Configuration options
- * @returns Response with text and optional parsed data
+ * @returns Pure text string. NO JSON.
  *
  * @example
- * const result = await callGemini({
- *   model: 'flash',
- *   input: 'Analyze this text...',
- *   responseType: 'text'
+ * const text = await callGeminiText({
+ *   model: 'gemini-2.5-flash',
+ *   prompt: 'Analyze this...',
+ *   temperature: 0.3
  * });
- * console.log(result.text); // Safe to render in UI
  */
-export async function callGemini(options: CallGeminiOptions): Promise<GeminiResponse> {
-  const {
-    model,
-    input,
-    maxTokens = UNIFIED_TOKEN_LIMIT,
-    temperature = 0.9,
-    systemInstruction,
-    responseType = 'text',
-  } = options;
+export async function callGeminiText(opts: CallOpts): Promise<string> {
+  const { model, prompt, temperature = 0.3, systemInstruction } = opts;
 
-  // Enforce rate limiting
-  await enforceRateLimit(model);
+  // Enforce throttling
+  await throttle(model);
 
   // Initialize client
-  const client = initializeClient();
+  const client = initClient();
 
-  // Get model name
-  const modelName = MODEL_MAP[model];
-
-  // Build prompt with system instruction
+  // Build full prompt
   const fullPrompt = systemInstruction
-    ? `${systemInstruction}\n\n${input}`
-    : input;
+    ? `${systemInstruction}\n\n${prompt}`
+    : prompt;
 
-  // Generate content
+  // Call API
   const result = await client.models.generateContent({
-    model: modelName,
+    model,
     contents: fullPrompt,
     config: {
       temperature,
-      maxOutputTokens: UNIFIED_TOKEN_LIMIT, // Always use unified limit
+      maxOutputTokens: MAX_TOKENS,
     },
   });
 
-  const text = result.text || '';
+  // Extract text
+  const output = result?.text ?? result?.content ?? result ?? "";
 
-  // Parse response based on type
-  let data: any = undefined;
-  if (responseType === 'json-lax') {
-    data = parseJsonLax(text);
-  }
-
-  return {
-    text: toText(text), // Always return safe text
-    data,
-    metadata: {
-      model: modelName,
-      timestamp: new Date().toISOString(),
-    },
-  };
+  // Convert to safe text and return
+  return toText(output);
 }
 
 // =====================================================
@@ -286,31 +188,43 @@ export async function callGemini(options: CallGeminiOptions): Promise<GeminiResp
 // =====================================================
 
 /**
- * Call Gemini Flash-Lite model (6s delay)
+ * Call Flash-Lite (6s throttle)
  */
 export async function callFlashLite(
-  input: string,
-  options?: Partial<Omit<CallGeminiOptions, 'model' | 'input'>>
-): Promise<GeminiResponse> {
-  return callGemini({ model: 'flash-lite', input, ...options });
+  prompt: string,
+  opts?: { temperature?: number; systemInstruction?: string }
+): Promise<string> {
+  return callGeminiText({
+    model: "gemini-2.5-flash-lite",
+    prompt,
+    ...opts,
+  });
 }
 
 /**
- * Call Gemini Flash model (10s delay)
+ * Call Flash (10s throttle)
  */
 export async function callFlash(
-  input: string,
-  options?: Partial<Omit<CallGeminiOptions, 'model' | 'input'>>
-): Promise<GeminiResponse> {
-  return callGemini({ model: 'flash', input, ...options });
+  prompt: string,
+  opts?: { temperature?: number; systemInstruction?: string }
+): Promise<string> {
+  return callGeminiText({
+    model: "gemini-2.5-flash",
+    prompt,
+    ...opts,
+  });
 }
 
 /**
- * Call Gemini Pro model (15s delay)
+ * Call Pro (15s throttle)
  */
 export async function callPro(
-  input: string,
-  options?: Partial<Omit<CallGeminiOptions, 'model' | 'input'>>
-): Promise<GeminiResponse> {
-  return callGemini({ model: 'pro', input, ...options });
+  prompt: string,
+  opts?: { temperature?: number; systemInstruction?: string }
+): Promise<string> {
+  return callGeminiText({
+    model: "gemini-2.5-pro",
+    prompt,
+    ...opts,
+  });
 }
