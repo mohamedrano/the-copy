@@ -1,8 +1,18 @@
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenerativeAI } from "@google/generative-ai";
+import {
+  throttleByModel,
+  normalizeGenConfig,
+  parseJsonLenient,
+  toText,
+  buildRawFallback,
+  isStructuredJson,
+  MAX_TOKENS_PER_USE,
+  type ModelId,
+} from "./gemini-core";
 
 export enum GeminiModel {
-  PRO = 'gemini-2.0-flash-exp',
-  FLASH = 'gemini-2.0-flash-exp',
+  PRO = "gemini-2.0-flash-exp",
+  FLASH = "gemini-2.0-flash-exp",
 }
 
 export interface GeminiConfig {
@@ -51,22 +61,55 @@ export class GeminiService {
     try {
       return await this.performRequest<T>({ ...request, model: primaryModel });
     } catch (primaryError) {
-      if (this.config.fallbackModel && this.config.fallbackModel !== primaryModel) {
-        console.warn('Primary Gemini model failed. Falling back to secondary model.');
-        return this.performRequest<T>({ ...request, model: this.config.fallbackModel });
+      if (
+        this.config.fallbackModel &&
+        this.config.fallbackModel !== primaryModel
+      ) {
+        console.warn(
+          "Primary Gemini model failed. Falling back to secondary model."
+        );
+        return this.performRequest<T>({
+          ...request,
+          model: this.config.fallbackModel,
+        });
       }
       throw primaryError;
     }
   }
 
-  private async performRequest<T>(request: GeminiRequest<T>): Promise<GeminiResponse<T>> {
+  private async performRequest<T>(
+    request: GeminiRequest<T>
+  ): Promise<GeminiResponse<T>> {
     const startTime = Date.now();
     const modelName = request.model ?? this.config.defaultModel;
+
+    // Apply unified throttling from gemini-core
+    await throttleByModel(modelName as ModelId);
+
     const model = this.genAI.getGenerativeModel({ model: modelName });
 
-    const fullPrompt = `${request.systemInstruction || ''}\n\nContext: ${request.context || 'N/A'}\n\nPrompt: ${request.prompt}`;
+    const fullPrompt = `${request.systemInstruction || ""}\n\nContext: ${request.context || "N/A"}\n\nPrompt: ${request.prompt}`;
 
-    const result = await model.generateContent(fullPrompt);
+    // Get unified generation config with 48192 token limit
+    const genConfig = normalizeGenConfig();
+
+    // Allow override of temperature and max tokens if specified
+    const finalConfig = {
+      ...genConfig,
+      temperature: request.temperature ?? genConfig.temperature,
+      maxOutputTokens: request.maxTokens ?? MAX_TOKENS_PER_USE,
+    };
+
+    console.log(`[Gemini Service] Generating content with model ${modelName}`, {
+      tokenLimit: finalConfig.maxOutputTokens,
+      temperature: finalConfig.temperature,
+    });
+
+    const result = await model.generateContent({
+      contents: [{ role: "user", parts: [{ text: fullPrompt }] }],
+      generationConfig: finalConfig,
+    });
+
     const response = result.response;
     const text = response.text();
 
@@ -88,52 +131,17 @@ export class GeminiService {
   }
 
   private parseResponse<T>(responseText: string): T {
-    const parseResult = this.extractJsonPayload(responseText);
-    
-    if (parseResult.success && parseResult.value !== undefined) {
-      return parseResult.value as T;
-    }
-    
-    return { raw: responseText } as unknown as T;
-  }
+    // Use unified lenient JSON parser from gemini-core
+    const parsed = parseJsonLenient(responseText);
 
-  private extractJsonPayload(responseText: string): {
-    success: boolean;
-    value?: unknown;
-  } {
-    const fencedMatch = responseText.match(/```json\n([\s\S]*?)\n```/);
-    const candidate = fencedMatch?.[1] ?? responseText;
-
-    try {
-      return {
-        success: true,
-        value: JSON.parse(candidate),
-      };
-    } catch (error) {
-      try {
-        const repaired = this.repairTruncatedJson(candidate);
-        if (repaired) {
-          return {
-            success: true,
-            value: JSON.parse(repaired),
-          };
-        }
-      } catch (repairError) {
-        // Fall through to return failure
-      }
-      return { success: false };
-    }
-  }
-
-  private repairTruncatedJson(payload: string): string | undefined {
-    const lastObject = payload.lastIndexOf('}');
-    const lastArray = payload.lastIndexOf(']');
-    const lastIndex = Math.max(lastObject, lastArray);
-
-    if (lastIndex === -1) {
-      return undefined;
+    if (parsed !== null && isStructuredJson(parsed)) {
+      return parsed as T;
     }
 
-    return payload.slice(0, lastIndex + 1);
+    // If parsing failed or result is not structured, return raw fallback
+    console.warn(
+      "[Gemini Service] Response was not valid JSON, using raw text fallback"
+    );
+    return buildRawFallback<T>(responseText);
   }
 }

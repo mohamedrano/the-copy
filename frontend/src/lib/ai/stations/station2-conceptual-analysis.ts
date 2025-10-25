@@ -2,7 +2,7 @@ import { BaseStation, type StationConfig } from "../core/pipeline/base-station";
 import { GeminiService, GeminiModel } from "./gemini-service";
 import { Station1Output } from "./station1-text-analysis";
 import { Station2Context } from "../../types/contexts";
-import { toText, safeSub } from '@/lib/ai/gemini-core';
+import { toText, safeSub } from "../gemini-core";
 
 export interface Station2Input {
   station1Output: Station1Output;
@@ -162,8 +162,7 @@ export class Station2ConceptualAnalysis extends BaseStation<
       temperature: 0.8,
     });
 
-    const content = toText(result.content);
-    return content ? [content] : ["فشل توليد بيان القصة"];
+    return result.content ? [toText(result.content)] : ["فشل توليد بيان القصة"];
   }
 
   private async generate3DMap(
@@ -235,8 +234,7 @@ export class Station2ConceptualAnalysis extends BaseStation<
       temperature: 0.8,
     });
 
-    const content = toText(result.content);
-    return content ? [content] : ["Drama-Thriller"];
+    return result.content ? [toText(result.content)] : ["Drama-Thriller"];
   }
 
   private async generateGenreMatrix(
@@ -256,13 +254,15 @@ export class Station2ConceptualAnalysis extends BaseStation<
       temperature: 0.7,
     });
 
-    return { "تحليل النوع": {
-      conflictContribution: toText(result.content) || "فشل التحليل",
-      pacingContribution: "",
-      visualCompositionContribution: "",
-      soundMusicContribution: "",
-      charactersContribution: ""
-    }};
+    return {
+      "تحليل النوع": {
+        conflict_contribution: toText(result.content) || "فشل التحليل",
+        pacing_contribution: "",
+        visual_composition_contribution: "",
+        sound_music_contribution: "",
+        characters_contribution: "",
+      },
+    };
   }
 
   private async generateDynamicTone(

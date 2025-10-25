@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import {
   AlertCircle,
@@ -6,10 +6,11 @@ import {
   Loader2,
   MinusCircle,
   type LucideIcon,
-} from 'lucide-react';
+} from "lucide-react";
 
-import { cn } from '@/lib/utils';
-import { Badge } from './ui/badge';
+import { cn } from "@/lib/utils";
+import { toText } from "@/lib/ai/gemini-core";
+import { Badge } from "./ui/badge";
 import {
   Card,
   CardContent,
@@ -17,8 +18,8 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from './ui/card';
-import { Progress } from './ui/progress';
+} from "./ui/card";
+import { Progress } from "./ui/progress";
 
 interface Station {
   id: number;
@@ -27,7 +28,7 @@ interface Station {
   Icon: LucideIcon;
 }
 
-type Status = 'pending' | 'running' | 'completed' | 'failed';
+type Status = "pending" | "running" | "completed" | "failed";
 
 interface StationCardProps {
   station: Station;
@@ -36,9 +37,14 @@ interface StationCardProps {
   isActive: boolean;
 }
 
-const StationCard = ({ station, status, results, isActive }: StationCardProps) => {
+const StationCard = ({
+  station,
+  status,
+  results,
+  isActive,
+}: StationCardProps) => {
   const { id, name, description, Icon } = station;
-  const hasResults = status === 'completed' && results[id];
+  const hasResults = status === "completed" && results[id];
 
   const statusIcons: Record<Status, JSX.Element> = {
     pending: <MinusCircle className="text-muted-foreground" />,
@@ -55,35 +61,64 @@ const StationCard = ({ station, status, results, isActive }: StationCardProps) =
       case 1:
         return (
           <div className="space-y-2">
-            <p className="text-sm"><strong>الشخصيات:</strong> {data.majorCharacters?.join(', ')}</p>
-            <p className="text-sm"><strong>النمط:</strong> {data.narrativeStyleAnalysis?.overallTone}</p>
+            <p className="text-sm">
+              <strong>الشخصيات:</strong>{" "}
+              {Array.isArray(data.majorCharacters)
+                ? data.majorCharacters.join(", ")
+                : toText(data.majorCharacters)}
+            </p>
+            <p className="text-sm">
+              <strong>النمط:</strong>{" "}
+              {toText(data.narrativeStyleAnalysis?.overallTone)}
+            </p>
           </div>
         );
       case 2:
         return (
           <div className="space-y-2">
-            <p className="text-sm"><strong>بيان القصة:</strong> {data.storyStatement}</p>
-            <p className="text-sm"><strong>النوع:</strong> {typeof data.hybridGenre === 'object' ? data.hybridGenre?.genre || JSON.stringify(data.hybridGenre) : data.hybridGenre}</p>
+            <p className="text-sm">
+              <strong>بيان القصة:</strong> {toText(data.storyStatement)}
+            </p>
+            <p className="text-sm">
+              <strong>النوع:</strong>{" "}
+              {toText(
+                typeof data.hybridGenre === "object"
+                  ? data.hybridGenre?.genre
+                  : data.hybridGenre
+              )}
+            </p>
           </div>
         );
       case 3:
         return (
           <p className="text-sm">
-            <strong>الشبكة:</strong> {data.networkSummary?.charactersCount} شخصيات، {data.networkSummary?.relationshipsCount} علاقات
+            <strong>الشبكة:</strong>{" "}
+            {toText(data.networkSummary?.charactersCount)} شخصيات،{" "}
+            {toText(data.networkSummary?.relationshipsCount)} علاقات
           </p>
         );
       case 4:
         return (
           <div className="space-y-2">
             <div className="flex items-center gap-2">
-              <Progress value={data.efficiencyMetrics?.overallEfficiencyScore} className="flex-1" />
-              <span className="text-sm">{Math.round(data.efficiencyMetrics?.overallEfficiencyScore || 0)}/100</span>
+              <Progress
+                value={data.efficiencyMetrics?.overallEfficiencyScore}
+                className="flex-1"
+              />
+              <span className="text-sm">
+                {Math.round(
+                  data.efficiencyMetrics?.overallEfficiencyScore || 0
+                )}
+                /100
+              </span>
             </div>
           </div>
         );
       case 7:
         return (
-          <p className="text-sm">{data.finalReport?.executiveSummary}</p>
+          <p className="text-sm">
+            {toText(data.finalReport?.executiveSummary)}
+          </p>
         );
       default:
         return <p className="text-sm">تم إنجاز التحليل بنجاح</p>;
@@ -93,9 +128,9 @@ const StationCard = ({ station, status, results, isActive }: StationCardProps) =
   return (
     <Card
       className={cn(
-        'flex h-full flex-col transition-all duration-300',
-        isActive ? 'border-primary shadow-lg' : 'border-dashed',
-        status === 'pending' && 'bg-muted/30'
+        "flex h-full flex-col transition-all duration-300",
+        isActive ? "border-primary shadow-lg" : "border-dashed",
+        status === "pending" && "bg-muted/30"
       )}
     >
       <CardHeader className="flex flex-row items-start gap-4 space-y-0">
@@ -110,7 +145,7 @@ const StationCard = ({ station, status, results, isActive }: StationCardProps) =
       </CardHeader>
       {(hasResults || isActive) && (
         <CardContent className="flex-1">
-          {isActive && status === 'running' && (
+          {isActive && status === "running" && (
             <div className="flex items-center justify-center py-8">
               <Loader2 className="h-8 w-8 animate-spin text-primary" />
             </div>

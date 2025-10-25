@@ -17,7 +17,7 @@ import { Station1Output } from "./station1-text-analysis";
 import { Station2Output } from "./station2-conceptual-analysis";
 import logger from "../utils/logger";
 import { Station3Context } from "../../types/contexts";
-import { toText, safeSub } from '@/lib/ai/gemini-core';
+import { toText, safeSub } from "../gemini-core";
 
 export interface Station3Input {
   station1Output: Station1Output;
@@ -71,21 +71,23 @@ class RelationshipInferenceEngine {
 
     // إرجاع علاقة افتراضية بسيطة
     if (characters.length >= 2) {
-      return [{
-        id: `rel_default_${Date.now()}`,
-        source: characters[0].id,
-        target: characters[1].id,
-        type: RelationshipType.OTHER,
-        nature: RelationshipNature.NEUTRAL,
-        direction: RelationshipDirection.BIDIRECTIONAL,
-        strength: 5,
-        description: toText(result.content) || "علاقة رئيسية",
-        triggers: [],
-        metadata: {
-          source: "AI_Text_Analysis",
-          inferenceTimestamp: new Date().toISOString(),
+      return [
+        {
+          id: `rel_default_${Date.now()}`,
+          source: characters[0].id,
+          target: characters[1].id,
+          type: RelationshipType.OTHER,
+          nature: RelationshipNature.NEUTRAL,
+          direction: RelationshipDirection.BIDIRECTIONAL,
+          strength: 5,
+          description: toText(result.content) || "علاقة رئيسية",
+          triggers: [],
+          metadata: {
+            source: "AI_Text_Analysis",
+            inferenceTimestamp: new Date().toISOString(),
+          },
         },
-      }];
+      ];
     }
     return [];
   }
@@ -250,23 +252,25 @@ class ConflictInferenceEngine {
 
     // إرجاع صراع افتراضي بسيط
     if (characters.length >= 1) {
-      return [{
-        id: `conflict_default_${Date.now()}`,
-        name: "صراع رئيسي",
-        description: toText(result.content) || "صراع رئيسي في القصة",
-        involvedCharacters: [characters[0].id],
-        subject: ConflictSubject.OTHER,
-        scope: ConflictScope.PERSONAL,
-        phase: ConflictPhase.EMERGING,
-        strength: 5,
-        relatedRelationships: [],
-        pivotPoints: [],
-        timestamps: [new Date()],
-        metadata: {
-          source: "AI_Text_Analysis",
-          inferenceTimestamp: new Date().toISOString(),
+      return [
+        {
+          id: `conflict_default_${Date.now()}`,
+          name: "صراع رئيسي",
+          description: result.content || "صراع رئيسي في القصة",
+          involvedCharacters: [characters[0].id],
+          subject: ConflictSubject.OTHER,
+          scope: ConflictScope.PERSONAL,
+          phase: ConflictPhase.EMERGING,
+          strength: 5,
+          relatedRelationships: [],
+          pivotPoints: [],
+          timestamps: [new Date()],
+          metadata: {
+            source: "AI_Text_Analysis",
+            inferenceTimestamp: new Date().toISOString(),
+          },
         },
-      }];
+      ];
     }
     return [];
   }

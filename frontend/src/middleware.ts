@@ -19,7 +19,7 @@ export function middleware(request: NextRequest) {
     "default-src 'self'",
     "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://apis.google.com https://www.gstatic.com https://*.googleapis.com",
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
-    "font-src 'self' https://fonts.gstatic.com",
+    "font-src 'self' https://fonts.gstatic.com https://r2cdn.perplexity.ai data:",
     "img-src 'self' data: blob: https: https://placehold.co https://images.unsplash.com https://picsum.photos",
   ];
 
@@ -58,10 +58,12 @@ export function middleware(request: NextRequest) {
   response.headers.set('Content-Security-Policy', cspDirectives.join('; '));
 
   // Additional security headers
-  response.headers.set(
-    'Strict-Transport-Security',
-    'max-age=31536000; includeSubDomains; preload'
-  );
+  if (!isDevelopment) {
+    response.headers.set(
+      'Strict-Transport-Security',
+      'max-age=31536000; includeSubDomains; preload'
+    );
+  }
   response.headers.set('X-Content-Type-Options', 'nosniff');
   response.headers.set('X-Frame-Options', 'DENY');
   response.headers.set('X-XSS-Protection', '1; mode=block');

@@ -7,7 +7,7 @@ import {
 } from "../core/models/base-entities";
 import { GeminiService, GeminiModel } from "./gemini-service";
 import { Station4Output } from "./station4-efficiency-metrics";
-import { toText, safeSub } from '@/lib/ai/gemini-core';
+import { toText, safeSub } from "../gemini-core";
 
 const safeGet = <T>(array: T[], index: number): T | undefined => {
   if (index < 0 || index >= array.length) {
@@ -1106,12 +1106,14 @@ export class Station5DynamicSymbolicStylistic extends BaseStation<
     });
 
     return {
-      keySymbols: [{
-        symbol: "رمز رئيسي",
-        interpretation: toText(result.content) || "تحليل رمزي",
-        frequency: 1,
-        contextualMeanings: []
-      }],
+      keySymbols: [
+        {
+          symbol: "رمز رئيسي",
+          interpretation: result.content || "تحليل رمزي",
+          frequency: 1,
+          contextualMeanings: [],
+        },
+      ],
       recurringMotifs: [],
       centralThemesHintedBySymbols: [],
       symbolicNetworks: [],
@@ -1172,7 +1174,7 @@ export class Station5DynamicSymbolicStylistic extends BaseStation<
 
     return {
       overallToneAssessment: {
-        primaryTone: toText(result.content) || "غير محدد",
+        primaryTone: result.content || "غير محدد",
         secondaryTones: [],
         toneConsistency: 5,
         explanation: "تحليل أسلوبي",
