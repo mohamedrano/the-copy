@@ -70,7 +70,7 @@ class RelationshipInferenceEngine {
     });
 
     // إرجاع علاقة افتراضية بسيطة
-    if (characters.length >= 2) {
+    if (characters.length >= 2 && characters[0] && characters[1]) {
       return [
         {
           id: `rel_default_${Date.now()}`,
@@ -251,12 +251,12 @@ class ConflictInferenceEngine {
     });
 
     // إرجاع صراع افتراضي بسيط
-    if (characters.length >= 1) {
+    if (characters.length >= 1 && characters[0]) {
       return [
         {
           id: `conflict_default_${Date.now()}`,
           name: "صراع رئيسي",
-          description: result.content || "صراع رئيسي في القصة",
+          description: toText(result.content) || "صراع رئيسي في القصة",
           involvedCharacters: [characters[0].id],
           subject: ConflictSubject.OTHER,
           scope: ConflictScope.PERSONAL,

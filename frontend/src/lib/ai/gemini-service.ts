@@ -1,14 +1,5 @@
-import { GoogleGenerativeAI } from "@google/generative-ai";
-import {
-  throttleByModel,
-  normalizeGenConfig,
-  parseJsonLenient,
-  toText,
-  buildRawFallback,
-  isStructuredJson,
-  MAX_TOKENS_PER_USE,
-  type ModelId,
-} from "./gemini-core";
+import { GoogleGenAI } from "@google/genai";
+import { toText } from "./gemini-core";
 
 export enum GeminiModel {
   PRO = "gemini-2.0-flash-exp",
@@ -47,12 +38,12 @@ export interface GeminiResponse<T> {
 }
 
 export class GeminiService {
-  private genAI: GoogleGenerativeAI;
+  private genAI: GoogleGenAI;
   private config: GeminiConfig;
 
   constructor(config: GeminiConfig) {
     this.config = config;
-    this.genAI = new GoogleGenerativeAI(config.apiKey);
+    this.genAI = new GoogleGenAI({ apiKey: config.apiKey });
   }
 
   async generate<T>(request: GeminiRequest<T>): Promise<GeminiResponse<T>> {
@@ -83,21 +74,12 @@ export class GeminiService {
     const startTime = Date.now();
     const modelName = request.model ?? this.config.defaultModel;
 
-    // Apply unified throttling from gemini-core
-    await throttleByModel(modelName as ModelId);
-
-    const model = this.genAI.getGenerativeModel({ model: modelName });
-
     const fullPrompt = `${request.systemInstruction || ""}\n\nContext: ${request.context || "N/A"}\n\nPrompt: ${request.prompt}`;
 
-    // Get unified generation config with 48192 token limit
-    const genConfig = normalizeGenConfig();
-
-    // Allow override of temperature and max tokens if specified
+    // Generation config with reasonable defaults
     const finalConfig = {
-      ...genConfig,
-      temperature: request.temperature ?? genConfig.temperature,
-      maxOutputTokens: request.maxTokens ?? MAX_TOKENS_PER_USE,
+      temperature: request.temperature ?? 0.9,
+      maxOutputTokens: request.maxTokens ?? 48192,
     };
 
     console.log(`[Gemini Service] Generating content with model ${modelName}`, {
@@ -105,13 +87,13 @@ export class GeminiService {
       temperature: finalConfig.temperature,
     });
 
-    const result = await model.generateContent({
-      contents: [{ role: "user", parts: [{ text: fullPrompt }] }],
-      generationConfig: finalConfig,
+    const result = await this.genAI.models.generateContent({
+      model: modelName,
+      contents: fullPrompt,
+      config: finalConfig,
     });
 
-    const response = result.response;
-    const text = response.text();
+    const text = result.text || '';
 
     const usage = {
       promptTokens: Math.ceil(fullPrompt.length / 4),
@@ -131,17 +113,28 @@ export class GeminiService {
   }
 
   private parseResponse<T>(responseText: string): T {
-    // Use unified lenient JSON parser from gemini-core
-    const parsed = parseJsonLenient(responseText);
-
-    if (parsed !== null && isStructuredJson(parsed)) {
-      return parsed as T;
+    // Try to parse JSON, fallback to raw text
+    try {
+      const parsed = JSON.parse(responseText);
+      if (parsed && typeof parsed === 'object') {
+        return parsed as T;
+      }
+    } catch (e) {
+      // Try to extract JSON from markdown code blocks
+      const jsonMatch = responseText.match(/```json\s*\n?([\s\S]*?)\n?```/);
+      if (jsonMatch && jsonMatch[1]) {
+        try {
+          return JSON.parse(jsonMatch[1]) as T;
+        } catch (e2) {
+          // Fall through to raw text
+        }
+      }
     }
 
-    // If parsing failed or result is not structured, return raw fallback
+    // If parsing failed, return raw text as fallback
     console.warn(
       "[Gemini Service] Response was not valid JSON, using raw text fallback"
     );
-    return buildRawFallback<T>(responseText);
+    return { raw: responseText } as T;
   }
 }

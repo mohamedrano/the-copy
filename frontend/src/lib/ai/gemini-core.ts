@@ -12,7 +12,7 @@
  * - No JSON exposed to user interface
  */
 
-import { GoogleGenerativeAI } from '@google/generative-ai';
+import { GoogleGenAI } from '@google/genai';
 
 // =====================================================
 // Type Definitions
@@ -141,7 +141,7 @@ function parseJsonLax(text: string): any {
   } catch (e) {
     // Try to extract JSON from markdown code blocks
     const jsonMatch = text.match(/```json\s*\n?([\s\S]*?)\n?```/);
-    if (jsonMatch) {
+    if (jsonMatch && jsonMatch[1]) {
       try {
         return JSON.parse(jsonMatch[1]);
       } catch (e2) {
@@ -151,7 +151,7 @@ function parseJsonLax(text: string): any {
 
     // Try to find JSON object in text
     const objectMatch = text.match(/\{[\s\S]*\}/);
-    if (objectMatch) {
+    if (objectMatch && objectMatch[0]) {
       try {
         return JSON.parse(objectMatch[0]);
       } catch (e3) {
@@ -196,20 +196,20 @@ function delay(ms: number): Promise<void> {
 // Core API
 // =====================================================
 
-let genAI: GoogleGenerativeAI | null = null;
+let genAI: GoogleGenAI | null = null;
 
 /**
  * Initialize Google Generative AI client
  */
-function initializeClient(): GoogleGenerativeAI {
+function initializeClient(): GoogleGenAI {
   if (genAI) return genAI;
 
-  const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || process.env.GEMINI_API_KEY;
+  const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY || process.env.GEMINI_API_KEY || '';
   if (!apiKey) {
     throw new Error('Gemini API key not found in environment variables');
   }
 
-  genAI = new GoogleGenerativeAI(apiKey);
+  genAI = new GoogleGenAI({ apiKey });
   return genAI;
 }
 
@@ -248,23 +248,22 @@ export async function callGemini(options: CallGeminiOptions): Promise<GeminiResp
   // Get model name
   const modelName = MODEL_MAP[model];
 
-  // Create model instance
-  const generativeModel = client.getGenerativeModel({
-    model: modelName,
-    systemInstruction: systemInstruction,
-  });
+  // Build prompt with system instruction
+  const fullPrompt = systemInstruction
+    ? `${systemInstruction}\n\n${input}`
+    : input;
 
   // Generate content
-  const result = await generativeModel.generateContent({
-    contents: [{ role: 'user', parts: [{ text: input }] }],
-    generationConfig: {
+  const result = await client.models.generateContent({
+    model: modelName,
+    contents: fullPrompt,
+    config: {
       temperature,
       maxOutputTokens: UNIFIED_TOKEN_LIMIT, // Always use unified limit
     },
   });
 
-  const response = result.response;
-  const text = response.text();
+  const text = result.text || '';
 
   // Parse response based on type
   let data: any = undefined;
@@ -278,7 +277,6 @@ export async function callGemini(options: CallGeminiOptions): Promise<GeminiResp
     metadata: {
       model: modelName,
       timestamp: new Date().toISOString(),
-      tokensUsed: response.usageMetadata?.totalTokenCount,
     },
   };
 }

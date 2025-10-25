@@ -9,6 +9,15 @@ import { Station5DynamicSymbolicStylistic } from './station5-dynamic-symbolic-st
 import { Station6DiagnosticsAndTreatment } from './station6-diagnostics-treatment';
 import { Station7Finalization } from './station7-finalization';
 import logger from '../utils/logger';
+import { Station1Output } from './station1-text-analysis';
+import { Station2Output } from './station2-conceptual-analysis';
+import { Station3Output } from './station3-network-builder';
+import { Station4Output } from './station4-efficiency-metrics';
+import { Station5Output } from './station5-dynamic-symbolic-stylistic';
+import { Station6Output } from './station6-diagnostics-treatment';
+import { Station7Output } from './station7-finalization';
+
+type AllStationOutputs = Station1Output | Station2Output | Station3Output | Station4Output | Station5Output | Station6Output | Station7Output;
 
 export interface TextOutputConfig {
   outputDir: string;
@@ -37,10 +46,14 @@ export class AllStationsTextRunner {
       const station1 = new Station1TextAnalysis({
         stationId: 'station1',
         name: 'تحليل النص',
-        description: 'تحليل الشخصيات والعلاقات والأسلوب السردي'
+        description: 'تحليل الشخصيات والعلاقات والأسلوب السردي',
+        cacheEnabled: false,
+        performanceTracking: true,
+        inputValidation: (input: any) => !!input.fullText,
+        outputValidation: (output: any) => !!output
       }, this.geminiService);
 
-      const station1Output = await station1.execute({
+      const { output: station1Output } = await station1.execute({
         fullText: config.fullText,
         projectName: config.projectName
       });
@@ -52,10 +65,14 @@ export class AllStationsTextRunner {
       const station2 = new Station2ConceptualAnalysis({
         stationId: 'station2',
         name: 'التحليل المفاهيمي',
-        description: 'تحليل بيان القصة والنوع الهجين'
+        description: 'تحليل بيان القصة والنوع الهجين',
+        cacheEnabled: false,
+        performanceTracking: true,
+        inputValidation: (input: any) => !!input.fullText,
+        outputValidation: (output: any) => !!output
       }, this.geminiService);
 
-      const station2Output = await station2.execute({
+      const { output: station2Output } = await station2.execute({
         station1Output,
         fullText: config.fullText
       });
@@ -67,10 +84,14 @@ export class AllStationsTextRunner {
       const station3 = new Station3NetworkBuilder({
         stationId: 'station3',
         name: 'بناء الشبكة',
-        description: 'بناء شبكة الشخصيات والعلاقات والصراعات'
+        description: 'بناء شبكة الشخصيات والعلاقات والصراعات',
+        cacheEnabled: false,
+        performanceTracking: true,
+        inputValidation: (input: any) => !!input.fullText,
+        outputValidation: (output: any) => !!output
       }, this.geminiService);
 
-      const station3Output = await station3.execute({
+      const { output: station3Output } = await station3.execute({
         station1Output,
         station2Output,
         fullText: config.fullText
@@ -83,10 +104,14 @@ export class AllStationsTextRunner {
       const station4 = new Station4EfficiencyMetrics({
         stationId: 'station4',
         name: 'مقاييس الكفاءة',
-        description: 'تحليل كفاءة الشبكة الدرامية'
+        description: 'تحليل كفاءة الشبكة الدرامية',
+        cacheEnabled: false,
+        performanceTracking: true,
+        inputValidation: (input: any) => !!input.station3Output,
+        outputValidation: (output: any) => !!output
       }, this.geminiService);
 
-      const station4Output = await station4.execute({
+      const { output: station4Output } = await station4.execute({
         station3Output
       });
 
@@ -97,10 +122,14 @@ export class AllStationsTextRunner {
       const station5 = new Station5DynamicSymbolicStylistic({
         stationId: 'station5',
         name: 'التحليل الديناميكي والرمزي والأسلوبي',
-        description: 'تحليل التطور الزمني والرموز والأسلوب'
+        description: 'تحليل التطور الزمني والرموز والأسلوب',
+        cacheEnabled: false,
+        performanceTracking: true,
+        inputValidation: (input: any) => !!input.conflictNetwork,
+        outputValidation: (output: any) => !!output
       }, this.geminiService);
 
-      const station5Output = await station5.execute({
+      const { output: station5Output } = await station5.execute({
         conflictNetwork: station3Output.conflictNetwork,
         station4Output,
         fullText: config.fullText
@@ -113,10 +142,14 @@ export class AllStationsTextRunner {
       const station6 = new Station6DiagnosticsAndTreatment({
         stationId: 'station6',
         name: 'التشخيص والعلاج',
-        description: 'تشخيص المشاكل واقتراح الحلول'
+        description: 'تشخيص المشاكل واقتراح الحلول',
+        cacheEnabled: false,
+        performanceTracking: true,
+        inputValidation: (input: any) => !!input.conflictNetwork,
+        outputValidation: (output: any) => !!output
       }, this.geminiService);
 
-      const station6Output = await station6.execute({
+      const { output: station6Output } = await station6.execute({
         conflictNetwork: station3Output.conflictNetwork,
         station5Output
       });
@@ -128,10 +161,14 @@ export class AllStationsTextRunner {
       const station7 = new Station7Finalization({
         stationId: 'station7',
         name: 'الانتهاء والتصدير',
-        description: 'إنتاج التقرير النهائي والتصورات'
+        description: 'إنتاج التقرير النهائي والتصورات',
+        cacheEnabled: false,
+        performanceTracking: true,
+        inputValidation: (input: any) => !!input.conflictNetwork,
+        outputValidation: (output: any) => !!output
       }, this.geminiService, config.outputDir);
 
-      const allStationsData = new Map([
+      const allStationsData = new Map<number, AllStationOutputs>([
         [1, station1Output],
         [2, station2Output],
         [3, station3Output],
@@ -140,7 +177,7 @@ export class AllStationsTextRunner {
         [6, station6Output]
       ]);
 
-      const station7Output = await station7.execute({
+      const { output: station7Output } = await station7.execute({
         conflictNetwork: station3Output.conflictNetwork,
         station6Output,
         allPreviousStationsData: allStationsData
@@ -159,7 +196,7 @@ export class AllStationsTextRunner {
     }
   }
 
-  private async saveStation1Output(output: any, outputDir: string): Promise<void> {
+  private async saveStation1Output(output: Station1Output, outputDir: string): Promise<void> {
     const content = `المحطة الأولى: تحليل النص
 ${'='.repeat(50)}
 
@@ -167,7 +204,7 @@ ${'='.repeat(50)}
 ${output.majorCharacters.map((char: string) => `- ${char}`).join('\n')}
 
 تحليل الشخصيات:
-${Array.from(output.characterAnalysis.entries()).map(([name, analysis]: [string, any]) => 
+${Array.from(output.characterAnalysis.entries()).map(([name, analysis]: [string, { personalityTraits: string }]) =>
   `${name}:\n${analysis.personalityTraits || 'غير متوفر'}`
 ).join('\n\n')}
 

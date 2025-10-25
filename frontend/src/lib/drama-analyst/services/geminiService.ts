@@ -1,18 +1,9 @@
 import { GoogleGenAI } from "@google/genai";
-import { AIRequest, AIResponse, Result } from "../core/types";
+import { AIRequest, AIResponse } from "../core/types";
 import { buildPrompt } from "../orchestration/promptBuilder";
 import { config } from "../config/environment";
 import { sanitization } from "./sanitizationService";
 import { log } from "./loggerService";
-import {
-  throttleByModel,
-  normalizeGenConfig,
-  parseJsonLenient,
-  buildRawFallback,
-  isStructuredJson,
-  MAX_TOKENS_PER_USE,
-  type ModelId,
-} from "../../ai/gemini-core";
 
 // =====================================================
 // Gemini Service Configuration
@@ -61,17 +52,11 @@ class GeminiService {
       );
     }
 
-    // Apply unified throttling from gemini-core
-    await throttleByModel(this.config.model as ModelId);
-
-    // Get unified generation config with 48192 token limit
-    const genConfig = normalizeGenConfig();
-
     log.info(
       `[Gemini Service] Generating content with model ${this.config.model}`,
       {
-        tokenLimit: genConfig.maxOutputTokens,
-        temperature: genConfig.temperature,
+        tokenLimit: 48192,
+        temperature: 0.9,
       },
       "GeminiService"
     );
@@ -97,8 +82,8 @@ class GeminiService {
           model: this.config.model,
           contents: prompt,
           config: {
-            temperature: genConfig.temperature,
-            maxOutputTokens: MAX_TOKENS_PER_USE,
+            temperature: 0.9,
+            maxOutputTokens: 48192,
           },
         });
 
@@ -136,63 +121,47 @@ class GeminiService {
     try {
       log.info(
         "📝 Starting Gemini analysis",
-        { phase: request.phase },
+        { agent: request.agent },
         "GeminiService"
       );
 
-      // Sanitize input
-      const sanitized = sanitization.sanitizeInput(request.text);
+      // Sanitize input - use prompt field from AIRequest
+      const sanitized = sanitization.text(request.prompt);
 
-      // Build prompt
-      const prompt = buildPrompt(request.phase, sanitized, request.context);
+      // Build prompt using the AIRequest (after sanitizing the prompt field)
+      const sanitizedRequest = { ...request, prompt: sanitized };
+      const prompt = buildPrompt(sanitizedRequest);
 
       // Generate content
       const rawResponse = await this.generateContent(prompt);
 
-      // Parse response with lenient JSON parsing from gemini-core
-      const parsed = parseJsonLenient(rawResponse);
-
-      let result: Result;
-
-      if (parsed !== null && isStructuredJson(parsed)) {
-        // Valid structured response
-        result = {
-          success: true,
-          data: parsed,
-          metadata: {
-            phase: request.phase,
-            timestamp: new Date().toISOString(),
-            model: this.config.model,
-          },
-        };
-      } else {
-        // Fall back to raw text response
-        log.warn(
-          "⚠️ Gemini response was not valid JSON, using raw text fallback",
-          null,
-          "GeminiService"
-        );
-        result = {
-          success: true,
-          data: buildRawFallback(rawResponse),
-          metadata: {
-            phase: request.phase,
-            timestamp: new Date().toISOString(),
-            model: this.config.model,
-            warning: "Response was not valid JSON",
-          },
-        };
+      // Parse response with lenient JSON parsing
+      let parsed: any = null;
+      try {
+        parsed = JSON.parse(rawResponse);
+      } catch (e) {
+        // Try to extract JSON from markdown code blocks
+        const jsonMatch = rawResponse.match(/```json\s*\n?([\s\S]*?)\n?```/);
+        if (jsonMatch && jsonMatch[1]) {
+          try {
+            parsed = JSON.parse(jsonMatch[1]);
+          } catch (e2) {
+            // Fall through
+          }
+        }
       }
 
       log.info(
         "✅ Gemini analysis completed",
-        { phase: request.phase },
+        { agent: request.agent },
         "GeminiService"
       );
 
       return {
-        result,
-        rawResponse,
+        text: rawResponse,
+        parsed: parsed,
+        raw: rawResponse,
+        agent: request.agent,
       };
     } catch (error) {
       log.error("❌ Gemini analysis failed", error, "GeminiService");
@@ -207,7 +176,7 @@ class GeminiService {
   getModelInfo(): { model: string; maxTokens: number } {
     return {
       model: this.config.model,
-      maxTokens: MAX_TOKENS_PER_USE,
+      maxTokens: 48192,
     };
   }
 }

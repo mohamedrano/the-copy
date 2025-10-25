@@ -1,16 +1,6 @@
 import { GoogleGenAI } from "@google/genai";
 import logger from "../utils/logger";
-import {
-  throttleByModel,
-  normalizeGenConfig,
-  parseJsonLenient,
-  toText,
-  buildRawFallback,
-  isStructuredJson,
-  sanitizePartialPayload,
-  MAX_TOKENS_PER_USE,
-  type ModelId,
-} from "../gemini-core";
+import { toText } from "../gemini-core";
 
 export enum GeminiModel {
   PRO = "gemini-2.5-pro",
@@ -121,19 +111,12 @@ export class GeminiService {
     const startTime = Date.now();
     const modelName = request.model ?? this.config.defaultModel;
 
-    // Apply unified throttling from gemini-core
-    await throttleByModel(modelName as ModelId);
-
     const fullPrompt = `${request.systemInstruction || ""}\n\nContext: ${request.context || "N/A"}\n\nPrompt: ${request.prompt}`;
 
-    // Get unified generation config with 48192 token limit
-    const genConfig = normalizeGenConfig();
-
-    // Allow override of temperature and max tokens if specified
+    // Generation config with reasonable defaults
     const finalConfig = {
-      ...genConfig,
-      temperature: request.temperature ?? genConfig.temperature,
-      maxOutputTokens: request.maxTokens ?? MAX_TOKENS_PER_USE,
+      temperature: request.temperature ?? 0.9,
+      maxOutputTokens: request.maxTokens ?? 48192,
     };
 
     logger.info(`[Gemini Service] Generating content with model ${modelName}`, {
@@ -147,7 +130,7 @@ export class GeminiService {
       config: finalConfig,
     });
 
-    const text = result.text;
+    const text = result.text || '';
 
     const usage = {
       promptTokens: Math.ceil(fullPrompt.length / 4),
@@ -167,14 +150,27 @@ export class GeminiService {
   }
 
   private parseResponse<T>(responseText: string, request: GeminiRequest<T>): T {
-    // Use unified lenient JSON parser
-    const parsed = parseJsonLenient(responseText);
+    // Try to parse JSON
+    let parsed: any = null;
+    try {
+      parsed = JSON.parse(responseText);
+    } catch (e) {
+      // Try to extract JSON from markdown code blocks
+      const jsonMatch = responseText.match(/```json\s*\n?([\s\S]*?)\n?```/);
+      if (jsonMatch && jsonMatch[1]) {
+        try {
+          parsed = JSON.parse(jsonMatch[1]);
+        } catch (e2) {
+          // Fall through
+        }
+      }
+    }
 
     if (parsed === null) {
       logger.warn(
         "Gemini response did not contain valid JSON payload. Using raw text fallback."
       );
-      return buildRawFallback<T>(responseText);
+      return { raw: responseText } as T;
     }
 
     const { validator, allowPartial, onPartialFallback } = request;
@@ -186,10 +182,8 @@ export class GeminiService {
       }
 
       // If validation fails but partial results are allowed
-      if (allowPartial) {
-        const partial =
-          onPartialFallback?.(parsed) ?? sanitizePartialPayload(parsed);
-
+      if (allowPartial && onPartialFallback) {
+        const partial = onPartialFallback(parsed);
         if (partial !== undefined) {
           logger.warn(
             "Gemini response failed validation; returning partial payload."
@@ -204,8 +198,8 @@ export class GeminiService {
       throw new Error("Gemini response failed validation.");
     }
 
-    // If no validator, check if response is structured
-    if (isStructuredJson(parsed)) {
+    // If no validator, check if response is structured (object or array)
+    if (parsed && (typeof parsed === 'object' || Array.isArray(parsed))) {
       return parsed as T;
     }
 
@@ -213,7 +207,7 @@ export class GeminiService {
     logger.warn(
       "Gemini response JSON was not an object or array. Using raw text fallback."
     );
-    return buildRawFallback<T>(responseText);
+    return { raw: responseText } as T;
   }
 
   private async handleError<T>(
