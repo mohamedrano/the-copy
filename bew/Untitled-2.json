@@ -1,0 +1,23 @@
+Error: ./src/app/page.tsx:88:6
+Parsing ecmascript source code failed
+[0m [90m 86 |[39m[0m
+[0m [90m 87 |[39m   [36mreturn[39m ([0m
+[0m[31m[1m>[22m[39m[90m 88 |[39m     [33m<[39m[33mdiv[39m className[33m=[39m[32m"flex min-h-screen flex-col"[39m[33m>[39m[0m
+[0m [90m    |[39m      [31m[1m^[22m[39m[31m[1m^[22m[39m[31m[1m^[22m[39m[0m
+[0m [90m 89 |[39m       [33m<[39m[33mheader[39m className[33m=[39m[32m"container mx-auto flex items-center justify-between px-4 py-6"[39m[33m>[39m[0m
+[0m [90m 90 |[39m         [33m<[39m[33mLink[39m href[33m=[39m[32m"/"[39m aria[33m-[39mlabel[33m=[39m[32m"العودة للصفحة الرئيسية"[39m[33m>[39m[0m
+[0m [90m 91 |[39m           [33m<[39m[33mspan[39m className[33m=[39m[32m"font-headline text-2xl font-bold text-primary"[39m[33m>[39mالنسخة[33m<[39m[33m/[39m[33mspan[39m[33m>[39m[0m
+
+Unexpected token `div`. Expected jsx identifier
+    at BuildError (https://9002-firebase-the-copy--1761288263859.cluster-ikslh4rdsnbqsvu5nw3v4dqjj2.cloudworkstations.dev/_next/static/chunks/%5Broot-of-the-server%5D__e2c08166._.js:17395:41)
+    at renderWithHooks (https://9002-firebase-the-copy--1761288263859.cluster-ikslh4rdsnbqsvu5nw3v4dqjj2.cloudworkstations.dev/_next/static/chunks/node_modules_react-dom_cjs_react-dom_development_ab7e073c.js:13260:28)
+    at updateFunctionComponent (https://9002-firebase-the-copy--1761288263859.cluster-ikslh4rdsnbqsvu5nw3v4dqjj2.cloudworkstations.dev/_next/static/chunks/node_modules_react-dom_cjs_react-dom_development_ab7e073c.js:16760:40)
+    at beginWork (https://9002-firebase-the-copy--1761288263859.cluster-ikslh4rdsnbqsvu5nw3v4dqjj2.cloudworkstations.dev/_next/static/chunks/node_modules_react-dom_cjs_react-dom_development_ab7e073c.js:18388:32)
+    at beginWork$1 (https://9002-firebase-the-copy--1761288263859.cluster-ikslh4rdsnbqsvu5nw3v4dqjj2.cloudworkstations.dev/_next/static/chunks/node_modules_react-dom_cjs_react-dom_development_ab7e073c.js:23101:28)
+    at performUnitOfWork (https://9002-firebase-the-copy--1761288263859.cluster-ikslh4rdsnbqsvu5nw3v4dqjj2.cloudworkstations.dev/_next/static/chunks/node_modules_react-dom_cjs_react-dom_development_ab7e073c.js:22402:24)
+    at workLoopSync (https://9002-firebase-the-copy--1761288263859.cluster-ikslh4rdsnbqsvu5nw3v4dqjj2.cloudworkstations.dev/_next/static/chunks/node_modules_react-dom_cjs_react-dom_development_ab7e073c.js:22331:17)
+    at renderRootSync (https://9002-firebase-the-copy--1761288263859.cluster-ikslh4rdsnbqsvu5nw3v4dqjj2.cloudworkstations.dev/_next/static/chunks/node_modules_react-dom_cjs_react-dom_development_ab7e073c.js:22308:21)
+    at performConcurrentWorkOnRoot (https://9002-firebase-the-copy--1761288263859.cluster-ikslh4rdsnbqsvu5nw3v4dqjj2.cloudworkstations.dev/_next/static/chunks/node_modules_react-dom_cjs_react-dom_development_ab7e073c.js:21732:84)
+    at workLoop (https://9002-firebase-the-copy--1761288263859.cluster-ikslh4rdsnbqsvu5nw3v4dqjj2.cloudworkstations.dev/_next/static/chunks/node_modules_3bfdc6a4._.js:291:48)
+    at flushWork (https://9002-firebase-the-copy--1761288263859.cluster-ikslh4rdsnbqsvu5nw3v4dqjj2.cloudworkstations.dev/_next/static/chunks/node_modules_3bfdc6a4._.js:270:28)
+    at MessagePort.performWorkUntilDeadline (https://9002-firebase-the-copy--1761288263859.cluster-ikslh4rdsnbqsvu5nw3v4dqjj2.cloudworkstations.dev/_next/static/chunks/node_modules_3bfdc6a4._.js:498:35)

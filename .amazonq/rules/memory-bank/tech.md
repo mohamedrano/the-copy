@@ -1,124 +1,116 @@
 # Technology Stack
 
-## Runtime Environment
-- **Node.js**: >=20.0.0 (both frontend and backend)
-- **Package Manager**: npm with pnpm-lock.yaml support
+## Core Technologies
 
-## Frontend Technology Stack
+### Frontend
+- **Framework**: Next.js 15.3.3 (React 18.3.1)
+- **Language**: TypeScript 5.x
+- **Styling**: Tailwind CSS 3.4.1 with tailwindcss-animate
+- **UI Components**: Radix UI primitives with shadcn/ui
+- **Build Tool**: Turbopack (Next.js built-in)
+- **Package Manager**: npm
 
-### Core Framework
-- **Next.js**: 15.3.3 (App Router, React Server Components)
-- **React**: 18.3.1 with React DOM
-- **TypeScript**: 5.x with strict configuration
+### Backend
+- **Runtime**: Node.js ≥20.0.0
+- **Framework**: Express.js 4.18.2
+- **Language**: TypeScript 5.x
+- **AI Integration**: Google Generative AI 0.24.1
+- **File Processing**: Mammoth (DOCX), PDF.js (PDF)
+- **Validation**: Zod 3.25.76
 
-### AI Integration
-- **Google Genkit**: 1.20.0 (AI framework)
-- **Google Generative AI**: 0.24.1 (Gemini API)
-- **Firebase**: 11.9.1 (hosting and services)
+## Development Requirements
+- **Node.js**: ≥20.11.0 (frontend), ≥20.0.0 (backend)
+- **npm**: Latest version
+- **Environment**: Linux/macOS/Windows with bash support
 
-### UI Framework
-- **Tailwind CSS**: 3.4.1 with animations
-- **Radix UI**: Complete component library
-  - Accordion, Alert Dialog, Avatar, Checkbox, Dialog
-  - Dropdown Menu, Form, Input, Select, Tabs, Toast
-- **Lucide React**: 0.475.0 (icon system)
-- **Recharts**: 2.15.1 (data visualization)
+## Key Dependencies
 
-### Form & Validation
-- **React Hook Form**: 7.54.2
-- **Zod**: 3.25.76 (schema validation)
-- **Hookform Resolvers**: 4.1.3
+### Frontend Core
+```json
+{
+  "@genkit-ai/google-genai": "^1.20.0",
+  "@google/genai": "^0.8.0",
+  "next": "15.3.3",
+  "react": "^18.3.1",
+  "typescript": "^5"
+}
+```
 
-### File Processing
-- **PDF.js**: 4.4.168 (PDF text extraction)
-- **Mammoth**: 1.7.0 (DOCX processing)
+### UI & Styling
+```json
+{
+  "@radix-ui/react-*": "Various versions",
+  "tailwindcss": "^3.4.1",
+  "class-variance-authority": "^0.7.1",
+  "lucide-react": "^0.475.0"
+}
+```
 
-### Development Tools
-- **ESLint**: 8.57.1 with TypeScript rules
-- **Prettier**: 3.6.2 (code formatting)
-- **Vitest**: 4.0.2 (unit testing)
-- **Playwright**: 1.49.1 (E2E testing)
-- **Husky**: 9.1.7 (git hooks)
+### Backend Core
+```json
+{
+  "@google/generative-ai": "^0.24.1",
+  "@modelcontextprotocol/sdk": "^1.20.2",
+  "express": "^4.18.2",
+  "zod": "^3.25.76"
+}
+```
 
-### Build & Optimization
-- **Turbopack**: Next.js bundler
-- **Bundle Analyzer**: Performance analysis
-- **PostCSS**: CSS processing with autoprefixer
-- **Sentry**: 8.47.0 (error monitoring)
-
-## Backend Technology Stack
-
-### Core Framework
-- **Express.js**: 4.18.2
-- **TypeScript**: 5.x
-- **tsx**: 4.7.0 (TypeScript execution)
-
-### AI Integration
-- **Google Generative AI**: 0.24.1 (Gemini API)
-
-### Security & Middleware
-- **Helmet**: 7.1.0 (security headers)
-- **CORS**: 2.8.5 (cross-origin requests)
-- **Express Rate Limit**: 7.1.5 (rate limiting)
-- **Compression**: 1.7.4 (response compression)
-
-### File Processing
-- **Multer**: 1.4.5-lts.1 (file uploads)
-- **PDF.js**: 4.4.168 (PDF processing)
-- **Mammoth**: 1.7.0 (DOCX processing)
-
-### Utilities
-- **Winston**: 3.11.0 (logging)
-- **Zod**: 3.25.76 (validation)
-- **dotenv**: 16.5.0 (environment variables)
+## Development Tools
 
 ### Testing
-- **Vitest**: 4.0.2 (unit testing)
-- **Supertest**: 6.3.4 (API testing)
+- **Frontend**: Vitest 4.0.2, Playwright 1.49.1, Testing Library
+- **Backend**: Vitest 4.0.2, Supertest 6.3.4
 - **Coverage**: @vitest/coverage-v8
+
+### Code Quality
+- **Linting**: ESLint 8.57.1 with TypeScript rules
+- **Formatting**: Prettier 3.6.2
+- **Type Checking**: TypeScript compiler
+- **Git Hooks**: Husky 9.1.7 with lint-staged
+
+### Build & Deployment
+- **Bundler**: Next.js with Turbopack
+- **Monitoring**: Sentry 8.47.0
+- **Performance**: Web Vitals 4.2.4
+- **Security**: Helmet 7.1.0, CORS 2.8.5
 
 ## Development Commands
 
 ### Frontend
 ```bash
-npm run dev              # Development server (port 9002)
-npm run build           # Production build
-npm run test            # Unit tests
-npm run e2e             # End-to-end tests
-npm run lint            # Code linting
-npm run typecheck       # Type checking
+npm run dev          # Start development server (port 9002)
+npm run build        # Production build
+npm run test         # Run unit tests
+npm run e2e          # Run end-to-end tests
+npm run lint         # Lint code
+npm run typecheck    # Type checking
 ```
 
 ### Backend
 ```bash
-npm run dev             # Development server (port 3001)
-npm run build           # TypeScript compilation
-npm run start           # Production server
-npm run test            # Unit tests
-npm run lint            # Code linting
+npm run dev          # Start development server (port 3001)
+npm run dev:mcp      # Start MCP server
+npm run build        # Compile TypeScript
+npm run test         # Run tests
+npm run lint         # Lint code
 ```
 
-## Environment Configuration
+### Root Level
+```bash
+./start-dev.sh       # Start both frontend and backend
+```
 
-### Frontend Environment Variables
-- `NEXT_PUBLIC_GOOGLE_AI_API_KEY` - Google AI API key
-- `NEXT_PUBLIC_BACKEND_URL` - Backend API URL
-- Firebase configuration variables
+## Architecture Patterns
+- **Monorepo**: Separate frontend/backend with shared dependencies
+- **API-First**: RESTful API design with OpenAPI documentation
+- **Component-Driven**: Reusable UI components with Storybook-ready structure
+- **Type-Safe**: End-to-end TypeScript with strict configuration
+- **Test-Driven**: Comprehensive testing strategy with high coverage targets
 
-### Backend Environment Variables
-- `GOOGLE_AI_API_KEY` - Google AI API key
-- `PORT` - Server port (default: 3001)
-- `NODE_ENV` - Environment mode
-
-## Deployment Architecture
-
-### Frontend Deployment
-- **Platform**: Firebase App Hosting
-- **Build**: Next.js static export
-- **CDN**: Firebase CDN with global distribution
-
-### Backend Deployment
-- **Platform**: Node.js server
-- **Process Management**: PM2 or similar
-- **Load Balancing**: Nginx reverse proxy
-- **Monitoring**: Winston logging with external aggregation
+## Performance Optimizations
+- **Code Splitting**: Next.js automatic code splitting
+- **Image Optimization**: Next.js Image component
+- **Bundle Analysis**: @next/bundle-analyzer for size monitoring
+- **Caching**: Strategic caching for AI analysis results
+- **Lazy Loading**: Dynamic imports for heavy components

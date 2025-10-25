@@ -1,6 +1,7 @@
 "use client";
 
 import dynamic from "next/dynamic";
+import V0Component from "@/components/v0-component";
 
 const DramaAnalystApp = dynamic(() => import("./drama-analyst-app"), {
   loading: () => (
@@ -17,5 +18,10 @@ const DramaAnalystApp = dynamic(() => import("./drama-analyst-app"), {
 });
 
 export default function InitialAnalysisPage() {
-  return <DramaAnalystApp />;
+  return (
+    <div>
+      <V0Component />
+      <DramaAnalystApp />
+    </div>
+  );
 }

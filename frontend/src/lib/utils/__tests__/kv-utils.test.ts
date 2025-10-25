@@ -1,3 +1,4 @@
+/// <reference types="vitest/globals" />
 import { encodeRecord, decodeRecord } from '../kv-utils';
 
 describe('encodeRecord', () => {

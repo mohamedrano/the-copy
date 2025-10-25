@@ -3,151 +3,157 @@
 ## Code Quality Standards
 
 ### TypeScript Usage
-- **Strict Configuration**: All files use strict TypeScript with explicit typing
-- **Interface Definitions**: Complex objects use interfaces (e.g., `ScreenplayEditorProps`, `AIResponse`, `ProcessedFile`)
-- **Type Safety**: No `any` types except for specific DOM manipulation cases
-- **Enum Usage**: Consistent use of enums for constants (`TaskType`, `TaskCategory`, `AgentId`)
+- **Strict Type Safety**: All files use TypeScript with strict configuration
+- **Interface Definitions**: Complex objects use interfaces (e.g., `ScreenplayEditorProps`, `ToasterToast`)
+- **Type Assertions**: Minimal use of `any`, prefer proper typing
+- **Generic Types**: Use generics for reusable components and functions
+- **Enum Usage**: Consistent enum patterns for constants (e.g., `TaskType`, `TaskCategory`)
 
 ### Component Architecture
-- **Functional Components**: All React components use functional components with hooks
-- **Props Interface**: Every component defines explicit props interface
-- **Default Exports**: Components use default exports with descriptive names
-- **Dynamic Imports**: Heavy components use dynamic imports with loading states
+- **Functional Components**: All React components use function syntax with hooks
+- **Props Interface**: Each component defines its props interface explicitly
+- **Default Props**: Use default parameters in function signatures
+- **Component Composition**: Break down complex components into smaller, focused pieces
+- **Dynamic Imports**: Heavy components use `dynamic()` imports with loading states
 
 ### State Management Patterns
-- **useState Hook**: Local state management with descriptive state variables
-- **useCallback**: Event handlers wrapped in useCallback for performance
-- **useEffect**: Side effects properly managed with dependency arrays
-- **Custom Hooks**: Reusable logic extracted to custom hooks (e.g., `useToast`)
+- **useState Hook**: Local state management with descriptive state names
+- **useCallback**: Memoize event handlers and complex functions
+- **useEffect**: Proper dependency arrays and cleanup functions
+- **Custom Hooks**: Extract reusable logic (e.g., `useToast`)
+- **State Normalization**: Complex state objects use normalized structures
 
-## Structural Conventions
+## Naming Conventions
 
-### File Organization
-- **Feature-Based Structure**: Components organized by feature/domain
-- **Index Files**: Barrel exports for clean imports
-- **Type Definitions**: Centralized type definitions in dedicated files
-- **Utility Functions**: Helper functions in dedicated utils directories
+### Variables and Functions
+- **camelCase**: All variables and functions use camelCase
+- **Descriptive Names**: Clear, self-documenting names (e.g., `handleTaskSelect`, `validateAndNormalizePipelineInput`)
+- **Boolean Prefixes**: Boolean variables start with `is`, `has`, `should` (e.g., `isLoading`, `hasColon`)
+- **Event Handlers**: Start with `handle` prefix (e.g., `handleSubmit`, `handlePaste`)
+- **Constants**: UPPER_SNAKE_CASE for module-level constants
 
-### Naming Conventions
-- **PascalCase**: Component names and interfaces
-- **camelCase**: Variables, functions, and methods
-- **kebab-case**: File names and directories
-- **SCREAMING_SNAKE_CASE**: Constants and enum values
+### Components and Classes
+- **PascalCase**: Component names use PascalCase (e.g., `DramaAnalystApp`, `ScreenplayEditor`)
+- **Descriptive Suffixes**: Components end with descriptive suffixes (e.g., `ScreenplayClassifier`)
+- **File Naming**: Component files match component names exactly
 
-### Import Organization
-- **External Libraries**: React and third-party imports first
-- **Internal Imports**: Local imports grouped by type (components, utils, types)
-- **Relative Imports**: Use `@/` alias for clean import paths
-- **Dynamic Imports**: Heavy components loaded dynamically
+### CSS and Styling
+- **Tailwind Classes**: Consistent Tailwind CSS usage with logical grouping
+- **Conditional Classes**: Use template literals for dynamic classes
+- **Style Objects**: Inline styles use camelCase properties
+- **CSS Variables**: Use CSS custom properties for theme values
 
-## Arabic Language Support
+## Error Handling Patterns
 
-### Text Handling
-- **RTL Support**: All text components support right-to-left direction
-- **Arabic Fonts**: Dedicated Arabic font families (Amiri, Cairo, Tajawal)
-- **Unicode Support**: Proper handling of Arabic Unicode ranges
-- **Text Classification**: Sophisticated Arabic text pattern recognition
+### Try-Catch Blocks
+- **Specific Error Types**: Catch specific error types when possible
+- **Error Propagation**: Re-throw errors with additional context
+- **User-Friendly Messages**: Display localized error messages to users
+- **Logging**: Log errors with appropriate detail level
 
-### Internationalization
-- **Bilingual Interface**: Arabic-first with English fallback
-- **Language Detection**: Automatic language detection for content
-- **Cultural Patterns**: Arabic-specific screenplay formatting rules
-- **Localized Messages**: All user-facing text in Arabic
+### Validation
+- **Zod Schemas**: Use Zod for runtime validation (e.g., `PipelineInputSchema`)
+- **Input Sanitization**: Validate and sanitize all user inputs
+- **Type Guards**: Use type guard functions for runtime type checking
+- **Early Returns**: Validate inputs early and return/throw immediately
 
-## Testing Standards
+### Async Error Handling
+- **Promise Rejection**: Always handle promise rejections
+- **Retry Logic**: Implement retry mechanisms for network requests
+- **Timeout Handling**: Set appropriate timeouts for async operations
+- **Loading States**: Show loading indicators during async operations
+
+## Testing Patterns
 
 ### Test Structure
-- **Vitest Framework**: All tests use Vitest testing framework
-- **Describe Blocks**: Logical grouping of related tests
-- **Comprehensive Coverage**: Edge cases and error scenarios included
-- **Type Safety**: Tests maintain TypeScript type safety
+- **Describe Blocks**: Organize tests with descriptive `describe` blocks
+- **Test Cases**: Each `it` block tests a single behavior
+- **Setup/Teardown**: Use proper setup and cleanup in tests
+- **Mock Data**: Create realistic test data that matches production patterns
 
-### Test Patterns
-- **Schema Validation**: Zod schema validation testing
-- **Input Normalization**: Data transformation testing
-- **Error Handling**: Explicit error case testing
-- **Real-world Scenarios**: Practical use case testing
+### Test Coverage
+- **Edge Cases**: Test boundary conditions and edge cases
+- **Error Scenarios**: Test error conditions and failure modes
+- **Integration Tests**: Test component interactions and data flow
+- **Validation Tests**: Comprehensive validation testing for schemas
+
+### Test Utilities
+- **Helper Functions**: Extract common test setup into helper functions
+- **Mock Services**: Mock external dependencies consistently
+- **Test Data**: Use factories or builders for test data creation
 
 ## Performance Optimization
 
+### React Optimization
+- **Memoization**: Use `useCallback` and `useMemo` appropriately
+- **Component Splitting**: Split large components into smaller ones
+- **Lazy Loading**: Use dynamic imports for code splitting
+- **Ref Usage**: Use refs for DOM manipulation instead of state
+
 ### Bundle Optimization
-- **Dynamic Imports**: Code splitting for heavy components
-- **Tree Shaking**: Proper import/export for dead code elimination
-- **Safelist Configuration**: Tailwind CSS safelist for dynamic classes
-- **Font Optimization**: Optimized font loading with fallbacks
+- **Tree Shaking**: Import only needed functions from libraries
+- **Dynamic Imports**: Load heavy dependencies only when needed
+- **Asset Optimization**: Optimize images and other static assets
+- **Bundle Analysis**: Regular bundle size monitoring
 
-### Runtime Performance
-- **Memoization**: useCallback and useMemo for expensive operations
-- **Lazy Loading**: Components loaded on demand
-- **Efficient Re-renders**: Proper dependency arrays to prevent unnecessary renders
-- **Memory Management**: Cleanup in useEffect hooks
+### Memory Management
+- **Cleanup**: Proper cleanup in useEffect hooks
+- **Event Listeners**: Remove event listeners in cleanup functions
+- **Timeout Clearing**: Clear timeouts and intervals appropriately
+- **Memory Leaks**: Avoid circular references and memory leaks
 
-## Error Handling
+## API Integration Patterns
 
-### Frontend Error Patterns
-- **Try-Catch Blocks**: Async operations wrapped in error handling
-- **User Feedback**: Toast notifications for user actions
-- **Graceful Degradation**: Fallback UI states for errors
-- **Error Boundaries**: Component-level error containment
+### Request Handling
+- **Fetch API**: Use native fetch with proper error handling
+- **Request Configuration**: Consistent request headers and configuration
+- **Response Validation**: Validate API responses with schemas
+- **Error Mapping**: Map API errors to user-friendly messages
 
-### Backend Error Patterns
-- **Winston Logging**: Structured logging with different levels
-- **Environment-Specific**: Different logging strategies for dev/prod
-- **Error Metadata**: Contextual information in error logs
-- **Service Identification**: Service name in log metadata
+### Data Flow
+- **State Updates**: Update UI state based on API responses
+- **Loading States**: Show appropriate loading indicators
+- **Optimistic Updates**: Use optimistic updates where appropriate
+- **Cache Management**: Implement appropriate caching strategies
 
-## API Integration
+## Internationalization (i18n)
 
-### Request Patterns
-- **Fetch with Retry**: Robust API calls with retry logic
-- **Type-Safe Requests**: Zod validation for API payloads
-- **Error Response Handling**: Structured error response processing
-- **Loading States**: Proper loading indicators for async operations
+### Arabic Language Support
+- **RTL Layout**: Proper right-to-left layout support
+- **Font Selection**: Arabic-friendly font stacks
+- **Text Direction**: Explicit direction attributes where needed
+- **Cultural Considerations**: Respect Arabic cultural conventions
 
-### Data Validation
-- **Input Sanitization**: All user inputs validated and sanitized
-- **Schema Validation**: Zod schemas for data structure validation
-- **Normalization**: Data transformation before validation
-- **Type Coercion**: Safe type conversion with fallbacks
+### Text Handling
+- **Unicode Support**: Proper Unicode handling for Arabic text
+- **Text Processing**: Arabic-specific text processing algorithms
+- **Input Validation**: Arabic text validation patterns
+- **Display Formatting**: Proper Arabic text formatting and display
 
-## UI/UX Patterns
+## Security Practices
 
-### Component Library Usage
-- **Radix UI**: Consistent use of Radix UI primitives
-- **Shadcn Components**: Styled components following design system
-- **Lucide Icons**: Consistent icon usage throughout application
-- **Responsive Design**: Mobile-first responsive layouts
+### Input Sanitization
+- **XSS Prevention**: Sanitize all user inputs
+- **SQL Injection**: Use parameterized queries
+- **File Upload**: Validate file types and sizes
+- **Content Security**: Implement proper content security policies
 
-### Accessibility
-- **Semantic HTML**: Proper HTML semantics for screen readers
-- **ARIA Labels**: Accessibility labels for interactive elements
-- **Keyboard Navigation**: Full keyboard navigation support
-- **Color Contrast**: Proper color contrast ratios
-
-## Configuration Management
-
-### Environment Variables
-- **Type-Safe Config**: Environment variables with type validation
-- **Development Defaults**: Sensible defaults for development
-- **Production Security**: Secure configuration for production
-- **API Key Management**: Proper handling of sensitive credentials
-
-### Build Configuration
-- **Next.js Optimization**: Turbopack for fast development builds
-- **TypeScript Strict Mode**: Strict compilation settings
-- **ESLint Rules**: Comprehensive linting with custom rules
-- **Prettier Formatting**: Consistent code formatting
+### Authentication & Authorization
+- **Token Handling**: Secure token storage and transmission
+- **Session Management**: Proper session lifecycle management
+- **Permission Checks**: Validate permissions on both client and server
+- **Audit Logging**: Log security-relevant events
 
 ## Documentation Standards
 
-### Code Documentation
-- **JSDoc Comments**: Function and component documentation
-- **Type Annotations**: Explicit type information
-- **Usage Examples**: Practical usage examples in comments
-- **Architecture Notes**: High-level architectural decisions documented
+### Code Comments
+- **JSDoc**: Use JSDoc for function and class documentation
+- **Inline Comments**: Explain complex logic with inline comments
+- **TODO Comments**: Mark future improvements with TODO comments
+- **API Documentation**: Document API endpoints and data structures
 
-### README Structure
-- **Project Overview**: Clear project description and purpose
-- **Setup Instructions**: Step-by-step development setup
-- **API Documentation**: Endpoint documentation with examples
-- **Deployment Guide**: Production deployment instructions
+### README Files
+- **Setup Instructions**: Clear setup and installation instructions
+- **Usage Examples**: Provide usage examples and code samples
+- **Architecture Overview**: Document system architecture and design decisions
+- **Contributing Guidelines**: Include contribution guidelines and standards

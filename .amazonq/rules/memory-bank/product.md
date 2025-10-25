@@ -1,46 +1,45 @@
 # The Copy - النسخة
 
 ## Project Overview
-The Copy is a comprehensive AI-powered platform for analyzing dramatic texts in Arabic. It provides sophisticated analysis capabilities for screenplays, theatrical works, and dramatic literature using advanced AI models.
+The Copy (النسخة) is a comprehensive AI-powered platform for dramatic text analysis, specifically designed for Arabic screenplay and dramatic content analysis. The platform provides sophisticated tools for writers, directors, and literary analysts to deeply understand and improve dramatic works.
 
 ## Core Purpose
-- Analyze dramatic texts using AI to extract insights about characters, themes, conflicts, and narrative structure
-- Provide comprehensive feedback on screenplay quality, effectiveness, and production viability
-- Support Arabic language dramatic content with culturally-aware analysis
-- Offer multi-station analysis pipeline for thorough dramatic text evaluation
+- **Dramatic Text Analysis**: Advanced AI-powered analysis of screenplays, plays, and dramatic texts
+- **Arabic Language Focus**: Specialized support for Arabic dramatic literature and cultural context
+- **Professional Writing Tools**: Comprehensive suite for dramatic writing enhancement and optimization
+- **Educational Platform**: Learning and development tools for dramatic writing skills
 
 ## Key Features
 
 ### AI-Powered Analysis Pipeline
-- **7-Station Analysis System**: Comprehensive multi-stage analysis covering text analysis, conceptual analysis, network building, efficiency metrics, stylistic analysis, diagnostics, and finalization
-- **Character Analysis**: Deep character relationship mapping and network analysis
-- **Conflict Dynamics**: Advanced conflict identification and resolution tracking
-- **Thematic Mining**: Automated theme and genre identification
-- **Efficiency Metrics**: Text effectiveness and production viability assessment
+- **Multi-Station Analysis**: 7-stage comprehensive analysis pipeline
+- **Character Network Analysis**: Deep relationship mapping and conflict dynamics
+- **Thematic Mining**: Automated theme and message extraction
+- **Dialogue Forensics**: Advanced dialogue quality and authenticity analysis
+- **Cultural Context Analysis**: Arabic cultural and historical context integration
 
-### Specialized Analysis Agents
-- **Character Deep Analyzer**: Psychological profiling and character development analysis
-- **Dialogue Forensics**: Advanced dialogue quality and authenticity assessment
-- **Cultural Historical Analyzer**: Context-aware analysis for Arabic dramatic traditions
-- **Audience Resonance**: Target audience analysis and engagement prediction
-- **Production Analyzer**: Technical production feasibility assessment
+### Writing Enhancement Tools
+- **Screenplay Editor**: Professional-grade editor with real-time analysis
+- **Character Development**: Deep character analysis and development suggestions
+- **Plot Optimization**: Tension mapping and narrative structure improvement
+- **Style Fingerprinting**: Unique writing style analysis and consistency checking
 
-### User Interface
-- **Screenplay Editor**: Rich text editor for dramatic content creation and editing
-- **File Upload Support**: PDF and DOCX file processing for existing scripts
-- **Interactive Analysis Dashboard**: Visual representation of analysis results
-- **Multi-language Support**: Arabic-first interface with English support
+### Collaborative Features
+- **AI Team Brainstorming**: Multi-agent collaborative analysis system
+- **Adaptive Rewriting**: Context-aware content improvement suggestions
+- **Audience Resonance Analysis**: Target audience alignment assessment
+- **Production Feasibility**: Practical production considerations and recommendations
 
 ## Target Users
-- **Screenwriters**: Professional and aspiring writers seeking AI-powered feedback
-- **Directors**: Creative professionals evaluating script potential
-- **Producers**: Industry professionals assessing production viability
-- **Drama Students**: Educational users learning dramatic writing techniques
-- **Literary Analysts**: Researchers studying Arabic dramatic literature
+- **Screenwriters**: Professional and aspiring Arabic screenplay writers
+- **Directors**: Film and theater directors working with Arabic content
+- **Literary Analysts**: Academic researchers studying Arabic dramatic literature
+- **Educational Institutions**: Universities and schools teaching dramatic writing
+- **Production Companies**: Studios evaluating and developing Arabic dramatic content
 
 ## Value Proposition
-- Reduces script evaluation time from weeks to minutes
-- Provides objective, data-driven insights into dramatic text quality
-- Supports Arabic language content with cultural sensitivity
-- Offers comprehensive analysis beyond basic grammar and structure checking
-- Enables iterative improvement through detailed feedback and recommendations
+- **Cultural Authenticity**: Deep understanding of Arabic dramatic traditions and cultural nuances
+- **AI-Enhanced Creativity**: Advanced AI tools that augment rather than replace human creativity
+- **Comprehensive Analysis**: End-to-end analysis from initial concept to production-ready script
+- **Educational Excellence**: Learning-focused tools that help users improve their craft
+- **Professional Quality**: Industry-standard tools suitable for professional production workflows

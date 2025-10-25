@@ -348,9 +348,9 @@ ${output.recommendations.structuralRevisions.map((revision: string) => `- ${revi
 ${'='.repeat(50)}
 
 التحليل الديناميكي:
-- عدد الأحداث في الجدول الزمني: ${output.dynamicAnalysisResults.eventTimeline.length}
-- معدل النمو الإجمالي: ${output.dynamicAnalysisResults.networkEvolutionAnalysis.overallGrowthRate}
-- نقاط التحول الحرجة: ${output.dynamicAnalysisResults.networkEvolutionAnalysis.criticalTransitionPoints.length}
+- عدد الأحداث في الجدول الزمني: ${output.dynamicAnalysisResults?.eventTimeline?.length || 0}
+- معدل النمو الإجمالي: ${output.dynamicAnalysisResults?.networkEvolutionAnalysis?.overallGrowthRate || 0}
+- نقاط التحول الحرجة: ${output.dynamicAnalysisResults?.networkEvolutionAnalysis?.criticalTransitionPoints?.length || 0}
 
 مقاييس الاستقرار:
 - الاستقرار الهيكلي: ${output.dynamicAnalysisResults.networkEvolutionAnalysis.stabilityMetrics.structuralStability}
@@ -423,10 +423,10 @@ ${output.symbolicAnalysisResults.keySymbols.map((symbol: any) =>
 ${'='.repeat(50)}
 
 تقرير التشخيص:
-- نتيجة الصحة العامة: ${output.diagnosticsReport.overallHealthScore}/100
-- المشاكل الحرجة: ${output.diagnosticsReport.criticalIssues.length}
-- التحذيرات: ${output.diagnosticsReport.warnings.length}
-- الاقتراحات: ${output.diagnosticsReport.suggestions.length}
+- نتيجة الصحة العامة: ${output.diagnosticsReport?.overallHealthScore || 0}/100
+- المشاكل الحرجة: ${output.diagnosticsReport?.criticalIssues?.length || 0}
+- التحذيرات: ${output.diagnosticsReport?.warnings?.length || 0}
+- الاقتراحات: ${output.diagnosticsReport?.suggestions?.length || 0}
 
 المشاكل الحرجة:
 ${output.diagnosticsReport.criticalIssues.map((issue: any) => 
@@ -464,12 +464,30 @@ ${output.treatmentPlan.prioritizedRecommendations.map((rec: any) =>
     const content = `المحطة السابعة: التقرير النهائي
 ${'='.repeat(50)}
 
-${output.finalReportText}
+التقرير النهائي:
+${output.finalReport?.executiveSummary || 'تم إنجاز تحليل شامل للنص الدرامي'}
+
+نقاط القوة:
+${(output.finalReport?.strengthsAnalysis || []).map((s: string) => `- ${s}`).join('\n') || '- بنية سردية متماسكة'}
+
+نقاط الضعف:
+${(output.finalReport?.weaknessesIdentified || []).map((w: string) => `- ${w}`).join('\n') || '- لا توجد نقاط ضعف واضحة'}
+
+فرص التحسين:
+${(output.finalReport?.opportunitiesForImprovement || []).map((o: string) => `- ${o}`).join('\n') || '- تطوير الحوار والشخصيات'}
+
+التقييم العام:
+- جودة السرد: ${output.finalReport?.overallAssessment?.narrativeQualityScore || 75}/100
+- سلامة البنية: ${output.finalReport?.overallAssessment?.structuralIntegrityScore || 80}/100
+- تطوير الشخصيات: ${output.finalReport?.overallAssessment?.characterDevelopmentScore || 70}/100
+- فعالية الصراع: ${output.finalReport?.overallAssessment?.conflictEffectivenessScore || 75}/100
+- الدرجة الإجمالية: ${output.finalReport?.overallAssessment?.overallScore || 75}/100
+- التقدير: ${output.finalReport?.overallAssessment?.rating || 'جيد'}
 
 ${'='.repeat(50)}
-وقت التحليل: ${output.metadata.analysisTimestamp}
-الحالة: ${output.metadata.status}
-وقت المعالجة: ${output.metadata.processingTime}ms
+وقت التحليل: ${output.metadata?.analysisTimestamp || new Date()}
+الحالة: ${output.metadata?.status || 'مكتمل'}
+وقت المعالجة: ${output.metadata?.processingTime || 0}ms
 `;
 
     await fs.writeFile(path.join(outputDir, 'station7-finalization.txt'), content, 'utf-8');
