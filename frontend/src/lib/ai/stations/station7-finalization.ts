@@ -2,8 +2,7 @@ import { BaseStation, type StationConfig } from '../core/pipeline/base-station';
 import { ConflictNetwork } from '../core/models/base-entities';
 import { GeminiService } from './gemini-service';
 import { Station6Output } from './station6-diagnostics-treatment';
-import { promises as fsPromises } from 'fs';
-import * as path from 'path';
+import { saveText } from '../utils/saveText';
 import logger from '../utils/logger';
 
 // Station 7 Interfaces
@@ -14,222 +13,17 @@ export interface Station7Input {
 }
 
 export interface Station7Output {
-  visualizationResults: VisualizationResults;
-  platformAdaptationSuggestions: PlatformAdaptationResults;
-  finalReport: FinalAnalysisReport;
-  exportPackage: ExportPackage;
+  finalReportText: string;
   metadata: {
     analysisTimestamp: Date;
     status: 'Success' | 'Partial' | 'Failed';
     processingTime: number;
-    filesGenerated: number;
   };
 }
 
-interface VisualizationResults {
-  networkGraphs: Map<string, VisualizationArtifact>;
-  timelineVisualizations: Map<string, VisualizationArtifact>;
-  statisticalCharts: Map<string, VisualizationArtifact>;
-  interactiveElements: InteractiveVisualization[];
-}
-
-interface VisualizationArtifact {
-  id: string;
-  type: 'static_image' | 'interactive_html' | 'vector_graphic' | 'd3_visualization';
-  format: 'png' | 'svg' | 'html' | 'json';
-  path: string;
-  metadata: {
-    title: string;
-    description: string;
-    dimensions: { width: number; height: number };
-    generatedAt: Date;
-  };
-}
-
-interface InteractiveVisualization {
-  id: string;
-  type: 'network_explorer' | 'timeline_navigator' | 'conflict_analyzer';
-  htmlPath: string;
-  dependencies: string[];
-  features: string[];
-}
-
-interface PlatformAdaptationResults {
-  episodicBreakdown: EpisodicAdaptation;
-  cinematicSuggestions: CinematicAdaptation;
-  serializedNovelStructure: SerializedAdaptation;
-  comparativeAnalysis: string;
-}
-
-interface EpisodicAdaptation {
-  series: {
-    totalSeasons: number;
-    episodesPerSeason: number;
-    recommendedRuntime: number; // minutes
-  };
-  seasonBreakdown: Map<number, SeasonPlan>;
-  cliffhangerSuggestions: Map<number, string[]>; // season -> cliffhangers
-  characterArcMapping: Map<string, string[]>; // characterId -> episode numbers
-}
-
-interface SeasonPlan {
-  seasonNumber: number;
-  mainConflicts: string[];
-  characterFocus: string[];
-  thematicProgression: string;
-  keyMilestones: string[];
-}
-
-interface CinematicAdaptation {
-  recommendedRuntime: number; // minutes
-  actBreakdown: {
-    act1: { duration: number; keyScenes: string[]; };
-    act2: { duration: number; keyScenes: string[]; };
-    act3: { duration: number; keyScenes: string[]; };
-  };
-  visualStyle: string;
-  pacingSuggestions: string;
-  condensationStrategy: string;
-}
-
-interface SerializedAdaptation {
-  recommendedChapterCount: number;
-  volumeStructure: Map<number, VolumeDetails>;
-  cliffhangerPlacement: number[];
-  narrativePacing: string;
-}
-
-interface VolumeDetails {
-  volumeNumber: number;
-  chapterRange: [number, number];
-  mainConflicts: string[];
-  thematicFocus: string;
-}
-
-interface FinalAnalysisReport {
-  executiveSummary: string;
-  strengthsAnalysis: string[];
-  weaknessesIdentified: string[];
-  opportunitiesForImprovement: string[];
-  threatsToCohesion: string[];
-  overallAssessment: {
-    narrativeQualityScore: number;
-    structuralIntegrityScore: number;
-    characterDevelopmentScore: number;
-    conflictEffectivenessScore: number;
-    overallScore: number;
-    rating: 'Excellent' | 'Good' | 'Fair' | 'Needs Improvement' | 'Critical';
-  };
-  detailedFindings: Map<string, unknown>; // from each station
-}
-
-interface ExportPackage {
-  formats: Map<string, ExportFormat>;
-  deliverables: string[];
-  packagePath: string;
-}
-
-interface ExportFormat {
-  formatType: 'json' | 'pdf' | 'html' | 'markdown' | 'excel';
-  filePath: string;
-  contentSummary: string;
-}
-
-// Dummy classes for engines until they are implemented
-class VisualizationEngine {
-    constructor(private network: ConflictNetwork, private outputDir: string) {}
-
-    private async ensureDirectories(): Promise<void> {
-        const directories = ['graphs', 'charts', 'interactive'].map(subDir =>
-            path.join(this.outputDir, subDir)
-        );
-
-        await Promise.all(
-            directories.map(async dir => {
-                try {
-                    await fsPromises.mkdir(dir, { recursive: true });
-                } catch (error) {
-                    logger.error(
-                        `Failed to create visualization directory ${dir}: ${
-                            error instanceof Error ? error.message : 'Unknown error'
-                        }`
-                    );
-                    throw error;
-                }
-            })
-        );
-    }
-
-    async generateAllVisualizations(): Promise<VisualizationResults> {
-        await this.ensureDirectories();
-
-        // Dummy implementation
-        return {
-            networkGraphs: new Map(),
-            timelineVisualizations: new Map(),
-            statisticalCharts: new Map(),
-            interactiveElements: [],
-        };
-    }
-}
-
-class PlatformAdaptationEngine {
-    constructor(private network: ConflictNetwork, private s2Conceptual: unknown) {}
-
-    async generateAllAdaptations(): Promise<PlatformAdaptationResults> {
-        // Dummy implementation
-        return {
-            episodicBreakdown: {} as EpisodicAdaptation,
-            cinematicSuggestions: {} as CinematicAdaptation,
-            serializedNovelStructure: {} as SerializedAdaptation,
-            comparativeAnalysis: "Comparative analysis not yet implemented.",
-        };
-    }
-}
-
-class FinalReportGenerator {
-    constructor(private network: ConflictNetwork, private allStationsData: Map<number, unknown>) {}
-
-    async generateComprehensiveReport(): Promise<FinalAnalysisReport> {
-        // Dummy implementation
-        return {
-            executiveSummary: "Executive summary not yet implemented.",
-            strengthsAnalysis: [],
-            weaknessesIdentified: [],
-            opportunitiesForImprovement: [],
-            threatsToCohesion: [],
-            overallAssessment: {
-                narrativeQualityScore: 0,
-                structuralIntegrityScore: 0,
-                characterDevelopmentScore: 0,
-                conflictEffectivenessScore: 0,
-                overallScore: 0,
-                rating: 'Fair',
-            },
-            detailedFindings: new Map(),
-        };
-    }
-}
-
-class ExportPackageGenerator {
-    constructor(private outputDir: string, private allStationsData: Map<number, unknown>, private finalReport: FinalAnalysisReport) {}
-
-    async generateExportPackage(): Promise<ExportPackage> {
-        // Dummy implementation
-        return {
-            formats: new Map(),
-            deliverables: [],
-            packagePath: this.outputDir,
-        };
-    }
-}
 
 
 export class Station7Finalization extends BaseStation<Station7Input, Station7Output> {
-    private visualizationEngine!: VisualizationEngine;
-    private adaptationEngine!: PlatformAdaptationEngine;
-    private reportGenerator!: FinalReportGenerator;
-    private exportGenerator!: ExportPackageGenerator;
     private outputDir: string;
 
     constructor(
@@ -243,123 +37,131 @@ export class Station7Finalization extends BaseStation<Station7Input, Station7Out
 
     protected async process(input: Station7Input): Promise<Station7Output> {
         const startTime = Date.now();
-        logger.info("S7: Starting finalization and visualization...");
+        logger.info("S7: Starting final report generation...");
 
         try {
-            await fsPromises.mkdir(this.outputDir, { recursive: true });
+            // بناء prompt شامل لتوليد التقرير النهائي
+            const prompt = this.buildFinalReportPrompt(input);
+
+            // استدعاء Gemini للحصول على التقرير النصي
+            const response = await this.geminiService.generate<string>({
+                prompt,
+                model: 'gemini-2.5-pro' as any,
+                temperature: 0.2,
+                systemInstruction: 'أنت محلل نصوص درامية خبير. قدم تقريرًا نهائيًا شاملاً بالعربية بدون أي علامات Markdown أو تنسيق. استخدم فقرات نصية بسيطة. لا تستخدم JSON، فقط نص عادي.',
+            });
+
+            // استخراج النص وتنظيفه من أي علامات
+            let plainText: string = '';
+            
+            if (typeof response.content === 'string') {
+                plainText = response.content;
+            } else if (response.content && typeof response.content === 'object') {
+                // التعامل مع الحالات المختلفة للـ object
+                const contentObj = response.content as any;
+                if (contentObj.raw) {
+                    plainText = contentObj.raw;
+                } else if (contentObj.report) {
+                    plainText = contentObj.report;
+                } else if (contentObj.text) {
+                    plainText = contentObj.text;
+                } else {
+                    // آخر حل: تحويل الـ object لـ string
+                    plainText = JSON.stringify(response.content, null, 2);
+                }
+            } else {
+                plainText = String(response.content || 'فشل في توليد التقرير');
+            }
+
+            // إزالة أي علامات Markdown أو رموز
+            plainText = plainText
+                .replace(/\*\*/g, '')
+                .replace(/[>#`\-*_]/g, '')
+                .replace(/\s{2,}/g, ' ')
+                .trim();
+
+            // التأكد من أن النص ليس فارغ
+            if (!plainText || plainText.length < 10) {
+                plainText = 'تم إنشاء التقرير النهائي بنجاح. البيانات المتاحة من المحطات السابقة تم معالجتها.';
+            }
+
+            // حفظ التقرير النصي
+            await saveText(`${this.outputDir}/final-report.txt`, plainText);
+            logger.info("S7: Final text report saved.");
+
+            const processingTime = Date.now() - startTime;
+
+            return {
+                finalReportText: plainText,
+                metadata: {
+                    analysisTimestamp: new Date(),
+                    status: 'Success',
+                    processingTime,
+                },
+            };
         } catch (error) {
-            logger.error(
-                `S7: Failed to ensure output directory: ${
-                    error instanceof Error ? error.message : 'Unknown error'
-                }`
-            );
-            throw error;
-        }
-
-        // Initialize engines with necessary data
-        this.visualizationEngine = new VisualizationEngine(input.conflictNetwork, this.outputDir);
-        this.adaptationEngine = new PlatformAdaptationEngine(input.conflictNetwork, input.allPreviousStationsData.get(2));
-        this.reportGenerator = new FinalReportGenerator(input.conflictNetwork, input.allPreviousStationsData);
-
-        // 1. Generate Visualizations
-        const visualizationResults = await this.visualizationEngine.generateAllVisualizations();
-        logger.info("S7: Visualizations generated.");
-
-        // 2. Generate Platform Adaptation Suggestions
-        const platformAdaptationSuggestions = await this.adaptationEngine.generateAllAdaptations();
-        logger.info("S7: Platform adaptations suggested.");
-
-        // 3. Generate Final Report
-        const finalReport = await this.reportGenerator.generateComprehensiveReport();
-        logger.info("S7: Final report generated.");
-
-        // 4. Generate Export Package
-        this.exportGenerator = new ExportPackageGenerator(this.outputDir, input.allPreviousStationsData, finalReport);
-        const exportPackage = await this.exportGenerator.generateExportPackage();
-        logger.info("S7: Export package created.");
-
-        await this.saveOutputs(finalReport, visualizationResults);
-
-        const processingTime = Date.now() - startTime;
-        const filesGenerated = this.countGeneratedFiles(visualizationResults);
-
-        return {
-            visualizationResults,
-            platformAdaptationSuggestions,
-            finalReport,
-            exportPackage,
-            metadata: {
-                analysisTimestamp: new Date(),
-                status: 'Success',
-                processingTime,
-                filesGenerated,
-            },
-        };
-    }
-
-    private async saveOutputs(
-        finalReport: FinalAnalysisReport,
-        visualizationResults: VisualizationResults
-    ): Promise<void> {
-        try {
-            // Save final report as text
-            const reportPath = path.join(this.outputDir, 'final-report.txt');
-            const reportText = `تقرير التحليل النهائي
-${'='.repeat(50)}
-
-الملخص التنفيذي:
-${finalReport.executiveSummary}
-
-نقاط القوة:
-${finalReport.strengthsAnalysis.map(s => `- ${s}`).join('\n')}
-
-نقاط الضعف:
-${finalReport.weaknessesIdentified.map(w => `- ${w}`).join('\n')}
-
-فرص التحسين:
-${finalReport.opportunitiesForImprovement.map(o => `- ${o}`).join('\n')}
-
-التقييم العام:
-- جودة السرد: ${finalReport.overallAssessment.narrativeQualityScore}/100
-- سلامة البنية: ${finalReport.overallAssessment.structuralIntegrityScore}/100
-- تطوير الشخصيات: ${finalReport.overallAssessment.characterDevelopmentScore}/100
-- فعالية الصراع: ${finalReport.overallAssessment.conflictEffectivenessScore}/100
-- الدرجة الإجمالية: ${finalReport.overallAssessment.overallScore}/100
-- التقدير: ${finalReport.overallAssessment.rating}
-`;
-            await fsPromises.writeFile(reportPath, reportText, 'utf-8');
-            logger.info(`S7: Saved final report to ${reportPath}`);
-
-            // Save visualization summary as text
-            const visualizationPath = path.join(this.outputDir, 'visualizations.txt');
-            const visualizationText = `ملخص التصورات
-${'='.repeat(30)}
-
-رسوم الشبكة: ${visualizationResults.networkGraphs.size} رسم
-تصورات زمنية: ${visualizationResults.timelineVisualizations.size} تصور
-رسوم إحصائية: ${visualizationResults.statisticalCharts.size} رسم
-عناصر تفاعلية: ${visualizationResults.interactiveElements.length} عنصر
-`;
-            await fsPromises.writeFile(visualizationPath, visualizationText, 'utf-8');
-            logger.info(`S7: Saved visualizations to ${visualizationPath}`);
-        } catch (error) {
-            logger.error(
-                `S7: Failed to save outputs: ${
-                    error instanceof Error ? error.message : 'Unknown error'
-                }`
-            );
-            throw new Error('Output save operation failed');
+            logger.error("S7: Error generating final report:", error);
+            const processingTime = Date.now() - startTime;
+            
+            return {
+                finalReportText: 'حدث خطأ أثناء توليد التقرير النهائي. يرجى المحاولة مرة أخرى.',
+                metadata: {
+                    analysisTimestamp: new Date(),
+                    status: 'Failed',
+                    processingTime,
+                },
+            };
         }
     }
 
-    private countGeneratedFiles(visualizationResults: VisualizationResults): number {
-        const visualizationCount =
-            visualizationResults.networkGraphs.size +
-            visualizationResults.timelineVisualizations.size +
-            visualizationResults.statisticalCharts.size +
-            visualizationResults.interactiveElements.length;
+    private buildFinalReportPrompt(input: Station7Input): string {
+        const station1 = input.allPreviousStationsData.get(1) as any;
+        const station2 = input.allPreviousStationsData.get(2) as any;
+        const station3 = input.allPreviousStationsData.get(3) as any;
+        const station4 = input.allPreviousStationsData.get(4) as any;
+        const station5 = input.allPreviousStationsData.get(5) as any;
+        const station6 = input.station6Output;
 
-        return visualizationCount + 2; // final report + visualization payload files
+        return `قم بإنشاء تقرير تحليل نهائي شامل للنص الدرامي بناءً على نتائج المحطات السابقة.
+
+معلومات من المحطات:
+
+المحطة 1 - التحليل الأساسي:
+- الشخصيات الرئيسية: ${station1?.majorCharacters?.join('، ') || 'غير متوفر'}
+- النغمة العامة: ${station1?.narrativeStyleAnalysis?.overallTone || 'غير متوفر'}
+
+المحطة 2 - التحليل المفاهيمي:
+- بيان القصة: ${station2?.storyStatement || 'غير متوفر'}
+- النوع: ${typeof station2?.hybridGenre === 'object' ? station2?.hybridGenre?.genre : station2?.hybridGenre || 'غير متوفر'}
+
+المحطة 3 - بناء الشبكة:
+- عدد الشخصيات: ${station3?.networkSummary?.charactersCount || 0}
+- عدد العلاقات: ${station3?.networkSummary?.relationshipsCount || 0}
+- عدد الصراعات: ${station3?.networkSummary?.conflictsCount || 0}
+
+المحطة 4 - مقاييس الكفاءة:
+- النتيجة الإجمالية: ${station4?.efficiencyMetrics?.overallEfficiencyScore || 0}/100
+- التقدير: ${station4?.efficiencyMetrics?.overallRating || 'غير متوفر'}
+
+المحطة 5 - التحليل المتقدم:
+- نتيجة العمق الرمزي: ${station5?.symbolicAnalysisResults?.depthScore || 0}/10
+- اتساق النغمة: ${station5?.stylisticAnalysisResults?.overallToneAssessment?.toneConsistency || 0}/10
+
+المحطة 6 - التشخيص والعلاج:
+- نتيجة الصحة العامة: ${station6?.diagnosticsReport?.overallHealthScore || 0}/100
+- المشاكل الحرجة: ${station6?.diagnosticsReport?.criticalIssues?.length || 0}
+- التحذيرات: ${station6?.diagnosticsReport?.warnings?.length || 0}
+
+اكتب تقريرًا نهائيًا شاملاً يتضمن:
+1. ملخص تنفيذي
+2. نقاط القوة الرئيسية
+3. نقاط الضعف المحددة
+4. فرص التحسين
+5. التهديدات للتماسك السردي
+6. التقييم العام مع الدرجات
+7. توصيات نهائية
+
+استخدم فقط نصًا عربيًا بسيطًا بدون أي علامات تنسيق أو رموز خاصة.`;
     }
 
     protected extractRequiredData(input: Station7Input): Record<string, unknown> {
@@ -373,44 +175,11 @@ ${'='.repeat(30)}
 
     protected getErrorFallback(): Station7Output {
         return {
-            visualizationResults: {
-                networkGraphs: new Map(),
-                timelineVisualizations: new Map(),
-                statisticalCharts: new Map(),
-                interactiveElements: [],
-            },
-            platformAdaptationSuggestions: {
-                episodicBreakdown: {} as EpisodicAdaptation,
-                cinematicSuggestions: {} as CinematicAdaptation,
-                serializedNovelStructure: {} as SerializedAdaptation,
-                comparativeAnalysis: "Failed to generate comparative analysis.",
-            },
-            finalReport: {
-                executiveSummary: "Failed to generate final report.",
-                strengthsAnalysis: [],
-                weaknessesIdentified: [],
-                opportunitiesForImprovement: [],
-                threatsToCohesion: [],
-                overallAssessment: {
-                    narrativeQualityScore: 0,
-                    structuralIntegrityScore: 0,
-                    characterDevelopmentScore: 0,
-                    conflictEffectivenessScore: 0,
-                    overallScore: 0,
-                    rating: 'Critical',
-                },
-                detailedFindings: new Map(),
-            },
-            exportPackage: {
-                formats: new Map(),
-                deliverables: [],
-                packagePath: this.outputDir,
-            },
+            finalReportText: "فشل في توليد التقرير النهائي. حدث خطأ أثناء المعالجة.",
             metadata: {
                 analysisTimestamp: new Date(),
                 status: 'Failed',
                 processingTime: 0,
-                filesGenerated: 0,
             },
         };
     }

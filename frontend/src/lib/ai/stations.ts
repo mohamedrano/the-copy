@@ -49,9 +49,7 @@ export interface Station6Output {
 }
 
 export interface Station7Output {
-  finalReport: {
-    executiveSummary: string;
-  };
+  finalReportText: string;
 }
 
 export class StationsAnalyzer {
@@ -267,27 +265,44 @@ export class StationsAnalyzer {
 
   async runStation7(fullText: string, station6Output: Station6Output): Promise<Station7Output> {
     const prompt = `
-قم بإنشاء التقرير النهائي للتحليل.
+قم بإنشاء تقرير نهائي شامل للتحليل بدون أي تنسيق JSON أو Markdown.
 صحة القصة: ${station6Output.diagnosticsReport.overallHealthScore}/100
 المشاكل الحرجة: ${station6Output.diagnosticsReport.criticalIssues.map(i => i.description).join(', ')}
 
-أعد الإجابة بتنسيق JSON:
-{
-  "executive_summary": "الملخص التنفيذي للتحليل"
-}
+اكتب تقريرًا نصيًا بسيطًا يتضمن:
+1. ملخص تنفيذي
+2. نقاط القوة
+3. نقاط الضعف
+4. التوصيات
+
+استخدم فقط نصًا عربيًا بسيطًا بدون أي علامات تنسيق.
     `;
 
-    const result = await this.geminiService.generate<{
-      executive_summary: string;
-    }>({
+    const result = await this.geminiService.generate<string>({
       prompt,
       context: fullText.substring(0, 30000),
+      systemInstruction: 'قدم تقريرًا نصيًا بسيطًا بالعربية بدون JSON أو Markdown. نص عادي فقط.',
     });
 
+    let reportText = '';
+    if (typeof result.content === 'string') {
+      reportText = result.content;
+    } else if (result.content && typeof result.content === 'object') {
+      const contentObj = result.content as any;
+      reportText = contentObj.raw || contentObj.text || contentObj.executive_summary || JSON.stringify(result.content);
+    } else {
+      reportText = 'النص يظهر إمكانيات جيدة مع الحاجة لبعض التحسينات في تطوير الشخصيات والإيقاع.';
+    }
+
+    // تنظيف النص من أي علامات
+    reportText = reportText
+      .replace(/\*\*/g, '')
+      .replace(/[>#`\-*_]/g, '')
+      .replace(/\s{2,}/g, ' ')
+      .trim();
+
     return {
-      finalReport: {
-        executiveSummary: result.content.executive_summary || 'النص يظهر إمكانيات جيدة مع الحاجة لبعض التحسينات في تطوير الشخصيات والإيقاع.',
-      },
+      finalReportText: reportText,
     };
   }
 }
